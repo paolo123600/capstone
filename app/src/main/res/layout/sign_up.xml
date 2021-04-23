@@ -76,7 +76,6 @@
         android:layout_marginTop="165dp"
         android:background="@drawable/roundtbox"
         android:ems="10"
-        android:gravtity="center_horizontal"
         android:hint="Sex"
         android:inputType="textPersonName"
         android:paddingLeft="10dp"
@@ -114,12 +113,11 @@
         android:layout_marginTop="217dp"
         android:background="@drawable/roundtbox"
         android:ems="10"
-        android:gravity="center"
-        android:gravtity="center_horizontal"
+
         android:hint="Contact"
         android:inputType="textPersonName"
         android:paddingLeft="10dp"
-        android:textAlignment="center"
+
         tools:layout_editor_absoluteX="99dp"
         tools:layout_editor_absoluteY="251dp" />
 
@@ -136,12 +134,12 @@
         android:layout_marginTop="214dp"
         android:background="@drawable/roundtbox"
         android:ems="10"
-        android:gravity="center"
-        android:gravtity="center_horizontal"
+
+
         android:hint="Nationality"
         android:inputType="textPersonName"
-        android:paddingLeft="10dp"
-        android:textAlignment="center"
+
+
         tools:layout_editor_absoluteX="99dp"
         tools:layout_editor_absoluteY="251dp" />
 
@@ -157,12 +155,11 @@
         android:layout_marginLeft="31dp"
         android:layout_marginTop="268dp"
         android:ems="10"
-        android:gravity="center"
-        android:gravtity="center_horizontal"
+
         android:hint="Email"
         android:inputType="textEmailAddress"
         android:paddingLeft="10dp"
-        android:textAlignment="center"
+
         tools:layout_editor_absoluteX="99dp"
         tools:layout_editor_absoluteY="251dp" />
 
@@ -178,12 +175,11 @@
         android:layout_marginLeft="31dp"
         android:layout_marginTop="318dp"
         android:ems="10"
-        android:gravity="center"
-        android:gravtity="center_horizontal"
+
         android:hint="Passowrd"
         android:inputType="textPassword"
         android:paddingLeft="10dp"
-        android:textAlignment="center"
+
         tools:layout_editor_absoluteX="99dp"
         tools:layout_editor_absoluteY="251dp" />
 
@@ -199,12 +195,11 @@
         android:layout_marginLeft="31dp"
         android:layout_marginTop="374dp"
         android:ems="10"
-        android:gravity="center"
-        android:gravtity="center_horizontal"
+
         android:hint="Verify Password"
         android:inputType="textPassword"
         android:paddingLeft="10dp"
-        android:textAlignment="center"
+
         tools:layout_editor_absoluteX="99dp"
         tools:layout_editor_absoluteY="251dp" />
 
@@ -221,12 +216,11 @@
         android:layout_marginTop="492dp"
         android:background="@drawable/roundtbox"
         android:ems="10"
-        android:gravity="center"
-        android:gravtity="center_horizontal"
+
         android:hint="Address"
         android:inputType="textPersonName"
         android:paddingLeft="10dp"
-        android:textAlignment="center"
+
         tools:layout_editor_absoluteX="99dp"
         tools:layout_editor_absoluteY="251dp" />
 
@@ -243,12 +237,11 @@
         android:layout_marginTop="552dp"
         android:background="@drawable/roundtbox"
         android:ems="10"
-        android:gravity="center"
-        android:gravtity="center_horizontal"
+
         android:hint="Municipality"
         android:inputType="textPersonName"
         android:paddingLeft="10dp"
-        android:textAlignment="center"
+
         tools:layout_editor_absoluteX="99dp"
         tools:layout_editor_absoluteY="251dp" />
 
@@ -265,12 +258,11 @@
         android:layout_marginTop="550dp"
         android:background="@drawable/roundtbox"
         android:ems="10"
-        android:gravity="center"
-        android:gravtity="center_horizontal"
+
         android:hint="Address"
         android:inputType="textPersonName"
         android:paddingLeft="10dp"
-        android:textAlignment="center"
+
         tools:layout_editor_absoluteX="99dp"
         tools:layout_editor_absoluteY="251dp" />
 

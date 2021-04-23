@@ -22,25 +22,19 @@ public class MainActivity extends AppCompatActivity {
 
         button = (Button) findViewById(R.id.booknow);
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        drawer = findViewById(R.id.drawer_layout);
+
+
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openActivity2();
             }
         });
-
-
-
-    }
-    public void openActivity2(){
-        Intent intent = new Intent(this, burger_test.class);
-        startActivity(intent);
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        drawer = findViewById(R.id.drawer_layout);
-
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
                 R.string.nagiation_drawer_open, R.string.nagiation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -54,5 +48,15 @@ public class MainActivity extends AppCompatActivity {
         }else {
             super.onBackPressed();
         }
+
+
     }
+    public void openActivity2(){
+        Intent intent = new Intent(this, burger_test.class);
+        startActivity(intent);
+
+
+    }
+
+
 }
