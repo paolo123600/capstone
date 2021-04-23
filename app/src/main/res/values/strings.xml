@@ -1,5 +1,17 @@
 <resources>
     <string name="app_name">capstone</string>
+    <string name="Notification">Notification</string>
+    <string name="Appointments">Appointments</string>
+    <string name="Manage_schedule">Manage Schedules</string>
+
+    <string name="number_of_notif">Number of Notification</string>
+    <string name="today">Today</string>
+    <string name="this_week">This week</string>
+    <string name="Date">Date</string>
+
+    <string name="chat">Chat</string>
+    <string name="patient_record">Patient record</string>
+
 
     <string name="nagiation_drawer_open">Open navigation drawer</string>
     <string name="nagiation_drawer_close">Open navigation drawer</string>
