@@ -1,13 +1,17 @@
 <resources>
     <string name="app_name">capstone</string>
     <string name="Notification">Notification</string>
-    <string name="Appointments">Appointments</string>
+    <string name="Appointments_label">Appointments</string>
     <string name="Manage_schedule">Manage Schedules</string>
 
-    <string name="number_of_notif">Number of Notification</string>
-    <string name="today">Today</string>
-    <string name="this_week">This week</string>
+    <string name="number_of_notif">5</string>
+    <string name="notif_label">Number of Notification</string>
+    <string name="today_notif_label">Today: </string>
+    <string name="thisweek_notif_label">This week: </string>
+    <string name="today_number">10</string>
+    <string name="thisweek_number">20</string>
     <string name="Date">Date</string>
+    <string name="time">time</string>
 
     <string name="chat">Chat</string>
     <string name="patient_record">Patient record</string>

@@ -12,7 +12,8 @@ import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
-    private Button button;
+    private Button buttonbook;
+    private Button buttonsched;
     private DrawerLayout drawer;
 
     @Override
@@ -20,7 +21,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        button = (Button) findViewById(R.id.booknow);
+        buttonbook = (Button) findViewById(R.id.booknow);
+        buttonsched = (Button) findViewById(R.id.schedules);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -29,12 +31,23 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        button.setOnClickListener(new View.OnClickListener() {
+
+
+        buttonbook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openActivity2();
+                Intent intent = new Intent(MainActivity.this, burger_test.class);
+                startActivity(intent);
             }
         });
+        buttonsched.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, nurse_homepage.class);
+                startActivity(intent);
+            }
+        });
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
                 R.string.nagiation_drawer_open, R.string.nagiation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -49,14 +62,7 @@ public class MainActivity extends AppCompatActivity {
             super.onBackPressed();
         }
 
-
     }
-    public void openActivity2(){
-        Intent intent = new Intent(this, burger_test.class);
-        startActivity(intent);
-
-
-    }
-
-
 }
+
+
