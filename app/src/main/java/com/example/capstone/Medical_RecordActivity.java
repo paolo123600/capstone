@@ -2,6 +2,7 @@ package com.example.capstone;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +20,8 @@ import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
+
 
 public class Medical_RecordActivity extends AppCompatActivity {
     EditText ET_ContactP,ET_ContactN,ET_Height,ET_Weight,ET_BloodP,ET_BloodType,ET_Allergies,ET_Illness;
@@ -41,8 +44,7 @@ public class Medical_RecordActivity extends AppCompatActivity {
         ET_Illness=(EditText) findViewById(R.id.illness);
         btn_Continue = (Button) findViewById(R.id.btn_continue);
 
-
-btn_Continue.setOnClickListener(new View.OnClickListener() {
+    btn_Continue.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View view) {
 
@@ -70,6 +72,9 @@ btn_Continue.setOnClickListener(new View.OnClickListener() {
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
+                        SendEmail SE = new SendEmail();
+                        SE.EmailSend(randomCode, email);
+
                         Intent intent = new Intent(Medical_RecordActivity.this,Sign_Up_VerifyActivity.class);
 
                         startActivity(intent);
