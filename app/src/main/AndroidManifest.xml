@@ -8,9 +8,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:name=".GlobalVariables"
         android:theme="@style/Theme.Capstone">
         <activity android:name=".nurse_homepage"></activity>
         <activity android:name=".burger_test" />
+        <activity android:name=".Sign_UpActivity" android:exported="true" />
+        <activity android:name=".Sign_Up_VerifyActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
