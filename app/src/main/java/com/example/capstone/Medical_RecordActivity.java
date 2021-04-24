@@ -72,13 +72,18 @@ public class Medical_RecordActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-                        SendEmail SE = new SendEmail();
-                        SE.EmailSend(randomCode, email);
 
-                        Intent intent = new Intent(Medical_RecordActivity.this,Sign_Up_VerifyActivity.class);
+                        try{
+                            SendEmail SE = new SendEmail();
+                            SE.EmailSend(randomCode, email);
 
-                        startActivity(intent);
+                            Intent intent = new Intent(Medical_RecordActivity.this,Sign_Up_VerifyActivity.class);
 
+                            startActivity(intent);
+                        }
+                        catch (Exception e){
+                            Toast.makeText(getApplicationContext(), "Verification Code Error!", Toast.LENGTH_LONG).show();
+                        }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
