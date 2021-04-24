@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,8 +28,9 @@ FirebaseFirestore db;
 protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.sign_up);
+    GlobalVariables gv =(GlobalVariables) getApplicationContext ();
 
-    btnContinue = (Button) findViewById(R.id.signup);
+        btnContinue = (Button) findViewById(R.id.signup);
     ET_FName=(EditText) findViewById(R.id.Fname);
     ET_LName=(EditText)findViewById(R.id.Lname);
     ET_MI= (EditText)findViewById(R.id.Mi);
@@ -44,42 +46,31 @@ protected void onCreate(Bundle savedInstanceState) {
     db= FirebaseFirestore.getInstance();
 
 
+
     btnContinue.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
 
 
+            gv.setFname(String.valueOf(ET_FName.getText()));
+            gv.setLname(String.valueOf(ET_LName.getText()));
+            gv.setMname(String.valueOf(ET_MI.getText()));
+            gv.setContact(String.valueOf(ET_Contact.getText()));
+            gv.setSex(String.valueOf(ET_Sex.getText()));
+            gv.setNationality(String.valueOf(ET_Nationality.getText()));
+            gv.setEmail(String.valueOf(ET_Email.getText()));
+            gv.setPassword(String.valueOf(ET_Pass.getText()));
+            gv.setAddress(String.valueOf(ET_Address.getText()));
+            gv.setMunicipality(String.valueOf(ET_Municipality.getText()));
+            gv.setPostal(String.valueOf(ET_Postal.getText()));
 
-            Map<String,Object> Verification = new HashMap<>();
-            Verification.put("Email",ET_Email.getText().toString());
-            Verification.put("VCode","TestTest");
 
-            db.collection("Verification")
-                    .add(Verification)
-                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                        @Override
-                        public void onSuccess(DocumentReference documentReference) {
 
-                            Intent intent = new Intent(Sign_UpActivity.this,Sign_Up_VerifyActivity.class);
-                            intent.putExtra("FirstName",String.valueOf(ET_FName.getText()));
-                            intent.putExtra("LastName",String.valueOf(ET_LName.getText()));
-                            intent.putExtra("Middle",String.valueOf(ET_MI.getText()));
-                            intent.putExtra("Sex",String.valueOf(ET_Sex.getText()));
-                            intent.putExtra("Contact",String.valueOf(ET_Contact.getText()));
-                            intent.putExtra("Nationality",String.valueOf(ET_Nationality.getText()));
-                            intent.putExtra("Email",String.valueOf(ET_Email.getText()));
-                            intent.putExtra("Pass",String.valueOf(ET_Pass.getText()));
-                            intent.putExtra("Address",String.valueOf(ET_Address.getText()));
-                            intent.putExtra("Postal",String.valueOf(ET_Postal.getText()));
-                            intent.putExtra("Municipality",String.valueOf(ET_Municipality.getText()));
-                            startActivity(intent);
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(Sign_UpActivity.this,"Failed",Toast.LENGTH_SHORT).show();
-                }
-            });
+
+            Intent intent = new Intent(Sign_UpActivity.this,Medical_RecordActivity.class);
+
+            startActivity(intent);
+
 
 
         }

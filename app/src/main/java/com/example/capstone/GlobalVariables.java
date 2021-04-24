@@ -3,6 +3,28 @@ package com.example.capstone;
 import android.app.Application;
 
 public class GlobalVariables extends Application {
+
+    private String Contact;
+    private String Nationality;
+    private String Fname;
+    private String Lname;
+    private String Mname;
+    private String Sex;
+    private String Email;
+    private String Password;
+    private String Address;
+    private String Postal;
+    private String Municipality;
+    private  String EContactP;
+    private  String EContactN;
+    private  String Height;
+    private  String Weight;
+    private  String BloodP;
+    private  String BloodType;
+    private  String Allergies;
+    private  String Illness;
+
+
     public String getFname() {
         return Fname;
     }
@@ -67,21 +89,104 @@ public class GlobalVariables extends Application {
         Municipality = municipality;
     }
 
-    public GlobalVariables(String fname, String lname, String mname, String sex, String email, String address, String postal, String municipality) {
-        Fname = fname;
-        Lname = lname;
-        Mname = mname;
-        Sex = sex;
-        Email = email;
-        Address = address;
-        Postal = postal;
-        Municipality = municipality;
-    }
+
     public GlobalVariables() {
 
     }
 
-    private String Fname, Lname, Mname, Sex, Email , Address, Postal, Municipality;
+
+
+    public String getContact() {
+        return Contact;
+    }
+
+    public void setContact(String contact) {
+        Contact = contact;
+    }
+
+    public String getNationality() {
+        return Nationality;
+    }
+
+    public void setNationality(String nationality) {
+        Nationality = nationality;
+    }
+
+
+
+    public String getEContactP() {
+        return EContactP;
+    }
+
+    public void setEContactP(String EContactP) {
+        this.EContactP = EContactP;
+    }
+
+    public String getEContactN() {
+        return EContactN;
+    }
+
+    public void setEContactN(String EContactN) {
+        this.EContactN = EContactN;
+    }
+
+    public String getHeight() {
+        return Height;
+    }
+
+    public void setHeight(String height) {
+        Height = height;
+    }
+
+    public String getWeight() {
+        return Weight;
+    }
+
+    public void setWeight(String weight) {
+        Weight = weight;
+    }
+
+    public String getBloodP() {
+        return BloodP;
+    }
+
+    public void setBloodP(String bloodP) {
+        BloodP = bloodP;
+    }
+
+    public String getBloodType() {
+        return BloodType;
+    }
+
+    public void setBloodType(String bloodType) {
+        BloodType = bloodType;
+    }
+
+    public String getAllergies() {
+        return Allergies;
+    }
+
+    public void setAllergies(String allergies) {
+        Allergies = allergies;
+    }
+
+    public String getIllness() {
+        return Illness;
+    }
+
+    public void setIllness(String illness) {
+        Illness = illness;
+    }
+
+
+    public String getPassword() {
+        return Password;
+    }
+
+    public void setPassword(String password) {
+        Password = password;
+    }
+
 
 
 }
