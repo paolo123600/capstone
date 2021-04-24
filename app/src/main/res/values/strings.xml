@@ -15,6 +15,11 @@
 
     <string name="chat">Chat</string>
     <string name="patient_record">Patient record</string>
+    <string name="doctor_name">Doctors name</string>
+    <string name="scheduled_date">date_scheduled</string>
+    <string name="Status_label">STATUS</string>
+    <string name="status">status</string>
+    <string name="patient_name">Patients name</string>
 
 
     <string name="nagiation_drawer_open">Open navigation drawer</string>
