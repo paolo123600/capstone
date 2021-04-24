@@ -10,7 +10,9 @@
         android:supportsRtl="true"
         android:name=".GlobalVariables"
         android:theme="@style/Theme.Capstone">
-        <activity android:name=".nurse_homepage"></activity>
+        <activity android:name=".patient_schedule"></activity>
+        <activity android:name=".notification" />
+        <activity android:name=".nurse_homepage" />
         <activity android:name=".burger_test" />
         <activity android:name=".Sign_UpActivity" android:exported="true" />
         <activity android:name=".Sign_Up_VerifyActivity" />
