@@ -77,13 +77,13 @@ public class Medical_RecordActivity extends AppCompatActivity {
                             SendEmail SE = new SendEmail();
                             SE.EmailSend(randomCode, email);
 
-                            Intent intent = new Intent(Medical_RecordActivity.this,Sign_Up_VerifyActivity.class);
-
-                            startActivity(intent);
                         }
                         catch (Exception e){
                             Toast.makeText(getApplicationContext(), "Verification Code Error!", Toast.LENGTH_LONG).show();
                         }
+                        Intent intent = new Intent(Medical_RecordActivity.this,Sign_Up_VerifyActivity.class);
+
+                        startActivity(intent);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override

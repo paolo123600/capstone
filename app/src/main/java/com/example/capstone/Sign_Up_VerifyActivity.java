@@ -66,8 +66,8 @@ public class Sign_Up_VerifyActivity extends AppCompatActivity {
                                     }
 //
                                         if(email.equals(VEmail)&&EVCode.equals(Vcode)){
-
-
+                                            Intent intent = new Intent(Sign_Up_VerifyActivity.this,Login.class);
+                                            startActivity(intent);
                                         }
 
                                         else{
