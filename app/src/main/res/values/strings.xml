@@ -24,4 +24,15 @@
 
     <string name="nagiation_drawer_open">Open navigation drawer</string>
     <string name="nagiation_drawer_close">Open navigation drawer</string>
+
+
+    <string name="Doc_name">Doctor</string>
+    <string name="Email">Email</string>
+    <string name="past_record">Past Record</string>
+    <string name="date_appointment">Date</string>
+    <string name="time_appointment">Time</string>
+    <string name="reschedule">Reschedule</string>
+    <string name="record">Record</string>
+    <string name="note">Note</string>
+    <string name="date">Date</string>
 </resources>
