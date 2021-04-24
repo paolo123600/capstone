@@ -44,57 +44,59 @@ public class Medical_RecordActivity extends AppCompatActivity {
         ET_Illness=(EditText) findViewById(R.id.illness);
         btn_Continue = (Button) findViewById(R.id.btn_continue);
 
-    btn_Continue.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-
-        gv.setEContactP(ET_ContactP.getText().toString());
-        gv.setEContactN(ET_ContactN.getText().toString());
-        gv.setHeight(ET_Height.getText().toString());
-        gv.setWeight(ET_Weight.getText().toString());
-        gv.setBloodP(ET_BloodP.getText().toString());
-        gv.setBloodType(ET_BloodType.getText().toString());
-        gv.setAllergies(ET_Allergies.getText().toString());
-        gv.setIllness(ET_Illness.getText().toString());
-
-        String email = gv.getEmail();;
-
-        SecureRandom random = new SecureRandom();
-        String randomCode = new BigInteger(30, random).toString(32).toUpperCase();
-
-
-        Map<String,Object> Verification = new HashMap<>();
-        Verification.put("Email",email);
-        Verification.put("VCode",randomCode);
-
-        db.collection("Verification")
-                .add(Verification)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-
-                        try{
-                            SendEmail SE = new SendEmail();
-                            SE.EmailSend(randomCode, email);
-
-                        }
-                        catch (Exception e){
-                            Toast.makeText(getApplicationContext(), "Verification Code Error!", Toast.LENGTH_LONG).show();
-                        }
-                        Intent intent = new Intent(Medical_RecordActivity.this,Sign_Up_VerifyActivity.class);
-
-                        startActivity(intent);
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
+        btn_Continue.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(Medical_RecordActivity.this,"Failed",Toast.LENGTH_SHORT).show();
+            public void onClick(View view) {
+
+                gv.setEContactP(ET_ContactP.getText().toString());
+                gv.setEContactN(ET_ContactN.getText().toString());
+                gv.setHeight(ET_Height.getText().toString());
+                gv.setWeight(ET_Weight.getText().toString());
+                gv.setBloodP(ET_BloodP.getText().toString());
+                gv.setBloodType(ET_BloodType.getText().toString());
+                gv.setAllergies(ET_Allergies.getText().toString());
+                gv.setIllness(ET_Illness.getText().toString());
+
+                String email = gv.getEmail();;
+
+                SecureRandom random = new SecureRandom();
+                String randomCode = new BigInteger(30, random).toString(32).toUpperCase();
+
+
+                Map<String,Object> Verification = new HashMap<>();
+                Verification.put("Email",email);
+                Verification.put("VCode",randomCode);
+
+                db.collection("Verification")
+                        .add(Verification)
+                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+
+//                                try{
+//
+//
+//                                }
+//                                catch (Exception e){
+//                                    Toast.makeText(getApplicationContext(), "Verification Code Error!", Toast.LENGTH_LONG).show();
+//                                }
+
+                                SendEmail SE = new SendEmail();
+                                SE.EmailSend(randomCode, email);
+                                Intent intent = new Intent(Medical_RecordActivity.this,Sign_Up_VerifyActivity.class);
+
+                                startActivity(intent);
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(Medical_RecordActivity.this,"Failed",Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                ;
             }
         });
-
-        ;
-    }
-});
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
     }

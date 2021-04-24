@@ -46,7 +46,7 @@ public class SendEmail extends Application {
             mess.setSubject("Verification");
             mess.setText(messageToSend);
             Transport.send(mess);
-            Toast.makeText(getApplicationContext(), "Verification Code Sent!", Toast.LENGTH_LONG).show();
+
         }
         catch (MessagingException e){
             throw new RuntimeException(e);

@@ -39,9 +39,10 @@ public class Sign_Up_VerifyActivity extends AppCompatActivity {
             static final String TAG = "Read Data Activity";
             @Override
             public void onClick(View view) {
-                GlobalVariables gv =(GlobalVariables) getApplicationContext ();
-                String email = gv.getEmail().toString();
                 String EVCode= ET_VCode.getText().toString();
+                //Getting values
+                GlobalVariables gv =(GlobalVariables) getApplicationContext ();
+                String email = gv.getEmail();
 
 
 
