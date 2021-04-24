@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Capstone">
-        <activity android:name=".patient_schedule"></activity>
+        <activity android:name=".ProfileFragment"></activity>
+        <activity android:name=".patient_schedule" />
         <activity android:name=".notification" />
         <activity android:name=".nurse_homepage" />
         <activity android:name=".burger_test" />
