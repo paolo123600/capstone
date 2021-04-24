@@ -21,6 +21,11 @@
     <string name="status">status</string>
     <string name="patient_name">Patients name</string>
 
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="btn_login">LOGIN</string>
+    <string name="btn_signup">SIGN UP</string>
+
 
     <string name="nagiation_drawer_open">Open navigation drawer</string>
     <string name="nagiation_drawer_close">Open navigation drawer</string>
