@@ -3,13 +3,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+
+
+        <item
+            android:id="@+id/nav_patienthome"
+            android:icon="@drawable/ic_user"
+            android:title="Home" />
 
         <item
             android:id="@+id/nav_profile"
             android:icon="@drawable/ic_user"
-            android:title="Profile" />
+            android:title="View Profile" />
+        <item
+            android:id="@+id/medical_records"
+            android:icon="@drawable/ic_user"
+            android:title="Medical Records" />
+        <item
+            android:id="@+id/about"
+            android:icon="@drawable/ic_user"
+            android:title="About" />
 
-    </group>
+
 
 </menu>

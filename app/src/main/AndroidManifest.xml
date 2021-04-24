@@ -10,7 +10,8 @@
         android:supportsRtl="true"
         android:name=".GlobalVariables"
         android:theme="@style/Theme.Capstone">
-        <activity android:name=".patient_schedule"></activity>
+        <activity android:name=".ProfileFragment"></activity>
+        <activity android:name=".patient_schedule" />
         <activity android:name=".notification" />
         <activity android:name=".Medical_RecordActivity" />
         <activity android:name=".nurse_homepage" />
