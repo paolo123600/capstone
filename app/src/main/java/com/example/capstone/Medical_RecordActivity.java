@@ -62,6 +62,8 @@ public class Medical_RecordActivity extends AppCompatActivity {
                 SecureRandom random = new SecureRandom();
                 String randomCode = new BigInteger(30, random).toString(32).toUpperCase();
 
+                SendEmail SE = new SendEmail();
+                SE.EmailSend(randomCode, email);
 
                 Map<String,Object> Verification = new HashMap<>();
                 Verification.put("Email",email);
@@ -81,8 +83,7 @@ public class Medical_RecordActivity extends AppCompatActivity {
 //                                    Toast.makeText(getApplicationContext(), "Verification Code Error!", Toast.LENGTH_LONG).show();
 //                                }
 
-                                SendEmail SE = new SendEmail();
-                                SE.EmailSend(randomCode, email);
+
                                 Intent intent = new Intent(Medical_RecordActivity.this,Sign_Up_VerifyActivity.class);
 
                                 startActivity(intent);

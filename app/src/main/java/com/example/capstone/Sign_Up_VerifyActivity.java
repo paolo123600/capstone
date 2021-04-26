@@ -1,5 +1,8 @@
 package com.example.capstone;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.nfc.Tag;
 import android.os.Bundle;
@@ -14,10 +17,18 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Sign_Up_VerifyActivity extends AppCompatActivity {
     EditText ET_VCode;
@@ -25,12 +36,13 @@ public class Sign_Up_VerifyActivity extends AppCompatActivity {
     FirebaseFirestore db;
     String VEmail= "";
     String Vcode="";
-
+    String email ="";
+    private FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup_verfiy);
-
+        GlobalVariables gv =(GlobalVariables) getApplicationContext ();
 
         btn_Continue= (Button) findViewById(R.id.btn_verify);
         ET_VCode=(EditText) findViewById(R.id.verify);
@@ -41,9 +53,9 @@ public class Sign_Up_VerifyActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String EVCode= ET_VCode.getText().toString();
                 //Getting values
-                GlobalVariables gv =(GlobalVariables) getApplicationContext ();
-                String email = gv.getEmail();
 
+                email = gv.getEmail();
+                mAuth = FirebaseAuth.getInstance();
 
 
 
@@ -56,7 +68,7 @@ public class Sign_Up_VerifyActivity extends AppCompatActivity {
                                 if (task.isSuccessful()){
 
 
-
+                                        //getting the data and checking if it is equal
                                     for(QueryDocumentSnapshot document : task.getResult()) {
 
                                         Log.d(TAG, document.getId() + "=>" + document.getData());
@@ -65,10 +77,44 @@ public class Sign_Up_VerifyActivity extends AppCompatActivity {
 
 
                                     }
-//
+                                        //deleting the email in verification
                                         if(email.equals(VEmail)&&EVCode.equals(Vcode)){
-                                            Intent intent = new Intent(Sign_Up_VerifyActivity.this,Login.class);
-                                            startActivity(intent);
+
+                                            db.collection("Verification")
+                                                    .whereEqualTo("Email",email)
+                                                    .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                    if (task.isSuccessful() && !task.getResult().isEmpty()){
+
+                                                        DocumentSnapshot documentSnapshot = task.getResult().getDocuments().get(0);
+                                                        String documentID = documentSnapshot.getId();
+                                                        db.collection("Verification")
+                                                                .document(documentID)
+                                                                .delete()
+                                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                    @Override
+                                                                    public void onSuccess(Void aVoid) {
+
+                                                                    }
+
+                                                                }).addOnFailureListener(new OnFailureListener() {
+                                                            @Override
+                                                            public void onFailure(@NonNull Exception e) {
+                                                                Toast.makeText(Sign_Up_VerifyActivity.this, "Deleting failed", Toast.LENGTH_SHORT).show();
+                                                            }
+                                                        });
+
+
+
+                                                    }
+                                                }
+                                            });
+                                                //adding the Patient Record
+                                                registerUSer();
+
+
+
                                         }
 
                                         else{
@@ -88,4 +134,82 @@ public class Sign_Up_VerifyActivity extends AppCompatActivity {
 
             }
         });
-}}
+}
+
+    private void registerUSer() {
+        GlobalVariables gv =(GlobalVariables) getApplicationContext ();
+        String Pass =  gv.getPassword();
+        String Fname =gv.getFname();
+        String Lname =gv.getLname();
+        String Mname =gv.getMname();
+        String Contact = gv.getContact();
+        String Sex =gv.getSex();
+        String Address =gv.getAddress();
+        String Postal =gv.getPostal();
+        String Municipality =gv.getMunicipality();
+        String EEContactP =gv.getEContactP();
+        String EContactN =gv.getEContactN();
+        String Height =gv.getHeight();
+        String Weight =gv.getWeight();
+        String BloodP =gv.getBloodP();
+        String BloodType =gv.getBloodType();
+        String Allergies =gv.getAllergies();
+        String Illness =gv.getIllness();
+
+        mAuth.createUserWithEmailAndPassword(email,Pass)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()){
+                            String Uid=FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                            Map<String,Object> Patients = new HashMap<>();
+                            Patients.put("FirstName",Fname);
+                            Patients.put("LastName",Lname);
+                            Patients.put("MiddleInitial",Mname);
+                            Patients.put("Sex",Sex);
+                            Patients.put("Contact",Contact);
+                            Patients.put("Address",Address);
+                            Patients.put("Municipality",Municipality);
+                            Patients.put("Postal",Postal);
+                            Patients.put("EContactPerson",EEContactP);
+                            Patients.put("EContactNumber",EContactN);
+                            Patients.put("Height",Weight);
+                            Patients.put("Weight",Height);
+                            Patients.put("BloodP",BloodP);
+                            Patients.put("BloodType",BloodType);
+                            Patients.put("Allergies",Allergies);
+                            Patients.put("Illness",Illness);
+
+
+                            db.collection("Patients").document(Uid)
+                                    .set(Patients)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            new AlertDialog.Builder(Sign_Up_VerifyActivity.this)
+                                                    .setTitle("Account Successfully Created")
+                                                    .setMessage("You have successfully created an account!! You can now login in the login page.")
+                                                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                                            Intent intent = new Intent(Sign_Up_VerifyActivity.this,Login.class);
+                                                            startActivity(intent);
+                                                        }
+                                                    }).show();
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(gv, "Fail addingdata", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+
+
+                        }
+                    }
+                });
+
+    }
+}
