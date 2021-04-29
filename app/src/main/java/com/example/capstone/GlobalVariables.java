@@ -99,6 +99,7 @@ public class GlobalVariables extends Application {
 
 
 
+
     public String getContact() {
         return Contact;
     }
