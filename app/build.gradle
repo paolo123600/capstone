@@ -45,4 +45,5 @@ dependencies {
     implementation 'com.android.support:multidex:2.0.1'
     implementation 'com.sun.mail:android-mail:1.6.0'
     implementation 'com.sun.mail:android-activation:1.6.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
 }

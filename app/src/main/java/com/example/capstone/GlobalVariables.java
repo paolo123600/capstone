@@ -23,6 +23,9 @@ public class GlobalVariables extends Application {
     private  String BloodType;
     private  String Allergies;
     private  String Illness;
+    private  String Channel_Name;
+
+
 
 
     public String getFname() {
@@ -185,6 +188,14 @@ public class GlobalVariables extends Application {
 
     public void setPassword(String password) {
         Password = password;
+    }
+
+    public String getChannel_Name() {
+        return Channel_Name;
+    }
+
+    public void setChannel_Name(String channel_Name) {
+        Channel_Name = channel_Name;
     }
 
 
