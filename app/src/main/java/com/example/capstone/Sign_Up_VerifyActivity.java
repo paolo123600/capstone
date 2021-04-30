@@ -161,6 +161,7 @@ public class Sign_Up_VerifyActivity extends AppCompatActivity {
         String Allergies =gv.getAllergies();
         String Illness =gv.getIllness();
 
+
         mAuth.createUserWithEmailAndPassword(email,Pass)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override

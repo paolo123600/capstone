@@ -25,6 +25,43 @@ public class GlobalVariables extends Application {
     private  String Illness;
     private  String Channel_Name;
 
+    public String getSDClinic() {
+        return SDClinic;
+    }
+
+    public void setSDClinic(String SDClinic) {
+        this.SDClinic = SDClinic;
+    }
+
+    public String getSDDocemail() {
+        return SDDocemail;
+    }
+
+    public void setSDDocemail(String SDDocemail) {
+        this.SDDocemail = SDDocemail;
+    }
+
+    public String getSDDate() {
+        return SDDate;
+    }
+
+    public void setSDDate(String SDDate) {
+        this.SDDate = SDDate;
+    }
+
+    String SDClinic;
+    String SDDocemail;
+    String SDDate;
+
+    public String getMainUser() {
+        return MainUser;
+    }
+
+    public void setMainUser(String mainUser) {
+        MainUser = mainUser;
+    }
+
+    String MainUser;
 
 
 
@@ -195,6 +232,8 @@ public class GlobalVariables extends Application {
 
     public void setChannel_Name(String channel_Name) {
         Channel_Name = channel_Name;
+
+
     }
 
 
