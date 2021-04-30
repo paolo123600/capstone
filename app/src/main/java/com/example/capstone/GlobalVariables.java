@@ -32,9 +32,7 @@ public class GlobalVariables extends Application {
         return Fname;
     }
 
-    public void setFname(String fname) {
-        Fname = fname;
-    }
+    public void setFname(String fname) { Fname = fname; }
 
     public String getLname() {
         return Lname;

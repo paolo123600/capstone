@@ -16,6 +16,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.capstone.utilities.Constants;
+import com.example.capstone.utilities.PreferenceManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -38,11 +40,14 @@ public class Sign_Up_VerifyActivity extends AppCompatActivity {
     String Vcode="";
     String email ="";
     private FirebaseAuth mAuth;
+    private PreferenceManager preferenceManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup_verfiy);
         GlobalVariables gv =(GlobalVariables) getApplicationContext ();
+
+        preferenceManager = new PreferenceManager(getApplicationContext());
 
         btn_Continue= (Button) findViewById(R.id.btn_verify);
         ET_VCode=(EditText) findViewById(R.id.verify);
