@@ -19,7 +19,7 @@
             android:icon="@drawable/ic_user"
             android:title="Medical Records" />
         <item
-            android:id="@+id/about"
+            android:id="@+id/nav_about"
             android:icon="@drawable/ic_user"
             android:title="About" />
 

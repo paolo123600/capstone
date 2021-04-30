@@ -2,6 +2,7 @@ package com.example.capstone.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.widget.TextView;
@@ -9,6 +10,8 @@ import android.widget.Toast;
 
 import com.example.capstone.GlobalVariables;
 import com.example.capstone.R;
+import com.example.capstone.adapters.UsersAdapter;
+import com.example.capstone.models.User;
 import com.example.capstone.utilities.Constants;
 import com.example.capstone.utilities.PreferenceManager;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,9 +25,13 @@ import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.installations.FirebaseInstallations;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import java.util.List;
+
 public class VideoCall_Main extends AppCompatActivity {
 
     private PreferenceManager preferenceManager;
+    private List<User> users;
+    private UsersAdapter usersAdapter;
     FirebaseFirestore db;
 
     @Override
@@ -44,6 +51,7 @@ public class VideoCall_Main extends AppCompatActivity {
                 preferenceManager.getString(Constants.KEY_LAST_NAME)
         ));
 
+        RecyclerView userRecyclerView = findViewById(R.id.usersRecyclerView);
 
     }
 

@@ -22,9 +22,12 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
+
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private Button buttonbook;
@@ -42,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         preferenceManager = new PreferenceManager(getApplicationContext());
 
+
         buttonbook = (Button) findViewById(R.id.booknow);
         buttonsched = (Button) findViewById(R.id.schedules);
 
@@ -50,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_viewer);
+
         navigationView.setNavigationItemSelectedListener(this);
 
 
@@ -94,6 +99,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_profile:
                 Intent intent = new Intent(MainActivity.this, ProfileFragment.class);
                 startActivity(intent);
+                break;
+            case R.id.nav_about:
+                Toast.makeText(this, "Signing Out...", Toast.LENGTH_SHORT).show();
+                FirebaseFirestore database = FirebaseFirestore.getInstance();
+                DocumentReference documentReference =
+                        db.collection(Constants.KEY_COLLECTION_USERS).document(
+                                preferenceManager.getString(Constants.KEY_USER_ID)
+                        );
+                HashMap<String, Object> updates = new HashMap<>();
+                updates.put(Constants.KEY_FCM_TOKEN, FieldValue.delete());
+                documentReference.update(updates)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                preferenceManager.clearPreferences();
+                                startActivity(new Intent(getApplicationContext(), Login.class));
+                                finish();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(MainActivity.this, "Unable to sign out", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);
