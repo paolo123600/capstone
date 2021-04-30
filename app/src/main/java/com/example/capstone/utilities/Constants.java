@@ -1,11 +1,13 @@
 package com.example.capstone.utilities;
 
+import java.util.HashMap;
+
 public class Constants {
 
     public static final String KEY_COLLECTION_USERS = "Patients";
     public static final String KEY_FIRST_NAME = "FirstName";
     public static final String KEY_LAST_NAME = "LastName";
-    public static final String KEY_EMAIL = "email";
+    public static final String KEY_EMAIL = "Email";
     public static final String KEY_PASSWORD = "password";
     public static final String KEY_USER_ID = "user_id";
     public static final  String KEY_FCM_TOKEN = "fcm_token";
@@ -30,5 +32,15 @@ public class Constants {
     public static final String REMOTE_MSG_INVITATION_CANCELLED = "cancelled";
 
     public static final String REMOTE_MSG_MEETING_ROOM = "meetingRoom";
+
+    public static HashMap<String, String> getRemoteMessageHeaders() {
+        HashMap<String, String> headers = new HashMap<>();
+        headers.put(
+                Constants.REMOTE_MSG_AUTHORIZATION,
+                "key=AAAASALR0E4:APA91bF3gqDlDcFViDNsPatcrmTMsU0Z4rtsJqj4raX1nULFCM8-yjaXC7-je7ZzzvE1ifQbcScokW3pDhQF1cMU4UCdH0oGu-Zi4D4sYNplpZM1RWgBHZRDUbDgibkR_0Q4ujhzSyVW"
+        );
+        headers.put(Constants.REMOTE_MSG_CONTENT_TYPE, "application/json");
+        return headers;
+    }
 
 }
