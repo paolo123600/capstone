@@ -170,6 +170,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+    public void createSelectDateDialog(){
+        dialogbuilder = new AlertDialog.Builder(this);
+        final View selectDateView = getLayoutInflater().inflate(R.layout.popupselectdate,null);
+        TextView test;
+
+        test= (TextView) selectDateView.findViewById(R.id.TestView);
+        GlobalVariables gv =(GlobalVariables) getApplicationContext ();
+        test.setText(gv.getSDClinic()+gv.getSDDocemail());
+
+        dialogbuilder.setView(selectDateView);
+        dialog= dialogbuilder.create();
+        dialog.show();
+        dialog.getWindow().setLayout(1200, 2000);
+
+    }
+
     public void createSelectDoctorDialog(){
         dialogbuilder = new AlertDialog.Builder(this);
         final View selectDoctorView = getLayoutInflater().inflate(R.layout.popupselectdoctor,null);
@@ -224,7 +240,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         holder.itemView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                //set
+                                GlobalVariables gv =(GlobalVariables) getApplicationContext ();
+                                gv.setSDDocemail(model.getEmail());
+                                gv.setSDClinic(Clinicname);
+                                createSelectDateDialog();
                             }
                         });
 
