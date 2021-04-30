@@ -175,6 +175,7 @@ public class Sign_Up_VerifyActivity extends AppCompatActivity {
                             Patients.put("Sex",Sex);
                             Patients.put("Contact",Contact);
                             Patients.put("Address",Address);
+                            Patients.put("Email",email);
                             Patients.put("Municipality",Municipality);
                             Patients.put("Postal",Postal);
                             Patients.put("EContactPerson",EEContactP);

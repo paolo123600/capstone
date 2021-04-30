@@ -46,6 +46,7 @@ dependencies {
     implementation 'com.android.support:multidex:2.0.1'
     implementation 'com.sun.mail:android-mail:1.6.0'
     implementation 'com.sun.mail:android-activation:1.6.0'
+    implementation 'com.firebaseui:firebase-ui-firestore:7.1.1'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
     // Scalable Size unit

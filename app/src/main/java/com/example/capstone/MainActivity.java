@@ -2,17 +2,33 @@ package com.example.capstone;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.Toast;
 
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.example.capstone.activities.VideoCall_Main;
 import com.example.capstone.utilities.Constants;
 import com.example.capstone.utilities.PreferenceManager;
@@ -21,11 +37,20 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
+
 
 import java.util.HashMap;
 
@@ -33,6 +58,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Button buttonbook;
     private Button buttonsched;
     private DrawerLayout drawer;
+    private AlertDialog.Builder dialogbuilder;
+    private Dialog dialog;
+    private RecyclerView doctorlist;
+    private  FirestoreRecyclerAdapter adapter;
     private PreferenceManager preferenceManager;
     FirebaseFirestore db;
 
@@ -63,10 +92,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         buttonbook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, burger_test.class);
-                startActivity(intent);
+               createSelectDoctorDialog();
             }
         });
+
         buttonsched.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -140,6 +169,108 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
     }
+
+    public void createSelectDoctorDialog(){
+        dialogbuilder = new AlertDialog.Builder(this);
+        final View selectDoctorView = getLayoutInflater().inflate(R.layout.popupselectdoctor,null);
+        // Start
+        doctorlist= (RecyclerView) selectDoctorView.findViewById(R.id.DoctorRF);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference clinicsRef = db.collection("Clinics");
+        Spinner spinner = (Spinner) selectDoctorView.findViewById(R.id.spinnerclinic);
+        List<String> Clinics = new ArrayList<>();
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, Clinics);
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter1);
+        clinicsRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        String subject = document.getString("ClinicName");
+                        Clinics.add(subject);
+                    }
+                    adapter1.notifyDataSetChanged();
+                }
+            }
+        });
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                String Clinicname = spinner.getSelectedItem().toString();
+                //query
+                Query query = db.collection("Doctors").whereEqualTo("Clinic",Clinicname);
+                FirestoreRecyclerOptions<DoctorModel> options = new FirestoreRecyclerOptions.Builder<DoctorModel>()
+                        .setQuery(query,DoctorModel.class)
+                        .build();
+                //adapter
+                 adapter = new FirestoreRecyclerAdapter<DoctorModel, DoctorsViewHolder>(options) {
+                    @NonNull
+                    @Override
+                    public DoctorsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.doctor_list_single,parent,false);
+                        return new DoctorsViewHolder(view);
+                    }
+
+                    @Override
+                    protected void onBindViewHolder(@NonNull DoctorsViewHolder holder, int position, @NonNull DoctorModel model) {
+                        holder.list_docname.setText("Doc "+model.getLastName());
+                        holder.list_docemail.setText(model.getEmail());
+                        holder.list_docclinic.setText(model.getClinic());
+                        holder.itemView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                //set
+                            }
+                        });
+
+                    }
+                };
+
+                doctorlist.setHasFixedSize(true);
+                doctorlist.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                doctorlist.setAdapter(adapter);
+                adapter.startListening();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        dialogbuilder.setView(selectDoctorView);
+        dialog= dialogbuilder.create();
+        dialog.show();
+        dialog.getWindow().setLayout(1200, 2000);
+
+
+
+
+    }
+
+    private class DoctorsViewHolder extends RecyclerView.ViewHolder{
+       private TextView list_docname;
+        private TextView list_docemail;
+        private TextView list_docclinic;
+
+
+        public DoctorsViewHolder(@NonNull View itemView) {
+            super(itemView);
+                list_docname = itemView.findViewById(R.id.list_docname);
+            list_docemail = itemView.findViewById(R.id.list_docemail);
+            list_docclinic= itemView.findViewById(R.id.list_docclinic);
+
+        }
+
+    }
+
+
 
 
     private void sendFCMTokenToDatabase (String token) {
