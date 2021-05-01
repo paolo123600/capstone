@@ -7,9 +7,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,7 +46,12 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
@@ -54,7 +62,7 @@ import com.google.firebase.iid.InstanceIdResult;
 
 import java.util.HashMap;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, DatePickerDialog.OnDateSetListener {
     private Button buttonbook;
     private Button buttonsched;
     private DrawerLayout drawer;
@@ -64,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private  FirestoreRecyclerAdapter adapter;
     private PreferenceManager preferenceManager;
     FirebaseFirestore db;
+    String datenow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +101,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         buttonbook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Calendar calendar = Calendar.getInstance();
+                datenow = DateFormat.getDateInstance().format(calendar.getTime());
+                Toast.makeText(MainActivity.this, datenow, Toast.LENGTH_SHORT).show();
                createSelectDoctorDialog();
             }
         });
@@ -122,6 +134,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         navigationView.setCheckedItem(R.id.nav_patienthome);
     }
+
+    @Override
+    public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+        Date nowdate = new Date() , currentdate  = new Date() ;
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, month);
+        c.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+        String currentDateString = DateFormat.getDateInstance().format(c.getTime());
+        Toast.makeText(MainActivity.this, currentDateString, Toast.LENGTH_SHORT).show();
+        GlobalVariables gv = (GlobalVariables) getApplicationContext();
+        gv.setSDDate(currentDateString);
+        SimpleDateFormat format = new SimpleDateFormat("MMMMM d,yyyy");
+        try {
+             nowdate = format.parse(datenow);
+        } catch (ParseException e) {
+            Toast.makeText(MainActivity.this, "error1", Toast.LENGTH_SHORT).show();
+        }
+        try {
+            currentdate = format.parse(currentDateString);
+        } catch (ParseException e) {
+            Toast.makeText(MainActivity.this, "error", Toast.LENGTH_SHORT).show();
+        }
+
+
+        if (currentdate.before(nowdate)){
+            Toast.makeText(MainActivity.this, "please select a valid date", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
@@ -170,14 +213,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+
+
+
     public void createSelectDateDialog(){
         dialogbuilder = new AlertDialog.Builder(this);
         final View selectDateView = getLayoutInflater().inflate(R.layout.popupselectdate,null);
-        TextView test;
 
-        test= (TextView) selectDateView.findViewById(R.id.TestView);
-        GlobalVariables gv =(GlobalVariables) getApplicationContext ();
-        test.setText(gv.getSDClinic()+gv.getSDDocemail());
+
+
+
+
+
 
         dialogbuilder.setView(selectDateView);
         dialog= dialogbuilder.create();
@@ -243,7 +290,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                 GlobalVariables gv =(GlobalVariables) getApplicationContext ();
                                 gv.setSDDocemail(model.getEmail());
                                 gv.setSDClinic(Clinicname);
-                                createSelectDateDialog();
+                                DialogFragment datepicker = new DatePickerFragment();
+                                datepicker.show(getSupportFragmentManager(),"date picker");
+
+
+
                             }
                         });
 
