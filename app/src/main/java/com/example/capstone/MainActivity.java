@@ -26,7 +26,6 @@ import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -35,10 +34,8 @@ import com.google.android.gms.tasks.Task;
 import com.example.capstone.activities.VideoCall_Main;
 import com.example.capstone.utilities.Constants;
 import com.example.capstone.utilities.PreferenceManager;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -55,7 +52,6 @@ import java.util.Date;
 import java.util.List;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
@@ -101,10 +97,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         buttonbook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Calendar calendar = Calendar.getInstance();
-                datenow = DateFormat.getDateInstance().format(calendar.getTime());
-                Toast.makeText(MainActivity.this, datenow, Toast.LENGTH_SHORT).show();
-               createSelectDoctorDialog();
+
+                Intent intent = new Intent(MainActivity.this,Doctor_Patientchatlist.class);
+                startActivity(intent);
+//                Calendar calendar = Calendar.getInstance();
+//                datenow = DateFormat.getDateInstance().format(calendar.getTime());
+//                Toast.makeText(MainActivity.this, datenow, Toast.LENGTH_SHORT).show();
+//               createSelectDoctorDialog();
             }
         });
 
@@ -332,8 +331,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         public DoctorsViewHolder(@NonNull View itemView) {
             super(itemView);
-                list_docname = itemView.findViewById(R.id.list_docname);
-            list_docemail = itemView.findViewById(R.id.list_docemail);
+                list_docname = itemView.findViewById(R.id.list_patientname);
+            list_docemail = itemView.findViewById(R.id.list_patemail);
             list_docclinic= itemView.findViewById(R.id.list_docclinic);
 
         }

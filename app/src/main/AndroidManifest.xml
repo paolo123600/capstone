@@ -15,10 +15,13 @@
         android:theme="@style/Theme.Capstone"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".activities.OutgoingInvitationActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activities.IncomingInvitationActivity"
-            android:screenOrientation="portrait"/>
+        <activity android:name=".Doctor_Patientchatlist"></activity>
+        <activity
+            android:name=".activities.OutgoingInvitationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.IncomingInvitationActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".activities.VideoCall_Main" />
         <activity android:name=".ProfileFragment" />
         <activity android:name=".patient_schedule" />
