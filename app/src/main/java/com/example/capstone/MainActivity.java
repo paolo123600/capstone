@@ -352,7 +352,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(MainActivity.this, "Token updated successfully", Toast.LENGTH_SHORT).show();
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -362,6 +362,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     }
                 });
     }
+
 
 }
 

@@ -42,4 +42,6 @@
     <string name="note">Note</string>
     <string name="date">Date</string>
     <string name="sign_out">sign_out</string>
+    <string name="incoming_meeting_invitation">incoming meeting invitation</string>
+    <string name="sending_meeting_invitation">sending meeting invitation</string>
 </resources>

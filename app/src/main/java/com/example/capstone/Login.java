@@ -52,7 +52,7 @@ public class Login extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-
+                Toast.makeText(Login.this, "test", Toast.LENGTH_SHORT).show();
                 userlogin();
             }
         });
