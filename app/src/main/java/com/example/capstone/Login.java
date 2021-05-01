@@ -77,6 +77,7 @@ public class Login extends AppCompatActivity {
                     String Uid=FirebaseAuth.getInstance().getCurrentUser().getUid();
                     GlobalVariables gv= (GlobalVariables) getApplicationContext();
                     gv.setMainUser(email);
+                    gv.setMainuserID(Uid);
                     DocumentReference docIdref = db.collection("Patients").document(Uid);
                     docIdref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
