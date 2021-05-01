@@ -66,4 +66,6 @@ dependencies {
 
     // Swipe Refresh Layout
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+
+    implementation 'io.agora.rtc:full-sdk:3.0.0'
 }

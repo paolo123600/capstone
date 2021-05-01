@@ -2,7 +2,12 @@ package com.example.capstone.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -108,8 +113,24 @@ public class IncomingInvitationActivity extends AppCompatActivity {
             @Override
             public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
                 if (response.isSuccessful()) {
+                    if (type.equals(Constants.REMOTE_MSG_INVITATION_ACCEPTED)) {
+                        try {
+                            Intent intent = new Intent(IncomingInvitationActivity.this, VideoChatViewActivity.class);
+                            startActivity(intent);
 
-                }else {
+
+
+
+                            finish();
+                        }catch (Exception exception) {
+                            Toast.makeText(IncomingInvitationActivity.this, exception.getMessage(), Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+                    }else {
+                        Toast.makeText(IncomingInvitationActivity.this, "Invitation Rejected", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                }else  {
                     Toast.makeText(IncomingInvitationActivity.this, response.message(), Toast.LENGTH_SHORT).show();
                     finish();
                 }
@@ -121,6 +142,36 @@ public class IncomingInvitationActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private BroadcastReceiver invitationResponseReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String type = intent.getStringExtra(Constants.REMOTE_MSG_INVITATION_RESPONSE);
+            if (type != null) {
+                if (type.equals(Constants.REMOTE_MSG_INVITATION_CANCELLED)) {
+                    Toast.makeText(context, "Invitation Cancelled", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+            }
+        }
+    };
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(
+                invitationResponseReceiver,
+                new IntentFilter(Constants.REMOTE_MSG_INVITATION_RESPONSE)
+        );
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(
+                invitationResponseReceiver
+        );
     }
 }
 

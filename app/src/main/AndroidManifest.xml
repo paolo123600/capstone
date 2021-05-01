@@ -4,6 +4,11 @@
     package="com.example.capstone">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".GlobalVariables"
@@ -25,6 +30,7 @@
         <activity android:name=".notification" />
         <activity android:name=".Medical_RecordActivity" />
         <activity android:name=".nurse_homepage" />
+        <activity android:name=".activities.VideoChatViewActivity"/>
         <activity android:name=".burger_test" />
         <activity
             android:name=".Sign_UpActivity"
