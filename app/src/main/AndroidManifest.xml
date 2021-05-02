@@ -35,11 +35,7 @@
         <activity android:name=".nurse_homepage" />
         <activity android:name=".activities.VideoChatViewActivity"/>
         <activity android:name=".burger_test" />
-        <activity android:name=".MainActivity_chat" />
-        <activity android:name=".MessageActivity" />
-
-
-
+        <activity android:name=".doctor_homepage" />
         <activity
             android:name=".Sign_UpActivity"
             android:exported="true" />

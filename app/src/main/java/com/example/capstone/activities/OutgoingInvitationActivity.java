@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.capstone.GlobalVariables;
 import com.example.capstone.R;
 import com.example.capstone.models.User;
 import com.example.capstone.network.ApiClient;
@@ -39,6 +40,7 @@ public class OutgoingInvitationActivity extends AppCompatActivity {
     private PreferenceManager preferenceManager;
     private String inviterToken = null;
     String meetingRoom = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +109,8 @@ public class OutgoingInvitationActivity extends AppCompatActivity {
             data.put(Constants.KEY_EMAIL, preferenceManager.getString(Constants.KEY_EMAIL));
             data.put(Constants.REMOTE_MSG_INVITER_TOKEN, inviterToken);
 
+            GlobalVariables gv = (GlobalVariables) getApplicationContext();
+            gv.setChannel_Name(preferenceManager.getString(Constants.KEY_EMAIL));
             meetingRoom =
                     preferenceManager.getString(Constants.KEY_USER_ID) + "" +
                             UUID.randomUUID().toString().substring(0, 5);
@@ -185,6 +189,9 @@ public class OutgoingInvitationActivity extends AppCompatActivity {
             if (type != null) {
                 if (type.equals(Constants.REMOTE_MSG_INVITATION_ACCEPTED)) {
                     try {
+//                        GlobalVariables gv = (GlobalVariables) getApplicationContext();
+//                        Toast.makeText(OutgoingInvitationActivity.this,gv.getChannel_Name() , Toast.LENGTH_SHORT).show();
+
 
                         Intent intents = new Intent(OutgoingInvitationActivity.this, VideoChatViewActivity.class);
                         startActivity(intents);

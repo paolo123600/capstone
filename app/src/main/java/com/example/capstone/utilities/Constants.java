@@ -14,6 +14,7 @@ public class Constants {
 
     public static final String KEY_PREFERENCE_NAME = "VideoMeetingPreference";
     public static final String KEY_IS_SIGNED_IN = "isSignedIn";
+    public static final String USERTYPE = "usertype";
 
     public static final String REMOTE_MSG_AUTHORIZATION = "Authorization";
     public static final String REMOTE_MSG_CONTENT_TYPE = "Content-Type";

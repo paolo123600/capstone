@@ -30,7 +30,7 @@ FirebaseFirestore db;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor__patientchatlist);
-
+            String clinicname = "Clinic2";
         db=FirebaseFirestore.getInstance();
         changechat=(Button) findViewById(R.id.btn_changechat_secretary);
         materialSearchBar = (MaterialSearchBar) findViewById(R.id.searchBar);
@@ -38,7 +38,7 @@ FirebaseFirestore db;
 
         patientlist = (RecyclerView) findViewById(R.id.recyclerViewpat);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        Query query = db.collection("Patients");
+        Query query = db.collection("Patients").whereEqualTo(clinicname, "true");
         FirestoreRecyclerOptions<PatientModel> options = new FirestoreRecyclerOptions.Builder<PatientModel>()
                 .setQuery(query,PatientModel.class)
                 .build();

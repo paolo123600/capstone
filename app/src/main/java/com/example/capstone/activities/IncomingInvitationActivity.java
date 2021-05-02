@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.capstone.GlobalVariables;
 import com.example.capstone.R;
 import com.example.capstone.network.ApiClient;
 import com.example.capstone.network.ApiService;
@@ -42,9 +43,14 @@ public class IncomingInvitationActivity extends AppCompatActivity {
             }
         }
 
+
         TextView textFirstChar = findViewById(R.id.textFirstChar);
         TextView textUsername = findViewById(R.id.textUsername);
         TextView textEmail = findViewById(R.id.textEmail);
+
+        GlobalVariables gv = (GlobalVariables) getApplicationContext();
+        gv.setChannel_Name(getIntent().getStringExtra(Constants.KEY_EMAIL));
+
 
         String firstName = getIntent().getStringExtra(Constants.KEY_FIRST_NAME);
         if (firstName != null) {
@@ -66,6 +72,7 @@ public class IncomingInvitationActivity extends AppCompatActivity {
                 sendInvitationResponse(
                         Constants.REMOTE_MSG_INVITATION_ACCEPTED,
                         getIntent().getStringExtra(Constants.REMOTE_MSG_INVITER_TOKEN)
+
                 );
             }
         });
@@ -115,10 +122,11 @@ public class IncomingInvitationActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     if (type.equals(Constants.REMOTE_MSG_INVITATION_ACCEPTED)) {
                         try {
+
                             Intent intent = new Intent(IncomingInvitationActivity.this, VideoChatViewActivity.class);
                             startActivity(intent);
-
-
+//                            GlobalVariables gv = (GlobalVariables) getApplicationContext();
+//                            Toast.makeText(IncomingInvitationActivity.this,gv.getChannel_Name() , Toast.LENGTH_SHORT).show();
 
 
                             finish();
