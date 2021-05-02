@@ -26,6 +26,11 @@
         <activity android:name=".Medical_RecordActivity" />
         <activity android:name=".nurse_homepage" />
         <activity android:name=".burger_test" />
+        <activity android:name=".MainActivity_chat" />
+        <activity android:name=".MessageActivity" />
+
+
+
         <activity
             android:name=".Sign_UpActivity"
             android:exported="true" />

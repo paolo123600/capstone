@@ -65,6 +65,7 @@ import java.util.HashMap;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, DatePickerDialog.OnDateSetListener {
     private Button buttonbook;
     private Button buttonsched;
+    Button chat;
     private DrawerLayout drawer;
     private AlertDialog.Builder dialogbuilder;
     private Dialog dialog;
@@ -83,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         preferenceManager = new PreferenceManager(getApplicationContext());
 
-
+        chat = findViewById(R.id.chat);
         buttonbook = (Button) findViewById(R.id.booknow);
         buttonsched = (Button) findViewById(R.id.schedules);
 
@@ -96,7 +97,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
 
 
-
+        chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, MainActivity_chat.class);
+                startActivity(intent);
+            }
+        });
 
         buttonbook.setOnClickListener(new View.OnClickListener() {
             @Override

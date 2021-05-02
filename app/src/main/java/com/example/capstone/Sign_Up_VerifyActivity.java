@@ -24,6 +24,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -39,13 +42,16 @@ public class Sign_Up_VerifyActivity extends AppCompatActivity {
     String VEmail= "";
     String Vcode="";
     String email ="";
-    private FirebaseAuth mAuth;
-    private PreferenceManager preferenceManager;
+    FirebaseAuth mAuth;
+     PreferenceManager preferenceManager;
+    DatabaseReference reference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup_verfiy);
         GlobalVariables gv =(GlobalVariables) getApplicationContext ();
+
 
         preferenceManager = new PreferenceManager(getApplicationContext());
 
@@ -162,17 +168,20 @@ public class Sign_Up_VerifyActivity extends AppCompatActivity {
         String Illness =gv.getIllness();
 
 
-        mAuth.createUserWithEmailAndPassword(email,Pass)
+        mAuth.createUserWithEmailAndPassword(email, Pass)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            String Uid=FirebaseAuth.getInstance().getCurrentUser().getUid();
+                            FirebaseUser user = mAuth.getCurrentUser();
 
+
+                            String Uid=FirebaseAuth.getInstance().getCurrentUser().getUid();
                             Map<String,Object> Patients = new HashMap<>();
                             Patients.put("FirstName",Fname);
                             Patients.put("LastName",Lname);
                             Patients.put("MiddleInitial",Mname);
+                            Patients.put("id", user.getUid());
                             Patients.put("Sex",Sex);
                             Patients.put("Contact",Contact);
                             Patients.put("Address",Address);
@@ -194,6 +203,8 @@ public class Sign_Up_VerifyActivity extends AppCompatActivity {
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
+
+
                                             new AlertDialog.Builder(Sign_Up_VerifyActivity.this)
                                                     .setTitle("Account Successfully Created")
                                                     .setMessage("You have successfully created an account!! You can now login in the login page.")
@@ -211,11 +222,12 @@ public class Sign_Up_VerifyActivity extends AppCompatActivity {
                                     Toast.makeText(gv, "Fail addingdata", Toast.LENGTH_SHORT).show();
                                 }
                             });
+                            }
 
 
 
                         }
-                    }
+
                 });
 
     }

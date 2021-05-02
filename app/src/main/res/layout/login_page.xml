@@ -7,6 +7,9 @@
     android:layout_height="match_parent"
     tools:context=".Login">
 
+    <include layout="@layout/barlayout"
+        android:id="@+id/toolbarlogin"/>
+
     <EditText
         android:id="@+id/Username"
         android:layout_width="226dp"
@@ -19,13 +22,14 @@
         android:background="@drawable/roundtbox"
         android:drawableLeft="@drawable/ic_baseline_person_24"
         android:ems="10"
-        android:hint="@string/username"
+        android:hint="@string/Email"
         android:inputType="textPersonName"
         android:paddingLeft="10dp"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="96dp"
         tools:layout_editor_absoluteX="99dp"
         tools:layout_editor_absoluteY="251dp" />
+
 
     <EditText
         android:id="@+id/Password"
@@ -78,7 +82,6 @@
         android:layout_marginRight="59dp"
         android:background="@drawable/darkround"
         android:text="Sign up"
-        android:onClick="sign_up"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="321dp" />

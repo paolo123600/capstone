@@ -6,13 +6,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.capstone.utilities.PreferenceManager;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -25,6 +33,9 @@ public class Sign_UpActivity extends AppCompatActivity {
 Button btnContinue;
 EditText ET_FName, ET_LName, ET_MI, ET_Sex, ET_Email, ET_Pass, ET_ConPass , ET_Address, ET_Municipality,ET_Postal, ET_Contact, ET_Nationality;
 FirebaseFirestore db;
+Toolbar toolbar;
+FirebaseAuth mAuth;
+DatabaseReference reference;
     @Override
 protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -66,18 +77,77 @@ protected void onCreate(Bundle savedInstanceState) {
             gv.setMunicipality(String.valueOf(ET_Municipality.getText()));
             gv.setPostal(String.valueOf(ET_Postal.getText()));
 
-
-
-
             Intent intent = new Intent(Sign_UpActivity.this,Medical_RecordActivity.class);
 
             startActivity(intent);
 
 
 
+
+
+
+
         }
     });
 
-}}
+
+}
+    private void registerUser(final String Fname, String Pass, final String email) {
+
+        mAuth.createUserWithEmailAndPassword(email, Pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+
+                if (task.isSuccessful()) {
+
+                    FirebaseUser user = mAuth.getCurrentUser();
+
+                    reference = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid());
+
+
+                    if (user!=null) {
+
+                        HashMap<String, Object> hashMap = new HashMap<>();
+                        hashMap.put("username", Fname);
+                        hashMap.put("email", email);
+                        hashMap.put("id", user.getUid());
+                        hashMap.put("imageURL", "default");
+                        hashMap.put("status", "offline");
+
+
+                        reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+
+
+                                if (task.isSuccessful()) {
+
+                                    Toast.makeText(Sign_UpActivity.this, "Registered Successfully", Toast.LENGTH_SHORT).show();
+
+                                    startActivity(new Intent(Sign_UpActivity.this,
+                                            Sign_UpActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK ));
+
+
+                                }
+                            }
+                        });
+
+
+
+
+
+
+                    }
+
+
+                }
+
+
+
+            }
+        });
+
+    }
+}
 
 
