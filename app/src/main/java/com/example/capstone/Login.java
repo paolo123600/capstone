@@ -100,6 +100,7 @@ public class Login extends AppCompatActivity {
                                     preferenceManager.putString(Constants.KEY_USER_ID, document.getId());
                                     preferenceManager.putString(Constants.KEY_FIRST_NAME, document.getString(Constants.KEY_FIRST_NAME));
                                     preferenceManager.putString(Constants.KEY_LAST_NAME, document.getString(Constants.KEY_LAST_NAME));
+                                    preferenceManager.putString(Constants.KEY_EMAIL, document.getString(Constants.KEY_EMAIL));
 
                                     Intent intent = new Intent (Login.this, MainActivity.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -120,6 +121,7 @@ public class Login extends AppCompatActivity {
                                                     preferenceManager.putString(Constants.KEY_USER_ID, document.getId());
                                                     preferenceManager.putString(Constants.KEY_FIRST_NAME, document.getString(Constants.KEY_FIRST_NAME));
                                                     preferenceManager.putString(Constants.KEY_LAST_NAME, document.getString(Constants.KEY_LAST_NAME));
+                                                    preferenceManager.putString(Constants.KEY_EMAIL, document.getString(Constants.KEY_EMAIL));
 
                                                     Intent intent = new Intent (Login.this, doctor_homepage.class);
                                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
