@@ -90,7 +90,7 @@ public class ChatsFragment extends Fragment {
 
                 }
 
-                ChatsListings();asdasd
+                ChatsListings();
 
             }
 
@@ -144,7 +144,7 @@ public class ChatsFragment extends Fragment {
                 }
 
                 mAdapter = new UserAdapter(getContext(), mUsers, true);
-                recyclerView.setAdapter(mAdapter);
+                recyclerView.setAdapter(mAdapter); as
 
             }
 
