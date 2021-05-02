@@ -90,7 +90,7 @@ public class ChatsFragment extends Fragment {
 
                 }
 
-                ChatsListings();asdasd
+                ChatsListings();
 
             }
 
