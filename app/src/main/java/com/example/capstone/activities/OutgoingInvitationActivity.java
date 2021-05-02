@@ -84,7 +84,7 @@ public class OutgoingInvitationActivity extends AppCompatActivity {
                 if (task.isSuccessful() && task.getResult() != null) {
                     inviterToken = task.getResult().getToken();
                     GlobalVariables gv = (GlobalVariables) getApplicationContext();
-                    gv.setChannel_Name(inviterToken);
+                    gv.setChannel_Name(preferenceManager.getString(Constants.KEY_EMAIL));
                     if (meetingType != null && user != null) {
                         initiateMeeting(meetingType, user.token);
                     }
@@ -188,6 +188,8 @@ public class OutgoingInvitationActivity extends AppCompatActivity {
             if (type != null) {
                 if (type.equals(Constants.REMOTE_MSG_INVITATION_ACCEPTED)) {
                     try {
+
+
 
                         Intent intents = new Intent(OutgoingInvitationActivity.this, VideoChatViewActivity.class);
                         startActivity(intents);

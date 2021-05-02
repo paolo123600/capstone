@@ -59,7 +59,7 @@ public class VideoChatViewActivity extends AppCompatActivity {
 
     private SurfaceView mRemoteView;
 
-   private String Channel = "";
+   private String Channel1 = "";
 
     private final IRtcEngineEventHandler mRtcEventHandler = new IRtcEngineEventHandler() {
         /**
@@ -161,7 +161,7 @@ public class VideoChatViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_video_chat_view);
         initUI();
         GlobalVariables gv = (GlobalVariables) getApplicationContext();
-       Channel = gv.getChannel_Name();
+       Channel1 = gv.getChannel_Name();
 
         if (checkSelfPermission(REQUESTED_PERMISSIONS[0], PERMISSION_REQ_ID) &&
                 checkSelfPermission(REQUESTED_PERMISSIONS[1], PERMISSION_REQ_ID) &&
@@ -299,7 +299,7 @@ public class VideoChatViewActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(token) || TextUtils.equals(token, "#YOUR ACCESS TOKEN#")) {
             token = null; // default, no token
         }
-        mRtcEngine.joinChannel(token, Channel, "Extra Optional Data", 0);
+        mRtcEngine.joinChannel(token,Channel1, "Extra Optional Data", 0);
     }
 
     private void startCall() {
