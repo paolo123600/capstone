@@ -16,6 +16,8 @@ import com.example.capstone.Model.Chats;
 import com.example.capstone.Model.Chatslist;
 import com.example.capstone.Model.Users;
 import com.example.capstone.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -37,8 +39,8 @@ public class ChatsFragment extends Fragment {
     List<Users> mUsers;
     RecyclerView recyclerView;
     UserAdapter mAdapter;
-    FirebaseUser firebaseUser;
-
+    FirebaseFirestore firebaseUser;
+    FirebaseAuth mAuth;
 
 
 
@@ -54,12 +56,25 @@ public class ChatsFragment extends Fragment {
         recyclerView = view.findViewById(R.id.chat_recyclerview_chatfrag);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference reference  = FirebaseDatabase.getInstance().getReference("Chatslist")
-                .child(firebaseUser.getUid());
+
+        mAuth = FirebaseAuth.getInstance();
+        String Uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DocumentReference reference = firebaseUser.collection("Chatlist").document(Uid);
+        reference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()){
+                    DocumentSnapshot userModel = task.getResult();
+                    String Name = userModel.getString("Email");
+                    userlist.add(Name);
+
+                }
 
 
-
+            }
+        });
+        ///DatabaseReference reference  = FirebaseDatabase.getInstance().getReference("Chatslist")
+                //.child(firebaseUser.getUid());
 
 
         reference.addValueEventListener(new ValueEventListener() {
@@ -71,7 +86,6 @@ public class ChatsFragment extends Fragment {
                     Chatslist chatslist = ds.getValue(Chatslist.class);
 
                     userlist.add(chatslist);
-
 
 
                 }
@@ -97,7 +111,6 @@ public class ChatsFragment extends Fragment {
         mUsers = new ArrayList<>();
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users");
-
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
