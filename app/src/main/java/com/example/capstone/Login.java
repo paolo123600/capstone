@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.example.capstone.utilities.Constants;
 import com.example.capstone.utilities.PreferenceManager;
@@ -37,9 +38,17 @@ public class Login extends AppCompatActivity {
 
         preferenceManager = new PreferenceManager(getApplicationContext());
         if (preferenceManager.getBoolean(Constants.KEY_IS_SIGNED_IN)) {
+            if (preferenceManager.getString(Constants.USERTYPE).equals("Patient")){
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
             finish();
+            }
+            else if (preferenceManager.getString(Constants.USERTYPE).equals("Doctor")){
+                Intent intent = new Intent(getApplicationContext(), doctor_homepage.class);
+                startActivity(intent);
+                finish();
+
+            }
         }
 
         setContentView(R.layout.login_page);
@@ -84,11 +93,13 @@ public class Login extends AppCompatActivity {
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()){
                                 DocumentSnapshot document = task.getResult();
-                                preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN, true);
-                                preferenceManager.putString(Constants.KEY_USER_ID, document.getId());
-                                preferenceManager.putString(Constants.KEY_FIRST_NAME, document.getString(Constants.KEY_FIRST_NAME));
-                                preferenceManager.putString(Constants.KEY_LAST_NAME, document.getString(Constants.KEY_LAST_NAME));
+
                                 if (document.exists()){
+                                    preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN, true);
+                                    preferenceManager.putString(Constants.USERTYPE, "Patient");
+                                    preferenceManager.putString(Constants.KEY_USER_ID, document.getId());
+                                    preferenceManager.putString(Constants.KEY_FIRST_NAME, document.getString(Constants.KEY_FIRST_NAME));
+                                    preferenceManager.putString(Constants.KEY_LAST_NAME, document.getString(Constants.KEY_LAST_NAME));
 
                                     Intent intent = new Intent (Login.this, MainActivity.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -104,7 +115,15 @@ public class Login extends AppCompatActivity {
                                             if (task.isSuccessful()){
                                                 DocumentSnapshot document = task.getResult();
                                                 if (document.exists()){
-                                                    Toast.makeText(Login.this, "Pasukan ang Doctor", Toast.LENGTH_SHORT).show();
+                                                    preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN, true);
+                                                    preferenceManager.putString(Constants.USERTYPE, "Doctor");
+                                                    preferenceManager.putString(Constants.KEY_USER_ID, document.getId());
+                                                    preferenceManager.putString(Constants.KEY_FIRST_NAME, document.getString(Constants.KEY_FIRST_NAME));
+                                                    preferenceManager.putString(Constants.KEY_LAST_NAME, document.getString(Constants.KEY_LAST_NAME));
+
+                                                    Intent intent = new Intent (Login.this, doctor_homepage.class);
+                                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                    startActivity(intent);
                                                 }
                                                 else {
                                                     String Uid=FirebaseAuth.getInstance().getCurrentUser().getUid();

@@ -20,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.capstone.GlobalVariables;
 import com.example.capstone.MainActivity;
 import com.example.capstone.R;
 
@@ -58,6 +59,7 @@ public class VideoChatViewActivity extends AppCompatActivity {
 
     private SurfaceView mRemoteView;
 
+   private String Channel = "";
 
     private final IRtcEngineEventHandler mRtcEventHandler = new IRtcEngineEventHandler() {
         /**
@@ -158,7 +160,8 @@ public class VideoChatViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_chat_view);
         initUI();
-
+        GlobalVariables gv = (GlobalVariables) getApplicationContext();
+       Channel = gv.getChannel_Name();
 
         if (checkSelfPermission(REQUESTED_PERMISSIONS[0], PERMISSION_REQ_ID) &&
                 checkSelfPermission(REQUESTED_PERMISSIONS[1], PERMISSION_REQ_ID) &&
@@ -213,8 +216,7 @@ public class VideoChatViewActivity extends AppCompatActivity {
     }
 
     public void onLocalAudioMuteClicked(View view) {
-        Intent intent = new Intent(com.example.capstone.activities.VideoChatViewActivity.this, MainActivity.class);
-        startActivity(intent);
+
     }
 
     private boolean checkSelfPermission(String permission, int requestCode) {
@@ -297,7 +299,7 @@ public class VideoChatViewActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(token) || TextUtils.equals(token, "#YOUR ACCESS TOKEN#")) {
             token = null; // default, no token
         }
-        mRtcEngine.joinChannel(token, "pao", "Extra Optional Data", 0);
+        mRtcEngine.joinChannel(token, Channel, "Extra Optional Data", 0);
     }
 
     private void startCall() {

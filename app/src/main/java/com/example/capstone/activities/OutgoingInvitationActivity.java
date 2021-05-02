@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.capstone.GlobalVariables;
 import com.example.capstone.R;
 import com.example.capstone.models.User;
 import com.example.capstone.network.ApiClient;
@@ -82,6 +83,8 @@ public class OutgoingInvitationActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<InstanceIdResult> task) {
                 if (task.isSuccessful() && task.getResult() != null) {
                     inviterToken = task.getResult().getToken();
+                    GlobalVariables gv = (GlobalVariables) getApplicationContext();
+                    gv.setChannel_Name(inviterToken);
                     if (meetingType != null && user != null) {
                         initiateMeeting(meetingType, user.token);
                     }
