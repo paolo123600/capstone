@@ -40,6 +40,7 @@ public class OutgoingInvitationActivity extends AppCompatActivity {
     private PreferenceManager preferenceManager;
     private String inviterToken = null;
     String meetingRoom = null;
+    String sd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
