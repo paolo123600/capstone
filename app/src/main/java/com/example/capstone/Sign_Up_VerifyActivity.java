@@ -196,6 +196,7 @@ public class Sign_Up_VerifyActivity extends AppCompatActivity {
                             Patients.put("BloodType",BloodType);
                             Patients.put("Allergies",Allergies);
                             Patients.put("Illness",Illness);
+                            Patients.put("UserId",Uid);
 
 
                             db.collection("Patients").document(Uid)
