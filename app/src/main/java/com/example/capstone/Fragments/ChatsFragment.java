@@ -57,48 +57,10 @@ public class ChatsFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
-        mAuth = FirebaseAuth.getInstance();
-        String Uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        DocumentReference reference = firebaseUser.collection("Chatlist").document(Uid);
-        reference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()){
-                    DocumentSnapshot userModel = task.getResult();
-                    String Name = userModel.getString("Email");
-                    userlist.add(Name);
 
-                }
-
-
-            }
-        });
         ///DatabaseReference reference  = FirebaseDatabase.getInstance().getReference("Chatslist")
                 //.child(firebaseUser.getUid());
 
-
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                userlist.clear();
-                for (DataSnapshot ds: snapshot.getChildren()) {
-                    Chatslist chatslist = ds.getValue(Chatslist.class);
-
-                    userlist.add(chatslist);
-
-
-                }
-
-                ChatsListings();
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
 
 
 
@@ -143,8 +105,6 @@ public class ChatsFragment extends Fragment {
 
                 }
 
-                mAdapter = new UserAdapter(getContext(), mUsers, true);
-                recyclerView.setAdapter(mAdapter); as
 
             }
 

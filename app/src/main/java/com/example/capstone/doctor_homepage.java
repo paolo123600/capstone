@@ -55,39 +55,39 @@ public class doctor_homepage extends AppCompatActivity {
 
         users = new ArrayList<>();
 
-callbtn= (Button) findViewById(R.id.btn_call);
-callbtn.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-        Query query =  db.collection("Patients").whereEqualTo("Email",gmail);
-        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        callbtn= (Button) findViewById(R.id.btn_call);
+        callbtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()){
-                    for(QueryDocumentSnapshot document : task.getResult()) {
+            public void onClick(View view) {
+                Query query =  db.collection("Patients").whereEqualTo("Email",gmail);
+                query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()){
+                            for(QueryDocumentSnapshot document : task.getResult()) {
 
-                            User user = new User();
-                            user.token = document.get("fcm_token").toString();
-                            user.firstName = document.get("FirstName").toString();
-                            user.lastName = document.get("LastName").toString();
-                            user.email = document.get("Email").toString();
-                            users.add (user);
+                                User user = new User();
+                                user.token = document.get("fcm_token").toString();
+                                user.firstName = document.get("FirstName").toString();
+                                user.lastName = document.get("LastName").toString();
+                                user.email = document.get("Email").toString();
+                                users.add (user);
 
-                            Intent intent = new Intent(getApplicationContext(), OutgoingInvitationActivity.class);
-                            intent.putExtra("user", user);
-                            intent.putExtra("type", "video");
-                            startActivity(intent);
+                                Intent intent = new Intent(getApplicationContext(), OutgoingInvitationActivity.class);
+                                intent.putExtra("user", user);
+                                intent.putExtra("type", "video");
+                                startActivity(intent);
 
 
+                            }
+
+
+                        }
                     }
+                });
 
-
-                }
             }
         });
-
-    }
-});
 
 
 

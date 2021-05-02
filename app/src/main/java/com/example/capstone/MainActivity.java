@@ -178,7 +178,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Intent intent = new Intent(MainActivity.this, ProfileFragment.class);
                 startActivity(intent);
                 break;
-            case R.id.nav_about:
+            case R.id.nav_logout:
                 Toast.makeText(this, "Signing Out...", Toast.LENGTH_SHORT).show();
                 FirebaseFirestore database = FirebaseFirestore.getInstance();
                 DocumentReference documentReference =
@@ -203,9 +203,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             }
                         });
                 break;
+            case R.id.medical_records:
+                break;
         }
         drawer.closeDrawer(GravityCompat.START);
-
+        Intent intent = new Intent(MainActivity.this, Clinic_view.class);
+        startActivity(intent);
         return true;
     }
 
