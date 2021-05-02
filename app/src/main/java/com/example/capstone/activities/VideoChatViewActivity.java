@@ -299,7 +299,7 @@ public class VideoChatViewActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(token) || TextUtils.equals(token, "#YOUR ACCESS TOKEN#")) {
             token = null; // default, no token
         }
-        mRtcEngine.joinChannel(token,"Channel1", "Extra Optional Data", 0);
+        mRtcEngine.joinChannel(token,Channel1, "Extra Optional Data", 0);
     }
 
     private void startCall() {

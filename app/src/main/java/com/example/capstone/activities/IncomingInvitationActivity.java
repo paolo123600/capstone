@@ -123,13 +123,13 @@ public class IncomingInvitationActivity extends AppCompatActivity {
                     if (type.equals(Constants.REMOTE_MSG_INVITATION_ACCEPTED)) {
                         try {
 
-//                            Intent intent = new Intent(IncomingInvitationActivity.this, VideoChatViewActivity.class);
-//                            startActivity(intent);
-                            GlobalVariables gv = (GlobalVariables) getApplicationContext();
-                            Toast.makeText(IncomingInvitationActivity.this,gv.getChannel_Name() , Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(IncomingInvitationActivity.this, VideoChatViewActivity.class);
+                            startActivity(intent);
+//                            GlobalVariables gv = (GlobalVariables) getApplicationContext();
+//                            Toast.makeText(IncomingInvitationActivity.this,gv.getChannel_Name() , Toast.LENGTH_SHORT).show();
 
 
-//                            finish();
+                            finish();
                         }catch (Exception exception) {
                             Toast.makeText(IncomingInvitationActivity.this, exception.getMessage(), Toast.LENGTH_SHORT).show();
                             finish();
