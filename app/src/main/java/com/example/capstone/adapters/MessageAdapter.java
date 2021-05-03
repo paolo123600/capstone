@@ -24,17 +24,17 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
 
     Context context;
     List<Chats> chatslist;
-    String imageURL;
+
 
     public static final int MESSAGE_RIGHT = 0; // FOR ME (
     public static final int MESSAGE_LEFT = 1; // FOR FRIEND
 
 
 
-    public MessageAdapter(Context context, List<Chats> chatslist, String imageURL) {
+    public MessageAdapter(Context context, List<Chats> chatslist) {
         this.context = context;
         this.chatslist = chatslist;
-        this.imageURL = imageURL;
+
     }
 
     @NonNull
@@ -66,14 +66,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
         holder.messagetext.setText(chats.getMessage());
 
 
-        if (imageURL.equals("default")) {
 
-
-            holder.imageView.setImageResource(R.drawable.user);
-        } else {
-
-            Glide.with(context).load(imageURL).into(holder.imageView);
-        }
 
 
         if (position == chatslist.size() -1) {
@@ -103,14 +96,14 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
     class MyViewHolder extends RecyclerView.ViewHolder{
 
         TextView messagetext, seen;
-        CircleImageView imageView;
+
 
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             messagetext = itemView.findViewById(R.id.show_message);
-            imageView = itemView.findViewById(R.id.chat_image);
+
             seen = itemView.findViewById(R.id.text_Seen);
         }
     }

@@ -66,7 +66,7 @@ public class ChatsFragment extends Fragment {
                 if (task.isSuccessful()){
                     DocumentSnapshot userModel = task.getResult();
                     String Name = userModel.getString("Email");
-                    userlist.add(Name);
+//                    userlist.add(Name);
 
                 }
 
@@ -77,28 +77,28 @@ public class ChatsFragment extends Fragment {
                 //.child(firebaseUser.getUid());
 
 
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                userlist.clear();
-                for (DataSnapshot ds: snapshot.getChildren()) {
-                    Chatslist chatslist = ds.getValue(Chatslist.class);
-
-                    userlist.add(chatslist);
-
-
-                }
-
-                ChatsListings();
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+//        reference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//
+//                userlist.clear();
+//                for (DataSnapshot ds: snapshot.getChildren()) {
+//                    Chatslist chatslist = ds.getValue(Chatslist.class);
+//
+//                    userlist.add(chatslist);
+//
+//
+//                }
+//
+//                ChatsListings();
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
 
 
 
@@ -144,7 +144,7 @@ public class ChatsFragment extends Fragment {
                 }
 
                 mAdapter = new UserAdapter(getContext(), mUsers, true);
-                recyclerView.setAdapter(mAdapter); as
+                recyclerView.setAdapter(mAdapter);
 
             }
 

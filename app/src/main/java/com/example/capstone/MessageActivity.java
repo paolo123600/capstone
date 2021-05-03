@@ -24,6 +24,8 @@ import com.example.capstone.adapters.MessageAdapter;
 
 import com.example.capstone.Model.Chats;
 import com.example.capstone.Model.Users;
+import com.example.capstone.utilities.Constants;
+import com.example.capstone.utilities.PreferenceManager;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -48,16 +50,16 @@ public class MessageActivity extends AppCompatActivity {
 
 
     String friendid, message, myid;
-    CircleImageView imageViewOnToolbar;
+
     TextView usernameonToolbar;
     Toolbar toolbar;
     FirebaseUser firebaseUser;
     ImageButton camera_btn;
     EditText et_message;
     Button send;
-    //img
-    Uri imageUri = null;
-    FirebaseUser user;
+    private PreferenceManager preferenceManager;
+
+
 
     DatabaseReference reference;
 
@@ -74,7 +76,7 @@ public class MessageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
-
+        preferenceManager = new PreferenceManager(getApplicationContext());
         //send pic
         camera_btn = findViewById(R.id.camera_btn_send);
 
@@ -83,7 +85,7 @@ public class MessageActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        imageViewOnToolbar = findViewById(R.id.profile_image_toolbar_message);
+
         usernameonToolbar = findViewById(R.id.username_ontoolbar_message);
 
         recyclerView = findViewById(R.id.recyclerview_messages);
@@ -94,10 +96,12 @@ public class MessageActivity extends AppCompatActivity {
         send = findViewById(R.id.send_messsage_btn);
         et_message = findViewById(R.id.edit_message_text);
 
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        myid = firebaseUser.getUid(); // my id or the one who is loggedin
 
-        friendid = getIntent().getStringExtra("friendid"); // retreive the friendid when we click on the item
+
+        myid = preferenceManager.getString(Constants.KEY_USER_ID);
+
+        friendid="82ko9kfLFTbVemOr2NtUmK42ZwB2";
+//        friendid = getIntent().getStringExtra("friendid"); // retreive the friendid when we click on the item
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -112,26 +116,16 @@ public class MessageActivity extends AppCompatActivity {
             }
         });
 
-
-
-
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                Users users = snapshot.getValue(Users.class);
+//                Users users = snapshot.getValue(Users.class);
+//
+//                usernameonToolbar.setText(users.getUsername()); // set the text of the user on textivew in toolbar
 
-                usernameonToolbar.setText(users.getUsername()); // set the text of the user on textivew in toolbar
 
-                if (users.getImageURL().equals("default")) {
-
-                    imageViewOnToolbar.setImageResource(R.drawable.user);
-                } else {
-
-                    Glide.with(getApplicationContext()).load(users.getImageURL()).into(imageViewOnToolbar);
-                }
-
-                readMessages(myid, friendid, users.getImageURL());
+                readMessages(myid, friendid);
 
 
 
@@ -142,6 +136,9 @@ public class MessageActivity extends AppCompatActivity {
 
             }
         });
+
+
+
 
 
         seenMessage(friendid);
@@ -250,7 +247,7 @@ public class MessageActivity extends AppCompatActivity {
 
     }
 
-    private void readMessages(final String myid, final String friendid, final String imageURL) {
+    private void readMessages(final String myid, final String friendid) {
 
         chatsList = new ArrayList<>();
 
@@ -271,7 +268,7 @@ public class MessageActivity extends AppCompatActivity {
                         chatsList.add(chats);
                     }
 
-                    messageAdapter = new MessageAdapter(MessageActivity.this, chatsList, imageURL);
+                    messageAdapter = new MessageAdapter(MessageActivity.this, chatsList);
                     recyclerView.setAdapter(messageAdapter);
 
                 }
@@ -327,35 +324,6 @@ public class MessageActivity extends AppCompatActivity {
     }
 
 
-
-
-    private void Status (final String status) {
-
-
-        final DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
-
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("status", status);
-
-        reference.updateChildren(hashMap);
-
-
-
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Status("online");
-
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Status("offline");
-        reference.removeEventListener(seenlistener);
-    }
 
 
 }

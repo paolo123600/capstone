@@ -97,7 +97,7 @@ public class Login extends AppCompatActivity {
                                 if (document.exists()){
                                     preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN, true);
                                     preferenceManager.putString(Constants.USERTYPE, "Patient");
-                                    preferenceManager.putString(Constants.KEY_USER_ID, document.getId());
+                                    preferenceManager.putString(Constants.KEY_USER_ID, Uid);
                                     preferenceManager.putString(Constants.KEY_FIRST_NAME, document.getString(Constants.KEY_FIRST_NAME));
                                     preferenceManager.putString(Constants.KEY_LAST_NAME, document.getString(Constants.KEY_LAST_NAME));
                                     preferenceManager.putString(Constants.KEY_EMAIL, document.getString(Constants.KEY_EMAIL));
@@ -118,10 +118,11 @@ public class Login extends AppCompatActivity {
                                                 if (document.exists()){
                                                     preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN, true);
                                                     preferenceManager.putString(Constants.USERTYPE, "Doctor");
-                                                    preferenceManager.putString(Constants.KEY_USER_ID, document.getId());
+                                                    preferenceManager.putString(Constants.KEY_USER_ID, Uid);
                                                     preferenceManager.putString(Constants.KEY_FIRST_NAME, document.getString(Constants.KEY_FIRST_NAME));
                                                     preferenceManager.putString(Constants.KEY_LAST_NAME, document.getString(Constants.KEY_LAST_NAME));
                                                     preferenceManager.putString(Constants.KEY_EMAIL, document.getString(Constants.KEY_EMAIL));
+                                                    preferenceManager.putString("ClinicName",document.getString("ClinicName"));
 
                                                     Intent intent = new Intent (Login.this, doctor_homepage.class);
                                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

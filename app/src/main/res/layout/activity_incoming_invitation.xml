@@ -33,9 +33,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
@@ -47,7 +50,7 @@
             android:includeFontPadding="false"
             android:textAllCaps="true"
             android:textColor="@color/black"
-            android:textSize="@dimen/_30ssp"/>
+            android:textSize="@dimen/_30ssp" />
 
         <TextView
             android:id="@+id/textUsername"
@@ -57,7 +60,7 @@
             android:gravity="center"
             android:includeFontPadding="false"
             android:textColor="@color/white"
-            android:textSize="@dimen/_18ssp"/>
+            android:textSize="@dimen/_18ssp" />
 
         <TextView
             android:id="@+id/textEmail"
@@ -67,7 +70,7 @@
             android:gravity="center"
             android:includeFontPadding="false"
             android:textColor="@color/white"
-            android:textSize="@dimen/_11ssp"/>
+            android:textSize="@dimen/_11ssp" />
 
     </LinearLayout>
 

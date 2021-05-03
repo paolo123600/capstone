@@ -15,29 +15,17 @@
         app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:mt_hint="Search" />
-
-    <Button
-        android:id="@+id/btn_changechat_secretary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Secretary"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.894"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerViewpat" />
+        app:mt_hint="Search by Surname" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewpat"
-        android:layout_width="406dp"
-        android:layout_height="419dp"
+        android:layout_width="367dp"
+        android:layout_height="431dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5"
-        app:layout_constraintVertical_bias="0.126" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView5"

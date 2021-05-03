@@ -5,13 +5,6 @@
     android:layout_height="wrap_content">
 
 
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:id="@+id/chat_image"
-        android:src="@drawable/user"/>
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,7 +14,6 @@
         android:text="Hello"
         android:textColor="@android:color/white"
         android:textSize="18sp"
-        android:layout_toRightOf="@id/chat_image"
         android:background="@drawable/background_left"/>
 
 
