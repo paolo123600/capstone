@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RecentChats">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/chat_recyclerview_recentchat"
+        android:layout_width="match_parent"
+        android:layout_height="493dp" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+
+
+            </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_recentchat"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/chat_recyclerview_recentchat"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="106dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="-69dp"
+        android:background="@drawable/shapes"
+        android:drawableLeft="@drawable/ic_baseline_add_24"
+        android:ems="10"
+        android:gravity="right"
+        android:paddingLeft="10dp"
+        android:textSize="15dp"
+
+        tools:layout_editor_absoluteX="99dp"
+        tools:layout_editor_absoluteY="251dp" />
+
+
+</RelativeLayout>

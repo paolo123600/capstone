@@ -60,13 +60,47 @@
 
 
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewPager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                <Button
+                    android:id="@+id/btn_continueforgotpass"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="18dp"
+                    android:layout_marginEnd="140dp"
+                    android:layout_marginRight="140dp"
+                    android:background="@drawable/darkround"
+                    android:text="VERIFY"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:layout_editor_absoluteY="321dp" />
+            </androidx.viewpager.widget.ViewPager>
+
+
+
+
+
+
+
+        </RelativeLayout>
+
+
+
+
+
+
+
+
 
 
 
