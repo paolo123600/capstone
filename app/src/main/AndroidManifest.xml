@@ -20,7 +20,9 @@
         android:theme="@style/Theme.Capstone"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".Clinic_view"></activity>
+        <activity android:name=".RecentChatDoc"></activity>
+        <activity android:name=".RecentChatSecretary" />
+        <activity android:name=".Clinic_view" />
         <activity android:name=".Doctor_Patientchatlist" />
         <activity
             android:name=".activities.OutgoingInvitationActivity"

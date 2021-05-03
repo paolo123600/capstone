@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RecentChats">
+    tools:context=".RecentChatDoc">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/chat_recyclerview_recentchat"
+        android:id="@+id/chat_recyclerview_recentchatDoc"
         android:layout_width="match_parent"
         android:layout_height="493dp"
         android:layout_alignParentStart="true"
@@ -28,10 +28,10 @@
     </RelativeLayout>
 
     <Button
-        android:id="@+id/btn_recentchat"
+        android:id="@+id/btn_recentchatDoc"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/chat_recyclerview_recentchat"
+        android:layout_below="@id/chat_recyclerview_recentchatDoc"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
