@@ -108,6 +108,8 @@ public class Login extends AppCompatActivity {
                                 }
                                 else {
 
+
+
                                     String Uid=FirebaseAuth.getInstance().getCurrentUser().getUid();
                                     DocumentReference docIdref = db.collection("Doctors").document(Uid);
                                     docIdref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
