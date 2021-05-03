@@ -20,7 +20,8 @@
         android:theme="@style/Theme.Capstone"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".Doctor_Patientchatlist"></activity>
+        <activity android:name=".Clinic_view"></activity>
+        <activity android:name=".Doctor_Patientchatlist" />
         <activity
             android:name=".activities.OutgoingInvitationActivity"
             android:screenOrientation="portrait" />
@@ -34,7 +35,7 @@
         <activity android:name=".notification" />
         <activity android:name=".Medical_RecordActivity" />
         <activity android:name=".nurse_homepage" />
-        <activity android:name=".activities.VideoChatViewActivity"/>
+        <activity android:name=".activities.VideoChatViewActivity" />
         <activity android:name=".burger_test" />
         <activity android:name=".doctor_homepage" />
         <activity

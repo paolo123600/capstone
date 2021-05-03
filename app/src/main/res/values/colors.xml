@@ -18,4 +18,6 @@
 
     <color name="localBackground">#827b92</color>
     <color name="remoteBackground">#484258</color>
+
+    <color name="blue">#00A6FF</color>
 </resources>

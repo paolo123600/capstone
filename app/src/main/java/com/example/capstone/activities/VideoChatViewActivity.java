@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -21,6 +22,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.capstone.GlobalVariables;
+import com.example.capstone.Login;
 import com.example.capstone.MainActivity;
 import com.example.capstone.R;
 
@@ -54,6 +56,8 @@ public class VideoChatViewActivity extends AppCompatActivity {
     private ImageView mCallBtn;
     private ImageView mMuteBtn;
     private ImageView mSwitchCameraBtn;
+    private ImageButton mChatButton;
+    private ImageButton mAddNote;
 
     private SurfaceView mLocalView;
 
@@ -138,7 +142,7 @@ public class VideoChatViewActivity extends AppCompatActivity {
                 public void run() {
                     endCall();
                     RtcEngine.destroy();
-                    Intent intent = new Intent(com.example.capstone.activities.VideoChatViewActivity.this, VideoCall_Main.class);
+                    Intent intent = new Intent(com.example.capstone.activities.VideoChatViewActivity.this, Login.class);
                     startActivity(intent);
                     finish();
                     onRemoteUserLeft(uid);
@@ -185,12 +189,14 @@ public class VideoChatViewActivity extends AppCompatActivity {
         int visibility = show ? View.VISIBLE : View.GONE;
         mMuteBtn.setVisibility(visibility);
         mSwitchCameraBtn.setVisibility(visibility);
+        mAddNote.setVisibility(visibility);
+        mChatButton.setVisibility(visibility);
     }
 
     public void onCallClicked(View view) {
         endCall();
         RtcEngine.destroy();
-        Intent intent = new Intent(com.example.capstone.activities.VideoChatViewActivity.this, VideoCall_Main.class);
+        Intent intent = new Intent(com.example.capstone.activities.VideoChatViewActivity.this, Login.class);
         startActivity(intent);
         finish();
     }
@@ -216,7 +222,16 @@ public class VideoChatViewActivity extends AppCompatActivity {
     }
 
     public void onLocalAudioMuteClicked(View view) {
+        mMuted = !mMuted;
+        // Stops/Resumes sending the local audio stream.
+        mRtcEngine.muteLocalAudioStream(mMuted);
+        int res = mMuted ? R.drawable.btn_mute : R.drawable.btn_unmute;
+        mMuteBtn.setImageResource(res);
+    }
 
+    public void onSwitchCameraClicked(View view) {
+        // Switches between front and rear cameras.
+        mRtcEngine.switchCamera();
     }
 
     private boolean checkSelfPermission(String permission, int requestCode) {
