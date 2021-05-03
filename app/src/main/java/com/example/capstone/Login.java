@@ -49,6 +49,13 @@ public class Login extends AppCompatActivity {
                 finish();
 
             }
+            else if (preferenceManager.getString(Constants.USERTYPE).equals("Secretary")){
+                Intent intent = new Intent(getApplicationContext(), doctor_homepage.class);
+                startActivity(intent);
+                finish();
+
+            }
+
         }
 
         setContentView(R.layout.login_page);
@@ -140,9 +147,17 @@ public class Login extends AppCompatActivity {
                                                                 DocumentSnapshot document = task.getResult();
                                                                 if (document.exists()){
 
-                                                                    Toast.makeText(Login.this, "Pasukan ang secretary", Toast.LENGTH_SHORT).show();
-//                                                            Intent forgotPW = new Intent (Login.this, MainActivity.class);
-//                                                            startActivity(forgotPW);
+                                                                    preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN, true);
+                                                                    preferenceManager.putString(Constants.USERTYPE, "Secretary");
+                                                                    preferenceManager.putString(Constants.KEY_USER_ID, Uid);
+                                                                    preferenceManager.putString(Constants.KEY_FIRST_NAME, document.getString(Constants.KEY_FIRST_NAME));
+                                                                    preferenceManager.putString(Constants.KEY_LAST_NAME, document.getString(Constants.KEY_LAST_NAME));
+                                                                    preferenceManager.putString(Constants.KEY_EMAIL, document.getString(Constants.KEY_EMAIL));
+                                                                    preferenceManager.putString("ClinicName",document.getString("ClinicName"));
+
+                                                                    Intent intent = new Intent (Login.this, doctor_homepage.class);
+                                                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                                    startActivity(intent);
                                                                 }
                                                                 else {
                                                                     Toast.makeText(Login.this, "Invalid login details", Toast.LENGTH_SHORT).show();
