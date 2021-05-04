@@ -50,7 +50,7 @@ public class Login extends AppCompatActivity {
 
             }
             else if (preferenceManager.getString(Constants.USERTYPE).equals("Secretary")){
-                Intent intent = new Intent(getApplicationContext(), doctor_homepage.class);
+                Intent intent = new Intent(getApplicationContext(), secretary_homepage.class);
                 startActivity(intent);
                 finish();
 
@@ -155,7 +155,7 @@ public class Login extends AppCompatActivity {
                                                                     preferenceManager.putString(Constants.KEY_EMAIL, document.getString(Constants.KEY_EMAIL));
                                                                     preferenceManager.putString("ClinicName",document.getString("ClinicName"));
 
-                                                                    Intent intent = new Intent (Login.this, doctor_homepage.class);
+                                                                    Intent intent = new Intent (Login.this, secretary_homepage.class);
                                                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                                                     startActivity(intent);
                                                                 }

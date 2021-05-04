@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.example.capstone.Model.Chatslist;
 import com.example.capstone.Model.Users;
 import com.example.capstone.R;
+import com.example.capstone.adapters.UserAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;

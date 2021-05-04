@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class doctor_homepage extends AppCompatActivity {
+    Button btn_dochat;
     FirebaseFirestore db;
     private  Button callbtn;
     String gmail ="pao@gmail.com";
@@ -42,6 +43,15 @@ public class doctor_homepage extends AppCompatActivity {
         setContentView(R.layout.doctor_home);
         db=FirebaseFirestore.getInstance();
         preferenceManager = new PreferenceManager(getApplicationContext());
+        btn_dochat = (Button) findViewById(R.id.btn_chat_dochome);
+
+        btn_dochat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), RecentChatDoc.class);
+                startActivity(intent);
+            }
+        });
 
         FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
             @Override

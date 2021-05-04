@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,6 +52,9 @@ public class MessageActivity extends AppCompatActivity {
 
     String friendid, message, myid;
 
+    String type;
+    LinearLayout chat_act;
+    String usertype;
     TextView usernameonToolbar;
     Toolbar toolbar;
     FirebaseUser firebaseUser;
@@ -79,6 +83,15 @@ public class MessageActivity extends AppCompatActivity {
         preferenceManager = new PreferenceManager(getApplicationContext());
         //send pic
         camera_btn = findViewById(R.id.camera_btn_send);
+        chat_act = (LinearLayout) findViewById(R.id.chat_act);
+        friendid = getIntent().getStringExtra("friendid"); // retreive the friendid when we click on the item
+        usertype = getIntent().getStringExtra("usertype");
+        type = getIntent().getStringExtra("type");
+        if (usertype.equals("Doctors") && type.equals("Patients")) {
+            chat_act.setVisibility(View.INVISIBLE);
+        }else {
+
+        }
 
         toolbar = findViewById(R.id.toolbar_message);
         setSupportActionBar(toolbar);
@@ -100,8 +113,7 @@ public class MessageActivity extends AppCompatActivity {
 
         myid = preferenceManager.getString(Constants.KEY_USER_ID);
 
-        friendid="82ko9kfLFTbVemOr2NtUmK42ZwB2";
-//        friendid = getIntent().getStringExtra("friendid"); // retreive the friendid when we click on the item
+
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -125,7 +137,7 @@ public class MessageActivity extends AppCompatActivity {
 
 //                Users users = snapshot.getValue(Users.class);
 //
-//                usernameonToolbar.setText(users.getUsername()); // set the text of the user on textivew in toolbar
+             usernameonToolbar.setText(getIntent().getStringExtra("name")); // set the text of the user on textivew in toolbar
 
 
                 readMessages(myid, friendid);

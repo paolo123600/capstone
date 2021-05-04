@@ -7,20 +7,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-public class nurse_homepage extends AppCompatActivity {
+public class secretary_homepage extends AppCompatActivity {
     private RelativeLayout notif_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nurse_homepage);
+        setContentView(R.layout.activity_secretary_homepage);
 
         notif_button = findViewById(R.id.notification_button);
 
         notif_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(nurse_homepage.this, notification.class);
+                Intent intent = new Intent(secretary_homepage.this, Sec_patient_list.class);
                 startActivity(intent);
             }
         });

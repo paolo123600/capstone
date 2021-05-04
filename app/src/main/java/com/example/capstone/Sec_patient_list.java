@@ -18,32 +18,31 @@ import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.Tasks;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.mancj.materialsearchbar.MaterialSearchBar;
 
-import java.util.List;
+public class Sec_patient_list extends AppCompatActivity {
 
-public class Doctor_Patientchatlist extends AppCompatActivity {
-  private   String clinicname;
-private RecyclerView patientlist;
-private FirestoreRecyclerAdapter adapter;
-private RecyclerView.Adapter adapter2;
-MaterialSearchBar materialSearchBar;
-FirebaseFirestore db;
-String txt;
+    private String searchtype = "Patients";
+    TextView changeTV;
+    Button btnchange;
+    private   String clinicname;
+    private RecyclerView patientlist;
+    private FirestoreRecyclerAdapter adapter;
+    private RecyclerView.Adapter adapter2;
+    MaterialSearchBar materialSearchBar;
+    FirebaseFirestore db;
+    String txt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_doctor__patientchatlist);
-            clinicname = "Clinic1";
+        setContentView(R.layout.activity_sec_patient_list);
+
+        changeTV = findViewById(R.id.changeTV);
+        btnchange = findViewById(R.id.button_doctor_view);
+        clinicname = "Clinic1";
         db=FirebaseFirestore.getInstance();
         materialSearchBar = (MaterialSearchBar) findViewById(R.id.searchBar);
         materialSearchBar.setCardViewElevation(10);
@@ -66,7 +65,6 @@ String txt;
                 else{
                     txt= txt.substring(0,1).toUpperCase()+txt.substring(1).toLowerCase();
                     startsearchpatient(txt.toString());
-                    Toast.makeText(Doctor_Patientchatlist.this, txt.toString(), Toast.LENGTH_SHORT).show();
 
                 }
 
@@ -82,41 +80,68 @@ String txt;
         });
 
 
-
+btnchange.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        if (searchtype == "Patients") {
+            searchtype = "Doctors";
+            changeTV.setText("Doctors: ");
+            btnchange.setText("Patient");
+        }else {
+            searchtype = "Patients";
+            changeTV.setText("Patients: ");
+            btnchange.setText("Doctor");
+        }
+        getpatient();
+    }
+});
 
 
     }
 
     private void startsearchpatient(String text) {
+        Query query;
         adapter.stopListening();
         patientlist = (RecyclerView) findViewById(R.id.recyclerViewpat);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        Query query = db.collection("Patients").whereEqualTo(clinicname, "true").orderBy("LastName").startAt(text).endAt(text+'\uf8ff');
+        if (searchtype == "Patients") {
+            query = db.collection(searchtype).whereEqualTo(clinicname, "true").orderBy("LastName").startAt(text).endAt(text+'\uf8ff');
+        }else {
+            query = db.collection(searchtype).whereEqualTo("ClinicName", clinicname).orderBy("LastName").startAt(text).endAt(text+'\uf8ff');
+        }
         FirestoreRecyclerOptions<PatientModel> options = new FirestoreRecyclerOptions.Builder<PatientModel>()
                 .setQuery(query,PatientModel.class)
                 .build();
 
-        adapter = new FirestoreRecyclerAdapter<PatientModel, PatientsViewHolder>(options) {
+        adapter = new FirestoreRecyclerAdapter<PatientModel, Sec_patient_list.PatientsViewHolder>(options) {
 
             @NonNull
             @Override
-            public PatientsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            public Sec_patient_list.PatientsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.patient_list_single,parent,false);
-                return new PatientsViewHolder(view);
+                return new Sec_patient_list.PatientsViewHolder(view);
             }
 
             @Override
-            protected void onBindViewHolder(@NonNull PatientsViewHolder holder, int position, @NonNull PatientModel model) {
-                holder.list_patname.setText(model.getLastName()+", "+model.getFirstName());
+            protected void onBindViewHolder(@NonNull Sec_patient_list.PatientsViewHolder holder, int position, @NonNull PatientModel model) {
+                if (searchtype == "Patients") {
+                    holder.list_patname.setText(model.getLastName()+", "+model.getFirstName());
+                }else {
+                    holder.list_patname.setText("Dr."+" "+model.getLastName());
+                }
                 holder.list_patemail.setText(model.getEmail());
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(getApplicationContext(), MessageActivity.class);
                         intent.putExtra("friendid", model.getUserId());
-                        intent.putExtra("name", model.getLastName()+", "+model.getFirstName());
-                        intent.putExtra("usertype", "Patients");
-                        intent.putExtra("type", "Doctors");
+                        if (searchtype == "Patients") {
+                            intent.putExtra("name", model.getLastName()+", "+model.getFirstName());
+                        }else {
+                            intent.putExtra("name", "Dr."+" "+model.getLastName());
+                        }
+                        intent.putExtra("usertype", searchtype);
+                        intent.putExtra("type", "Secretary");
                         startActivity(intent);
                     }
                 });
@@ -124,7 +149,7 @@ String txt;
         };
 
         patientlist.setHasFixedSize(true);
-        patientlist.setLayoutManager(new LinearLayoutManager(Doctor_Patientchatlist.this));
+        patientlist.setLayoutManager(new LinearLayoutManager(Sec_patient_list.this));
         patientlist.setAdapter(adapter);
         adapter.startListening();
 
@@ -134,35 +159,47 @@ String txt;
     }
 
     private void getpatient() {
-
+        Query query;
         patientlist = (RecyclerView) findViewById(R.id.recyclerViewpat);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        Query query = db.collection("Patients").whereEqualTo(clinicname, "true");
+        if (searchtype == "Patients") {
+            query = db.collection(searchtype).whereEqualTo(clinicname, "true");
+        }else {
+            query = db.collection(searchtype).whereEqualTo("ClinicName", clinicname);
+        }
         FirestoreRecyclerOptions<PatientModel> options = new FirestoreRecyclerOptions.Builder<PatientModel>()
                 .setQuery(query,PatientModel.class)
                 .build();
 
-        adapter = new FirestoreRecyclerAdapter<PatientModel, PatientsViewHolder>(options) {
+        adapter = new FirestoreRecyclerAdapter<PatientModel, Sec_patient_list.PatientsViewHolder>(options) {
 
             @NonNull
             @Override
-            public PatientsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            public Sec_patient_list.PatientsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.patient_list_single,parent,false);
-                return new PatientsViewHolder(view);
+                return new Sec_patient_list.PatientsViewHolder(view);
             }
 
             @Override
-            protected void onBindViewHolder(@NonNull PatientsViewHolder holder, int position, @NonNull PatientModel model) {
-                holder.list_patname.setText(model.getLastName()+", "+model.getFirstName());
+            protected void onBindViewHolder(@NonNull Sec_patient_list.PatientsViewHolder holder, int position, @NonNull PatientModel model) {
+                if (searchtype == "Patients") {
+                    holder.list_patname.setText(model.getLastName()+", "+model.getFirstName());
+                }else {
+                    holder.list_patname.setText("Dr."+" "+model.getLastName());
+                }
                 holder.list_patemail.setText(model.getEmail());
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(getApplicationContext(), MessageActivity.class);
                         intent.putExtra("friendid", model.getUserId());
-                        intent.putExtra("name", model.getLastName()+", "+model.getFirstName());
-                        intent.putExtra("usertype", "Patients");
-                        intent.putExtra("type", "Doctors");
+                        if (searchtype == "Patients") {
+                            intent.putExtra("name", model.getLastName()+", "+model.getFirstName());
+                        }else {
+                            intent.putExtra("name", "Dr."+" "+model.getLastName());
+                        }
+                        intent.putExtra("usertype", searchtype);
+                        intent.putExtra("type", "Secretary");
                         startActivity(intent);
                     }
                 });
@@ -170,7 +207,7 @@ String txt;
         };
 
         patientlist.setHasFixedSize(true);
-        patientlist.setLayoutManager(new LinearLayoutManager(Doctor_Patientchatlist.this));
+        patientlist.setLayoutManager(new LinearLayoutManager(Sec_patient_list.this));
         patientlist.setAdapter(adapter);
         adapter.startListening();
 

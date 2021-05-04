@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,6 +51,12 @@ public class Clinic_view extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(@NonNull ClinicViewHolder holder, int position, @NonNull ClinicModel model) {
                 holder.clinic_list.setText(model.getClinicName());
+                Intent intent = new Intent(getApplicationContext(), MessageActivity.class);
+                intent.putExtra("friendid", model.getUserId());
+                intent.putExtra("name", model.getClinicName());
+                intent.putExtra("usertype", "Secretary");
+                intent.putExtra("type", "Patients");
+                startActivity(intent);
             }
         };
 

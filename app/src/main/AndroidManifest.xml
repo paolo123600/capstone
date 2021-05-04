@@ -22,7 +22,11 @@
         tools:targetApi="m">
         <activity android:name=".RecentChatDoc"></activity>
         <activity android:name=".RecentChatSecretary" />
+        <activity android:name=".RecentChats"/>
         <activity android:name=".Clinic_view" />
+        tools:targetApi="m" >
+        <activity android:name=".Sec_patient_list" >
+        </activity>
         <activity android:name=".Doctor_Patientchatlist" />
         <activity
             android:name=".activities.OutgoingInvitationActivity"
@@ -36,7 +40,7 @@
         <activity android:name=".patient_schedule" />
         <activity android:name=".notification" />
         <activity android:name=".Medical_RecordActivity" />
-        <activity android:name=".nurse_homepage" />
+        <activity android:name=".secretary_homepage" />
         <activity android:name=".activities.VideoChatViewActivity" />
         <activity android:name=".burger_test" />
         <activity android:name=".doctor_homepage" />
@@ -44,7 +48,7 @@
             android:name=".Sign_UpActivity"
             android:exported="true" />
         <activity android:name=".Sign_Up_VerifyActivity" />
-        <activity android:name=".Login">
+        <activity android:name=".Login" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -55,7 +59,7 @@
 
         <service
             android:name=".firebase.MessagingService"
-            android:exported="false">
+            android:exported="false" >
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
