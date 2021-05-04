@@ -114,65 +114,59 @@ FirebaseFirestore db;
     private void ChatsListings() {
 
         mUsers = new ArrayList<>();
-        for (Chatslist chatslist: userlist) {
-        db.collection("Patients").document(chatslist.getId())
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        DocumentSnapshot document = task.getResult();
-                        mUsers.add(document);
-                    }
-                });
+        for (Chatslist chatslist : userlist) {
+            db.collection("Patients").document(chatslist.getId())
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            DocumentSnapshot document = task.getResult();
+                            mUsers.add(document);
+                        }
+                    });
 
 
-
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users");
-
-
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                mUsers.clear();
-
-                for (DataSnapshot ds: snapshot.getChildren()) {
-
-                    Users users = ds.getValue(Users.class);
-
-                    for (Chatslist chatslist: userlist) {
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users");
 
 
-                        if (users.getId().equals(chatslist.getId())) {
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                    mUsers.clear();
+
+                    for (DataSnapshot ds : snapshot.getChildren()) {
+
+                        Users users = ds.getValue(Users.class);
+
+                        for (Chatslist chatslist : userlist) {
 
 
-                            mUsers.add(users);
+                            if (users.getId().equals(chatslist.getId())) {
 
 
+                                mUsers.add(users);
+
+
+                            }
 
 
                         }
 
 
-
-
                     }
 
+                    mAdapter = new UserAdapter(getContext(), mUsers, true);
+                    recyclerView.setAdapter(mAdapter);
 
                 }
 
-                mAdapter = new UserAdapter(getContext(), mUsers, true);
-                recyclerView.setAdapter(mAdapter);
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+                }
+            });
 
 
-
+        }
     }
-}
