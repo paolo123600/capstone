@@ -34,7 +34,7 @@ public class Clinic_view extends AppCompatActivity {
         mClinicList = findViewById(R.id.clinic_list);
 
         //Query
-        Query query = firebaseFirestore.collection("Clinics");
+        Query query = firebaseFirestore.collection("Secretary");
         //RecyclerOptions
         FirestoreRecyclerOptions<ClinicModel> options = new FirestoreRecyclerOptions.Builder<ClinicModel>()
                 .setQuery(query, ClinicModel.class)
@@ -51,13 +51,19 @@ public class Clinic_view extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(@NonNull ClinicViewHolder holder, int position, @NonNull ClinicModel model) {
                 holder.clinic_list.setText(model.getClinicName());
-                Intent intent = new Intent(getApplicationContext(), MessageActivity.class);
-                intent.putExtra("friendid", model.getUserId());
-                intent.putExtra("name", model.getClinicName());
-                intent.putExtra("usertype", "Secretary");
-                intent.putExtra("type", "Patients");
-                startActivity(intent);
-            }
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getApplicationContext(), MessageActivity.class);
+                        intent.putExtra("friendid", model.getUserId());
+                        intent.putExtra("name", model.getClinicName());
+                        intent.putExtra("usertype", "Secretary");
+                        intent.putExtra("type", "Patients");
+                        startActivity(intent);
+                    }
+                    });
+                }
+
         };
 
         mClinicList.setHasFixedSize(true);

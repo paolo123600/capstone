@@ -36,7 +36,7 @@ public class ChatsFragment extends Fragment {
     List<Chatslist> userlist;
     List<Users> mUsers;
     RecyclerView recyclerView;
-    UserAdapter mAdapter;
+//    UserAdapter mAdapter;
     FirebaseFirestore firebaseUser;
     FirebaseAuth mAuth;
 
@@ -141,8 +141,8 @@ public class ChatsFragment extends Fragment {
 
                 }
 
-                mAdapter = new UserAdapter(getContext(), mUsers, true);
-                recyclerView.setAdapter(mAdapter);
+//                mAdapter = new UserAdapter(getContext(), mUsers, true);
+//                recyclerView.setAdapter(mAdapter);
 
             }
 

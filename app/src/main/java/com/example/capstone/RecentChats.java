@@ -92,7 +92,7 @@ FirebaseFirestore db;
 
 
 
-        return view;
+//        return view;
 
 
 
@@ -121,7 +121,7 @@ FirebaseFirestore db;
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             DocumentSnapshot document = task.getResult();
-                            mUsers.add(document);
+//                            mUsers.add(document);
                         }
                     });
 
@@ -156,8 +156,8 @@ FirebaseFirestore db;
 
                     }
 
-                    mAdapter = new UserAdapter(getContext(), mUsers, true);
-                    recyclerView.setAdapter(mAdapter);
+//                    mAdapter = new UserAdapter(getContext(), mUsers, true);
+//                    recyclerView.setAdapter(mAdapter);
 
                 }
 
@@ -169,4 +169,4 @@ FirebaseFirestore db;
 
 
         }
-    }
+    } }

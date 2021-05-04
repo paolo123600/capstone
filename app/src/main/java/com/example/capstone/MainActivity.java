@@ -96,8 +96,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, RecentChats.class);
-                startActivity(intent);
+
+        Intent intent = new Intent(MainActivity.this, Clinic_view.class);
+        startActivity(intent);
+//                Intent intent = new Intent(MainActivity.this, RecentChats.class);
+//                startActivity(intent);
             }
         });
 
@@ -207,8 +210,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);
-        Intent intent = new Intent(MainActivity.this, Clinic_view.class);
-        startActivity(intent);
         return true;
     }
 

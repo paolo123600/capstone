@@ -34,7 +34,7 @@ public class UsersFragment extends Fragment {
 
     RecyclerView recyclerView;
     List<Users> usersList;
-    UserAdapter mAdapter;
+//    UserAdapter mAdapter;
     FirebaseFirestore firebaseUser;
     FirebaseFirestore db;
 
@@ -87,8 +87,8 @@ public class UsersFragment extends Fragment {
 
 
 
-                    mAdapter  = new UserAdapter(getContext(), usersList, false);
-                    recyclerView.setAdapter(mAdapter);
+//                    mAdapter  = new UserAdapter(getContext(), usersList, false);
+//                    recyclerView.setAdapter(mAdapter);
 
 
 
