@@ -100,8 +100,8 @@ public class MessageActivity extends AppCompatActivity {
 
         myid = preferenceManager.getString(Constants.KEY_USER_ID);
 
-        friendid="82ko9kfLFTbVemOr2NtUmK42ZwB2";
-//        friendid = getIntent().getStringExtra("friendid"); // retreive the friendid when we click on the item
+
+        friendid = getIntent().getStringExtra("friendid"); // retreive the friendid when we click on the item
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -324,9 +324,33 @@ public class MessageActivity extends AppCompatActivity {
             }
         });
 
+            final DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference("Chatslist").child(friendid).child(myid);
+
+        reference2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+
+                if (!snapshot.exists()) {
+
+
+                    reference2.child("id").setValue(myid);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
     }
 
 
 
 
-}
+
+
