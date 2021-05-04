@@ -87,6 +87,8 @@ public class MessageActivity extends AppCompatActivity {
         friendid = getIntent().getStringExtra("friendid"); // retreive the friendid when we click on the item
         usertype = getIntent().getStringExtra("usertype");
         type = getIntent().getStringExtra("type");
+
+
         if (usertype.equals("Doctors") && type.equals("Patients")) {
             chat_act.setVisibility(View.INVISIBLE);
         }else {

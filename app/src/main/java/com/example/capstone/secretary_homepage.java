@@ -20,7 +20,7 @@ public class secretary_homepage extends AppCompatActivity {
         notif_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(secretary_homepage.this, Sec_patient_list.class);
+                Intent intent = new Intent(secretary_homepage.this, RecentChatSecretary.class);
                 startActivity(intent);
             }
         });

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.capstone.MessageActivity;
 import com.example.capstone.Model.Chats;
+import com.example.capstone.Model.DocRC;
 import com.example.capstone.Model.PatRC;
 import com.example.capstone.Model.Users;
 import com.example.capstone.R;
@@ -35,10 +36,10 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyHolder> {
+public class DocAdapter extends RecyclerView.Adapter<DocAdapter.MyHolder> {
 
     Context context;
-    List<PatRC>  patRCList;
+    List<DocRC> docRCList ;
     boolean isChat;
 
     String friendid;
@@ -48,9 +49,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyHolder> {
     String type;
 
 
-    public UserAdapter(Context context, List<PatRC> patRCList, boolean isChat,String type) {
+    public DocAdapter(Context context, List<DocRC> docRcList, boolean isChat,String type) {
         this.context = context;
-        this.patRCList = patRCList;
+        this.docRCList = docRcList;
         this.isChat = isChat;
         this.type=type;
     }
@@ -68,20 +69,18 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyHolder> {
     @Override
     public void onBindViewHolder(@NonNull MyHolder holder, int position) {
 
-        PatRC patRC = patRCList.get(position);
+        DocRC docRC = docRCList.get(position);
 
-        friendid = patRC.getUserId();
-
-
-        holder.username.setText(patRC.getLastName()+", "+patRC.getFirstName());
+        friendid = docRC.getUserId();
 
 
-
+        holder.username.setText("Doc"+". "+docRC.getLastName());
+        holder.clinicname.setText(docRC.getClinicName());
 
 
         if (isChat) {
 
-            LastMessage(patRC.getUserId(), holder.last_msg);
+            LastMessage(docRC.getUserId(), holder.last_msg);
 
         } else {
 
@@ -94,13 +93,13 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyHolder> {
 
     @Override
     public int getItemCount() {
-        return patRCList.size();
+        return docRCList.size();
     }
 
     class MyHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
 
-        TextView username, last_msg;
+        TextView username, last_msg, clinicname;
 
 
         public MyHolder(@NonNull View itemView) {
@@ -109,7 +108,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyHolder> {
 
             username = itemView.findViewById(R.id.username_userfrag);
             last_msg = itemView.findViewById(R.id.lastMessage);
-
+            clinicname = itemView.findViewById(R.id.tv_clinic);
             itemView.setOnClickListener(this);
 
         }
@@ -117,14 +116,14 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyHolder> {
         @Override
         public void onClick(View v) {
 
-            PatRC patRC = patRCList.get(getAdapterPosition());
+            DocRC docRC = docRCList.get(getAdapterPosition());
 
-            friendid = patRC.getUserId();
+            friendid = docRC.getUserId();
 
             Intent intent = new Intent(context, MessageActivity.class);
             intent.putExtra("friendid", friendid);
-            intent.putExtra("name", patRC.getLastName()+", "+patRC.getFirstName());
-            intent.putExtra("usertype", "Patients");
+            intent.putExtra("name", "Doc."+" "+docRC.getLastName());
+            intent.putExtra("usertype", "Doctors");
             intent.putExtra("type", type);
             context.startActivity(intent);
 
