@@ -4,7 +4,7 @@
 
     <gradient
         android:angle="270"
-        android:endColor="@color/colorMeetingInvitationEnd"
-        android:startColor="@color/colorMeetingInvitationStart"/>
+        android:endColor="@color/colorPrimary"
+        android:startColor="@color/colorPrimaryDark"/>
 
 </shape>

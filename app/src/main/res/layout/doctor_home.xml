@@ -40,7 +40,7 @@
             android:layout_marginStart="252dp"
             android:layout_marginLeft="252dp"
             android:layout_marginTop="148dp"
-            android:drawableTop="@drawable/ic_baseline_call_24" />
+            android:background="@drawable/ic_baseline_call_24" />
 
         <Button
             android:id="@+id/btn_patient"

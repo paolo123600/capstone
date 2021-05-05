@@ -8,6 +8,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -37,6 +38,7 @@ import retrofit2.Response;
 
 public class OutgoingInvitationActivity extends AppCompatActivity {
 
+    MediaPlayer mediaPlayer;
     private PreferenceManager preferenceManager;
     private String inviterToken = null;
     String meetingRoom = null;
@@ -46,6 +48,11 @@ public class OutgoingInvitationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_outgoing_invitation);
+
+        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.ayayay_toy_phone);
+        mediaPlayer.setLooping(true);
+        mediaPlayer.setVolume(100, 100);
+        mediaPlayer.start();
 
         preferenceManager= new PreferenceManager(getApplicationContext());
 
@@ -142,6 +149,7 @@ public class OutgoingInvitationActivity extends AppCompatActivity {
                     if (type.equals(Constants.REMOTE_MSG_INVITATION)) {
                         Toast.makeText(OutgoingInvitationActivity.this, "Invitation sent successfully", Toast.LENGTH_SHORT).show();
                     }else if (type.equals(Constants.REMOTE_MSG_INVITATION_RESPONSE)) {
+                        mediaPlayer.stop();
                         Toast.makeText(OutgoingInvitationActivity.this, "Invitation Cancelled", Toast.LENGTH_SHORT).show();
                         finish();
                     }
@@ -196,11 +204,13 @@ public class OutgoingInvitationActivity extends AppCompatActivity {
                         Intent intents = new Intent(OutgoingInvitationActivity.this, VideoChatViewActivity.class);
                         startActivity(intents);
                         finish();
+                        mediaPlayer.stop();
                     }catch (Exception exception) {
                         Toast.makeText(context, exception.getMessage(), Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 }else if (type.equals(Constants.REMOTE_MSG_INVITATION_REJECTED)){
+                    mediaPlayer.stop();
                     Toast.makeText(context, "Invitation Rejected", Toast.LENGTH_SHORT).show();
                     finish();
                 }

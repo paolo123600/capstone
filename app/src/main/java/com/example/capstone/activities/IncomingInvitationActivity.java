@@ -8,6 +8,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -29,10 +30,17 @@ import retrofit2.Response;
 
 public class IncomingInvitationActivity extends AppCompatActivity {
 
+    MediaPlayer mediaPlayer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_incoming_invitation);
+
+        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.ayayay_toy_phone);
+        mediaPlayer.setLooping(true);
+        mediaPlayer.setVolume(100, 100);
+        mediaPlayer.start();
 
         ImageView imageMeetingType = findViewById(R.id.imageMeetingType);
         String meetingType = getIntent().getStringExtra(Constants.REMOTE_MSG_MEETING_TYPE);
@@ -73,7 +81,9 @@ public class IncomingInvitationActivity extends AppCompatActivity {
                         Constants.REMOTE_MSG_INVITATION_ACCEPTED,
                         getIntent().getStringExtra(Constants.REMOTE_MSG_INVITER_TOKEN)
 
+
                 );
+                mediaPlayer.stop();
             }
         });
 
@@ -85,6 +95,7 @@ public class IncomingInvitationActivity extends AppCompatActivity {
                         Constants.REMOTE_MSG_INVITATION_REJECTED,
                         getIntent().getStringExtra(Constants.REMOTE_MSG_INVITER_TOKEN)
                 );
+                mediaPlayer.stop();
             }
         });
 
@@ -136,6 +147,7 @@ public class IncomingInvitationActivity extends AppCompatActivity {
                         }
                     }else {
                         Toast.makeText(IncomingInvitationActivity.this, "Invitation Rejected", Toast.LENGTH_SHORT).show();
+                        mediaPlayer.stop();
                         finish();
                     }
                 }else  {
@@ -159,6 +171,7 @@ public class IncomingInvitationActivity extends AppCompatActivity {
             if (type != null) {
                 if (type.equals(Constants.REMOTE_MSG_INVITATION_CANCELLED)) {
                     Toast.makeText(context, "Invitation Cancelled", Toast.LENGTH_SHORT).show();
+                    mediaPlayer.stop();
                     finish();
                 }
             }

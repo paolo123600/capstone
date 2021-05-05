@@ -27,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     Button loginBtn;
     Toolbar toolbar;
     String email, password;
-    FirebaseAuth mAuth;
+    FirebaseAuth mAuth;//
 
 
     @Override
