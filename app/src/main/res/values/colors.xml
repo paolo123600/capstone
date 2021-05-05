@@ -20,4 +20,6 @@
     <color name="remoteBackground">#484258</color>
 
     <color name="blue">#00A6FF</color>
+
+    <color name="mainbg">#7daed6</color>
 </resources>
