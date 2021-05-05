@@ -10,9 +10,8 @@
         android:id="@+id/chat_recyclerview_recentchat"
         android:layout_width="match_parent"
         android:layout_height="245dp"
-        android:id="@+id/chat_recyclerview_recentchat3"
-        android:layout_width="408dp"
-        android:layout_height="wrap_content"
+
+
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
@@ -23,25 +22,16 @@
         android:paddingTop="@dimen/_20sdp" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/chat_recyclerview_recentchat2"
+        android:id="@+id/chat_recyclerview_recentchat3"
         android:layout_width="392dp"
         android:layout_height="238dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="377dp"
-        android:paddingTop="@dimen/_20sdp" />
-
-        android:layout_alignParentEnd="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginLeft="0dp"
-
-        android:layout_marginTop="91dp"
-        android:layout_marginEnd="3dp"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="9dp"
+        android:layout_marginLeft="9dp"
+        android:layout_marginTop="349dp"
         android:paddingTop="@dimen/_20sdp" />
 
     <RelativeLayout
@@ -55,17 +45,13 @@
     <Button
         android:id="@+id/btn_createchat"
         android:layout_width="50dp"
-        android:id="@+id/btn_recentchat"
-        android:layout_width="49dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/chat_recyclerview_recentchat3"
-        android:layout_below="@id/chat_recyclerview_recentchat2"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="283dp"
-        android:layout_marginEnd="22dp"
-        android:layout_marginRight="22dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginRight="18dp"
         android:layout_marginBottom="-69dp"
         android:background="@drawable/shapes"
         android:drawableLeft="@drawable/ic_baseline_add_24"
@@ -73,7 +59,6 @@
         android:gravity="right"
         android:paddingLeft="10dp"
         android:textSize="15dp"
-
         tools:layout_editor_absoluteX="99dp"
         tools:layout_editor_absoluteY="251dp" />
 
@@ -86,7 +71,9 @@
         android:layout_marginStart="-3dp"
         android:layout_marginTop="58dp"
         android:text="Doctor:"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:layout_marginLeft="-3dp"
+        android:layout_alignParentLeft="true" />
 
     <TextView
         android:id="@+id/textView7"
@@ -98,24 +85,10 @@
         android:layout_marginStart="2dp"
         android:layout_marginTop="321dp"
         android:text="Secretary:"
-        android:textSize="18sp" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/chat_recyclerview_recentchat4"
-        android:layout_width="408dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
+        android:textSize="18sp"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
+        android:layout_marginLeft="2dp" />
 
-        android:layout_alignParentEnd="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="-4dp"
-        android:layout_marginLeft="-4dp"
-
-        android:layout_marginTop="346dp"
-        android:layout_marginEnd="7dp"
-        android:paddingTop="@dimen/_20sdp" />
 
 
 </RelativeLayout>

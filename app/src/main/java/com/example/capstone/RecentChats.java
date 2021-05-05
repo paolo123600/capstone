@@ -58,13 +58,11 @@ FirebaseFirestore db;
         userlist = new ArrayList<>();
 
       recyclerView = (RecyclerView) findViewById(R.id.chat_recyclerview_recentchat3) ;
-      recyclerView1=(RecyclerView) findViewById(R.id.chat_recyclerview_recentchat4) ;
+
         layoutManager = new LinearLayoutManager(this);
-        layoutManager1 = new LinearLayoutManager(this);
+
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
-        recyclerView1.setLayoutManager(layoutManager1);
-        recyclerView1.setHasFixedSize(true);
 
         String User = preferenceManager.getString(Constants.KEY_USER_ID);
 
