@@ -6,7 +6,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardElevation="8dp"
     android:layout_margin="8dp"
-    android:clickable="true">
+    android:clickable="true"
+    android:background="@color/mainbg">
 
     <LinearLayout
         android:orientation="horizontal"

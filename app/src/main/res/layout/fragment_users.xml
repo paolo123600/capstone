@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="12dp"
-    tools:context="com.example.capstone.Fragments.UsersFragment">
+    tools:context="com.example.capstone.Fragments.UsersFragment"
+    android:background="@color/mainbg">
 
 
     <androidx.recyclerview.widget.RecyclerView

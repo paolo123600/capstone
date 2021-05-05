@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="300dp"
     android:padding="8dp"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/mainbg">
 
 
     <TextView
@@ -14,7 +15,8 @@
         android:text="Hello"
         android:textColor="@android:color/white"
         android:textSize="18sp"
-        android:background="@drawable/background_left"/>
+        android:background="@drawable/background_left"
+        />
 
 
     <TextView
