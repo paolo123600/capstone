@@ -12,7 +12,7 @@ public class DoctorModel {
         FirstName = firstName;
         LastName = lastName;
         Email = email;
-        Clinic = clinic;
+        ClinicName = clinic;
     }
 
     public void setFirstName(String firstName) {
@@ -36,14 +36,14 @@ public class DoctorModel {
     }
 
     public String getClinic() {
-        return Clinic;
+        return ClinicName;
     }
 
-    public void setClinic(String clinic) {
-        Clinic = clinic;
+    public void setClinic(String clinicName) {
+        ClinicName = clinicName;
     }
 
-    private String FirstName , LastName , Email , Clinic ;
+    private String FirstName , LastName , Email , ClinicName ;
 
 
 }

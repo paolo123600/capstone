@@ -276,7 +276,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 String Clinicname = spinner.getSelectedItem().toString();
                 //query
-                Query query = db.collection("Doctors").whereEqualTo("Clinic",Clinicname);
+                Query query = db.collection("Doctors").whereEqualTo("ClinicName",Clinicname);
                 FirestoreRecyclerOptions<DoctorModel> options = new FirestoreRecyclerOptions.Builder<DoctorModel>()
                         .setQuery(query,DoctorModel.class)
                         .build();
