@@ -68,6 +68,23 @@
         android:layout_below="@id/username_userfrag"
         android:layout_marginLeft="60dp"/>
 
+    <TextView
+        android:id="@+id/tv_clinic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="133dp"
+        android:layout_marginLeft="133dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_toEndOf="@+id/username_userfrag"
+        android:layout_toRightOf="@+id/username_userfrag"
+        android:text="" />
+
 
 </RelativeLayout>
 

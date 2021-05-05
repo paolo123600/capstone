@@ -11,34 +11,38 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.capstone.Model.Chatslist;
-import com.example.capstone.Model.Users;
-import com.example.capstone.adapters.UserAdapter;
+import com.example.capstone.Model.DocRC;
+import com.example.capstone.Model.SecRC;
+import com.example.capstone.adapters.DocAdapter;
+import com.example.capstone.adapters.SecAdapter;
 import com.example.capstone.utilities.Constants;
 import com.example.capstone.utilities.PreferenceManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-
-import org.w3c.dom.Document;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RecentChats extends AppCompatActivity   {
     List<Chatslist> userlist;
-    List<Users> mUsers;
+
+
+    List <DocRC> mDocs;
+    List <SecRC> mSecs;
     RecyclerView recyclerView;
+    RecyclerView recyclerView1;
     RecyclerView.LayoutManager layoutManager;
-    UserAdapter mAdapter;
+    RecyclerView.LayoutManager layoutManager1;
+    DocAdapter mAdapter;
+    SecAdapter secAdapter;
 FirebaseFirestore db;
     private PreferenceManager preferenceManager;
     Button newchat;
@@ -49,15 +53,18 @@ FirebaseFirestore db;
 
         preferenceManager = new PreferenceManager(getApplicationContext());
         db= FirebaseFirestore.getInstance();
-        newchat.findViewById(R.id.btn_recentchat);
+        newchat= (Button) findViewById(R.id.btn_createchat);
 
         userlist = new ArrayList<>();
 
-      recyclerView = (RecyclerView) findViewById(R.id.chat_recyclerview_recentchat) ;
+      recyclerView = (RecyclerView) findViewById(R.id.chat_recyclerview_recentchat3) ;
+      recyclerView1=(RecyclerView) findViewById(R.id.chat_recyclerview_recentchat4) ;
         layoutManager = new LinearLayoutManager(this);
+        layoutManager1 = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
-
+        recyclerView1.setLayoutManager(layoutManager1);
+        recyclerView1.setHasFixedSize(true);
 
         String User = preferenceManager.getString(Constants.KEY_USER_ID);
 
@@ -76,11 +83,10 @@ FirebaseFirestore db;
                     userlist.add(chatslist);
 
 
-
                 }
 
                 ChatsListings();
-
+                ChatsListingssec();
             }
 
             @Override
@@ -88,15 +94,6 @@ FirebaseFirestore db;
 
             }
         });
-
-
-
-
-//        return view;
-
-
-
-
 
 
 
@@ -113,60 +110,77 @@ FirebaseFirestore db;
     }
     private void ChatsListings() {
 
-        mUsers = new ArrayList<>();
-        for (Chatslist chatslist : userlist) {
-            db.collection("Patients").document(chatslist.getId())
-                    .get()
-                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                            DocumentSnapshot document = task.getResult();
-//                            mUsers.add(document);
-                        }
-                    });
+        mDocs = new ArrayList<>();
+
+        db.collection("Doctors").get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+
+                            for (QueryDocumentSnapshot doc : task.getResult()) {
+                                DocRC docRC = doc.toObject(DocRC.class);
+
+                                for (Chatslist chatslist: userlist){
+
+                                    if(chatslist.getId().equals(docRC.getUserId())){
 
 
-            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users");
+                                        mDocs.add(docRC);
 
+                                    }
 
-            databaseReference.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                    mUsers.clear();
-
-                    for (DataSnapshot ds : snapshot.getChildren()) {
-
-                        Users users = ds.getValue(Users.class);
-
-                        for (Chatslist chatslist : userlist) {
-
-
-                            if (users.getId().equals(chatslist.getId())) {
-
-
-                                mUsers.add(users);
-
+                                }
 
                             }
-
-
+                            mAdapter = new DocAdapter(RecentChats.this, mDocs, true,"Patients");
+                            recyclerView.setAdapter(mAdapter);
                         }
-
-
                     }
-
-//                    mAdapter = new UserAdapter(getContext(), mUsers, true);
-//                    recyclerView.setAdapter(mAdapter);
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
+                });
 
 
-        }
-    } }
+
+
+    }
+
+    private void ChatsListingssec() {
+
+        mSecs= new ArrayList<>();
+
+        db.collection("Secretary").get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+
+                            for (QueryDocumentSnapshot doc : task.getResult()) {
+                                SecRC secRC = doc.toObject(SecRC.class);
+
+                                for (Chatslist chatslist: userlist){
+
+                                    if(chatslist.getId().equals(secRC.getUserId())){
+
+
+                                        mSecs.add(secRC);
+
+                                    }
+
+                                }
+
+                            }
+                           secAdapter = new SecAdapter(RecentChats.this, mSecs, true,"Patients");
+                            recyclerView1.setAdapter(secAdapter);
+                        }
+                    }
+                });
+
+
+
+
+
+
+
+
+    }
+    }
