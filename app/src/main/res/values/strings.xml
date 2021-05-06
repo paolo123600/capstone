@@ -13,6 +13,9 @@
     <string name="Date">Date</string>
     <string name="time">time</string>
 
+    <string name="areyousure">Are you sure about the schedule?</string>
+    <string name="norefund">There will be no refund once confirmed.</string>
+    <string name="confirm">Confirm</string>
     <string name="chat">Chat</string>
     <string name="patient_record">Patient record</string>
     <string name="doctor_name">Doctors name</string>

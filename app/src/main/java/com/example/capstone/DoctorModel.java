@@ -8,11 +8,12 @@ public class DoctorModel {
     public DoctorModel() {
     }
 
-    public DoctorModel(String firstName, String lastName, String email, String clinic) {
+    public DoctorModel(String firstName, String lastName, String email, String clinic, String userId) {
         FirstName = firstName;
         LastName = lastName;
         Email = email;
         ClinicName = clinic;
+        UserId =userId;
     }
 
     public void setFirstName(String firstName) {
@@ -43,7 +44,20 @@ public class DoctorModel {
         ClinicName = clinicName;
     }
 
-    private String FirstName , LastName , Email , ClinicName ;
+    private String FirstName;
+    private String LastName;
+    private String Email;
+    private String ClinicName;
+    private String UserId ;
+    public String getUserId() {
+        return UserId;
+    }
+
+    public void setUserId(String userId) {
+        UserId = userId;
+    }
+
+
 
 
 }

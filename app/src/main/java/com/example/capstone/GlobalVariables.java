@@ -62,6 +62,53 @@ public class GlobalVariables extends Application {
     String SDClinic;
     String SDDocemail;
     String SDDate;
+    String SDtimestart;
+    String SDPatUId;
+    String SDtimestop;
+    String SDDocUid;
+    String SDnote;
+
+    public String getSDtimestart() {
+        return SDtimestart;
+    }
+
+    public void setSDtimestart(String SDtimestart) {
+        this.SDtimestart = SDtimestart;
+    }
+
+    public String getSDPatUId() {
+        return SDPatUId;
+    }
+
+    public void setSDPatUId(String SDPatUId) {
+        this.SDPatUId = SDPatUId;
+    }
+
+    public String getSDtimestop() {
+        return SDtimestop;
+    }
+
+    public void setSDtimestop(String SDtimestop) {
+        this.SDtimestop = SDtimestop;
+    }
+
+    public String getSDDocUid() {
+        return SDDocUid;
+    }
+
+    public void setSDDocUid(String SDDocUid) {
+        this.SDDocUid = SDDocUid;
+    }
+
+    public String getSDnote() {
+        return SDnote;
+    }
+
+    public void setSDnote(String SDnote) {
+        this.SDnote = SDnote;
+    }
+
+
 
     public String getMainUser() {
         return MainUser;
