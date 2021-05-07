@@ -1,6 +1,7 @@
 package com.example.capstone;
 
 public class PatientModel {
+    //
     public String getEmail() {
         return Email;
     }
