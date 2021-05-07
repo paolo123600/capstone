@@ -29,68 +29,11 @@
             tools:layout_editor_absoluteX="99dp"
             tools:layout_editor_absoluteY="251dp" />
 
-        <Button
-            android:id="@+id/btn_call"
-            android:layout_width="75dp"
-            android:layout_height="61dp"
 
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginStart="277dp"
-            android:layout_marginLeft="277dp"
-            android:layout_marginTop="173dp"
-            android:background="@drawable/ic_baseline_call_24" />
 
-        <Button
-            android:id="@+id/btn_patient"
-            android:layout_width="88dp"
-            android:layout_height="61dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginStart="242dp"
-            android:layout_marginLeft="242dp"
-            android:layout_marginTop="71dp"
-            android:text="Pateint record" />
 
-        <TextView
-            android:id="@+id/tvPatname"
-            android:layout_width="156dp"
-            android:layout_height="41dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginStart="62dp"
-            android:layout_marginLeft="62dp"
-            android:layout_marginTop="104dp"
-            android:ems="10"
-            android:paddingLeft="10dp"
-            android:text="Patient"
-            android:textSize="15dp"
-            tools:layout_editor_absoluteX="99dp"
-            tools:layout_editor_absoluteY="251dp" />
 
-        <TextView
-            android:id="@+id/tvSched"
-            android:layout_width="155dp"
-            android:layout_height="34dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginStart="61dp"
-            android:layout_marginLeft="61dp"
-            android:layout_marginTop="176dp"
-            android:ems="10"
-            android:paddingLeft="10dp"
-            android:text="Schedule"
-            android:textSize="15dp"
-            tools:layout_editor_absoluteX="99dp"
-            tools:layout_editor_absoluteY="251dp" />
+
 
 
         <TextView
@@ -162,6 +105,79 @@
             android:textSize="15dp"
             tools:layout_editor_absoluteX="99dp"
             tools:layout_editor_absoluteY="251dp" />
+
+        <RelativeLayout
+            android:layout_width="372dp"
+            android:layout_height="137dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="17dp"
+            android:layout_marginLeft="17dp"
+            android:layout_marginTop="60dp"
+            android:background="@color/white" />
+
+        <TextView
+            android:id="@+id/tvPatname"
+            android:layout_width="156dp"
+            android:layout_height="41dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="56dp"
+            android:layout_marginLeft="56dp"
+            android:layout_marginTop="86dp"
+            android:ems="10"
+            android:paddingLeft="10dp"
+            android:text="Patient"
+            android:textSize="15dp"
+            tools:layout_editor_absoluteX="99dp"
+            tools:layout_editor_absoluteY="251dp" />
+        <TextView
+            android:id="@+id/tvSched"
+            android:layout_width="155dp"
+            android:layout_height="34dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="57dp"
+            android:layout_marginLeft="57dp"
+            android:layout_marginTop="147dp"
+            android:ems="10"
+            android:paddingLeft="10dp"
+            android:text="Schedule"
+            android:textSize="15dp"
+            tools:layout_editor_absoluteX="99dp"
+            tools:layout_editor_absoluteY="251dp" />
+        <Button
+            android:id="@+id/btn_patient"
+            android:layout_width="87dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="245dp"
+            android:layout_marginLeft="245dp"
+            android:layout_marginTop="74dp"
+            android:text="Pateint record" />
+
+        <Button
+            android:id="@+id/btn_call"
+            android:layout_width="69dp"
+            android:layout_height="wrap_content"
+
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="250dp"
+            android:layout_marginLeft="250dp"
+            android:layout_marginTop="140dp"
+            android:background="@drawable/ic_baseline_call_24" />
+
 
 
     </RelativeLayout>

@@ -66,12 +66,7 @@
             android:orientation="horizontal">
 
 
-            <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/c"
-                android:layout_margin="10dp"
-                android:id="@+id/camera_btn_send"/>
+
 
 
             <EditText

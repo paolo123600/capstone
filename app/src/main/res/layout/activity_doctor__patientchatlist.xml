@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Doctor_Patientchatlist">
+    tools:context=".Doctor_Patientchatlist"
+    android:background="@color/mainbg">
+
 
     <RelativeLayout
         android:id="@+id/doc_chat_seclist"
@@ -14,7 +16,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchBar"
-        android:background="@color/white">
+        android:background="@color/white"
+        >
 
         <TextView
             android:layout_width="wrap_content"

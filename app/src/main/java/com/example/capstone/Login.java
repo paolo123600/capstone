@@ -27,6 +27,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Login extends AppCompatActivity {
 
+    TextView terms;
     Button login, signup;
     // Change EditText to TextInputLayout (TextInputLayout is for Firebase to read and insert data on that specific tool)
     EditText user, pass;
@@ -71,6 +72,14 @@ public class Login extends AppCompatActivity {
         signInProgressBar = findViewById(R.id.signInProgressBar);
         progressbg = findViewById(R.id.progress_bg);
         progressremove = findViewById(R.id.login_progress_remove);
+        terms = findViewById(R.id.terms);
+        terms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            Intent intent = new Intent(Login.this, Terms.class);
+            startActivity(intent);
+            }
+        });
 
         login.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -86,7 +95,7 @@ public class Login extends AppCompatActivity {
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent forgotPW = new Intent (Login.this, Sign_UpActivity.class);
+                Intent forgotPW = new Intent (Login.this, DataAct.class);
                 startActivity(forgotPW);
             }
         });
@@ -215,6 +224,10 @@ public class Login extends AppCompatActivity {
     public void forgotPassword(View view) {
         Intent forgotPW = new Intent (this, ForgotPassword.class);
         startActivity(forgotPW);
+
+    }
+
+    public void terms(View view){
 
     }
 }
