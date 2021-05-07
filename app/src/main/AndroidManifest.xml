@@ -24,7 +24,6 @@
         <activity android:name=".RecentChatSecretary" />
         <activity android:name=".RecentChats"/>
         <activity android:name=".Clinic_view" />
-        tools:targetApi="m" >
         <activity android:name=".Sec_patient_list" >
         </activity>
         <activity android:name=".Doctor_Patientchatlist" />
