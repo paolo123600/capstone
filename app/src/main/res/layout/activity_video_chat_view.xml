@@ -15,18 +15,23 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/icon_padding">
+            android:layout_above="@id/icon_padding"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginBottom="39dp">
 
             <FrameLayout
                 android:id="@+id/local_video_view_container"
                 android:layout_width="@dimen/local_preview_width"
                 android:layout_height="@dimen/local_preview_height"
-                android:layout_marginTop="20dp"
                 android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginLeft="@dimen/_20sdp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="250dp"
                 android:layout_marginRight="250dp"
-                android:background="@color/localBackground"
-                android:layout_marginLeft="@dimen/_20sdp" />
+                android:background="@color/localBackground" />
 
 
         </RelativeLayout>

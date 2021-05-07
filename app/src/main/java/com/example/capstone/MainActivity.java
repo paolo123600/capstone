@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private String doclastname;
     String datenow;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,33 +105,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View v) {
 
-//        Intent intent = new Intent(MainActivity.this, RecentChats.class);
-//        startActivity(intent);
-//
-//
+        Intent intent = new Intent(MainActivity.this, RecentChats.class);
+        startActivity(intent);
 
-                String time1 = "7:00pm";
-                String time2="7:30pm";
-                Date currentTime = Calendar.getInstance().getTime();
-                SimpleDateFormat dateFormat = new SimpleDateFormat("h:mmaa");
 
-                try{
-                            Date date = dateFormat.parse(time1);
-                    Date date2 = dateFormat.parse(time2);
-                    String timenow =dateFormat.format(currentTime);
-                    Date date3 = dateFormat.parse(timenow);
-                    if(date2.after(date3) && date.before(date3)){
 
-                        Toast.makeText(MainActivity.this, "panalo", Toast.LENGTH_SHORT).show();
-                    }
-                    else {
-                        Toast.makeText(MainActivity.this, "talo", Toast.LENGTH_SHORT).show();
-                    }
-                }
 
-                    catch(ParseException e){
-                    Toast.makeText(MainActivity.this, "error", Toast.LENGTH_SHORT).show();
-                }
             }
         });
                 buttonbook.setOnClickListener(new View.OnClickListener() {

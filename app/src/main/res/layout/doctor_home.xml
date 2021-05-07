@@ -38,9 +38,9 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginStart="252dp"
-            android:layout_marginLeft="252dp"
-            android:layout_marginTop="148dp"
+            android:layout_marginStart="277dp"
+            android:layout_marginLeft="277dp"
+            android:layout_marginTop="173dp"
             android:background="@drawable/ic_baseline_call_24" />
 
         <Button
@@ -57,34 +57,16 @@
             android:text="Pateint record" />
 
         <TextView
-            android:layout_width="333dp"
-            android:layout_height="198dp"
+            android:id="@+id/tvPatname"
+            android:layout_width="156dp"
+            android:layout_height="41dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginStart="38dp"
-            android:layout_marginLeft="38dp"
-            android:layout_marginTop="55dp"
-            android:background="@drawable/shapes2"
-            android:ems="10"
-            android:hint=" "
-            android:inputType="textPersonName"
-            android:paddingLeft="10dp"
-            android:textSize="15dp"
-            tools:layout_editor_absoluteX="99dp"
-            tools:layout_editor_absoluteY="251dp" />
-
-        <TextView
-            android:layout_width="88dp"
-            android:layout_height="35dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginStart="59dp"
-            android:layout_marginLeft="59dp"
-            android:layout_marginTop="138dp"
+            android:layout_marginStart="62dp"
+            android:layout_marginLeft="62dp"
+            android:layout_marginTop="104dp"
             android:ems="10"
             android:paddingLeft="10dp"
             android:text="Patient"
@@ -93,8 +75,9 @@
             tools:layout_editor_absoluteY="251dp" />
 
         <TextView
-            android:layout_width="88dp"
-            android:layout_height="35dp"
+            android:id="@+id/tvSched"
+            android:layout_width="155dp"
+            android:layout_height="34dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
@@ -108,20 +91,6 @@
             android:textSize="15dp"
             tools:layout_editor_absoluteX="99dp"
             tools:layout_editor_absoluteY="251dp" />
-
-        <ImageView
-            android:layout_width="85dp"
-            android:layout_height="59dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginStart="59dp"
-            android:layout_marginLeft="59dp"
-            android:layout_marginTop="68dp"
-            android:ems="10"
-
-            />
 
 
         <TextView
