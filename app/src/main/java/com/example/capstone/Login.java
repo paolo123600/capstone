@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +33,8 @@ public class Login extends AppCompatActivity {
     private FirebaseAuth mAuth;
     FirebaseFirestore db;
     private PreferenceManager preferenceManager;
+    private ProgressBar signInProgressBar;
+    RelativeLayout progressbg, progressremove;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -64,10 +68,16 @@ public class Login extends AppCompatActivity {
         pass = findViewById(R.id.Password);
         login = findViewById(R.id.logbtn);
         signup = findViewById(R.id.signup);
+        signInProgressBar = findViewById(R.id.signInProgressBar);
+        progressbg = findViewById(R.id.progress_bg);
+        progressremove = findViewById(R.id.login_progress_remove);
 
         login.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                progressremove.setVisibility(View.INVISIBLE);
+                progressbg.setVisibility(View.VISIBLE);
+                signInProgressBar.setVisibility(View.VISIBLE);
                 Toast.makeText(Login.this, "test", Toast.LENGTH_SHORT).show();
                 userlogin();
             }

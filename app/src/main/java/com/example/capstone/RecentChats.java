@@ -57,8 +57,8 @@ FirebaseFirestore db;
 
         userlist = new ArrayList<>();
 
-      recyclerView = (RecyclerView) findViewById(R.id.chat_recyclerview_recentchat3) ;
-        recyclerView1=(RecyclerView) findViewById(R.id.chat_recyclerview_recentchat4) ;
+      recyclerView = (RecyclerView) findViewById(R.id.chat_recyclerview_recentchat4) ;
+        recyclerView1=(RecyclerView) findViewById(R.id.chat_recyclerview_recentchat3) ;
         layoutManager = new LinearLayoutManager(this);
         layoutManager1 = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);

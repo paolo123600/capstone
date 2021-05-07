@@ -52,7 +52,8 @@
       android:text="Doctor"
       android:background="@drawable/darkround"
       app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent" />
+      app:layout_constraintEnd_toEndOf="parent"
+      android:textColor="@color/white"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,7 +10,7 @@
         android:id="@+id/remote_video_view_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/remoteBackground">
+        android:background="@color/lightblue">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -28,31 +28,6 @@
                 android:background="@color/localBackground"
                 android:layout_marginLeft="@dimen/_20sdp" />
 
-            <ImageButton
-                android:id="@+id/videochathome_chat"
-                android:layout_width="@dimen/_40sdp"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="28dp"
-                android:layout_marginRight="28dp"
-                android:background="@drawable/videocallhome_chat"
-                android:src="@drawable/ic_videocall_chat"/>
-
-            <ImageButton
-                android:id="@+id/videochathome_addnote"
-                android:layout_width="@dimen/_40sdp"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="102dp"
-                android:layout_marginRight="102dp"
-                android:background="@drawable/addnote_videocall"
-                android:src="@drawable/ic_addnote" />
 
         </RelativeLayout>
 
@@ -61,6 +36,39 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/remote_back_icon_margin_bottom"
             android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/videochathome_chat"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="28dp"
+            android:layout_marginRight="28dp"
+            android:background="@drawable/videocallhome_chat"
+            android:src="@drawable/ic_videocall_chat"/>
+
+        <ImageButton
+            android:id="@+id/videochathome_addnote"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="102dp"
+            android:layout_marginRight="102dp"
+            android:background="@drawable/addnote_videocall"
+            android:src="@drawable/ic_addnote" />
+
+
     </RelativeLayout>
 
     <RelativeLayout

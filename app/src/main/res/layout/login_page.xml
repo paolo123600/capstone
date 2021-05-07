@@ -11,6 +11,11 @@
     <include layout="@layout/barlayout"
         android:id="@+id/toolbarlogin"/>
 
+    <RelativeLayout
+        android:id="@+id/login_progress_remove"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <EditText
         android:id="@+id/Username"
         android:layout_width="226dp"
@@ -102,6 +107,26 @@
         android:layout_marginRight="130dp"
         android:onClick="forgotPassword"
         android:clickable="true"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/progress_bg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_20sdp"
+        android:layout_centerInParent="true"
+        android:visibility="invisible">
+
+        <ProgressBar
+            android:id="@+id/signInProgressBar"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_centerInParent="true"
+            android:visibility="invisible" />
+
+
+    </RelativeLayout>
 
 
 </RelativeLayout>
