@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/tv_privacy"
+        android:layout_width="match_parent"
+        android:layout_height="329dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="7dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginTop="116dp"
+        android:layout_marginEnd="-6dp"
+        android:text="Republic Act No. 10173 or the Data Privacy Act of 2012 (DPA) “to protect the fundamental human right to privacy of communication while ensuring free flow of information to promote innovation and growth [and] the [State’s] inherent obligation to ensure that personal information in information and communications systems in government and in the private sector are secured and protected”."
+        android:textSize="@dimen/_15sdp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="-6dp" />
+
+    <Button
+        android:id="@+id/btn_decline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="321dp"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_privacy"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="249dp"
+        android:layout_marginRight="249dp"
+        android:background="@drawable/darkround"
+        android:text="Decline"
+        android:textColor="@color/white" />
+
+    <Button
+        android:id="@+id/btn_accept"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_privacy"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="45dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/darkround"
+        android:text="Accept"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="321dp" />
+
+
+</RelativeLayout>

@@ -132,7 +132,7 @@
         android:ems="10"
         android:gravity="center"
         android:hint="Blood Type"
-        android:inputType="number"
+        android:inputType="text"
         android:paddingLeft="10dp"
         android:textAlignment="center"
         android:textSize="15dp"
