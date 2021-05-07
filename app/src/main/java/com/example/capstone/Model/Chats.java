@@ -5,7 +5,7 @@ public class Chats {
     String sender, reciever, message;
     boolean isseen;
 
-//
+///
     public Chats(String sender, String reciever, String message, boolean isseen) {
         this.sender = sender;
         this.reciever = reciever;
