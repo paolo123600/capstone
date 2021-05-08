@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     FirebaseFirestore db;
     private String doclastname;
     String datenow;
-
+    Boolean schedalready = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,6 +117,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 buttonbook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Calendar calendar = Calendar.getInstance();
+                datenow = DateFormat.getDateInstance().format(calendar.getTime());
                 db.collection("Schedule").whereEqualTo("PatientUId",patuid).whereEqualTo("Status","Paid")
                         .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -124,13 +126,47 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         if(task.isSuccessful()){
                             QuerySnapshot querySnapshot = task.getResult();
                             if (querySnapshot.isEmpty()) {
-                                Calendar calendar = Calendar.getInstance();
-                                datenow = DateFormat.getDateInstance().format(calendar.getTime());
+
                                 createSelectDoctorDialog();
                             }
                             else{
-                                Toast.makeText(MainActivity.this, "You already have an appointment.", Toast.LENGTH_SHORT).show();
-                        }
+                                Date nowdate= new Date();
+                                SimpleDateFormat format = new SimpleDateFormat("MMM d,yyyy");
+                                format.setLenient(false);
+                                try {
+                                    nowdate = format.parse(datenow);
+                                } catch (ParseException e) {
+                                    Toast.makeText(MainActivity.this, "error1", Toast.LENGTH_SHORT).show();
+                                }
+                                for (QueryDocumentSnapshot doc : task.getResult()) {
+
+                                    String scheddate = doc.getString("SchedDate");
+                                    Date datesched = new Date();
+                                    try {
+                                        datesched  = format.parse(scheddate);
+                                    } catch (ParseException e) {
+                                        Toast.makeText(MainActivity.this, "error1", Toast.LENGTH_SHORT).show();
+                                    }
+                                    if(nowdate.before(datesched)||nowdate.equals(datesched)){
+
+                                        Toast.makeText(MainActivity.this, "You already have an appointment.", Toast.LENGTH_SHORT).show();
+                                        schedalready=true;
+
+                                    }
+                                    else if (nowdate.after(datesched)) {  String documentsched =doc.getId();
+                                    db.collection("Schedule").document(documentsched).update("Status","Completed").addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+
+                                        }
+                                    });
+
+
+                                    }
+
+                        }  if (schedalready==false){
+                                    createSelectDoctorDialog();
+                                }  }
 
 
                         }
@@ -144,7 +180,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         buttonsched.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, VideoCall_Main.class);
+                Intent intent = new Intent(MainActivity.this, patient_schedule.class);
                 startActivity(intent);
             }
         });
@@ -553,7 +589,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 preferenceManager = new PreferenceManager(getApplicationContext());
                 String patuid = preferenceManager.getString(Constants.KEY_USER_ID);
                 GlobalVariables gv =(GlobalVariables) getApplicationContext ();
-
+                Date currentTime = Calendar.getInstance().getTime();
 
 
                 Map<String,Object> Schedule= new HashMap<>();
@@ -565,6 +601,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Schedule.put("TimeStop",gv.getSDtimestop());
                 Schedule.put("Note","");
                 Schedule.put("Status","Paid");
+                Schedule.put("DnT",currentTime);
 
 
 

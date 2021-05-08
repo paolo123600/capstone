@@ -114,17 +114,23 @@ public class  doctor_homepage extends AppCompatActivity {
                                 User user = new User();
                                 GlobalVariables gv = (GlobalVariables) getApplicationContext();
                                 gv.setSDPatUId(document.getString("UserId"));
-                                user.token = document.get("fcm_token").toString();
+                                user.token = document.getString("fcm_token");
                                 user.firstName = document.get("FirstName").toString();
                                 user.lastName = document.get("LastName").toString();
                                 user.email = document.get("Email").toString();
                                 users.add (user);
 
-                                Intent intent = new Intent(getApplicationContext(), OutgoingInvitationActivity.class);
-                                intent.putExtra("user", user);
-                                intent.putExtra("type", "video");
-                                startActivity(intent);
+                                if (user.token== null||user.token.trim().isEmpty()){
 
+                                    Toast.makeText(doctor_homepage.this, "The user is offline", Toast.LENGTH_SHORT).show();
+
+                                }
+                                else {
+                                    Intent intent = new Intent(getApplicationContext(), OutgoingInvitationActivity.class);
+                                    intent.putExtra("user", user);
+                                    intent.putExtra("type", "video");
+                                    startActivity(intent);
+                                }
 
                             }
 

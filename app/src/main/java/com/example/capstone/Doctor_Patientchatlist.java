@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.capstone.utilities.PreferenceManager;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -36,6 +37,7 @@ private RecyclerView patientlist;
 private FirestoreRecyclerAdapter adapter;
 private RecyclerView.Adapter adapter2;
 MaterialSearchBar materialSearchBar;
+    private PreferenceManager preferenceManager;
 FirebaseFirestore db;
 String txt;
 
@@ -43,7 +45,8 @@ String txt;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor__patientchatlist);
-            clinicname = "Clinic1";
+        preferenceManager = new PreferenceManager(getApplicationContext());
+            clinicname = preferenceManager.getString("ClinicName");
         db=FirebaseFirestore.getInstance();
         materialSearchBar = (MaterialSearchBar) findViewById(R.id.searchBar);
         materialSearchBar.setCardViewElevation(10);
@@ -91,7 +94,7 @@ String txt;
         adapter.stopListening();
         patientlist = (RecyclerView) findViewById(R.id.recyclerViewpat);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        Query query = db.collection("Patients").whereEqualTo(clinicname, "true").orderBy("LastName").startAt(text).endAt(text+'\uf8ff');
+        Query query = db.collection("Patients").whereEqualTo(clinicname, "True").orderBy("LastName").startAt(text).endAt(text+'\uf8ff');
         FirestoreRecyclerOptions<PatientModel> options = new FirestoreRecyclerOptions.Builder<PatientModel>()
                 .setQuery(query,PatientModel.class)
                 .build();
@@ -137,7 +140,7 @@ String txt;
 
         patientlist = (RecyclerView) findViewById(R.id.recyclerViewpat);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        Query query = db.collection("Patients").whereEqualTo(clinicname, "true");
+        Query query = db.collection("Patients").whereEqualTo(clinicname, "True");
         FirestoreRecyclerOptions<PatientModel> options = new FirestoreRecyclerOptions.Builder<PatientModel>()
                 .setQuery(query,PatientModel.class)
                 .build();
