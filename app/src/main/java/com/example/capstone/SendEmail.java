@@ -17,7 +17,7 @@ import javax.mail.internet.MimeMessage;
 public class SendEmail extends Application {
 
     public void EmailSend(String vcode, String receiver){
-///
+/////
         final String username="medicall.capstone@gmail.com";
         final String password="!capstone04";
         String messageToSend = "Thank you for registering in our medical application!" +
