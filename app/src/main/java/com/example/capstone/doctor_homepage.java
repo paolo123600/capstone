@@ -64,8 +64,9 @@ public class  doctor_homepage extends AppCompatActivity {
 
         try{
             Date currentTime = Calendar.getInstance().getTime();
-            String timenow1 =dateFormat.format(currentTime);
+//            String timenow1 =dateFormat.format(currentTime);
 
+            String timenow1 ="3:22pm";
             timenow = dateFormat.parse(timenow1);
 
         }
@@ -102,6 +103,7 @@ public class  doctor_homepage extends AppCompatActivity {
         callbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Query query =  db.collection("Patients").whereEqualTo("UserId",patUid);
                 query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -110,6 +112,8 @@ public class  doctor_homepage extends AppCompatActivity {
                             for(QueryDocumentSnapshot document : task.getResult()) {
 
                                 User user = new User();
+                                GlobalVariables gv = (GlobalVariables) getApplicationContext();
+                                gv.setSDPatUId(document.getString("UserId"));
                                 user.token = document.get("fcm_token").toString();
                                 user.firstName = document.get("FirstName").toString();
                                 user.lastName = document.get("LastName").toString();
@@ -288,16 +292,20 @@ public class  doctor_homepage extends AppCompatActivity {
                        } else {
                            for (QueryDocumentSnapshot document : task.getResult()) {
                                 patUid=document.getString("PatientUId");
-                               Toast.makeText(doctor_homepage.this, patUid, Toast.LENGTH_SHORT).show();
+
                                 db.collection("Patients").document(patUid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                     @Override
                                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                         if (task.isSuccessful()){
                                             DocumentSnapshot document1 = task.getResult();{
-                                            if (document1.exists())
-                                                gmail=document1.getString("Email");
-                                                patnametv.setText(document1.getString("LastName")+", "+document1.getString("FirstName"));
-                                                schedtimetv.setText("Time: "+document.getString("TimeStart")+" - "+document.getString("TimeStop"));
+                                            if (document1.exists()) {
+                                                gmail = document1.getString("Email");
+                                                patnametv.setText(document1.getString("LastName") + ", " + document1.getString("FirstName"));
+                                                schedtimetv.setText("Time: " + document.getString("TimeStart") + " - " + document.getString("TimeStop"));
+                                                GlobalVariables gv = (GlobalVariables) getApplicationContext();
+                                                gv.setSDtimestart(document.getString("TimeStart"));
+                                                gv.setSDDate(datenow);
+                                            }
 
                                             }
 

@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         preferenceManager = new PreferenceManager(getApplicationContext());
 
+        String patuid = preferenceManager.getString(Constants.KEY_USER_ID);
         chat = findViewById(R.id.chat);
         buttonbook = (Button) findViewById(R.id.booknow);
         buttonsched = (Button) findViewById(R.id.schedules);
@@ -116,12 +117,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 buttonbook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                db.collection("Schedule").whereEqualTo("PatientUId",patuid).whereEqualTo("Status","Paid")
+                        .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            QuerySnapshot querySnapshot = task.getResult();
+                            if (querySnapshot.isEmpty()) {
+                                Calendar calendar = Calendar.getInstance();
+                                datenow = DateFormat.getDateInstance().format(calendar.getTime());
+                                createSelectDoctorDialog();
+                            }
+                            else{
+                                Toast.makeText(MainActivity.this, "You already have an appointment.", Toast.LENGTH_SHORT).show();
+                        }
 
 
-                Calendar calendar = Calendar.getInstance();
-                datenow = DateFormat.getDateInstance().format(calendar.getTime());
-                Toast.makeText(MainActivity.this, datenow, Toast.LENGTH_SHORT).show();
-               createSelectDoctorDialog();
+                        }
+                    }
+                });
+
+
             }
         });
 
@@ -538,6 +554,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 String patuid = preferenceManager.getString(Constants.KEY_USER_ID);
                 GlobalVariables gv =(GlobalVariables) getApplicationContext ();
 
+
+
                 Map<String,Object> Schedule= new HashMap<>();
                Schedule.put("PatientUId",patuid);
                 Schedule.put("DoctorUId",gv.getSDDocUid());
@@ -556,16 +574,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             @Override
                             public void onSuccess(Void aVoid) {
 
+                                db.collection("Patients").document(patuid).update(gv.getSDClinic(),"True").addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        new android.app.AlertDialog.Builder(MainActivity.this)
+                                                .setTitle("Account Successfully Created")
+                                                .setMessage("You have successfully created an account!! You can now login in the login page.")
+                                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                                        dialog.dismiss();
+                                                    }
+                                                }).show();
+                                    }
+                                });
 
-                                new android.app.AlertDialog.Builder(MainActivity.this)
-                                        .setTitle("Account Successfully Created")
-                                        .setMessage("You have successfully created an account!! You can now login in the login page.")
-                                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialogInterface, int i) {
-                                               dialog.dismiss();
-                                            }
-                                        }).show();
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                     @Override

@@ -25,6 +25,7 @@ public class GlobalVariables extends Application {
     private  String Illness;
     private  String Channel_Name;
 
+
     public String getMainuserID() {
         return MainuserID;
     }
