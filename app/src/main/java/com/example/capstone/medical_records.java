@@ -77,10 +77,10 @@ public class medical_records extends AppCompatActivity {
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                 contactperson.setText(documentSnapshot.getString("EContactPerson"));
                 contactnum.setText(documentSnapshot.getString("EContactNumber"));
-                medicheight.setText(documentSnapshot.getString("Height"));
+                medicheight.setText(documentSnapshot.getString("Height") + "cm");
                 medicBP.setText(documentSnapshot.getString("BloodP"));
                 medicBT.setText(documentSnapshot.getString("BloodType"));
-                medicweight.setText(documentSnapshot.getString("Weight"));
+                medicweight.setText(documentSnapshot.getString("Weight") + "kg");
                medicallergies.setText(documentSnapshot.getString("Allergies"));
                 medicillness.setText(documentSnapshot.getString("Illness"));
             }

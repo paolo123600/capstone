@@ -201,7 +201,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
 
 
-        navigationView.setCheckedItem(R.id.nav_patienthome);
+
     }
 
     @Override
@@ -283,7 +283,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         });
                 break;
             case R.id.medical_records:
-                Intent intent2 = new Intent(MainActivity.this, patient_record_clinic.class);
+                Intent intent2 = new Intent(MainActivity.this, medical_records.class);
                 startActivity(intent2);
                 break;
         }

@@ -14,7 +14,7 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
-public class patientrec_sec extends AppCompatActivity {
+public class patientrec_doc extends AppCompatActivity {
 
     EditText name_patrec;
     EditText bday_patrec;
@@ -34,7 +34,7 @@ public class patientrec_sec extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_patientrec_sec);
+        setContentView(R.layout.activity_patientrec_doc);
 
         name_patrec = findViewById(R.id.full_name_patientrec);
         bday_patrec = findViewById(R.id.birthday_patientrec);
@@ -55,7 +55,6 @@ public class patientrec_sec extends AppCompatActivity {
         Intent intent = getIntent();
         String patid = intent.getStringExtra("patid");
 
-
         DocumentReference documentReference = fStore.collection("Patients").document(patid);
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
@@ -64,9 +63,9 @@ public class patientrec_sec extends AppCompatActivity {
                 gender_patrec.setText(documentSnapshot.getString("Sex"));
                 bday_patrec.setText(documentSnapshot.getString("Birthday"));
                 number_patrec.setText(documentSnapshot.getString("Contact"));
-                height_patrec.setText(documentSnapshot.getString("Height") + "cm");
+                height_patrec.setText(documentSnapshot.getString("Height"));
                 bt_patrec.setText(documentSnapshot.getString("BloodType"));
-                weight_patrec.setText(documentSnapshot.getString("Weight") + "kg");
+                weight_patrec.setText(documentSnapshot.getString("Weight"));
                 emcontact_patrec.setText(documentSnapshot.getString("EContactNumber"));
                 preillness_patrec.setText(documentSnapshot.getString("Illness"));
                 allergies_patrec.setText(documentSnapshot.getString("Allergies"));

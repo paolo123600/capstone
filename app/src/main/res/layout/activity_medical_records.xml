@@ -6,6 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".medical_records">
 
+    <LinearLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/button"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+
+        <ImageView
+            android:id="@+id/backspace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:background="@drawable/ic_backspace" />
+
+    </LinearLayout>
+
     <RelativeLayout
         android:layout_width="@dimen/_250sdp"
         android:layout_height="@dimen/_400sdp"
@@ -260,7 +282,9 @@
         android:layout_marginBottom="16dp"
         android:text="Edit"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/darkround"
+        android:textColor="@color/white"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

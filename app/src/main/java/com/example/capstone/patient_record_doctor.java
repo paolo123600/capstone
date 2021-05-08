@@ -18,21 +18,20 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
-public class patient_record_clinic extends AppCompatActivity {
+public class patient_record_doctor extends AppCompatActivity {
 
-    private RecyclerView patientrecList;
+    private RecyclerView patientrecListdoc;
     private FirebaseFirestore firebaseFirestore;
 
     private FirestoreRecyclerAdapter adapter;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_patient_record_clinic);
+        setContentView(R.layout.activity_patient_record_doctor);
 
         firebaseFirestore = FirebaseFirestore.getInstance();
-        patientrecList = findViewById(R.id.patientrec_sec);
+        patientrecListdoc = findViewById(R.id.patientrec_doc);
 
 
         //Query
@@ -42,16 +41,16 @@ public class patient_record_clinic extends AppCompatActivity {
                 .setQuery(query, PatientModel.class)
                 .build();
 
-        adapter = new FirestoreRecyclerAdapter<PatientModel, PatientViewHolder>(options) {
+        adapter = new FirestoreRecyclerAdapter<PatientModel, patient_record_doctor.PatientViewHolder>(options) {
             @NonNull
             @Override
-            public PatientViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_patientrec_sec, parent, false);
-                return new PatientViewHolder(view);
+            public patient_record_doctor.PatientViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_patientrec_doc, parent, false);
+                return new patient_record_doctor.PatientViewHolder(view);
             }
 
             @Override
-            protected void onBindViewHolder(@NonNull PatientViewHolder holder, int position, @NonNull PatientModel model) {
+            protected void onBindViewHolder(@NonNull patient_record_doctor.PatientViewHolder holder, int position, @NonNull PatientModel model) {
                 holder.listFirstname.setText(model.getLastName()+ "," +model.getFirstName());
                 holder.listemail.setText(model.getEmail());
 
@@ -60,7 +59,7 @@ public class patient_record_clinic extends AppCompatActivity {
                 holder.patientR.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(getApplicationContext(), patientrec_sec.class);
+                        Intent intent = new Intent(getApplicationContext(), patientrec_doc.class);
                         intent.putExtra("patid", patientID);
                         startActivity(intent);
                     }
@@ -68,9 +67,9 @@ public class patient_record_clinic extends AppCompatActivity {
             }
         };
 
-        patientrecList.setHasFixedSize(true);
-        patientrecList.setLayoutManager(new LinearLayoutManager(this));
-        patientrecList.setAdapter(adapter);
+        patientrecListdoc.setHasFixedSize(true);
+        patientrecListdoc.setLayoutManager(new LinearLayoutManager(this));
+        patientrecListdoc.setAdapter(adapter);
 
     }
 
