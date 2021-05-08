@@ -129,7 +129,7 @@ public class Login extends AppCompatActivity {
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()){
                                 DocumentSnapshot document = task.getResult();
-
+//
                                 if (document.exists()){
                                     preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN, true);
                                     preferenceManager.putString(Constants.USERTYPE, "Patient");
