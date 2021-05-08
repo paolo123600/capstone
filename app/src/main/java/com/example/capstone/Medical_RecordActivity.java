@@ -4,8 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,10 +25,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-
-public class Medical_RecordActivity extends AppCompatActivity {
-    EditText ET_ContactP,ET_ContactN,ET_Height,ET_Weight,ET_BloodP,ET_BloodType,ET_Allergies,ET_Illness;
+/////
+public class Medical_RecordActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+    EditText ET_ContactP,ET_ContactN,ET_Height,ET_Weight,ET_BloodP,ET_Allergies,ET_Illness;
     Button btn_Continue;
+    Spinner ET_BloodType;
     FirebaseFirestore db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +43,16 @@ public class Medical_RecordActivity extends AppCompatActivity {
         ET_Height=(EditText) findViewById(R.id.Height);
         ET_Weight=(EditText) findViewById(R.id.Weight);
         ET_BloodP=(EditText) findViewById(R.id.Bloodp);
-        ET_BloodType=(EditText) findViewById(R.id.Bloodtype);
+        ET_BloodType=(Spinner) findViewById(R.id.Bloodtype);
         ET_Allergies=(EditText) findViewById(R.id.Allergies);
         ET_Illness=(EditText) findViewById(R.id.illness);
         btn_Continue = (Button) findViewById(R.id.btn_continue);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.blood, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ET_BloodType.setAdapter(adapter);
+
+        ET_BloodType.setOnItemSelectedListener(this);
 
         btn_Continue.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,7 +63,7 @@ public class Medical_RecordActivity extends AppCompatActivity {
                 gv.setHeight(ET_Height.getText().toString());
                 gv.setWeight(ET_Weight.getText().toString());
                 gv.setBloodP(ET_BloodP.getText().toString());
-                gv.setBloodType(ET_BloodType.getText().toString());
+                gv.setBloodType(ET_BloodType.getSelectedItem().toString());
                 gv.setAllergies(ET_Allergies.getText().toString());
                 gv.setIllness(ET_Illness.getText().toString());
 
@@ -100,5 +110,15 @@ public class Medical_RecordActivity extends AppCompatActivity {
         });
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }

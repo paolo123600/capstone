@@ -69,25 +69,7 @@
         tools:layout_editor_absoluteX="99dp"
         tools:layout_editor_absoluteY="251dp" />
 
-    <EditText
-        android:id="@+id/gender"
-        android:layout_width="141dp"
-        android:layout_height="46dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="233dp"
-        android:layout_marginLeft="233dp"
-        android:layout_marginTop="110dp"
-        android:background="@drawable/roundtbox"
-        android:ems="10"
-        android:hint="Sex"
-        android:inputType="textPersonName"
-        android:paddingLeft="10dp"
 
-        tools:layout_editor_absoluteX="99dp"
-        tools:layout_editor_absoluteY="251dp" />
 
     <Button
         android:id="@+id/btn_bday"
@@ -124,6 +106,20 @@
         android:text="Date of Birth"
         android:textSize="@dimen/_12sdp" />
 
+    <TextView
+        android:layout_width="95dp"
+        android:layout_height="38dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="231dp"
+        android:layout_marginLeft="231dp"
+        android:layout_marginTop="105dp"
+        android:ems="10"
+        android:text="Sex"
+        android:textSize="@dimen/_12sdp" />
+
     <EditText
         android:id="@+id/contact2"
         android:layout_width="340dp"
@@ -153,9 +149,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="232dp"
-        android:layout_marginLeft="232dp"
-        android:layout_marginTop="172dp"
+        android:layout_marginStart="234dp"
+        android:layout_marginLeft="234dp"
+        android:layout_marginTop="176dp"
         android:background="@drawable/roundtbox"
         android:ems="10"
 
@@ -307,6 +303,23 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="321dp"
         android:textColor="@color/white"/>
+
+    <Spinner
+        android:id="@+id/gender"
+        android:layout_width="141dp"
+        android:layout_height="40dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="231dp"
+        android:layout_marginLeft="231dp"
+        android:layout_marginTop="124dp"
+        android:layout_marginEnd="38dp"
+        android:layout_marginRight="38dp"
+        android:visibility="visible" />
 
 
 </RelativeLayout>

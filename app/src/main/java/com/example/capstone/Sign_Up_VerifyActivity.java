@@ -166,6 +166,7 @@ public class Sign_Up_VerifyActivity extends AppCompatActivity {
         String BloodType =gv.getBloodType();
         String Allergies =gv.getAllergies();
         String Illness =gv.getIllness();
+        String Bday = gv.getBday();
 
 
         mAuth.createUserWithEmailAndPassword(email, Pass)
@@ -196,6 +197,7 @@ public class Sign_Up_VerifyActivity extends AppCompatActivity {
                             Patients.put("BloodType",BloodType);
                             Patients.put("Allergies",Allergies);
                             Patients.put("Illness",Illness);
+                            Patients.put("Birthday",Bday);
                             Patients.put("UserId",Uid);
 
 

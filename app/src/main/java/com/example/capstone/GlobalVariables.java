@@ -25,6 +25,15 @@ public class GlobalVariables extends Application {
     private  String Illness;
     private  String Channel_Name;
 
+    public String getBday() {
+        return Bday;
+    }
+
+    public void setBday(String bday) {
+        Bday = bday;
+    }
+
+    private String Bday;
 
     public String getMainuserID() {
         return MainuserID;

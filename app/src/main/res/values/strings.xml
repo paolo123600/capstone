@@ -4,6 +4,23 @@
     <string name="Appointments_label">Appointments</string>
     <string name="Manage_schedule">Manage Schedules</string>
 
+    ///
+    <string-array name="sex">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+
+    <string-array name="blood">
+        <item>A positive (A+)</item>
+        <item>A negative (A-)</item>
+        <item>B positive (B+)</item>
+        <item>B negative (B-)</item>
+        <item>O positive (O+)</item>
+        <item>O negative (O-)</item>
+        <item>AB positive (AB+)</item>
+        <item>AB negative (AB-)</item>
+    </string-array>
+
     <string name="number_of_notif">5</string>
     <string name="notif_label">Number of Notification</string>
     <string name="today_notif_label">Today: </string>
