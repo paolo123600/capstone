@@ -231,6 +231,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         });
                 break;
             case R.id.medical_records:
+                Intent intent2 = new Intent(MainActivity.this, medical_records.class);
+                startActivity(intent2);
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);

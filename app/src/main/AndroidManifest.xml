@@ -20,13 +20,16 @@
         android:theme="@style/Theme.Capstone"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
+        <activity android:name=".medicalrec_update"></activity>
+        <activity android:name=".medical_records" />
+        <activity android:name=".RecentChatDoc" />
         <activity android:name=".Terms"></activity>
         <activity android:name=".DataAct" />
-        <activity android:name=".RecentChatDoc" />
         <activity android:name=".RecentChatSecretary" />
-        <activity android:name=".RecentChats" />
+        <activity android:name=".RecentChats"/>
         <activity android:name=".Clinic_view" />
-        <activity android:name=".Sec_patient_list" />
+        <activity android:name=".Sec_patient_list" >
+        </activity>
         <activity android:name=".Doctor_Patientchatlist" />
         <activity
             android:name=".activities.OutgoingInvitationActivity"
@@ -48,7 +51,7 @@
             android:name=".Sign_UpActivity"
             android:exported="true" />
         <activity android:name=".Sign_Up_VerifyActivity" />
-        <activity android:name=".Login">
+        <activity android:name=".Login" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -59,7 +62,7 @@
 
         <service
             android:name=".firebase.MessagingService"
-            android:exported="false">
+            android:exported="false" >
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

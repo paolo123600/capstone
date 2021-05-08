@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".medical_records">
+
+    <RelativeLayout
+        android:layout_width="@dimen/_250sdp"
+        android:layout_height="@dimen/_400sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/profilepage_bg">
+
+        <EditText
+            android:id="@+id/Econtact_person"
+            android:layout_width="282dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="23dp"
+            android:layout_marginLeft="23dp"
+            android:layout_marginTop="27dp"
+            android:background="@drawable/edittext_bg"
+            android:padding="10dp"
+            android:text="Name" />
+
+        <EditText
+            android:id="@+id/Econtact_number"
+            android:layout_width="282dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="23dp"
+            android:layout_marginLeft="23dp"
+            android:layout_marginTop="85dp"
+            android:background="@drawable/edittext_bg"
+            android:padding="10dp"
+            android:text="Number" />
+
+        <EditText
+            android:id="@+id/medicalrec_height"
+            android:layout_width="134dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="23dp"
+            android:layout_marginLeft="23dp"
+            android:layout_marginTop="148dp"
+            android:background="@drawable/edittext_bg"
+            android:padding="10dp"
+            android:text="cm" />
+
+        <EditText
+            android:id="@+id/medicalrec_bloodpressure"
+            android:layout_width="134dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="202dp"
+            android:inputType="none"
+            android:background="@drawable/edittext_bg"
+            android:padding="10dp"
+            android:text="BP" />
+
+        <EditText
+            android:id="@+id/medicalrec_bloodtype"
+            android:layout_width="134dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="172dp"
+            android:layout_marginLeft="172dp"
+            android:layout_marginTop="202dp"
+            android:inputType="none"
+            android:background="@drawable/edittext_bg"
+            android:padding="10dp"
+            android:text="bloodtype" />
+
+        <EditText
+            android:id="@+id/medicalrec_weight"
+            android:layout_width="131dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="173dp"
+            android:layout_marginLeft="173dp"
+            android:layout_marginTop="149dp"
+            android:background="@drawable/edittext_bg"
+            android:padding="10dp"
+            android:text="kg" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="37dp"
+            android:layout_marginLeft="37dp"
+            android:layout_marginBottom="218dp"
+            android:text="Allergies"
+
+            android:textColor="@color/black"/>
+
+        <RelativeLayout
+            android:layout_width="198dp"
+            android:layout_height="70dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="108dp"
+            android:layout_marginLeft="108dp"
+            android:layout_marginBottom="192dp">
+
+
+            <EditText
+                android:id="@+id/medicalrec_allergies"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:ems="10"
+                android:gravity="start|top"
+                android:inputType="textMultiLine"
+                android:background="@drawable/edittext_bg"
+                android:padding="10dp"/>
+
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="89dp"
+            android:layout_height="45dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginBottom="108dp"
+            android:text="Pre-existing illness"
+            android:textColor="@color/black" />
+
+        <RelativeLayout
+            android:layout_width="198dp"
+            android:layout_height="70dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="17dp"
+            android:layout_marginRight="17dp"
+            android:layout_marginBottom="93dp">
+
+            <EditText
+                android:id="@+id/medicalrec_illness"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:ems="10"
+                android:gravity="start|top"
+                android:inputType="textMultiLine"
+                android:background="@drawable/edittext_bg"
+                android:padding="10dp"/>
+
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_updatemedical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="16dp"
+        android:text="Update"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
