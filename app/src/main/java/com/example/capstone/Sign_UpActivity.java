@@ -5,9 +5,12 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
@@ -26,10 +29,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.Calendar;
 import java.util.HashMap;
 
-public class Sign_UpActivity extends AppCompatActivity {
+public class Sign_UpActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener {
 Button btnContinue;
-EditText ET_FName, ET_LName, ET_MI, ET_Sex, ET_Email, ET_Pass, ET_ConPass , ET_Address, ET_Municipality,ET_Postal, ET_Contact, ET_Nationality;
+EditText ET_FName, ET_LName, ET_MI, ET_Email, ET_Pass, ET_ConPass , ET_Address, ET_Municipality,ET_Postal, ET_Contact, ET_Nationality;
 FirebaseFirestore db;
+Spinner ET_Sex;
 Toolbar toolbar;
 FirebaseAuth mAuth;
 DatabaseReference reference;
@@ -41,16 +45,13 @@ protected void onCreate(Bundle savedInstanceState) {
     setContentView(R.layout.sign_up);
     GlobalVariables gv =(GlobalVariables) getApplicationContext ();
         initDatePicker();
-        dateButton = findViewById(R.id.btn_bday);
+        dateButton = (Button) findViewById(R.id.btn_bday);
         dateButton.setText(getTodaysDate());
-
-
-
         btnContinue = (Button) findViewById(R.id.signup);
     ET_FName=(EditText) findViewById(R.id.Fname);
     ET_LName=(EditText)findViewById(R.id.Lname);
     ET_MI= (EditText)findViewById(R.id.Mi);
-    ET_Sex= (EditText) findViewById(R.id.gender);
+   ET_Sex = (Spinner) findViewById(R.id.gender);
     ET_Contact=(EditText) findViewById(R.id.contact2);
     ET_Nationality=(EditText) findViewById(R.id.nationality);
     ET_Email=(EditText) findViewById(R.id.email);
@@ -61,18 +62,25 @@ protected void onCreate(Bundle savedInstanceState) {
     ET_Municipality=(EditText) findViewById(R.id.municipality);
     db= FirebaseFirestore.getInstance();
 
+        ArrayAdapter<CharSequence> adapter =  ArrayAdapter.createFromResource(this,R.array.sex, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ET_Sex.setAdapter(adapter);
+
+        ET_Sex.setOnItemSelectedListener(this);
+
 
 
     btnContinue.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-
+            ///bday
+            gv.setBday(String.valueOf(dateButton.getText()));
 
             gv.setFname(String.valueOf(ET_FName.getText()));
             gv.setLname(String.valueOf(ET_LName.getText()));
             gv.setMname(String.valueOf(ET_MI.getText()));
             gv.setContact(String.valueOf(ET_Contact.getText()));
-            gv.setSex(String.valueOf(ET_Sex.getText()));
+            gv.setSex(String.valueOf(ET_Sex.getSelectedItem()));
             gv.setNationality(String.valueOf(ET_Nationality.getText()));
             gv.setEmail(String.valueOf(ET_Email.getText()));
             gv.setPassword(String.valueOf(ET_Pass.getText()));
@@ -220,6 +228,21 @@ protected void onCreate(Bundle savedInstanceState) {
 
             }
         });
+
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
 
     }
 }

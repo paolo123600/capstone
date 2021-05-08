@@ -82,7 +82,7 @@ public class MessageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_message);
         preferenceManager = new PreferenceManager(getApplicationContext());
         //send pic
-        camera_btn = findViewById(R.id.camera_btn_send);
+
         chat_act = (LinearLayout) findViewById(R.id.chat_act);
         friendid = getIntent().getStringExtra("friendid"); // retreive the friendid when we click on the item
         usertype = getIntent().getStringExtra("usertype");

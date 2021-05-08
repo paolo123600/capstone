@@ -15,11 +15,12 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginStart="2dp"
+        android:layout_marginStart="20dp"
         android:layout_marginLeft="2dp"
         android:layout_marginTop="98dp"
-        android:layout_marginEnd="-1dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginRight="-1dp"
+        android:justificationMode="inter_word"
         android:text="By Agreeing on this page you are letting the application use your personal information that will be needed in the application. According to the Republic Act No. 10173 or the Data Privacy Act of 2012 (DPA) “to protect the fundamental human right to privacy of communication while ensuring free flow of information to promote innovation and growth [and] the [State’s] inherent obligation to ensure that personal information in information and communications systems in government and in the private sector are secured and protected”."
         android:textSize="@dimen/_15sdp" />
 
