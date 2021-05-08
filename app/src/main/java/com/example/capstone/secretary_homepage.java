@@ -15,7 +15,7 @@ public class secretary_homepage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_secretary_homepage);
 
-        //////
+        ///////
         notif_button = findViewById(R.id.notification_button);
 
         notif_button.setOnClickListener(new View.OnClickListener() {
