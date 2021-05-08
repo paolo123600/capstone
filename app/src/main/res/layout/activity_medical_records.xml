@@ -20,10 +20,11 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
-            android:layout_marginStart="25dp"
-            android:layout_marginLeft="25dp"
+            android:layout_marginStart="23dp"
+            android:layout_marginLeft="23dp"
+            android:layout_marginTop="@dimen/_5sdp"
             android:text="Constact Person Name"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black" />
 
         <EditText
             android:id="@+id/Econtact_person"
@@ -35,7 +36,21 @@
             android:layout_marginStart="23dp"
             android:layout_marginLeft="23dp"
             android:layout_marginTop="27dp"
+            android:background="@drawable/edittext_bgtransparent"
+            android:padding="@dimen/_5sdp"
             android:text="Name" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="70dp"
+            android:text="Constact Person Number"
+            android:textColor="@color/black" />
 
         <EditText
             android:id="@+id/Econtact_number"
@@ -46,8 +61,23 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="23dp"
             android:layout_marginLeft="23dp"
-            android:layout_marginTop="85dp"
+            android:layout_marginTop="90dp"
+            android:background="@drawable/edittext_bgtransparent"
+            android:padding="@dimen/_5sdp"
             android:text="Name" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="23dp"
+            android:layout_marginLeft="23dp"
+            android:layout_marginTop="129dp"
+            android:text="Height"
+            android:textColor="@color/black" />
 
         <EditText
             android:id="@+id/medicalrec_height"
@@ -59,7 +89,21 @@
             android:layout_marginStart="23dp"
             android:layout_marginLeft="23dp"
             android:layout_marginTop="148dp"
+            android:background="@drawable/edittext_bgtransparent"
+            android:padding="@dimen/_5sdp"
             android:text="cm" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="23dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="187dp"
+            android:text="Blood Pressure"
+            android:textColor="@color/black" />
 
         <EditText
             android:id="@+id/medicalrec_bloodpressure"
@@ -68,11 +112,24 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginTop="202dp"
-            android:inputType="none"
+            android:layout_marginStart="23dp"
+            android:layout_marginLeft="23dp"
+            android:layout_marginTop="206dp"
+            android:background="@drawable/edittext_bgtransparent"
+            android:padding="@dimen/_5sdp"
             android:text="BP" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="173dp"
+            android:layout_marginLeft="173dp"
+            android:layout_marginTop="187dp"
+            android:text="Blood Type"
+            android:textColor="@color/black" />
 
         <EditText
             android:id="@+id/medicalrec_bloodtype"
@@ -83,9 +140,22 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="172dp"
             android:layout_marginLeft="172dp"
-            android:layout_marginTop="202dp"
-            android:inputType="none"
+            android:layout_marginTop="206dp"
+            android:background="@drawable/edittext_bgtransparent"
+            android:padding="@dimen/_5sdp"
             android:text="bloodtype" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="173dp"
+            android:layout_marginLeft="173dp"
+            android:layout_marginTop="129dp"
+            android:text="Weight"
+            android:textColor="@color/black" />
 
         <EditText
             android:id="@+id/medicalrec_weight"
@@ -97,6 +167,8 @@
             android:layout_marginStart="173dp"
             android:layout_marginLeft="173dp"
             android:layout_marginTop="149dp"
+            android:background="@drawable/edittext_bgtransparent"
+            android:padding="@dimen/_5sdp"
             android:text="kg" />
 
         <TextView
@@ -128,7 +200,9 @@
                 android:layout_height="match_parent"
                 android:ems="10"
                 android:gravity="start|top"
-                android:inputType="textMultiLine" />
+                android:inputType="textMultiLine"
+                android:background="@drawable/edittext_bgtransparent"
+                android:padding="@dimen/_5sdp"/>
 
 
         </RelativeLayout>
@@ -159,9 +233,17 @@
                 android:id="@+id/medicalrec_illness"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginBottom="0dp"
                 android:ems="10"
                 android:gravity="start|top"
-                android:inputType="textMultiLine" />
+                android:inputType="textMultiLine"
+                android:background="@drawable/edittext_bgtransparent"
+                android:padding="@dimen/_5sdp"/>
 
 
         </RelativeLayout>

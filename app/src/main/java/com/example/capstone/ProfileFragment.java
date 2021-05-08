@@ -3,6 +3,7 @@ package com.example.capstone;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -49,7 +50,10 @@ public class ProfileFragment extends AppCompatActivity {
 
         userId = fAuth.getCurrentUser().getUid();
 
-        DocumentReference documentReference = fStore.collection("Patients").document(userId);
+        Intent intent = getIntent();
+        String patid = intent.getStringExtra("patid");
+
+        DocumentReference documentReference = fStore.collection("Patients").document(patid);
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
