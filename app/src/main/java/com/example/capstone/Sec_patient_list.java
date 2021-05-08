@@ -16,6 +16,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.capstone.utilities.Constants;
+import com.example.capstone.utilities.PreferenceManager;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -34,15 +36,15 @@ public class Sec_patient_list extends AppCompatActivity {
     MaterialSearchBar materialSearchBar;
     FirebaseFirestore db;
     String txt;
-
+    private PreferenceManager preferenceManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sec_patient_list);
-
+        preferenceManager = new PreferenceManager(getApplicationContext());
         changeTV = findViewById(R.id.changeTV);
         btnchange = findViewById(R.id.button_doctor_view);
-        clinicname = "Clinic1";
+        clinicname = preferenceManager.getString("ClinicName");
         db=FirebaseFirestore.getInstance();
         materialSearchBar = (MaterialSearchBar) findViewById(R.id.searchBar);
         materialSearchBar.setCardViewElevation(10);
