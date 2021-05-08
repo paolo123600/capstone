@@ -46,10 +46,13 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/DoctorRF"
-        android:layout_width="335dp"
-        android:layout_height="289dp"
+        android:layout_width="338dp"
+        android:layout_height="326dp"
         android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.368"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintVertical_bias="0.089" />
 </androidx.constraintlayout.widget.ConstraintLayout>

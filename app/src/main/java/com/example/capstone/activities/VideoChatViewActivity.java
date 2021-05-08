@@ -25,6 +25,15 @@ import com.example.capstone.GlobalVariables;
 import com.example.capstone.Login;
 import com.example.capstone.MainActivity;
 import com.example.capstone.R;
+import com.example.capstone.utilities.Constants;
+import com.example.capstone.utilities.PreferenceManager;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import io.agora.rtc.IRtcEngineEventHandler;
 import io.agora.rtc.RtcEngine;
@@ -47,6 +56,7 @@ public class VideoChatViewActivity extends AppCompatActivity {
     private RtcEngine mRtcEngine;
     private boolean mCallEnd;
     private boolean mMuted;
+    private  String scheddocu = "";
 
     private FrameLayout mLocalContainer;
     private RelativeLayout mRemoteContainer;
@@ -58,11 +68,11 @@ public class VideoChatViewActivity extends AppCompatActivity {
     private ImageView mSwitchCameraBtn;
     private ImageButton mChatButton;
     private ImageButton mAddNote;
-
+    private PreferenceManager preferenceManager;
     private SurfaceView mLocalView;
-
+    private  String usertype="";
     private SurfaceView mRemoteView;
-
+    FirebaseFirestore db;
    private String Channel1 = "";
 
     private final IRtcEngineEventHandler mRtcEventHandler = new IRtcEngineEventHandler() {
@@ -140,6 +150,7 @@ public class VideoChatViewActivity extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    updatepat();
                     endCall();
                     RtcEngine.destroy();
                     Intent intent = new Intent(com.example.capstone.activities.VideoChatViewActivity.this, Login.class);
@@ -163,6 +174,9 @@ public class VideoChatViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_chat_view);
+        preferenceManager = new PreferenceManager(getApplicationContext());
+        usertype=preferenceManager.getString(Constants.USERTYPE);
+        db= FirebaseFirestore.getInstance();
         initUI();
         GlobalVariables gv = (GlobalVariables) getApplicationContext();
        Channel1 = gv.getChannel_Name().toString();
@@ -194,11 +208,52 @@ public class VideoChatViewActivity extends AppCompatActivity {
     }
 
     public void onCallClicked(View view) {
+        updatepat();
         endCall();
         RtcEngine.destroy();
+
         Intent intent = new Intent(com.example.capstone.activities.VideoChatViewActivity.this, Login.class);
         startActivity(intent);
         finish();
+    }
+
+    private void updatepat() {
+
+        if (usertype.equals("Doctor")){
+            GlobalVariables gv = (GlobalVariables) getApplicationContext();
+            String patui= gv.getSDPatUId();
+            String docui = preferenceManager.getString(Constants.KEY_USER_ID);
+
+            db.collection("Schedule").whereEqualTo("PatientUId",patui).whereEqualTo("TimeStart",gv.getSDtimestart()).whereEqualTo("DoctorUId",docui).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            scheddocu=document.getId();
+
+                            db.collection("Schedule").document(scheddocu).update("Status","Completed").addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(VideoChatViewActivity.this, "wala naaa", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(VideoChatViewActivity.this, scheddocu, Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                        }
+                    } else {
+                        Toast.makeText(VideoChatViewActivity.this, "Errrrrr", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+
+
+
+        }
     }
 
     private ViewGroup removeFromParent(VideoCanvas canvas) {
@@ -261,6 +316,9 @@ public class VideoChatViewActivity extends AppCompatActivity {
         setupVideoConfig();
         setupLocalVideo();
         joinChannel();
+
+
+    
     }
 
     private void setupVideoConfig() {
