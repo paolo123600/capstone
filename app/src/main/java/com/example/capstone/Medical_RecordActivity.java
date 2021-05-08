@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-//
+/////
 public class Medical_RecordActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     EditText ET_ContactP,ET_ContactN,ET_Height,ET_Weight,ET_BloodP,ET_Allergies,ET_Illness;
     Button btn_Continue;
