@@ -179,6 +179,9 @@ public class Login extends AppCompatActivity {
                                                                     startActivity(intent);
                                                                 }
                                                                 else {
+                                                                    progressbg.setVisibility(View.INVISIBLE);
+                                                                    signInProgressBar.setVisibility(View.INVISIBLE);
+                                                                    progressremove.setVisibility(View.VISIBLE);
                                                                     Toast.makeText(Login.this, "Invalid login details", Toast.LENGTH_SHORT).show();
                                                                 }
                                                             }
@@ -212,6 +215,9 @@ public class Login extends AppCompatActivity {
 
                 }
                 else{
+                    progressbg.setVisibility(View.INVISIBLE);
+                    signInProgressBar.setVisibility(View.INVISIBLE);
+                    progressremove.setVisibility(View.VISIBLE);
                     Toast.makeText(Login.this, "Invalid Login Details", Toast.LENGTH_SHORT).show();
 
                 }

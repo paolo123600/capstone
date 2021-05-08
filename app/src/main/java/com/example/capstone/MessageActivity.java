@@ -58,7 +58,6 @@ public class MessageActivity extends AppCompatActivity {
     TextView usernameonToolbar;
     Toolbar toolbar;
     FirebaseUser firebaseUser;
-    ImageButton camera_btn;
     EditText et_message;
     Button send;
     private PreferenceManager preferenceManager;
@@ -82,7 +81,6 @@ public class MessageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_message);
         preferenceManager = new PreferenceManager(getApplicationContext());
         //send pic
-        camera_btn = findViewById(R.id.camera_btn_send);
         chat_act = (LinearLayout) findViewById(R.id.chat_act);
         friendid = getIntent().getStringExtra("friendid"); // retreive the friendid when we click on the item
         usertype = getIntent().getStringExtra("usertype");
@@ -121,15 +119,6 @@ public class MessageActivity extends AppCompatActivity {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(friendid);
-
-        camera_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setType("image/*"); // all kinds of images
-                startActivityForResult(intent, GALLERY_CODE);
-            }
-        });
 
 
 
