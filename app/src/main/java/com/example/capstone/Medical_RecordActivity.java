@@ -48,6 +48,8 @@ public class Medical_RecordActivity extends AppCompatActivity implements Adapter
         ET_Illness=(EditText) findViewById(R.id.illness);
         btn_Continue = (Button) findViewById(R.id.btn_continue);
 
+
+
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.blood, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         ET_BloodType.setAdapter(adapter);
@@ -67,6 +69,25 @@ public class Medical_RecordActivity extends AppCompatActivity implements Adapter
                 gv.setAllergies(ET_Allergies.getText().toString());
                 gv.setIllness(ET_Illness.getText().toString());
 
+                if(ET_ContactP.getText().toString().trim().isEmpty()){
+                    Toast.makeText(Medical_RecordActivity.this, "Enter Contact Person",Toast.LENGTH_SHORT).show();
+                } else if (ET_ContactN.getText().toString().trim().isEmpty()){
+                    Toast.makeText(Medical_RecordActivity.this, "Enter Contact Number",Toast.LENGTH_SHORT).show();
+                }else if (ET_Height.getText().toString().trim().isEmpty()){
+                    Toast.makeText(Medical_RecordActivity.this, "Enter Height",Toast.LENGTH_SHORT).show();
+                }else if(ET_Weight.getText().toString().trim().isEmpty()){
+                    Toast.makeText(Medical_RecordActivity.this, "Enter Weight",Toast.LENGTH_SHORT).show();
+                }else if (ET_BloodP.getText().toString().trim().isEmpty()){
+                    Toast.makeText(Medical_RecordActivity.this, "Enter Blood Pressure",Toast.LENGTH_SHORT).show();
+                }else if (ET_Allergies.getText().toString().trim().isEmpty()){
+                    Toast.makeText(Medical_RecordActivity.this, "Enter Allergies",Toast.LENGTH_SHORT).show();
+                }else if (ET_Illness.getText().toString().trim().isEmpty()){
+                    Toast.makeText(Medical_RecordActivity.this, "Enter Allergies",Toast.LENGTH_SHORT).show();
+                }else{
+
+                }
+
+
                 String email = gv.getEmail();;
 
                 SecureRandom random = new SecureRandom();
@@ -85,13 +106,15 @@ public class Medical_RecordActivity extends AppCompatActivity implements Adapter
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
 
-//                                try{
-//
-//
-//                                }
-//                                catch (Exception e){
-//                                    Toast.makeText(getApplicationContext(), "Verification Code Error!", Toast.LENGTH_LONG).show();
-//                                }
+                                try{
+
+
+                                }
+                                catch (Exception e){
+                                  Toast.makeText(getApplicationContext(), "Verification Code Error!", Toast.LENGTH_LONG).show();
+                               }
+
+
 
 
                                 Intent intent = new Intent(Medical_RecordActivity.this,Sign_Up_VerifyActivity.class);

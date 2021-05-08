@@ -88,9 +88,36 @@ protected void onCreate(Bundle savedInstanceState) {
             gv.setMunicipality(String.valueOf(ET_Municipality.getText()));
             gv.setPostal(String.valueOf(ET_Postal.getText()));
 
-            Intent intent = new Intent(Sign_UpActivity.this,Medical_RecordActivity.class);
+            if (ET_FName.getText().toString().trim().isEmpty()){
+                Toast.makeText(Sign_UpActivity.this, "Enter First Name",Toast.LENGTH_SHORT).show();
+            }else if (ET_LName.getText().toString().trim().isEmpty()){
+                Toast.makeText(Sign_UpActivity.this, "Enter Last Name",Toast.LENGTH_SHORT).show();
+            }else if (ET_MI.getText().toString().trim().isEmpty()){
+                Toast.makeText(Sign_UpActivity.this, "Enter Middle Initial",Toast.LENGTH_SHORT).show();
+            }else if (ET_Contact.getText().toString().trim().isEmpty()){
+                Toast.makeText(Sign_UpActivity.this, "Enter Contact Number",Toast.LENGTH_SHORT).show();
+            }else if (ET_Nationality.getText().toString().trim().isEmpty()){
+                Toast.makeText(Sign_UpActivity.this, "Enter Nationality",Toast.LENGTH_SHORT).show();
+            }else if (ET_Email.getText().toString().trim().isEmpty()){
+                Toast.makeText(Sign_UpActivity.this, "Enter Email",Toast.LENGTH_SHORT).show();
+            }else if (ET_Pass.getText().toString().trim().isEmpty()){
+                Toast.makeText(Sign_UpActivity.this, "Enter Password",Toast.LENGTH_SHORT).show();
+            }else if (!ET_Pass.getText().toString().equals(ET_ConPass.getText().toString())){
+                Toast.makeText(Sign_UpActivity.this, "Confirm Password",Toast.LENGTH_SHORT).show();
+            }else if (ET_Address.getText().toString().trim().isEmpty()){
+                Toast.makeText(Sign_UpActivity.this, "Enter Enter Address",Toast.LENGTH_SHORT).show();
+            }else if (ET_Municipality.getText().toString().trim().isEmpty()){
+                Toast.makeText(Sign_UpActivity.this, "Enter Municipality",Toast.LENGTH_SHORT).show();
+            }else if (ET_Postal.getText().toString().trim().isEmpty()){
+                Toast.makeText(Sign_UpActivity.this, "Enter Postal Code",Toast.LENGTH_SHORT).show();
+            }else{
 
-            startActivity(intent);
+                Intent intent = new Intent(Sign_UpActivity.this,Medical_RecordActivity.class);
+
+                startActivity(intent);
+            }
+
+
 
 
 
@@ -202,10 +229,12 @@ protected void onCreate(Bundle savedInstanceState) {
 
                                 if (task.isSuccessful()) {
 
+
                                     Toast.makeText(Sign_UpActivity.this, "Registered Successfully", Toast.LENGTH_SHORT).show();
 
                                     startActivity(new Intent(Sign_UpActivity.this,
                                             Sign_UpActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK ));
+
 
 
                                 }
