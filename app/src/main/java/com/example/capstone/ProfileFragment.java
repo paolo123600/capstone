@@ -29,6 +29,8 @@ public class ProfileFragment extends AppCompatActivity {
     TextView postal;
     ImageView back;
 
+    Button editbutton;
+
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     String userId;
@@ -47,6 +49,8 @@ public class ProfileFragment extends AppCompatActivity {
         email = findViewById(R.id.email_profile);
         postal = findViewById(R.id.postal_profile);
         back = findViewById(R.id.backspace);
+
+        editbutton = findViewById(R.id.editbtn);
 
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
@@ -81,6 +85,14 @@ public class ProfileFragment extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 onBackPressed();
+            }
+        });
+
+        editbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), profile_edit.class);
+                startActivity(intent);
             }
         });
     }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileFragment">
+    tools:context=".profile_edit">
 
     <LinearLayout
         android:id="@+id/toolbar"
@@ -17,14 +17,14 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
 
-    <ImageView
-        android:id="@+id/backspace"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="@dimen/_2sdp"
-        android:background="@drawable/ic_backspace" />
+        <ImageView
+            android:id="@+id/backspace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:background="@drawable/ic_backspace" />
 
     </LinearLayout>
 
@@ -65,7 +65,7 @@
 
         <EditText
             android:id="@+id/first_name_profile"
-            android:layout_width="272dp"
+            android:layout_width="270dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
@@ -80,7 +80,7 @@
 
         <EditText
             android:id="@+id/gender_profile"
-            android:layout_width="80dp"
+            android:layout_width="79dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
@@ -116,7 +116,7 @@
             android:layout_marginStart="29dp"
             android:layout_marginLeft="29dp"
             android:layout_marginTop="171dp"
-            android:background="@drawable/edittext_bgtransparent"
+            android:background="@drawable/edittext_bg"
             android:padding="@dimen/_5sdp"
             android:text="Municipality sample" />
 
@@ -131,7 +131,7 @@
             android:layout_marginStart="30dp"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="292dp"
-            android:background="@drawable/edittext_bgtransparent"
+            android:background="@drawable/edittext_bg"
             android:padding="@dimen/_5sdp"
             android:text="09959106456" />
 
@@ -145,7 +145,7 @@
             android:layout_marginStart="29dp"
             android:layout_marginLeft="29dp"
             android:layout_marginTop="231dp"
-            android:background="@drawable/edittext_bgtransparent"
+            android:background="@drawable/edittext_bg"
             android:inputType="textImeMultiLine"
             android:padding="@dimen/_5sdp"
             android:text="email@gmail.com" />
@@ -183,7 +183,7 @@
             android:layout_marginStart="29dp"
             android:layout_marginLeft="29dp"
             android:layout_marginTop="107dp"
-            android:background="@drawable/edittext_bgtransparent"
+            android:background="@drawable/edittext_bg"
             android:inputType="textImeMultiLine"
             android:padding="@dimen/_5sdp"
             android:text="Address example" />
@@ -242,7 +242,7 @@
             android:layout_marginStart="224dp"
             android:layout_marginLeft="224dp"
             android:layout_marginTop="172dp"
-            android:background="@drawable/edittext_bgtransparent"
+            android:background="@drawable/edittext_bg"
             android:padding="@dimen/_5sdp"
             android:text="1008" />
 
@@ -257,21 +257,19 @@
             android:layout_marginRight="206dp"
             android:text="Email Address" />
 
-
     </RelativeLayout>
 
     <Button
-        android:id="@+id/editbtn"
+        android:id="@+id/update_profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:layout_marginBottom="16dp"
-        android:text="Edit"
+        android:text="Update"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:background="@drawable/darkround"
         android:textColor="@color/white"/>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

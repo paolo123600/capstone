@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -26,6 +27,8 @@ public class medical_records extends AppCompatActivity {
     EditText medicweight;
     EditText medicallergies;
     EditText medicillness;
+
+    ImageView back;
 
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
@@ -46,6 +49,8 @@ public class medical_records extends AppCompatActivity {
         medicBT = findViewById(R.id.medicalrec_bloodtype);
         medicallergies = findViewById(R.id.medicalrec_allergies);
         medicillness = findViewById(R.id.medicalrec_illness);
+
+        back = findViewById(R.id.backspace);
 
         editbtn = findViewById(R.id.medicalrec_edit_btn);
 
@@ -83,6 +88,13 @@ public class medical_records extends AppCompatActivity {
                 medicweight.setText(documentSnapshot.getString("Weight") + "kg");
                medicallergies.setText(documentSnapshot.getString("Allergies"));
                 medicillness.setText(documentSnapshot.getString("Illness"));
+            }
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
             }
         });
     }
