@@ -28,6 +28,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class Login extends AppCompatActivity {
 
     TextView terms;
+    TextView forgot;
     Button login, signup;
     // Change EditText to TextInputLayout (TextInputLayout is for Firebase to read and insert data on that specific tool)
     EditText user, pass;
@@ -36,6 +37,7 @@ public class Login extends AppCompatActivity {
     private PreferenceManager preferenceManager;
     private ProgressBar signInProgressBar;
     RelativeLayout progressbg, progressremove;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -73,6 +75,7 @@ public class Login extends AppCompatActivity {
         progressbg = findViewById(R.id.progress_bg);
         progressremove = findViewById(R.id.login_progress_remove);
         terms = findViewById(R.id.terms);
+        forgot = findViewById(R.id.forgotpass);
         terms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,6 +83,15 @@ public class Login extends AppCompatActivity {
             startActivity(intent);
             }
         });
+
+        forgot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent forgotPW = new Intent (Login.this, ForgotPassword.class);
+                startActivity(forgotPW);
+            }
+        });
+
 
         login.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -238,8 +250,7 @@ public class Login extends AppCompatActivity {
 
 
     public void forgotPassword(View view) {
-        Intent forgotPW = new Intent (this, ForgotPassword.class);
-        startActivity(forgotPW);
+
 
     }
 
