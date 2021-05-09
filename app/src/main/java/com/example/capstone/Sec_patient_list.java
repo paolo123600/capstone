@@ -26,6 +26,7 @@ import com.mancj.materialsearchbar.MaterialSearchBar;
 
 public class Sec_patient_list extends AppCompatActivity {
 
+    //
     private String searchtype = "Patients";
     TextView changeTV;
     Button btnchange;
