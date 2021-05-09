@@ -26,6 +26,8 @@
         <activity android:name=".patientrec_sec" />
         <activity android:name=".Ra_sec" />
         <activity android:name=".Ra_doc" />
+        <activity android:name=".ForgotPassword" />
+        <activity android:name=".NewPass" />
         <activity android:name=".patient_record_clinic" />
         <activity android:name=".medicalrec_update" />
         <activity android:name=".medical_records" />

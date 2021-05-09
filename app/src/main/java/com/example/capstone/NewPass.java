@@ -24,7 +24,7 @@ public class NewPass extends AppCompatActivity {
     FirebaseFirestore db;
     FirebaseAuth mAuth;
     Button continueforgot;
-    String pass = "";
+    String email = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,13 +35,13 @@ public class NewPass extends AppCompatActivity {
         continueforgot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pass = gv.getPassword();
-
+                email = gv.getEmail();
+                Newpass();
             }
 
 
         });
-        Newpass();
+
 
 
 
@@ -52,7 +52,7 @@ public class NewPass extends AppCompatActivity {
         GlobalVariables gv = (GlobalVariables)getApplicationContext();
         String Pass = gv.getPassword();
 
-        mAuth.confirmPasswordReset(pass,Pass)
+        mAuth.confirmPasswordReset(email,Pass)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
