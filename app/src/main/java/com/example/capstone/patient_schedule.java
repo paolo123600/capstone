@@ -432,7 +432,8 @@ public class patient_schedule extends AppCompatActivity implements DatePickerDia
         dialogbuilder.setView(selectDateView);
         dialog= dialogbuilder.create();
         dialog.show();
-        dialog.getWindow().setLayout(1200, 2000);
+        //size
+        dialog.getWindow().setLayout(800, 500);
 
     }
 
@@ -537,6 +538,7 @@ public class patient_schedule extends AppCompatActivity implements DatePickerDia
         dialogbuilder.setView(confirmView);
         dialog= dialogbuilder.create();
         dialog.show();
+        ///size
         dialog.getWindow().setLayout(1200, 2000);
 
     }

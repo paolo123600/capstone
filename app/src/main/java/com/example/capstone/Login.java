@@ -162,7 +162,7 @@ public class Login extends AppCompatActivity {
                                                     preferenceManager.putString(Constants.KEY_EMAIL, document.getString(Constants.KEY_EMAIL));
                                                     preferenceManager.putString("ClinicName",document.getString("ClinicName"));
 
-                                                    Intent intent = new Intent (Login.this, doctor_homepage.class);
+                                                    Intent intent = new Intent (Login.this, Ra_doc.class);
                                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                                     startActivity(intent);
                                                 }
@@ -184,7 +184,7 @@ public class Login extends AppCompatActivity {
                                                                     preferenceManager.putString(Constants.KEY_EMAIL, document.getString(Constants.KEY_EMAIL));
                                                                     preferenceManager.putString("ClinicName",document.getString("ClinicName"));
 
-                                                                    Intent intent = new Intent (Login.this, secretary_homepage.class);
+                                                                    Intent intent = new Intent (Login.this, Ra_sec.class);
                                                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                                                     startActivity(intent);
                                                                 }

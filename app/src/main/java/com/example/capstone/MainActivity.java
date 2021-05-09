@@ -253,6 +253,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
+            case R.id.nav_about:
+                Intent intent1 = new Intent(MainActivity.this,about.class);
+                startActivity(intent1);
+                break;
             case R.id.nav_profile:
                 Intent intent = new Intent(MainActivity.this, ProfileFragment.class);
                 startActivity(intent);
