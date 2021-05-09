@@ -1,6 +1,7 @@
 package com.example.capstone;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,7 +44,10 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -75,8 +79,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private  FirestoreRecyclerAdapter adapter;
     private PreferenceManager preferenceManager;
     FirebaseFirestore db;
+    FirebaseAuth fAuth;
     private String doclastname;
     String datenow;
+    String userId;
     Boolean schedalready = false;
 
     @Override
@@ -93,13 +99,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         buttonbook = (Button) findViewById(R.id.booknow);
         buttonsched = (Button) findViewById(R.id.schedules);
 
+        fAuth = FirebaseAuth.getInstance();
+        userId = fAuth.getCurrentUser().getUid();
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_viewer);
-
+        NavigationView navigationView = findViewById(R.id.nav_viewer_pat);
         navigationView.setNavigationItemSelectedListener(this);
+
+        updateNavHeader();
 
 
         chat.setOnClickListener(new View.OnClickListener() {
@@ -782,7 +792,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 });
     }
 
+    public void updateNavHeader () {
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_viewer_pat);
+        View headerView = navigationView.getHeaderView(0);
+        TextView navUsernamePat = headerView.findViewById(R.id.nav_header_name);
+        TextView navEmail = headerView.findViewById(R.id.nav_header_email);
 
+        DocumentReference documentReference = db.collection("Patients").document(userId);
+        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                navUsernamePat.setText(documentSnapshot.getString("FirstName") + " " + documentSnapshot.getString("LastName"));
+                navEmail.setText(documentSnapshot.getString("Email"));
+            }
+        });
+
+
+    }
 }
-
-

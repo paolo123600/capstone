@@ -6,6 +6,7 @@ public class Constants {
 
     public static final String KEY_COLLECTION_USERS = "Patients";
     public static final String KEY_COLLECTION_SECRETARY = "Secretary";
+    public static final String KEY_COLLECTION_DOCTOR = "Doctors";
     public static final String KEY_FIRST_NAME = "FirstName";
     public static final String KEY_LAST_NAME = "LastName";
     public static final String KEY_EMAIL = "Email";

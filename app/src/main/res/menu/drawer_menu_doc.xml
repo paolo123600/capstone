@@ -9,7 +9,7 @@
 
 
     <item
-        android:id="@+id/nav_logout_sec"
+        android:id="@+id/nav_logout_doc"
         android:icon="@drawable/ic_logout"
         android:title="Log Out" />
 

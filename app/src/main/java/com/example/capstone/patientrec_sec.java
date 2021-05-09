@@ -55,6 +55,17 @@ public class patientrec_sec extends AppCompatActivity {
         Intent intent = getIntent();
         String patid = intent.getStringExtra("patid");
 
+        name_patrec.setKeyListener(null);
+        bday_patrec.setKeyListener(null);
+        gender_patrec.setKeyListener(null);
+        number_patrec.setKeyListener(null);
+        height_patrec.setKeyListener(null);
+        bt_patrec.setKeyListener(null);
+        weight_patrec.setKeyListener(null);
+        emcontact_patrec.setKeyListener(null);
+        preillness_patrec.setKeyListener(null);
+        allergies_patrec.setKeyListener(null);
+
 
         DocumentReference documentReference = fStore.collection("Patients").document(patid);
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {

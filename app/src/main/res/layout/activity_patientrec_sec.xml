@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileFragment">
+    tools:context=".patientrec_sec">
 
     <LinearLayout
         android:id="@+id/toolbar"
@@ -79,7 +79,7 @@
 
         <EditText
             android:id="@+id/full_name_patientrec"
-            android:layout_width="wrap_content"
+            android:layout_width="158dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
@@ -89,6 +89,7 @@
             android:layout_marginTop="50dp"
             android:background="@drawable/edittext_bgtransparent"
             android:padding="@dimen/_5sdp"
+            android:inputType="textImeMultiLine"
             android:text="Full name" />
 
 
@@ -118,6 +119,7 @@
             android:layout_marginTop="50dp"
             android:background="@drawable/edittext_bgtransparent"
             android:padding="@dimen/_5sdp"
+            android:inputType="textImeMultiLine"
             android:text="Birthday sample" />
 
         <EditText
@@ -268,7 +270,7 @@
 
         <EditText
             android:id="@+id/emergency_contact_patientrec"
-            android:layout_width="wrap_content"
+            android:layout_width="158dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
@@ -278,7 +280,7 @@
             android:layout_marginTop="215dp"
             android:background="@drawable/edittext_bgtransparent"
             android:padding="@dimen/_5sdp"
-            android:text="emergency contact" />
+            android:text="09959106439" />
 
         <TextView
             android:layout_width="wrap_content"
