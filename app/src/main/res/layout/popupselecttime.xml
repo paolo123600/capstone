@@ -33,20 +33,6 @@
         app:layout_constraintTop_toBottomOf="@+id/btntime10" />
 
     <Button
-        android:id="@+id/btntime4"
-        android:layout_width="120dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="252dp"
-        android:layout_marginLeft="252dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/darkround"
-        android:text="4:00-4:30PM"
-        android:textColor="@color/white"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btntime330" />
-
-    <Button
         android:id="@+id/btntime930"
         android:layout_width="120dp"
         android:layout_height="45dp"
@@ -117,11 +103,39 @@
         app:layout_constraintTop_toBottomOf="@+id/btntime1" />
 
     <Button
+        android:id="@+id/btntime430"
+        android:layout_width="120dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="228dp"
+        android:layout_marginLeft="228dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/darkround"
+        android:text="4:30-5:00PM"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btntime4" />
+
+    <Button
+        android:id="@+id/btntime2"
+        android:layout_width="120dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="228dp"
+        android:layout_marginLeft="228dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/darkround"
+        android:text="2:00-2:30PM"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Clinicnametv" />
+
+    <Button
         android:id="@+id/btntime230"
         android:layout_width="120dp"
         android:layout_height="45dp"
-        android:layout_marginStart="252dp"
-        android:layout_marginLeft="252dp"
+        android:layout_marginStart="228dp"
+        android:layout_marginLeft="228dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/darkround"
         android:text="2:30-3:00PM"
@@ -134,8 +148,8 @@
         android:id="@+id/btntime3"
         android:layout_width="120dp"
         android:layout_height="45dp"
-        android:layout_marginStart="252dp"
-        android:layout_marginLeft="252dp"
+        android:layout_marginStart="228dp"
+        android:layout_marginLeft="228dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/darkround"
         android:text="3:00-3:30PM"
@@ -148,8 +162,8 @@
         android:id="@+id/btntime330"
         android:layout_width="120dp"
         android:layout_height="45dp"
-        android:layout_marginStart="252dp"
-        android:layout_marginLeft="252dp"
+        android:layout_marginStart="228dp"
+        android:layout_marginLeft="228dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/darkround"
         android:text="3:30-4:00PM"
@@ -159,25 +173,25 @@
         app:layout_constraintTop_toBottomOf="@+id/btntime3" />
 
     <Button
-        android:id="@+id/btntime430"
+        android:id="@+id/btntime4"
         android:layout_width="120dp"
         android:layout_height="45dp"
-        android:layout_marginStart="252dp"
-        android:layout_marginLeft="252dp"
+        android:layout_marginStart="228dp"
+        android:layout_marginLeft="228dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/darkround"
-        android:text="4:30-5:00PM"
+        android:text="4:00-4:30PM"
         android:textColor="@color/white"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btntime4" />
+        app:layout_constraintTop_toBottomOf="@+id/btntime330" />
 
     <Button
         android:id="@+id/btntime5"
         android:layout_width="120dp"
         android:layout_height="45dp"
-        android:layout_marginStart="252dp"
-        android:layout_marginLeft="252dp"
+        android:layout_marginStart="228dp"
+        android:layout_marginLeft="228dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/darkround"
         android:text="5:00-5:30PM"
@@ -185,20 +199,6 @@
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btntime430" />
-
-    <Button
-        android:id="@+id/btntime2"
-        android:layout_width="120dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="252dp"
-        android:layout_marginLeft="252dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/darkround"
-        android:text="2:00-2:30PM"
-        android:textColor="@color/white"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Clinicnametv" />
 
     <Button
         android:id="@+id/btntime11"

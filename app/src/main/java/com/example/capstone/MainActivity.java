@@ -566,7 +566,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         dialogbuilder.setView(selectDateView);
         dialog= dialogbuilder.create();
         dialog.show();
-        dialog.getWindow().setLayout(1200, 2000);
+
 
     }
     public void createconfirmDialog(){
@@ -655,7 +655,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         dialogbuilder.setView(confirmView);
         dialog= dialogbuilder.create();
         dialog.show();
-        dialog.getWindow().setLayout(1200, 2000);
+
 
     }
 
@@ -746,7 +746,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         dialogbuilder.setView(selectDoctorView);
         dialog= dialogbuilder.create();
         dialog.show();
-        dialog.getWindow().setLayout(1200, 2000);
+
 
 
 
