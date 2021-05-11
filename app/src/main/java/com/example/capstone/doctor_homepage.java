@@ -395,7 +395,14 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
                             }
                         });
                 break;
+            case R.id.btn_appointment:
+
+                break;
+            case R.id.btn_patientRec:
+
+                break;
         }
+
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

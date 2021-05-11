@@ -4,14 +4,22 @@
     tools:showIn="navigation_view">
 
 
+    <item
+        android:id="@+id/btn_appointment"
+        android:icon="@drawable/ic_manage_schedule"
+        android:title="Appointments" />
 
-
-
-
+    <item
+        android:id="@+id/btn_patientrecord"
+        android:icon="@drawable/ic_person"
+        android:title="Patient Record" />
     <item
         android:id="@+id/nav_logout_doc"
         android:icon="@drawable/ic_logout"
         android:title="Log Out" />
+
+
+
 
 
 

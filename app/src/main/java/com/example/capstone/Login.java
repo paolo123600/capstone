@@ -102,7 +102,7 @@ public class Login extends AppCompatActivity {
                 }else if (pass.getText().toString().trim().isEmpty()){
                     Toast.makeText(Login.this, "Enter Password",Toast.LENGTH_SHORT).show();
                 }else{
-                    progressremove.setVisibility(View.INVISIBLE);
+
                     progressbg.setVisibility(View.VISIBLE);
                     signInProgressBar.setVisibility(View.VISIBLE);
                     userlogin();
