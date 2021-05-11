@@ -25,7 +25,6 @@ public class LoginActivity extends AppCompatActivity {
 
     TextView et_email, et_password;
     Button loginBtn;
-    Toolbar toolbar;
     String email, password;
     FirebaseAuth mAuth;//
 
@@ -36,10 +35,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-        toolbar = findViewById(R.id.toolbarlogin);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Login");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         et_email = findViewById(R.id.Username);
         et_password = findViewById(R.id.Password);
