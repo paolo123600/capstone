@@ -22,7 +22,7 @@ public class patient_record_clinic extends AppCompatActivity {
 
     private RecyclerView patientrecList;
     private FirebaseFirestore firebaseFirestore;
-
+        //
     private FirestoreRecyclerAdapter adapter;
 
 
