@@ -10,54 +10,76 @@
     android:background="@color/mainbg"
     tools:context=".MainActivity">
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/schedules"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginTop="@dimen/_265sdp"
-            android:layout_marginStart="@dimen/_170sdp"
-            android:layout_marginLeft="@dimen/_170sdp"
-            android:background="@drawable/circle_button_schedules"
-            android:drawableTop="@drawable/ic_baseline_insert_drive_file_24"
-            android:padding="20dp"
-            android:text="Schedules"
-            android:textAllCaps="false"
-            android:textColor="@color/white" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="150dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+           >
 
-        <Button
-            android:id="@+id/chat"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginTop="@dimen/_265sdp"
-            android:layout_marginStart="@dimen/_30sdp"
-            android:layout_marginLeft="@dimen/_30sdp"
-            android:background="@drawable/cirlce_button_chat"
-            android:drawableTop="@drawable/ic_chaticon"
-            android:padding="20dp"
-            android:text="Chat"
-            android:textAllCaps="false"
-            android:textColor="@color/white" />
+            <Button
+                android:id="@+id/schedules"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
 
-        <Button
-            android:id="@+id/booknow"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginTop="@dimen/_140sdp"
-            android:layout_marginStart="@dimen/_100sdp"
-            android:layout_marginLeft="@dimen/_100sdp"
-            android:background="@drawable/circle_button_booknow"
-            android:drawableTop="@drawable/ic_baseline_calendar_today_24"
-            android:padding="10dp"
-            android:text="Book Now!"
-            android:textAllCaps="false"
-            android:textColor="@color/white" />
+                android:background="@drawable/circle_button_schedules"
+                android:drawableTop="@drawable/ic_baseline_insert_drive_file_24"
+                android:padding="20dp"
+                android:text="Schedules"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/chat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/cirlce_button_chat"
+                android:drawableTop="@drawable/ic_chaticon"
+                android:padding="20dp"
+
+                android:text="Chat"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
+
+            <com.google.android.material.circularreveal.CircularRevealFrameLayout
+                android:id="@+id/fragment_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginBottom="0dp" >
+
+                <Button
+                    android:id="@+id/booknow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/circle_button_booknow"
+                    android:drawableTop="@drawable/ic_baseline_calendar_today_24"
+                    android:padding="10dp"
+                    android:text="Book Now!"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white" />
+            </com.google.android.material.circularreveal.CircularRevealFrameLayout>
 
 
-    </RelativeLayout>
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 
 
@@ -75,26 +97,8 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-        <com.google.android.material.circularreveal.CircularRevealFrameLayout
-            android:id="@+id/fragment_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="0dp"
-            android:layout_marginRight="0dp"
-            android:layout_marginBottom="0dp" />
-
     </LinearLayout>
 
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/nav_viewer_pat"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        app:headerLayout="@layout/nav_header"
-        app:menu="@menu/drawer_menu"/>
 
 
 
