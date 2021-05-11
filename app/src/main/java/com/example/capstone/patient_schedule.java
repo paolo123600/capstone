@@ -154,6 +154,8 @@ public class patient_schedule extends AppCompatActivity implements DatePickerDia
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         Toast.makeText(patient_schedule.this, "Successfully Canceled", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(patient_schedule.this, patient_schedule.class);
+                                        startActivity(intent);
                                     }
                                 });
                             }
@@ -432,8 +434,7 @@ public class patient_schedule extends AppCompatActivity implements DatePickerDia
         dialogbuilder.setView(selectDateView);
         dialog= dialogbuilder.create();
         dialog.show();
-        //size
-        dialog.getWindow().setLayout(800, 500);
+
 
     }
 
@@ -538,8 +539,8 @@ public class patient_schedule extends AppCompatActivity implements DatePickerDia
         dialogbuilder.setView(confirmView);
         dialog= dialogbuilder.create();
         dialog.show();
-        ///size
-        dialog.getWindow().setLayout(1200, 2000);
+
+
 
     }
 

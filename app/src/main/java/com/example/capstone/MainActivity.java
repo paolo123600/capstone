@@ -225,7 +225,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         String currentDateString = DateFormat.getDateInstance().format(c.getTime());
         c.add(Calendar.DAY_OF_MONTH,-2);
         String currentDateminus2String = DateFormat.getDateInstance().format(c.getTime());
-        Toast.makeText(MainActivity.this, currentDateString, Toast.LENGTH_SHORT).show();
         GlobalVariables gv = (GlobalVariables) getApplicationContext();
         SimpleDateFormat format = new SimpleDateFormat("MMM d,yyyy");
         format.setLenient(false);
@@ -252,7 +251,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Toast.makeText(MainActivity.this, "please select a valid date", Toast.LENGTH_SHORT).show();
         }
         else {
-            Toast.makeText(MainActivity.this, datenow, Toast.LENGTH_SHORT).show();
             gv.setSDDate(currentDateString);
             createSelectDateDialog();
 
@@ -629,9 +627,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         new android.app.AlertDialog.Builder(MainActivity.this)
-                                                .setTitle("Account Successfully Created")
-                                                .setMessage("You have successfully created an account!! You can now login in the login page.")
-                                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                                .setTitle("Successfully Booked an appointment")
+                                                .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
                                                     @Override
                                                     public void onClick(DialogInterface dialogInterface, int i) {
                                                         dialog.dismiss();

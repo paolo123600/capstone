@@ -135,7 +135,7 @@
         android:ems="10"
 
         android:hint="Contact"
-        android:inputType="textPersonName"
+        android:inputType="number"
         android:paddingLeft="10dp"
 
         tools:layout_editor_absoluteX="99dp"
@@ -196,7 +196,7 @@
         android:layout_marginTop="327dp"
         android:ems="10"
 
-        android:hint="Passowrd"
+        android:hint="Password"
         android:inputType="textPassword"
         android:paddingLeft="10dp"
 

@@ -108,7 +108,7 @@ btnchange.setOnClickListener(new View.OnClickListener() {
         patientlist = (RecyclerView) findViewById(R.id.recyclerViewpat);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         if (searchtype == "Patients") {
-            query = db.collection(searchtype).whereEqualTo(clinicname, "true").orderBy("LastName").startAt(text).endAt(text+'\uf8ff');
+            query = db.collection(searchtype).whereEqualTo(clinicname, "True").orderBy("LastName").startAt(text).endAt(text+'\uf8ff');
         }else {
             query = db.collection(searchtype).whereEqualTo("ClinicName", clinicname).orderBy("LastName").startAt(text).endAt(text+'\uf8ff');
         }
@@ -166,7 +166,7 @@ btnchange.setOnClickListener(new View.OnClickListener() {
         patientlist = (RecyclerView) findViewById(R.id.recyclerViewpat);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         if (searchtype == "Patients") {
-            query = db.collection(searchtype).whereEqualTo(clinicname, "true");
+            query = db.collection(searchtype).whereEqualTo(clinicname, "True");
         }else {
             query = db.collection(searchtype).whereEqualTo("ClinicName", clinicname);
         }

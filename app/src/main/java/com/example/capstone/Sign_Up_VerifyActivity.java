@@ -182,7 +182,6 @@ public class Sign_Up_VerifyActivity extends AppCompatActivity {
                             Patients.put("FirstName",Fname);
                             Patients.put("LastName",Lname);
                             Patients.put("MiddleInitial",Mname);
-                            Patients.put("id", user.getUid());
                             Patients.put("Sex",Sex);
                             Patients.put("Contact",Contact);
                             Patients.put("Address",Address);

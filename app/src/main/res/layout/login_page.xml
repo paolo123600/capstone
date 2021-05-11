@@ -24,32 +24,35 @@
             android:layout_height="42dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
+            android:layout_marginStart="@dimen/_50sdp"
+            android:layout_marginLeft="@dimen/_16sdp"
             android:layout_marginTop="@dimen/_190sdp"
             android:layout_marginEnd="@dimen/_50sdp"
             android:layout_marginRight="@dimen/_5sdp"
-            android:layout_marginStart="@dimen/_50sdp"
             android:background="@drawable/roundtbox"
             android:drawableLeft="@drawable/ic_baseline_person_24"
             android:ems="10"
             android:hint="@string/Email"
             android:inputType="textPersonName"
             android:paddingLeft="10dp"
-            android:layout_marginLeft="@dimen/_16sdp" />
+            android:textColorHint="@color/black" />
 
         <EditText
             android:id="@+id/Password"
             android:layout_width="match_parent"
             android:layout_height="42dp"
+            android:layout_marginStart="@dimen/_50sdp"
+            android:layout_marginLeft="@dimen/_50sdp"
+            android:layout_marginTop="@dimen/_230sdp"
+            android:layout_marginEnd="@dimen/_50sdp"
             android:background="@drawable/roundtbox"
             android:drawableLeft="@drawable/ic_baseline_lock_24"
             android:ems="10"
             android:hint="@string/password"
             android:inputType="textPassword"
             android:paddingLeft="10dp"
-            android:layout_marginTop="@dimen/_230sdp"
-            android:layout_marginStart="@dimen/_50sdp"
-            android:layout_marginLeft="@dimen/_50sdp"
-            android:layout_marginEnd="@dimen/_50sdp"/>
+            android:textColor="@color/black"
+            android:textColorHint="@color/black" />
 
         <Button
             android:id="@+id/logbtn"
@@ -89,11 +92,11 @@
             android:id="@+id/terms"
             android:layout_width="57dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_330sdp"
-            android:gravity="center"
             android:layout_marginStart="@dimen/_125sdp"
             android:layout_marginLeft="@dimen/_135sdp"
+            android:layout_marginTop="@dimen/_330sdp"
             android:clickable="true"
+            android:gravity="center"
             android:text="Terms" />
 
         <TextView
@@ -104,13 +107,30 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="19dp"
-            android:layout_marginLeft="19dp"
-            android:layout_marginEnd="19dp"
-            android:layout_marginRight="19dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginStart="21dp"
+            android:layout_marginLeft="21dp"
+            android:layout_marginEnd="17dp"
+            android:layout_marginRight="17dp"
+            android:layout_marginBottom="32dp"
             android:gravity="center"
-            android:text="If you want to register your clinic contact us." />
+            android:text="If you want to register your clinic please contact us." />
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="21dp"
+            android:layout_marginLeft="21dp"
+            android:layout_marginEnd="17dp"
+            android:layout_marginRight="17dp"
+            android:layout_marginBottom="14dp"
+            android:gravity="center"
+            android:text="Email: Medi-call@gmail.com" />
 
     </RelativeLayout>
 
