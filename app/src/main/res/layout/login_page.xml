@@ -29,7 +29,9 @@
                 android:text="Log in"
                 android:textSize="@dimen/_30ssp"
                 android:textStyle="bold"
-                android:padding="@dimen/_10sdp"/>
+                android:paddingTop="@dimen/_10sdp"
+                android:paddingRight="@dimen/_10sdp"
+                android:paddingBottom="@dimen/_10sdp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -54,6 +56,7 @@
 
             <EditText
                 android:id="@+id/Password"
+                android:inputType="textPassword"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/roundtbox"
@@ -74,10 +77,12 @@
             android:layout_marginEnd="@dimen/_10sdp">
 
             <TextView
+                android:id="@+id/forgotpass"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Forgot your password?"
-                android:paddingLeft="@dimen/_10sdp" />
+                android:paddingLeft="@dimen/_10sdp"
+                android:clickable="true"
+                android:text="Forgot your password?" />
 
 
 
@@ -89,7 +94,7 @@
                 android:background="@drawable/darkround"
                 android:textColor="@color/white"
                 android:layout_marginLeft="@dimen/_80sdp"
-                android:paddingTop=""/>
+                />
 
         </LinearLayout>
 
@@ -128,11 +133,13 @@
                 android:paddingTop="@dimen/_10sdp"/>
 
             <TextView
+                android:id="@+id/btntvSignup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Create and account"
+                android:clickable="true"
                 android:paddingLeft="@dimen/_5sdp"
-                android:textColor="@color/button"/>
+                android:text="Create and account"
+                android:textColor="@color/button" />
 
 
         </LinearLayout>
@@ -147,10 +154,12 @@
             android:layout_marginEnd="@dimen/_10sdp">
 
             <TextView
+                android:id="@+id/terms"
                 android:layout_width="wrap_content"
+                android:clickable="true"
                 android:layout_height="wrap_content"
-                android:text="Terms"
-                android:padding="@dimen/_10sdp"/>
+                android:padding="@dimen/_10sdp"
+                android:text="Terms" />
 
 
         </LinearLayout>

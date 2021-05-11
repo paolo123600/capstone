@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -28,15 +29,15 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class Login extends AppCompatActivity {
 
     TextView terms;
-    TextView forgot;
-    Button login, signup;
+    TextView forgot , signup;
+    Button login;
     // Change EditText to TextInputLayout (TextInputLayout is for Firebase to read and insert data on that specific tool)
     EditText user, pass;
     private FirebaseAuth mAuth;
     FirebaseFirestore db;
     private PreferenceManager preferenceManager;
     private ProgressBar signInProgressBar;
-    RelativeLayout progressbg, progressremove;
+    LinearLayout progressbg, progressremove;
 
 
     @Override
@@ -70,10 +71,10 @@ public class Login extends AppCompatActivity {
         user = findViewById(R.id.Username);
         pass = findViewById(R.id.Password);
         login = findViewById(R.id.logbtn);
-        signup = findViewById(R.id.signup);
+        signup = findViewById(R.id.btntvSignup);
         signInProgressBar = findViewById(R.id.signInProgressBar);
         progressbg = findViewById(R.id.progress_bg);
-        progressremove = findViewById(R.id.login_progress_remove);
+
         terms = findViewById(R.id.terms);
         forgot = findViewById(R.id.forgotpass);
         terms.setOnClickListener(new View.OnClickListener() {
