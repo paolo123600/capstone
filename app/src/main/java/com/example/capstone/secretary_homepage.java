@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -35,9 +36,9 @@ import java.util.HashMap;
 
 public class  secretary_homepage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
-    private RelativeLayout notif_button;
-    private RelativeLayout patrec;
-    private RelativeLayout chatbtn;
+    private CardView notif_button;
+    private Button patrec;
+    private Button chatbtn;
 
     private PreferenceManager preferenceManager;
     FirebaseFirestore db;

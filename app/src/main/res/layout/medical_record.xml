@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/mainbg"
     tools:context=".Medical_RecordActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,7 +26,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Medical Records"
-                android:padding="@dimen/_10sdp"
+                android:paddingTop="@dimen/_10sdp"
+                android:paddingBottom="@dimen/_10sdp"
                 android:textSize="@dimen/_20sdp"/>
 
             <TextView
@@ -73,20 +75,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Weight"
-                android:layout_marginLeft="@dimen/_40sdp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Blood Pressure"
-                android:layout_marginLeft="@dimen/_35sdp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:text="Blood Type"
-                android:layout_marginLeft="@dimen/_12sdp"/>
+                android:layout_marginLeft="@dimen/_99sdp"/>
 
         </LinearLayout>
 
@@ -100,26 +90,10 @@
             <EditText
                 android:id="@+id/Height"
                 android:inputType="numberDecimal"
-                android:layout_width="@dimen/_60sdp"
+                android:layout_width="@dimen/_120sdp"
                 android:layout_height="match_parent"
                 android:background="@drawable/roundtbox"
                 android:padding="@dimen/_10sdp"/>
-
-            <EditText
-                android:id="@+id/Weight"
-                android:inputType="numberDecimal"
-                android:layout_width="@dimen/_60sdp"
-                android:layout_height="match_parent"
-                android:background="@drawable/roundtbox"
-                android:layout_marginLeft="@dimen/_10sdp"/>
-
-            <EditText
-                android:id="@+id/Bloodp"
-                android:inputType="number"
-                android:layout_width="@dimen/_75sdp"
-                android:layout_height="match_parent"
-                android:background="@drawable/roundtbox"
-                android:layout_marginLeft="@dimen/_10sdp"/>
 
             <Spinner
                 android:id="@+id/Bloodtype"
@@ -132,10 +106,58 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/addedlabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/heightedittext"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/_10sdp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Weight"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Blood Pressure"
+                android:layout_marginLeft="@dimen/_97sdp"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/addededittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/addedlabel"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/Weight"
+                android:inputType="numberDecimal"
+                android:layout_width="@dimen/_120sdp"
+                android:layout_height="match_parent"
+                android:padding="@dimen/_10sdp"
+                android:background="@drawable/roundtbox"/>
+
+            <EditText
+                android:inputType="number"
+                android:id="@+id/Bloodp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/roundtbox"
+                android:padding="@dimen/_10sdp"
+                android:layout_marginLeft="@dimen/_10sdp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/allergiesedittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/heightedittext"
+            app:layout_constraintTop_toBottomOf="@+id/addededittext"
             android:layout_marginTop="@dimen/_10sdp"
             android:orientation="vertical">
 
