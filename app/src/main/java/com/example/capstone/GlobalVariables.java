@@ -25,6 +25,52 @@ public class GlobalVariables extends Application {
     private  String Illness;
     private  String Channel_Name;
 
+    public int getCounter() {
+        return counter;
+    }
+
+    public void setCounter(int counter) {
+        this.counter = counter;
+    }
+
+    private int counter;
+    public String getSDWorkStart() {
+        return SDWorkStart;
+    }
+
+    public void setSDWorkStart(String SDWorkStart) {
+        this.SDWorkStart = SDWorkStart;
+    }
+
+    public String getSDWorkEnd() {
+        return SDWorkEnd;
+    }
+
+    public void setSDWorkEnd(String SDWorkEnd) {
+        this.SDWorkEnd = SDWorkEnd;
+    }
+
+    public String getSDLunchStart() {
+        return SDLunchStart;
+    }
+
+    public void setSDLunchStart(String SDLunchStart) {
+        this.SDLunchStart = SDLunchStart;
+    }
+
+    public String getSDLunchEnd() {
+        return SDLunchEnd;
+    }
+
+    public void setSDLunchEnd(String SDLunchEnd) {
+        this.SDLunchEnd = SDLunchEnd;
+    }
+
+    private  String SDWorkStart;
+    private  String SDWorkEnd;
+    private  String SDLunchStart;
+    private  String SDLunchEnd;
+
     public String getBday() {
         return Bday;
     }
