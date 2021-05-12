@@ -104,7 +104,7 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
             Date currentTime = Calendar.getInstance().getTime();
 //            String timenow1 =dateFormat.format(currentTime);
 
-            String timenow1 = "3:22pm";
+            String timenow1 = "4:50PM";
             timenow = dateFormat.parse(timenow1);
 
         } catch (ParseException e) {
@@ -181,125 +181,30 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
 
     private void checkschedcurrent() {
 
+
+        String[] time = {"8:00AM","8:30AM","9:00AM","9:30AM","10:00AM","10:30AM","11:00AM","11:30AM","12:00PM","12:30PM","1:00PM","1:30PM","2:00PM","2:30PM","3:00PM","3:30PM","4:00PM","4:30PM","5:00PM","5:30PM","6:00PM","6:30PM","7:00PM","7:30PM","8:00PM","8:30PM"};
+        String[] btntext = {"8:00-8:30AM","8:30-9:00AM","9:00-9:30AM","9:30-10:00AM","10:00-10:30AM","10:30-11:00AM","11:00-11:30AM","11:30-12:00PM","12:00-12:30PM","12:30-1:00PM","1:00-1:30PM","1:30-2:00PM","2:00-2:30PM","2:30-3:00PM","3:00-3:30PM","3:30-4:00PM","4:00-4:30PM","4:30-5:00PM","5:00-5:30PM","5:30-6:00PM","6:00-6:30PM","6:30-7:00PM","7:00-7:30PM","7:30-8:00PM"};
         //initializing time
-        Date d930 = new Date(), d10 = new Date(), d1030 = new Date(), d11 = new Date(), d1130 = new Date(), d1 = new Date(), d130 = new Date(), d2 = new Date(), d230 = new Date(), d3 = new Date(), d330 = new Date(),
-                d4 = new Date(), d430 = new Date(), d5 = new Date(), d530 = new Date(), d12 = new Date();
+        Date d1= new Date(), d2= new Date();
         String timestart = "", timestop = "";
-
-        String t930 = "9:30am";
-        String t10 = "10:00am";
-        String t1030 = "10:30am";
-        String t11 = "11:00am";
-        String t1130 = "11:30am";
-        String t12 = "12:00pm";
-        String t1 = "1:00pm";
-        String t130 = "1:30pm";
-        String t2 = "2:00pm";
-        String t230 = "2:30pm";
-        String t3 = "3:00pm";
-        String t330 = "3:30pm";
-        String t4 = "4:00pm";
-        String t430 = "4:30pm";
-        String t5 = "5:00pm";
-        String t530 = "5:30pm";
-
         SimpleDateFormat dateFormat = new SimpleDateFormat("h:mmaa");
         //converting time
-        try {
-            d930 = dateFormat.parse(t930);
-            d10 = dateFormat.parse(t10);
-            d1030 = dateFormat.parse(t1030);
-            d11 = dateFormat.parse(t11);
-            d1130 = dateFormat.parse(t1130);
-            d1 = dateFormat.parse(t1);
-            d130 = dateFormat.parse(t130);
-            d2 = dateFormat.parse(t2);
-            d230 = dateFormat.parse(t230);
-            d3 = dateFormat.parse(t3);
-            d330 = dateFormat.parse(t330);
-            d4 = dateFormat.parse(t4);
-            d430 = dateFormat.parse(t430);
-            d5 = dateFormat.parse(t5);
-            d530 = dateFormat.parse(t530);
-        } catch (ParseException e) {
-            Toast.makeText(doctor_homepage.this, "errorsettingtime", Toast.LENGTH_SHORT).show();
+        for (int j=0 ; j<time.length-1 ; j++){
+            try {
+                d1 = dateFormat.parse(time[j]);
+                d2= dateFormat.parse(time[j+1]);
+            } catch (ParseException e) {
+                Toast.makeText(doctor_homepage.this, "errorsettingtime", Toast.LENGTH_SHORT).show();
+
+            }
+            if (timenow.after(d1) && timenow.before(d2) || timenow.equals(d2)) {
+                timestart=time[j];
+                timestop=time[j+1];
+            }
         }
-//getting the current sched
 
-        if (timenow.after(d5) && timenow.before(d530) || timenow.equals(d5)) {
+        Toast.makeText(this, "timestart: "+timestart+"timestop: "+timestop, Toast.LENGTH_SHORT).show();
 
-            timestart = t5;
-            timestop = t530;
-
-        } else if (timenow.after(d430) || timenow.equals(d430)) {
-
-            timestart = t430;
-            timestop = t5;
-
-        } else if (timenow.after(d4) || timenow.equals(d4)) {
-
-            timestart = t4;
-            timestop = t430;
-
-        } else if (timenow.after(d330) || timenow.equals(d330)) {
-
-            timestart = t330;
-            timestop = t4;
-
-        } else if (timenow.after(d3) || timenow.equals(d3)) {
-
-            timestart = t3;
-            timestop = t330;
-
-        } else if (timenow.after(d230) || timenow.equals(d230)) {
-
-            timestart = t230;
-            timestop = t3;
-
-        } else if (timenow.after(d2) || timenow.equals(d2)) {
-
-            timestart = t2;
-            timestop = t230;
-
-        } else if (timenow.after(d130) || timenow.equals(d130)) {
-
-            timestart = t130;
-            timestop = t2;
-
-        } else if (timenow.after(d1) || timenow.equals(d1)) {
-
-            timestart = t1;
-            timestop = t130;
-
-        } else if (timenow.after(d1130) && timenow.before(d12) || timenow.equals(d1130)) {
-
-            timestart = t1130;
-            timestop = t12;
-
-        } else if (timenow.after(d11) || timenow.equals(d11)) {
-
-            timestart = t11;
-            timestop = t1130;
-
-        } else if (timenow.after(d1030) || timenow.equals(d1030)) {
-
-            timestart = t1030;
-            timestop = t11;
-
-        } else if (timenow.after(d10) || timenow.equals(d10)) {
-
-            timestart = t10;
-            timestop = t1030;
-
-        } else if (timenow.after(d930) || timenow.equals(d930)) {
-
-            timestart = t930;
-            timestop = t10;
-
-        } else {
-
-            Toast.makeText(doctor_homepage.this, "nosched", Toast.LENGTH_SHORT).show();
-        }
 
         db.collection("Schedule").whereEqualTo("SchedDate", datenow).whereEqualTo("TimeStart", timestart).whereEqualTo("DoctorUId", preferenceManager.getString(Constants.KEY_USER_ID)).whereEqualTo("TimeStop", timestop)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
