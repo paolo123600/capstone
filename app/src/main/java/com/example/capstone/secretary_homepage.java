@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,7 +37,7 @@ import java.util.HashMap;
 
 public class  secretary_homepage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
-    private CardView notif_button;
+    private LinearLayout notif_button;
     private Button patrec;
     private Button chatbtn;
 
