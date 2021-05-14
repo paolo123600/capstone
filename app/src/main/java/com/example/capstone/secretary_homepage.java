@@ -37,8 +37,8 @@ import java.util.HashMap;
 
 public class  secretary_homepage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
-    private LinearLayout notif_button;
-    private Button patrec;
+    private LinearLayout Patrec_button;
+    private Button notifbtn;
     private Button chatbtn;
 
     private PreferenceManager preferenceManager;
@@ -59,7 +59,7 @@ public class  secretary_homepage extends AppCompatActivity implements Navigation
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_secretary_homepage);
 
-        patrec = findViewById(R.id.patient_record);
+        notifbtn = findViewById(R.id.patient_record);
         chatbtn = findViewById(R.id.secretary_chat_btn);
 
         db = FirebaseFirestore.getInstance();
@@ -73,7 +73,7 @@ public class  secretary_homepage extends AppCompatActivity implements Navigation
         userId = fAuth.getCurrentUser().getUid();
 
         ///////////
-        notif_button = findViewById(R.id.notification_button);
+        Patrec_button = findViewById(R.id.notification_button);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -98,18 +98,19 @@ public class  secretary_homepage extends AppCompatActivity implements Navigation
         });
 
 
-        notif_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        patrec.setOnClickListener(new View.OnClickListener() {
+        Patrec_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), patient_record_clinic.class);
                 startActivity(intent);
+
+            }
+        });
+
+        notifbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }

@@ -53,7 +53,7 @@ public class medicalrec_update extends AppCompatActivity {
         medicBT = findViewById(R.id.medicalrec_bloodtype);
         medicallergies = findViewById(R.id.medicalrec_allergies);
         medicillness = findViewById(R.id.medicalrec_illness);
-
+        medicBT.setKeyListener(null);
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
 

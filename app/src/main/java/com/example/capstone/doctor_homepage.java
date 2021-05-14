@@ -53,6 +53,7 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
     Button btn_dochat;
     FirebaseFirestore db;
     private Button callbtn;
+    private Button  pat_record;
     String gmail = "";
     String patUid = "";
     private List<User> users;
@@ -80,8 +81,8 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         userId = fAuth.getCurrentUser().getUid();
-
-
+        pat_record= (Button) findViewById(R.id.btn_patient);
+        callbtn = (Button) findViewById(R.id.btn_call);
         drawer = findViewById(R.id.drawer_layout_doc);
         NavigationView navigationView = findViewById(R.id.nav_viewer_doc);
         navigationView.setNavigationItemSelectedListener(this);
@@ -135,7 +136,7 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
 
         users = new ArrayList<>();
 
-        callbtn = (Button) findViewById(R.id.btn_call);
+
         callbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -229,6 +230,8 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
                                                 gmail = document1.getString("Email");
                                                 patnametv.setText(document1.getString("LastName") + ", " + document1.getString("FirstName"));
                                                 schedtimetv.setText("Time: " + document.getString("TimeStart") + " - " + document.getString("TimeStop"));
+                                                callbtn.setVisibility(View.VISIBLE);
+                                                pat_record.setVisibility(View.VISIBLE);
                                                 GlobalVariables gv = (GlobalVariables) getApplicationContext();
                                                 gv.setSDtimestart(document.getString("TimeStart"));
                                                 gv.setSDDate(datenow);
