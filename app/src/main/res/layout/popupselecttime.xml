@@ -62,6 +62,10 @@
 
     </LinearLayout>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/lineardown">
 
 
     <LinearLayout
@@ -76,14 +80,14 @@
         app:layout_constraintTop_toBottomOf="@+id/lineardown"
         android:gravity="center"
         android:paddingLeft="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_10sdp">
+        android:layout_marginTop="@dimen/_20sdp">
 
 
         <LinearLayout
             android:id="@+id/LLleft"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="@dimen/_300sdp"
+            android:layout_height="600dp"
             android:orientation="vertical"
             android:layout_gravity="center">
 
@@ -95,12 +99,17 @@
             android:id="@+id/LLright"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="@dimen/_300sdp"
+            android:layout_height="600dp"
             android:orientation="vertical"
             android:layout_gravity="center">
 
         </LinearLayout>
 
-    </LinearLayout>
+        </LinearLayout>
+
+        </ScrollView>
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
