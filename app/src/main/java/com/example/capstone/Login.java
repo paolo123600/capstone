@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
 import com.example.capstone.utilities.Constants;
@@ -37,7 +38,8 @@ public class Login extends AppCompatActivity {
     FirebaseFirestore db;
     private PreferenceManager preferenceManager;
     private ProgressBar signInProgressBar;
-    LinearLayout progressbg, progressremove;
+    RelativeLayout progressbg;
+    ConstraintLayout bg_remove;
 
 
     @Override
@@ -74,7 +76,7 @@ public class Login extends AppCompatActivity {
         signup = findViewById(R.id.btntvSignup);
         signInProgressBar = findViewById(R.id.signInProgressBar);
         progressbg = findViewById(R.id.progress_bg);
-
+        bg_remove = findViewById(R.id.bgremove);
         terms = findViewById(R.id.terms);
         forgot = findViewById(R.id.forgotpass);
         terms.setOnClickListener(new View.OnClickListener() {
@@ -105,6 +107,7 @@ public class Login extends AppCompatActivity {
 
                     progressbg.setVisibility(View.VISIBLE);
                     signInProgressBar.setVisibility(View.VISIBLE);
+                    bg_remove.setVisibility(View.INVISIBLE);
                     userlogin();
                 }
 
@@ -204,7 +207,7 @@ public class Login extends AppCompatActivity {
                                                                 else {
                                                                     progressbg.setVisibility(View.INVISIBLE);
                                                                     signInProgressBar.setVisibility(View.INVISIBLE);
-                                                                    progressremove.setVisibility(View.VISIBLE);
+                                                                    bg_remove.setVisibility(View.VISIBLE);
                                                                     Toast.makeText(Login.this, "Invalid login details", Toast.LENGTH_SHORT).show();
                                                                 }
                                                             }
@@ -240,6 +243,7 @@ public class Login extends AppCompatActivity {
                 else{
                     progressbg.setVisibility(View.INVISIBLE);
                     signInProgressBar.setVisibility(View.INVISIBLE);
+                    bg_remove.setVisibility(View.VISIBLE);
                     Toast.makeText(Login.this, "Invalid Login Details", Toast.LENGTH_SHORT).show();
 
                 }
