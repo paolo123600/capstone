@@ -76,9 +76,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, DatePickerDialog.OnDateSetListener {
-    private Button buttonbook;
-    private Button buttonsched;
-    Button chat;
+    private LinearLayout buttonbook;
+    private LinearLayout buttonsched;
+    LinearLayout chat;
     private DrawerLayout drawer;
     private AlertDialog.Builder dialogbuilder;
     private Dialog dialog;
@@ -109,8 +109,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         String patuid = preferenceManager.getString(Constants.KEY_USER_ID);
         chat = findViewById(R.id.chat);
-        buttonbook = (Button) findViewById(R.id.booknow);
-        buttonsched = (Button) findViewById(R.id.schedules);
+        buttonbook = findViewById(R.id.booknow);
+        buttonsched =  findViewById(R.id.schedules);
 
         fAuth = FirebaseAuth.getInstance();
         userId = fAuth.getCurrentUser().getUid();
@@ -546,6 +546,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         dialogbuilder.setView(confirmView);
         dialog= dialogbuilder.create();
+
         dialog.show();
 
 

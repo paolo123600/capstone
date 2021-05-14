@@ -23,7 +23,15 @@
     <color name="bilog">#1E82CA</color>
     <color name="blue2">#005EAA</color>
 
+    <color name="border6">#749ea3</color>
+    <color name="border4">#6fa6ab</color>
+    <color name="border5">#c29f9f</color>
 
+
+
+    <color name="border3">#91ad8b</color>
+    <color name="border2">#698f94</color>
+    <color name="border1">#c2b67e</color>
     <color name="darkgrey">#787878</color>
     <color name="mainbg">#F5F5F5</color>
     <color name="button">#002856</color>
