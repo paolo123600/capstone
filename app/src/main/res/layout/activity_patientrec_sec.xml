@@ -7,7 +7,7 @@
     tools:context=".patientrec_sec">
 
     <LinearLayout
-        android:id="@+id/toolbar"
+        android:id="@+id/toolbar1"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/button"
@@ -28,325 +28,320 @@
 
     </LinearLayout>
 
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/_43sdp"
+    app:layout_constraintTop_toBottomOf="@id/toolbar1">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:text="Profile"
-        android:textSize="@dimen/_15sdp"
-        app:layout_constraintBottom_toTopOf="@+id/relativeLayout3"
-        app:layout_constraintStart_toStartOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout3"
-        android:layout_width="@dimen/_290sdp"
-        android:layout_height="@dimen/_380sdp"
-        android:background="@drawable/profilepage_bg"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.49"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-
-        <TextView
-            android:id="@+id/name_label"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/profilelbl"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="26dp"
-            android:layout_marginLeft="26dp"
-            android:layout_marginTop="25dp"
-            android:text="Name" />
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Profile"
+                android:textSize="@dimen/_20ssp"/>
 
 
-        <TextView
-            android:id="@+id/pi_label"
-            android:layout_width="wrap_content"
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/namebdaylabel"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="25dp"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="3dp"
-            android:text="Personal Information"
-            android:textColor="@color/black" />
+            app:layout_constraintTop_toBottomOf="@+id/profilelbl"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/full_name_patientrec"
-            android:layout_width="158dp"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Birthday"
+                android:layout_marginLeft="@dimen/_125sdp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/nameedittxt"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="26dp"
-            android:layout_marginLeft="26dp"
-            android:layout_marginTop="50dp"
-            android:background="@drawable/edittext_bgtransparent"
-            android:padding="@dimen/_5sdp"
-            android:inputType="textImeMultiLine"
-            android:text="Full name" />
+            app:layout_constraintTop_toBottomOf="@id/namebdaylabel"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:orientation="horizontal">
 
+            <EditText
+                android:id="@+id/full_name_patientrec"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@drawable/roundtbox"
+                android:padding="@dimen/_10sdp"
+                android:inputType="textImeMultiLine"/>
 
-        <EditText
-            android:id="@+id/gender_patientrec"
-            android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/birthday_patientrec"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@drawable/roundtbox"
+                android:padding="@dimen/_10sdp"
+                android:layout_marginLeft="@dimen/_10sdp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/contactlbl"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="203dp"
-            android:layout_marginLeft="203dp"
-            android:layout_marginTop="120dp"
-            android:background="@drawable/edittext_bgtransparent"
-            android:padding="@dimen/_5sdp"
-            android:text="Male" />
+            app:layout_constraintTop_toBottomOf="@+id/nameedittxt"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/birthday_patientrec"
-            android:layout_width="158dp"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Contact Number"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sex"
+                android:layout_marginLeft="@dimen/_75sdp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/contactedittxt"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="202dp"
-            android:layout_marginLeft="202dp"
-            android:layout_marginTop="50dp"
-            android:background="@drawable/edittext_bgtransparent"
-            android:padding="@dimen/_5sdp"
-            android:inputType="textImeMultiLine"
-            android:text="Birthday sample" />
+            app:layout_constraintTop_toBottomOf="@id/contactlbl"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/number_patientrec"
-            android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/number_patientrec"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@drawable/roundtbox"
+                android:padding="@dimen/_10sdp"/>
+
+            <EditText
+                android:id="@+id/gender_patientrec"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@drawable/roundtbox"
+                android:padding="@dimen/_10sdp"
+                android:layout_marginLeft="@dimen/_10sdp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/medicalinfolbl"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="26dp"
-            android:layout_marginLeft="26dp"
-            android:layout_marginTop="120dp"
-            android:background="@drawable/edittext_bgtransparent"
-            android:padding="@dimen/_5sdp"
-            android:text="09959106456" />
+            app:layout_constraintTop_toBottomOf="@id/contactedittxt"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Medical Information"
+                android:textSize="@dimen/_20sdp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/weightlbl"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="91dp"
-            android:layout_marginEnd="150dp"
-            android:layout_marginRight="150dp"
-            android:text="Sex" />
+            app:layout_constraintTop_toBottomOf="@id/medicalinfolbl"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Height"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="weight"
+                android:layout_marginLeft="@dimen/_48sdp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Emergency Contact"
+                android:layout_marginLeft="@dimen/_46sdp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/heightedittxt"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="25dp"
-            android:layout_marginEnd="120dp"
-            android:layout_marginRight="120dp"
-            android:text="Birthday" />
+            app:layout_constraintTop_toBottomOf="@id/weightlbl"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp">
 
-        <TextView
-            android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/height_patientrec"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@drawable/roundtbox"
+                android:padding="@dimen/_10sdp"/>
+
+            <EditText
+                android:id="@+id/weight_patientrec"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@drawable/roundtbox"
+                android:padding="@dimen/_10sdp"
+                android:layout_marginLeft="@dimen/_10sdp"/>
+
+            <EditText
+                android:id="@+id/emergency_contact_patientrec"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="match_parent"
+                android:background="@drawable/roundtbox"
+                android:padding="@dimen/_10sdp"
+                android:layout_marginLeft="@dimen/_10sdp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/bloodtypelbl"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="26dp"
-            android:layout_marginLeft="26dp"
-            android:layout_marginTop="91dp"
-            android:text="Contact Number" />
+            app:layout_constraintTop_toBottomOf="@id/heightedittxt"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp">
 
-        <TextView
-            android:layout_width="wrap_content"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Blood Type"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Blood Pressure"
+                android:layout_marginLeft="@dimen/_100sdp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/bloodtypeeditxt"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="26dp"
-            android:layout_marginLeft="26dp"
-            android:layout_marginTop="166dp"
-            android:text="Medical Information"
-            android:textColor="@color/black" />
+            app:layout_constraintTop_toBottomOf="@+id/bloodtypelbl"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp">
 
-        <TextView
-            android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/bloodtype_patientrec"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@drawable/roundtbox"
+                android:padding="@dimen/_10sdp"/>
+
+            <EditText
+                android:id="@+id/bloodppatientrec"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@drawable/roundtbox"
+                android:padding="@dimen/_10sdp"
+                android:layout_marginLeft="@dimen/_10sdp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/preexistinglbl"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="30dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="188dp"
-            android:text="Height" />
+            app:layout_constraintTop_toBottomOf="@id/bloodtypeeditxt"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp">
 
-        <EditText
-            android:id="@+id/height_patientrec"
-            android:layout_width="wrap_content"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pre existing illness"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Allergies"
+                android:layout_marginLeft="@dimen/_65sdp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/preexistingedittxt"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="28dp"
-            android:layout_marginLeft="28dp"
-            android:layout_marginTop="214dp"
-            android:background="@drawable/edittext_bgtransparent"
-            android:padding="@dimen/_5sdp"
-            android:text="height" />
+            app:layout_constraintTop_toBottomOf="@+id/preexistinglbl"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp">
 
-        <EditText
-            android:id="@+id/bloodtype_patientrec"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="25dp"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="286dp"
-            android:background="@drawable/edittext_bgtransparent"
-            android:padding="@dimen/_5sdp"
-            android:text="BT" />
+            <EditText
+                android:id="@+id/prexisting_patientrec"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_80sdp"
+                android:background="@drawable/roundtbox"
+                android:padding="@dimen/_10sdp"
+                android:inputType="textMultiLine"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="104dp"
-            android:layout_marginLeft="104dp"
-            android:layout_marginTop="188dp"
-            android:text="Weight" />
+            <EditText
+                android:id="@+id/allergies_patientrec"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@drawable/roundtbox"
+                android:padding="@dimen/_10sdp"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:inputType="textMultiLine"/>
 
-        <EditText
-            android:id="@+id/weight_patientrec"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="100dp"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="214dp"
-            android:background="@drawable/edittext_bgtransparent"
-            android:padding="@dimen/_5sdp"
-            android:text="weight" />
+        </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="25dp"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="261dp"
-            android:text="Blood Type" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="204dp"
-            android:layout_marginLeft="204dp"
-            android:layout_marginTop="187dp"
-            android:text="Emergency Contact" />
-
-        <EditText
-            android:id="@+id/emergency_contact_patientrec"
-            android:layout_width="158dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="201dp"
-            android:layout_marginLeft="201dp"
-            android:layout_marginTop="215dp"
-            android:background="@drawable/edittext_bgtransparent"
-            android:padding="@dimen/_5sdp"
-            android:text="09959106439" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="28dp"
-            android:layout_marginLeft="28dp"
-            android:layout_marginTop="333dp"
-            android:text="Pre existing illness" />
-
-        <EditText
-            android:id="@+id/prexisting_patientrec"
-            android:layout_width="152dp"
-            android:layout_height="97dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="23dp"
-            android:layout_marginLeft="23dp"
-            android:layout_marginTop="365dp"
-            android:background="@drawable/edittext_bgtransparent"
-            android:padding="@dimen/_5sdp"
-            android:text="pre exisitng illness" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="253dp"
-            android:layout_marginLeft="253dp"
-            android:layout_marginTop="332dp"
-            android:text="Allergies" />
-
-        <EditText
-            android:id="@+id/allergies_patientrec"
-            android:layout_width="152dp"
-            android:layout_height="97dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="205dp"
-            android:layout_marginLeft="205dp"
-            android:layout_marginTop="365dp"
-            android:background="@drawable/edittext_bgtransparent"
-            android:padding="@dimen/_5sdp"
-            android:text="allergies" />
-
-
-    </RelativeLayout>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/darkround"
-        android:padding="@dimen/_8sdp"
-        android:text="@string/Appointments_label"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
+</ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,272 +6,275 @@
     android:layout_height="match_parent"
     tools:context=".ProfileFragment">
 
-    <LinearLayout
-        android:id="@+id/toolbar"
+
+       <LinearLayout
+           android:id="@+id/toolbar"
+           android:layout_width="match_parent"
+           android:layout_height="?attr/actionBarSize"
+           android:background="@color/button"
+           android:elevation="4dp"
+           android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+           app:layout_constraintTop_toTopOf="parent"
+           app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+
+           <ImageView
+               android:id="@+id/backspace"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginStart="16dp"
+               android:layout_marginLeft="16dp"
+               android:layout_marginTop="@dimen/_2sdp"
+               android:background="@drawable/ic_backspace" />
+
+       </LinearLayout>
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/_43sdp"
+    app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/button"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+        android:layout_height="match_parent">
+
+       <LinearLayout
+           android:id="@+id/profilelabel"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           app:layout_constraintTop_toTopOf="parent"
+           android:orientation="vertical"
+           android:layout_marginStart="@dimen/_10sdp"
+           android:layout_marginEnd="@dimen/_10sdp"
+           android:layout_marginTop="@dimen/_10sdp">
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Profile"
+               android:textSize="@dimen/_20sdp"/>
 
 
-    <ImageView
-        android:id="@+id/backspace"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="@dimen/_2sdp"
-        android:background="@drawable/ic_backspace" />
+       </LinearLayout>
 
-    </LinearLayout>
+       <LinearLayout
+           android:id="@+id/namelabeledittxt"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           app:layout_constraintTop_toBottomOf="@+id/profilelabel"
+           android:orientation="vertical"
+           android:layout_marginStart="@dimen/_10sdp"
+           android:layout_marginEnd="@dimen/_10sdp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginBottom="8dp"
-        android:text="Profile"
-        android:textSize="@dimen/_15sdp"
-        app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
-        app:layout_constraintStart_toStartOf="parent" />
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Name" />
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
-        android:layout_width="@dimen/_250sdp"
-        android:layout_height="@dimen/_310sdp"
-        android:background="@drawable/profilepage_bg"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.596">
+           <EditText
+               android:id="@+id/first_name_profile"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:background="@drawable/roundtbox"
+               android:padding="@dimen/_10sdp"/>
 
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Address"
+               android:layout_marginTop="@dimen/_10sdp"/>
 
-        <TextView
-            android:id="@+id/name_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="27dp"
-            android:layout_marginEnd="258dp"
-            android:layout_marginRight="258dp"
-            android:text="Name" />
+           <EditText
+               android:id="@+id/address_profile"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:background="@drawable/roundtbox"
+               android:padding="@dimen/_10sdp"/>
 
-        <EditText
-            android:id="@+id/first_name_profile"
-            android:layout_width="272dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="28dp"
-            android:layout_marginLeft="28dp"
-            android:layout_marginTop="50dp"
-            android:background="@drawable/edittext_bgtransparent"
-            android:padding="@dimen/_5sdp"
-            android:text="first name" />
+       </LinearLayout>
 
+       <LinearLayout
+           android:id="@+id/municipalitylabel"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           app:layout_constraintTop_toBottomOf="@+id/namelabeledittxt"
+           android:orientation="horizontal"
+           android:layout_marginStart="@dimen/_10sdp"
+           android:layout_marginEnd="@dimen/_10sdp"
+           android:layout_marginTop="@dimen/_10sdp">
 
-        <EditText
-            android:id="@+id/gender_profile"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="224dp"
-            android:layout_marginLeft="224dp"
-            android:layout_marginTop="231dp"
-            android:background="@drawable/edittext_bgtransparent"
-            android:padding="@dimen/_5sdp"
-            android:text="Male" />
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Municipality"/>
 
-        <EditText
-            android:id="@+id/birthday_profile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="160dp"
-            android:layout_marginLeft="160dp"
-            android:layout_marginTop="292dp"
-            android:background="@drawable/edittext_bgtransparent"
-            android:padding="@dimen/_5sdp"
-            android:text="Birthday sample" />
-
-        <EditText
-            android:id="@+id/municipality_profile"
-            android:layout_width="192dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="29dp"
-            android:layout_marginLeft="29dp"
-            android:layout_marginTop="171dp"
-            android:background="@drawable/edittext_bgtransparent"
-            android:padding="@dimen/_5sdp"
-            android:text="Municipality sample" />
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Postal code"
+               android:layout_marginLeft="@dimen/_143sdp"/>
 
 
-        <EditText
-            android:id="@+id/number_profile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="30dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="292dp"
-            android:background="@drawable/edittext_bgtransparent"
-            android:padding="@dimen/_5sdp"
-            android:text="09959106456" />
+       </LinearLayout>
 
-        <EditText
-            android:id="@+id/email_profile"
-            android:layout_width="192dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="29dp"
-            android:layout_marginLeft="29dp"
-            android:layout_marginTop="231dp"
-            android:background="@drawable/edittext_bgtransparent"
-            android:inputType="textImeMultiLine"
-            android:padding="@dimen/_5sdp"
-            android:text="email@gmail.com" />
+       <LinearLayout
+           android:id="@+id/municipalityedittxt"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           app:layout_constraintTop_toBottomOf="@+id/municipalitylabel"
+           android:orientation="horizontal"
+           android:layout_marginStart="@dimen/_10sdp"
+           android:layout_marginEnd="@dimen/_10sdp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="210dp"
-            android:layout_marginEnd="52dp"
-            android:layout_marginRight="52dp"
-            android:text="Sex" />
+           <EditText
+               android:id="@+id/municipality_profile"
+               android:layout_width="0dp"
+               android:layout_weight="2"
+               android:layout_height="match_parent"
+               android:background="@drawable/roundtbox"
+               android:padding="@dimen/_10sdp"/>
 
-        <TextView
-            android:id="@+id/address_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="87dp"
-            android:layout_marginEnd="243dp"
-            android:layout_marginRight="243dp"
-            android:text="Address" />
-
-        <EditText
-            android:id="@+id/address_profile"
-            android:layout_width="272dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="29dp"
-            android:layout_marginLeft="29dp"
-            android:layout_marginTop="107dp"
-            android:background="@drawable/edittext_bgtransparent"
-            android:inputType="textImeMultiLine"
-            android:padding="@dimen/_5sdp"
-            android:text="Address example" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="148dp"
-            android:layout_marginEnd="221dp"
-            android:layout_marginRight="221dp"
-            android:text="Municipality" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="270dp"
-            android:layout_marginEnd="102dp"
-            android:layout_marginRight="102dp"
-            android:text="Birthday" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="271dp"
-            android:layout_marginEnd="193dp"
-            android:layout_marginRight="193dp"
-            android:text="Contact Number" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="149dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginRight="24dp"
-            android:text="Postal Code" />
-
-        <EditText
-            android:id="@+id/postal_profile"
-            android:layout_width="79dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="224dp"
-            android:layout_marginLeft="224dp"
-            android:layout_marginTop="172dp"
-            android:background="@drawable/edittext_bgtransparent"
-            android:padding="@dimen/_5sdp"
-            android:text="1008" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="210dp"
-            android:layout_marginEnd="206dp"
-            android:layout_marginRight="206dp"
-            android:text="Email Address" />
+           <EditText
+               android:id="@+id/postal_profile"
+               android:layout_width="0dp"
+               android:layout_weight="1"
+               android:layout_height="match_parent"
+               android:background="@drawable/roundtbox"
+               android:layout_marginLeft="@dimen/_10sdp"
+               android:padding="@dimen/_10sdp"/>
 
 
-    </RelativeLayout>
 
-    <Button
-        android:id="@+id/editbtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
-        android:layout_marginBottom="16dp"
-        android:text="Edit"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:background="@drawable/darkround"
-        android:textColor="@color/white"/>
+       </LinearLayout>
+
+       <LinearLayout
+           android:id="@+id/emaillabel"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           app:layout_constraintTop_toBottomOf="@+id/municipalityedittxt"
+           android:orientation="horizontal"
+           android:layout_marginStart="@dimen/_10sdp"
+           android:layout_marginEnd="@dimen/_10sdp"
+           android:layout_marginTop="@dimen/_10sdp">
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Email Address"/>
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Sex"
+               android:layout_marginLeft="@dimen/_132sdp"/>
+
+
+       </LinearLayout>
+
+       <LinearLayout
+           android:id="@+id/emaileditxt"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           app:layout_constraintTop_toBottomOf="@+id/emaillabel"
+           android:orientation="horizontal"
+           android:layout_marginStart="@dimen/_10sdp"
+           android:layout_marginEnd="@dimen/_10sdp">
+
+       <EditText
+           android:id="@+id/email_profile"
+           android:layout_width="0dp"
+           android:layout_weight="2"
+           android:layout_height="match_parent"
+           android:background="@drawable/roundtbox"
+           android:padding="@dimen/_10sdp"
+           android:inputType="textImeMultiLine"/>
+
+       <EditText
+           android:id="@+id/gender_profile"
+           android:layout_width="0dp"
+           android:layout_weight="1"
+           android:layout_height="match_parent"
+           android:background="@drawable/roundtbox"
+           android:layout_marginLeft="@dimen/_10sdp"
+           android:padding="@dimen/_10sdp"/>
+
+       </LinearLayout>
+
+       <LinearLayout
+           android:id="@+id/contactlabel"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           app:layout_constraintTop_toBottomOf="@+id/emaileditxt"
+           android:orientation="horizontal"
+           android:layout_marginStart="@dimen/_10sdp"
+           android:layout_marginEnd="@dimen/_10sdp"
+           android:layout_marginTop="@dimen/_10sdp">
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Contact Number"/>
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Birthday"
+               android:layout_marginLeft="@dimen/_75sdp"/>
+
+
+       </LinearLayout>
+
+       <LinearLayout
+           android:id="@+id/contactedittxt"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           app:layout_constraintTop_toBottomOf="@+id/contactlabel"
+           android:orientation="horizontal"
+           android:layout_marginStart="@dimen/_10sdp"
+           android:layout_marginEnd="@dimen/_10sdp">
+
+           <EditText
+               android:id="@+id/number_profile"
+               android:layout_width="0dp"
+               android:layout_weight="1"
+               android:layout_height="match_parent"
+               android:background="@drawable/roundtbox"
+               android:padding="@dimen/_10sdp"/>
+
+           <EditText
+               android:id="@+id/birthday_profile"
+               android:layout_width="0dp"
+               android:layout_weight="1"
+               android:layout_height="match_parent"
+               android:background="@drawable/roundtbox"
+               android:layout_marginLeft="@dimen/_10sdp"/>
+
+       </LinearLayout>
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           app:layout_constraintTop_toBottomOf="@id/contactedittxt"
+           android:layout_marginStart="@dimen/_10sdp"
+           android:layout_marginEnd="@dimen/_10sdp"
+           android:layout_marginTop="@dimen/_10sdp"
+           android:gravity="center">
+
+           <Button
+               android:id="@+id/editbtn"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Edit"
+               android:background="@drawable/darkround"
+               android:textColor="@color/white"/>
+
+       </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -26,6 +26,7 @@ public class patientrec_doc extends AppCompatActivity {
     EditText emcontact_patrec;
     EditText preillness_patrec;
     EditText allergies_patrec;
+    EditText bloodp_patrec;
 
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
@@ -46,6 +47,7 @@ public class patientrec_doc extends AppCompatActivity {
         emcontact_patrec = findViewById(R.id.emergency_contact_patientrec);
         preillness_patrec = findViewById(R.id.prexisting_patientrec);
         allergies_patrec = findViewById(R.id.allergies_patientrec);
+        bloodp_patrec = findViewById(R.id.bloodppatientrec);
 
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
@@ -65,6 +67,7 @@ public class patientrec_doc extends AppCompatActivity {
                 number_patrec.setText(documentSnapshot.getString("Contact"));
                 height_patrec.setText(documentSnapshot.getString("Height"));
                 bt_patrec.setText(documentSnapshot.getString("BloodType"));
+                bloodp_patrec.setText(documentSnapshot.getString("BloodP"));
                 weight_patrec.setText(documentSnapshot.getString("Weight"));
                 emcontact_patrec.setText(documentSnapshot.getString("EContactNumber"));
                 preillness_patrec.setText(documentSnapshot.getString("Illness"));

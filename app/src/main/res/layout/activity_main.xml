@@ -63,18 +63,6 @@
                 android:textAllCaps="false"
                 android:textColor="@color/white" />
 
-            <com.google.android.material.circularreveal.CircularRevealFrameLayout
-                android:id="@+id/fragment_container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginEnd="0dp"
-                android:layout_marginRight="0dp"
-                android:layout_marginBottom="0dp" >
-
-            </com.google.android.material.circularreveal.CircularRevealFrameLayout>
 
 
         </LinearLayout>
@@ -99,6 +87,17 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
+        <com.google.android.material.circularreveal.CircularRevealFrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginBottom="0dp" />
+
     </LinearLayout>
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_viewer_pat"
@@ -107,18 +106,6 @@
         android:layout_gravity="start"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/drawer_menu"/>
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 </androidx.drawerlayout.widget.DrawerLayout>
