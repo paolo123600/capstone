@@ -12,7 +12,7 @@
     <item
         android:id="@+id/btn_patientrecord"
         android:icon="@drawable/ic_person"
-        android:title="Patient Record" />
+        android:title="Patient List" />
     <item
         android:id="@+id/nav_logout_doc"
         android:icon="@drawable/ic_logout"
