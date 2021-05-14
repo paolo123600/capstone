@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="@dimen/_8sdp"
     android:layout_height="100dp">
 
+   <androidx.constraintlayout.widget.ConstraintLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+
     <LinearLayout
+        android:id="@+id/linearup"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="-179dp">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/patientrec_firstname"
             android:layout_width="177dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="190dp"
-            android:layout_marginTop="13dp"
             android:text="TextView"
             android:textSize="@dimen/_10sdp" />
 
@@ -23,24 +27,32 @@
             android:id="@+id/patientrec_email"
             android:layout_width="177dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="-178dp"
-            android:layout_marginTop="30dp"
             android:gravity="left"
             android:text="TextView"
             android:textSize="@dimen/_10sdp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/linearup"
+        android:orientation="vertical">
 
         <Button
             android:id="@+id/patientrec_btn"
             android:layout_width="wrap_content"
             android:layout_height="37dp"
-            android:layout_gravity="bottom"
-            android:background="@drawable/darkround"
+            android:layout_gravity="right"
             android:padding="@dimen/_8sdp"
-            android:layout_marginLeft="65dp"
+            android:background="@drawable/darkround"
+            android:layout_marginTop="@dimen/_10sdp"
             android:text="Patient record"
             android:textColor="@color/white" />
 
 
     </LinearLayout>
+
+   </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>
