@@ -8,7 +8,7 @@
     android:background="@color/mainbg">
 
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/doc_chat_seclist"
         android:layout_width="@dimen/_290sdp"
         android:layout_height="@dimen/_50sdp"
@@ -30,7 +30,7 @@
             android:layout_marginTop="21dp"
             android:text="Secretary" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
     <com.mancj.materialsearchbar.MaterialSearchBar
         android:id="@+id/searchBar"

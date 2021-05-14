@@ -32,7 +32,7 @@ import com.mancj.materialsearchbar.MaterialSearchBar;
 import java.util.List;
 
 public class Doctor_Patientchatlist extends AppCompatActivity {
-  private   String clinicname;
+    private   String clinicname;
 private RecyclerView patientlist;
 private FirestoreRecyclerAdapter adapter;
 private RecyclerView.Adapter adapter2;

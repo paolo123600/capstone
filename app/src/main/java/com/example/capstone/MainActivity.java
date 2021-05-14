@@ -12,6 +12,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ActionBar;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -25,6 +26,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,10 +54,12 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -84,6 +88,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     String datenow;
     String userId;
     Boolean schedalready = false;
+    String[] time = {"8:00AM","8:30AM","9:00AM","9:30AM","10:00AM","10:30AM","11:00AM","11:30AM","12:00PM","12:30PM","1:00PM","1:30PM","2:00PM","2:30PM","3:00PM","3:30PM","4:00PM","4:30PM","5:00PM","5:30PM","6:00PM","6:30PM","7:00PM","7:30PM","8:00PM","8:30PM"};
+    String[] btntext = {"8:00-8:30AM","8:30-9:00AM","9:00-9:30AM","9:30-10:00AM","10:00-10:30AM","10:30-11:00AM","11:00-11:30AM","11:30-12:00PM","12:00-12:30PM","12:30-1:00PM","1:00-1:30PM","1:30-2:00PM","2:00-2:30PM","2:30-3:00PM","3:00-3:30PM","3:30-4:00PM","4:00-4:30PM","4:30-5:00PM","5:00-5:30PM","5:30-6:00PM","6:00-6:30PM","6:30-7:00PM","7:00-7:30PM","7:30-8:00PM"};
+   private String start = "";
+    private String lstart = "";
+    private  String lend = "";
+    private String end = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +120,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
 
         updateNavHeader();
+
 
 
         chat.setOnClickListener(new View.OnClickListener() {
@@ -319,243 +330,121 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void createSelectDateDialog(){
         dialogbuilder = new AlertDialog.Builder(this);
         final View selectDateView = getLayoutInflater().inflate(R.layout.popupselecttime,null);
-        Button btn930 , btn10, btn1030, btn11, btn1130 , btn1, btn130 , btn2 , btn230, btn3, btn330, btn4,btn430,btn5 ;
         TextView doctv, clinictv , datetv;
         GlobalVariables gv = (GlobalVariables) getApplicationContext();
-        //initialize buttons
-        btn930 = (Button) selectDateView.findViewById(R.id.btntime930);
-        btn10 = (Button) selectDateView.findViewById(R.id.btntime10);
-        btn1030 = (Button) selectDateView.findViewById(R.id.btntime1030);
-        btn11 = (Button) selectDateView.findViewById(R.id.btntime11);
-        btn1130 = (Button) selectDateView.findViewById(R.id.btntime1130);
-        btn1 = (Button) selectDateView.findViewById(R.id.btntime1);
-        btn130 = (Button)selectDateView.findViewById(R.id.btntime130);
-        btn2 = (Button) selectDateView.findViewById(R.id.btntime2);
-        btn230 = (Button) selectDateView.findViewById(R.id.btntime230);
-        btn3 = (Button) selectDateView.findViewById(R.id.btntime3);
-        btn330 = (Button) selectDateView.findViewById(R.id.btntime330);
-        btn4 = (Button) selectDateView.findViewById(R.id.btntime4);
-        btn430 = (Button) selectDateView.findViewById(R.id.btntime430);
-        btn5 = (Button) selectDateView.findViewById(R.id.btntime5);
-//initialize textview
+        LinearLayout right , left;
+
         doctv= (TextView)selectDateView.findViewById(R.id.Doctnametv);
         clinictv= (TextView)selectDateView.findViewById(R.id.Clinicnametv);
         datetv= (TextView)selectDateView.findViewById(R.id.textView11);
+        right=(LinearLayout)selectDateView.findViewById(R.id.LLright);
+        left=(LinearLayout)selectDateView.findViewById(R.id.LLleft);
+        //initialize textview
 
         doctv.setText("Doc. "+doclastname);
         clinictv.setText(gv.getSDClinic());
         datetv.setText(gv.getSDDate());
+    String clinicnaame =  gv.getSDClinic();
+        Query clinicsRef = db.collection("Clinics").whereEqualTo("ClinicName",clinicnaame);
+        clinicsRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
 
-        //remove already have sched
-        db = FirebaseFirestore.getInstance();
+                        int a=1;
+                        start =document.getString("WorkStart");
+                        end =document.getString("WorkEnd");
+                        lstart =document.getString("LunchStart");
+                        lend =document.getString("LunchEnd");
 
-        db.collection("Schedule").whereEqualTo("SchedDate",gv.getSDDate()).whereEqualTo("DoctorUId",gv.getSDDocUid()).get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful()){
-
-                            for (QueryDocumentSnapshot doc : task.getResult()) {
-
-                                String timestart =doc.getString("TimeStart");
-
-                                switch (timestart) {
-                                    case "9:30am":
-                                        btn930.setVisibility(View.GONE);
-                                            break;
-                                    case "10:00am":
-                                        btn10.setVisibility(View.GONE);
-                                        break;
-                                    case "10:30am":
-                                        btn1030.setVisibility(View.GONE);
-                                        break;
-                                    case "11:00am":
-                                        btn11.setVisibility(View.GONE);
-                                        break;
-                                    case "11:30am":
-                                        btn1130.setVisibility(View.GONE);
-                                        break;
-                                    case "1:00pm":
-                                        btn1.setVisibility(View.GONE);
-                                        break;
-                                    case "1:30pm":
-                                        btn130.setVisibility(View.GONE);
-                                        break;
-                                    case "2:00pm":
-                                        btn2.setVisibility(View.GONE);
-                                        break;
-                                    case "2:30pm":
-                                        btn230.setVisibility(View.GONE);
-                                        break;
-                                    case "3:00pm":
-                                        btn3.setVisibility(View.GONE);
-                                        break;
-                                    case "3:30pm":
-                                        btn330.setVisibility(View.GONE);
-                                        break;
-                                    case "4:00pm":
-                                        btn4.setVisibility(View.GONE);
-                                        break;
-                                    case "4:30pm":
-                                        btn430.setVisibility(View.GONE);
-                                        break;
-                                    case "5:00pm":
-                                        btn5.setVisibility(View.GONE);
-                                        break;
-                                    default:
-
-                                        break;
+                        int pos = new ArrayList<String>(Arrays.asList(time)).indexOf(start);
+                        int posend = new ArrayList<String>(Arrays.asList(time)).indexOf(end);
+                        int lpos = new ArrayList<String>(Arrays.asList(time)).indexOf(lstart);
+                        int lposend = new ArrayList<String>(Arrays.asList(time)).indexOf(lend);
+                        ArrayList<String> Existing = new ArrayList<String>();
 
 
-                                }
 
 
-                            }
+                        db.collection("Schedule").whereEqualTo("SchedDate",gv.getSDDate()).whereEqualTo("DoctorUId",gv.getSDDocUid()).get()
+                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                        if(task.isSuccessful()){
+                                            ArrayList<String> arrayList=new ArrayList<String>();
+                                            for (QueryDocumentSnapshot documentSnapshot : task.getResult()){
 
-                        }
+                                                arrayList.add(documentSnapshot.getString("TimeStart"));
+                                            }
+                                            int abcd=1;
+                                            for (int j = pos; j < lpos; j++) {
+                                                String Timestart = time[j];
+                                                String Timestop = time[j + 1];
+                                                if (arrayList.contains(time[j])){
+                                                } else {
+                                                    Button btnTag = new Button(MainActivity.this);
+                                                    btnTag.setLayoutParams(new ActionBar.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT));
+                                                    btnTag.setText(btntext[j]);
+                                                    btnTag.setId(j);
+                                                    btnTag.setOnClickListener(new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View view) {
+                                                            gv.setSDtimestart(Timestart);
+                                                            gv.setSDtimestop(Timestop);
+                                                            dialog.dismiss();
+                                                            createconfirmDialog();
+                                                        }
+                                                    });
+
+                                                    if (abcd <= 10) {
+                                                        left.addView(btnTag);
+                                                    } else {
+                                                        right.addView(btnTag);
+                                                    }
+                                                    abcd++;
+
+                                                }
+                                            }
+                                            for (int j = lposend; j < posend; j++) {
+                                                String Timestart = time[j];
+                                                String Timestop = time[j + 1];
+                                                if (arrayList.contains(time[j])){
+                                                } else {
+                                                    Button btnTag = new Button(MainActivity.this);
+                                                    btnTag.setLayoutParams(new ActionBar.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT));
+                                                    btnTag.setText(btntext[j]);
+                                                    btnTag.setId(j);
+                                                    btnTag.setOnClickListener(new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View view) {
+                                                            gv.setSDtimestart(Timestart);
+                                                            gv.setSDtimestop(Timestop);
+                                                            dialog.dismiss();
+                                                            createconfirmDialog();
+                                                        }
+                                                    });
+
+                                                    if (abcd <= 10) {
+                                                        left.addView(btnTag);
+                                                    } else {
+                                                        right.addView(btnTag);
+                                                    }
+                                                    abcd++;
+
+                                                }
+                                            }
+                                        }
+                                        else{
+                                            Toast.makeText(MainActivity.this, "nagloloko", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }});
+
                     }
-                });
-
-        //calling buttons onclick
-        btn930.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                gv.setSDtimestart("9:30am");
-                gv.setSDtimestop("10:00am");
-                dialog.dismiss();
-                createconfirmDialog();
+                }
             }
         });
 
-        btn10.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                gv.setSDtimestart("10:00am");
-                gv.setSDtimestop("10:30am");
-                dialog.dismiss();
-                createconfirmDialog();
-            }
-        });
-
-        btn1030.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                gv.setSDtimestart("10:30am");
-                gv.setSDtimestop("11:00am");
-                dialog.dismiss();
-                createconfirmDialog();
-            }
-        });
-
-        btn11.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                gv.setSDtimestart("11:00am");
-                gv.setSDtimestop("11:30am");
-                dialog.dismiss();
-                createconfirmDialog();
-            }
-        });
-
-        btn1130.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                gv.setSDtimestart("11:30am");
-                gv.setSDtimestop("12:00pm");
-                dialog.dismiss();
-                createconfirmDialog();
-            }
-        });
-
-        btn1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                gv.setSDtimestart("1:00pm");
-                gv.setSDtimestop("1:30pm");
-                dialog.dismiss();
-                createconfirmDialog();
-            }
-        });
-
-        btn130.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                gv.setSDtimestart("1:30pm");
-                gv.setSDtimestop("2:00pm");
-                dialog.dismiss();
-                createconfirmDialog();
-            }
-        });
-
-        btn2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                gv.setSDtimestart("2:00pm");
-                gv.setSDtimestop("2:30pm");
-                dialog.dismiss();
-                createconfirmDialog();
-            }
-        });
-
-        btn230.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                gv.setSDtimestart("2:30pm");
-                gv.setSDtimestop("3:00pm");
-                dialog.dismiss();
-                createconfirmDialog();
-            }
-        });
-
-        btn3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                gv.setSDtimestart("3:00pm");
-                gv.setSDtimestop("3:30pm");
-                dialog.dismiss();
-                createconfirmDialog();
-            }
-        });
-
-        btn330.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                gv.setSDtimestart("3:30pm");
-                gv.setSDtimestop("4:00pm");
-                dialog.dismiss();
-                createconfirmDialog();
-            }
-        });
-
-        btn4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                gv.setSDtimestart("4:00pm");
-                gv.setSDtimestop("4:30pm");
-                dialog.dismiss();
-                createconfirmDialog();
-            }
-        });
-
-        btn430.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                gv.setSDtimestart("4:30pm");
-                gv.setSDtimestop("5:00pm");
-                dialog.dismiss();
-                createconfirmDialog();
-            }
-        });
-
-        btn5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                gv.setSDtimestart("5:00pm");
-                gv.setSDtimestop("5:30pm");
-                dialog.dismiss();
-                createconfirmDialog();
-            }
-        });
 
 
 
@@ -674,6 +563,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         String subject = document.getString("ClinicName");
+
                         Clinics.add(subject);
                     }
                     adapter1.notifyDataSetChanged();

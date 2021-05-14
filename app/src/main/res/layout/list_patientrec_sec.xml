@@ -6,33 +6,27 @@
     android:layout_height="100dp"
     android:background="@color/mainbg">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginLeft="-179dp">
 
         <TextView
             android:id="@+id/patientrec_firstname"
             android:layout_width="177dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="14dp"
-            android:layout_marginLeft="14dp"
+            android:layout_marginLeft="190dp"
             android:layout_marginTop="13dp"
             android:text="TextView"
             android:textSize="@dimen/_10sdp" />
 
         <TextView
             android:id="@+id/patientrec_email"
-            android:layout_width="wrap_content"
+            android:layout_width="177dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="14dp"
-            android:layout_marginLeft="14dp"
-            android:layout_marginTop="39dp"
+            android:layout_marginLeft="-178dp"
+            android:layout_marginTop="30dp"
+            android:gravity="left"
             android:text="TextView"
             android:textSize="@dimen/_10sdp" />
 
@@ -40,18 +34,14 @@
             android:id="@+id/patientrec_btn"
             android:layout_width="wrap_content"
             android:layout_height="37dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="6dp"
-            android:layout_marginRight="6dp"
-            android:layout_marginBottom="4dp"
+            android:layout_gravity="bottom"
             android:text="Patient record"
             android:background="@drawable/darkround"
+            android:layout_marginLeft="65dp"
             android:textColor="@color/white"
             android:padding="@dimen/_8sdp"/>
 
 
-    </RelativeLayout>
+    </LinearLayout>
 
 </androidx.cardview.widget.CardView>
