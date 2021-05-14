@@ -67,6 +67,7 @@
                 android:id="@+id/Username"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:inputType="textImeMultiLine"
                 android:background="@drawable/roundtbox"
                 android:padding="@dimen/_10sdp"/>
 

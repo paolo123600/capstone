@@ -30,6 +30,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -337,11 +338,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         GlobalVariables gv = (GlobalVariables) getApplicationContext();
         LinearLayout right , left;
 
+
         doctv= (TextView)selectDateView.findViewById(R.id.Doctnametv);
         clinictv= (TextView)selectDateView.findViewById(R.id.Clinicnametv);
         datetv= (TextView)selectDateView.findViewById(R.id.textView11);
         right=(LinearLayout)selectDateView.findViewById(R.id.LLright);
         left=(LinearLayout)selectDateView.findViewById(R.id.LLleft);
+
         //initialize textview
 
         doctv.setText("Doc. "+doclastname);
