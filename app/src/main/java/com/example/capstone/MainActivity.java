@@ -30,6 +30,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -76,9 +77,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, DatePickerDialog.OnDateSetListener {
-    private Button buttonbook;
-    private Button buttonsched;
-    Button chat;
+    private LinearLayout buttonbook;
+    private LinearLayout buttonsched;
+    LinearLayout chat;
     private DrawerLayout drawer;
     private AlertDialog.Builder dialogbuilder;
     private Dialog dialog;
@@ -109,8 +110,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         String patuid = preferenceManager.getString(Constants.KEY_USER_ID);
         chat = findViewById(R.id.chat);
-        buttonbook = (Button) findViewById(R.id.booknow);
-        buttonsched = (Button) findViewById(R.id.schedules);
+        buttonbook = findViewById(R.id.booknow);
+        buttonsched =  findViewById(R.id.schedules);
 
         fAuth = FirebaseAuth.getInstance();
         userId = fAuth.getCurrentUser().getUid();
@@ -337,11 +338,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         GlobalVariables gv = (GlobalVariables) getApplicationContext();
         LinearLayout right , left;
 
+
         doctv= (TextView)selectDateView.findViewById(R.id.Doctnametv);
         clinictv= (TextView)selectDateView.findViewById(R.id.Clinicnametv);
         datetv= (TextView)selectDateView.findViewById(R.id.textView11);
         right=(LinearLayout)selectDateView.findViewById(R.id.LLright);
         left=(LinearLayout)selectDateView.findViewById(R.id.LLleft);
+
         //initialize textview
 
         doctv.setText("Doc. "+doclastname);
@@ -546,6 +549,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         dialogbuilder.setView(confirmView);
         dialog= dialogbuilder.create();
+
         dialog.show();
 
 
