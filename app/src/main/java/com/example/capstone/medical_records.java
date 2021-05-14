@@ -68,6 +68,7 @@ public class medical_records extends AppCompatActivity {
         medicallergies.setKeyListener(null);
         medicillness.setKeyListener(null);
 
+
         editbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
