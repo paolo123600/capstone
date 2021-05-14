@@ -43,6 +43,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -206,7 +207,7 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
         Toast.makeText(this, "timestart: "+timestart+"timestop: "+timestop, Toast.LENGTH_SHORT).show();
 
 
-        db.collection("Schedule").whereEqualTo("SchedDate", datenow).whereEqualTo("TimeStart", timestart).whereEqualTo("DoctorUId", preferenceManager.getString(Constants.KEY_USER_ID)).whereEqualTo("TimeStop", timestop)
+        db.collection("Schedule").whereEqualTo("SchedDate", datenow).whereEqualTo("TimeStart", timestart).whereEqualTo("DoctorUId", preferenceManager.getString(Constants.KEY_USER_ID)).whereEqualTo("TimeStop", timestop).whereIn("Status", Arrays.asList("Paid", "Completed"))
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
