@@ -5,8 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.capstone.activities.PastAppointments;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -28,6 +31,8 @@ public class patientrec_sec extends AppCompatActivity {
     EditText allergies_patrec;
     EditText bloodp_patrec;
 
+    Button history;
+
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     String userId;
@@ -48,6 +53,8 @@ public class patientrec_sec extends AppCompatActivity {
         preillness_patrec = findViewById(R.id.prexisting_patientrec);
         allergies_patrec = findViewById(R.id.allergies_patientrec);
         bloodp_patrec = findViewById(R.id.bloodppatientrec);
+
+        history = findViewById(R.id.patrec_history);
 
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
@@ -88,6 +95,12 @@ public class patientrec_sec extends AppCompatActivity {
             }
         });
 
-
+        history.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), PastAppointments.class);
+                startActivity(intent);
+            }
+        });
     }
 }

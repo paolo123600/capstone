@@ -20,58 +20,122 @@
         android:theme="@style/Theme.Capstone"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".profile_edit" android:screenOrientation="portrait"></activity>
-        <activity android:name=".patient_record_doctor" android:screenOrientation="portrait"/>
-        <activity android:name=".about" android:screenOrientation="portrait" ></activity>
-        <activity android:name=".patientrec_doc" android:screenOrientation="portrait" />
-        <activity android:name=".patientrec_sec" android:screenOrientation="portrait" />
-        <activity android:name=".Ra_sec" android:screenOrientation="portrait" />
-        <activity android:name=".Ra_doc"  android:screenOrientation="portrait"/>
-        <activity android:name=".ForgotPassword" android:screenOrientation="portrait" />
-        <activity android:name=".NewPass" android:screenOrientation="portrait" />
-        <activity android:name=".patient_record_clinic" android:screenOrientation="portrait" />
-        <activity android:name=".medicalrec_update"  android:screenOrientation="portrait"/>
-        <activity android:name=".medical_records"  android:screenOrientation="portrait"/>
-        <activity android:name=".RecentChatDoc" android:screenOrientation="portrait" />
-        <activity android:name=".Terms" android:screenOrientation="portrait"/>
-        <activity android:name=".DataAct" android:screenOrientation="portrait"/>
-        <activity android:name=".RecentChatSecretary" android:screenOrientation="portrait"/>
-        <activity android:name=".RecentChats" android:screenOrientation="portrait"/>
-        <activity android:name=".Clinic_view" android:screenOrientation="portrait" />
-        <activity android:name=".Sec_patient_list"  android:screenOrientation="portrait"/>
-        <activity android:name=".Doctor_Patientchatlist" android:screenOrientation="portrait"/>
+        <activity android:name=".activities.PastAppointments"></activity>
+        <activity
+            android:name=".profile_edit"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".patient_record_doctor"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".about"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".patientrec_doc"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".patientrec_sec"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Ra_sec"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Ra_doc"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ForgotPassword"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".NewPass"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".patient_record_clinic"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".medicalrec_update"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".medical_records"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".RecentChatDoc"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Terms"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".DataAct"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".RecentChatSecretary"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".RecentChats"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Clinic_view"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Sec_patient_list"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Doctor_Patientchatlist"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.OutgoingInvitationActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.IncomingInvitationActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activities.VideoCall_Main" android:screenOrientation="portrait"/>
-        <activity android:name=".MessageActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ProfileFragment" android:screenOrientation="portrait"/>
-        <activity android:name=".patient_schedule" android:screenOrientation="portrait"/>
-        <activity android:name=".notification" android:screenOrientation="portrait"/>
-        <activity android:name=".Medical_RecordActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".secretary_homepage" android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activities.VideoCall_Main"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MessageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ProfileFragment"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".patient_schedule"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".notification"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Medical_RecordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".secretary_homepage"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.VideoChatViewActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".burger_test" android:screenOrientation="portrait"/>
-        <activity android:name=".doctor_homepage" android:screenOrientation="portrait"/>
+        <activity
+            android:name=".burger_test"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".doctor_homepage"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Sign_UpActivity"
             android:exported="true"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Sign_Up_VerifyActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Login" android:screenOrientation="portrait">
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Sign_Up_VerifyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Login"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait" />
 
         <service
             android:name=".firebase.MessagingService"

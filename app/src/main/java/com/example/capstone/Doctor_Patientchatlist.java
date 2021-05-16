@@ -37,7 +37,7 @@ private RecyclerView patientlist;
 private FirestoreRecyclerAdapter adapter;
 private RecyclerView.Adapter adapter2;
 MaterialSearchBar materialSearchBar;
-    private PreferenceManager preferenceManager;
+private PreferenceManager preferenceManager;
 FirebaseFirestore db;
 String txt;
 
