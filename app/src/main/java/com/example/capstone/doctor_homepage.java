@@ -322,7 +322,7 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
 
                 break;
             case R.id.btn_patientrecord:
-                Intent intent = new Intent(getApplicationContext(), patientrec_sec.class);
+                Intent intent = new Intent(getApplicationContext(), patient_record_clinic.class);
                 startActivity(intent);
                 break;
         }
