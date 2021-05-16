@@ -31,6 +31,8 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="90dp"
                 android:layout_marginRight="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
                 android:background="@drawable/dochome_box"
                 android:orientation="vertical"
                 android:padding="20dp"
@@ -88,13 +90,13 @@
                     android:layout_gravity="left"
                     android:layout_marginTop="20dp"
                     android:layout_marginLeft="20dp"
-                    android:text="Appoinments Today:" />
+                    android:text="Appoinments Today: 5" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="20dp"
                     android:orientation="vertical">
 
@@ -112,7 +114,7 @@
                             android:layout_marginLeft="20dp"
                             android:text="Patient name"
                             android:textColor="@color/white"
-                            android:textSize="20dp"
+                            android:textSize="15dp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -180,6 +182,7 @@
 
 
     </LinearLayout>
+
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_viewer_doc"
