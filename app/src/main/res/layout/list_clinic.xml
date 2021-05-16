@@ -3,30 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/_80sdp"
+    android:layout_height="wrap_content"
     android:layout_margin="8dp"
     android:background="@color/mainbg">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="15dp">
-
-        <TextView
-            android:id="@+id/clinic_name"
-            android:layout_width="124dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="145dp"
-
-            android:text="TextView"
-            android:textSize="@dimen/_20sdp" />
+        android:padding="@dimen/_10sdp"
+        android:orientation="horizontal">
 
         <ImageView
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="left"
-            android:layout_marginLeft="-250dp"
             android:background="@drawable/addnote_videocall" />
+
+        <TextView
+            android:id="@+id/clinic_name"
+            android:layout_width="124dp"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textSize="@dimen/_20sdp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/_50sdp"/>
 
     </LinearLayout>
 

@@ -58,22 +58,21 @@
                 android:textAllCaps="false"
                 android:textColor="@color/black">
 
+                <ImageView
+                    android:layout_width="65.00dp"
+                    android:layout_height="65.00dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/booknow1" />
+
                 <TextView
                     android:layout_width="156dp"
                     android:layout_height="43dp"
                     android:layout_marginLeft="90dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="-50dp"
                     android:text="Book Now"
                     android:textSize="28dp"
-                    android:textStyle="bold"
+                    android:textStyle="bold" />
 
-                    />
-
-                <ImageView
-                    android:layout_width="65.00dp"
-                    android:layout_height="65.00dp"
-                    android:layout_marginTop="-45dp"
-                    android:background="@drawable/booknow1" />
 
 
             </LinearLayout>
@@ -175,7 +174,6 @@
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     </LinearLayout>
-
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_viewer_pat"

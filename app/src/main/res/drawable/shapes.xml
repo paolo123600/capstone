@@ -15,7 +15,7 @@
         android:bottomLeftRadius="20dp"
         android:bottomRightRadius="20dp"
         />
-    <solid android:color="@color/colorPrimaryDark"></solid>
+    <solid android:color="@color/blue2"></solid>
 
 
 
