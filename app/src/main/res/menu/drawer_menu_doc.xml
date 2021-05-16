@@ -10,7 +10,7 @@
         android:title="History" />
 
     <item
-        android:id="@+id/btn_upcoming"
+        android:id="@+id/btn_upcomming"
         android:icon="@drawable/ic_manage_schedule"
         android:title="Upcomuing" />
 
