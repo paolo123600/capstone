@@ -6,10 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".patient_record_clinic">
 
+    <com.mancj.materialsearchbar.MaterialSearchBar
+        android:id="@+id/searchBar"
+        android:layout_width="410dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:mt_hint="Search by Surname" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/patientrec_sec"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="60dp"
         tools:layout_editor_absoluteX="187dp"
         tools:layout_editor_absoluteY="278dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -83,33 +83,51 @@
                 app:layout_constraintTop_toBottomOf="@id/layout3">
 
                 <TextView
-                    android:layout_width="119dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_25sdp"
-                    android:layout_marginTop="20dp"
-                    android:text="Upcoming:"
-                    android:textSize="18sp" />
-
-                <TextView
                     android:layout_width="143dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_marginTop="-20dp"
-                    android:layout_marginRight="@dimen/_18sdp"
+                    android:layout_gravity="left"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="20dp"
                     android:text="Appoinments Today:" />
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
+                    android:layout_width="401dp"
+                    android:layout_height="150dp"
                     android:layout_marginStart="20dp"
+                    android:layout_marginTop="30dp"
                     android:layout_marginEnd="20dp">
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:layout_width="412dp"
-                        android:layout_height="250dp"
 
-                        >
-                    </androidx.recyclerview.widget.RecyclerView>
+
+                    <LinearLayout
+                        android:layout_width="362dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/docshecd_round"
+                        android:orientation="vertical"
+                        android:paddingBottom="10dp">
+
+                        <TextView
+                            android:layout_marginLeft="20dp"
+                            android:layout_width="394dp"
+                            android:layout_height="30dp"
+                            android:text="Patient name"
+                            android:textSize="20dp"
+                            android:textColor="@color/white"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="365dp"
+                            android:textColor="@color/white"
+                            android:layout_height="20dp"
+                            android:layout_marginLeft="20dp"
+
+                            android:text="Schedule "
+                            android:textStyle="bold"
+
+                            />
+
+
+                    </LinearLayout>
+
 
                     <com.google.android.material.circularreveal.CircularRevealFrameLayout
                         android:id="@+id/fragment_container"
@@ -162,14 +180,7 @@
 
     </LinearLayout>
 
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/nav_viewer_doc"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        app:headerLayout="@layout/nav_header"
 
-        app:menu="@menu/drawer_menu_doc"/>
 
 
 

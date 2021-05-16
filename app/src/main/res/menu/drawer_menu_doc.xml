@@ -7,7 +7,12 @@
     <item
         android:id="@+id/btn_appointment"
         android:icon="@drawable/ic_manage_schedule"
-        android:title="Appointments" />
+        android:title="History" />
+
+    <item
+        android:id="@+id/btn_upcoming"
+        android:icon="@drawable/ic_manage_schedule"
+        android:title="Upcomuing" />
 
     <item
         android:id="@+id/btn_patientrecord"
