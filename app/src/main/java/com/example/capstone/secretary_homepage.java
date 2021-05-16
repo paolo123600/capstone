@@ -39,7 +39,7 @@ public class  secretary_homepage extends AppCompatActivity implements Navigation
 
     private LinearLayout Patrec_button;
     private Button notifbtn;
-    private Button chatbtn;
+    private LinearLayout chatbtn;
 
     private PreferenceManager preferenceManager;
     FirebaseFirestore db;
