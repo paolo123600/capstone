@@ -58,7 +58,7 @@
     <string name="time_appointment">Time</string>
     <string name="reschedule">Reschedule</string>
     <string name="record">Record</string>
-    <string name="note">Note</string>
+    <string name="note">Note:</string>
     <string name="date">Date</string>
     <string name="sign_out">sign_out</string>
     <string name="incoming_meeting_invitation">incoming meeting invitation</string>

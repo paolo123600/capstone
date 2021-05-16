@@ -67,7 +67,7 @@ public class IncomingInvitationActivity extends AppCompatActivity {
 
         textUsername.setText(String.format(
                 "%s %s",
-                firstName,
+                "Doc.",
                 getIntent().getStringExtra(Constants.KEY_LAST_NAME)
         ));
 
@@ -135,9 +135,10 @@ public class IncomingInvitationActivity extends AppCompatActivity {
                         try {
 
                             Intent intent = new Intent(IncomingInvitationActivity.this, VideoChatViewActivity.class);
+                            intent.putExtra("name","Doc. "+getIntent().getStringExtra(Constants.KEY_LAST_NAME));
+                            intent.putExtra("friendid",getIntent().getStringExtra(Constants.KEY_FIRST_NAME));
                             startActivity(intent);
-//                            GlobalVariables gv = (GlobalVariables) getApplicationContext();
-//                            Toast.makeText(IncomingInvitationActivity.this,gv.getChannel_Name() , Toast.LENGTH_SHORT).show();
+
 
 
                             finish();

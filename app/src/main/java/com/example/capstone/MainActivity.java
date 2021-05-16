@@ -1,11 +1,13 @@
 package com.example.capstone;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.DialogFragment;
@@ -392,6 +394,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                                     Button btnTag = new Button(MainActivity.this);
                                                     btnTag.setLayoutParams(new ActionBar.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT));
                                                     btnTag.setText(btntext[j]);
+                                                    btnTag.setWidth(440);
                                                     btnTag.setId(j);
                                                     btnTag.setOnClickListener(new View.OnClickListener() {
                                                         @Override
@@ -420,6 +423,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                                     Button btnTag = new Button(MainActivity.this);
                                                     btnTag.setLayoutParams(new ActionBar.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT));
                                                     btnTag.setText(btntext[j]);
+                                                    btnTag.setWidth(440);
+                                                
                                                     btnTag.setId(j);
                                                     btnTag.setOnClickListener(new View.OnClickListener() {
                                                         @Override

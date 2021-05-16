@@ -2,6 +2,7 @@ package com.example.capstone;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -116,6 +117,15 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
 
         checkschedcurrent();
 
+        final Handler handler = new Handler();
+        final int delay = 60000; // 1000 milliseconds == 1 second
+
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                checkschedcurrent();
+                handler.postDelayed(this, delay);
+            }
+        }, delay);
         btn_dochat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -215,7 +225,10 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
                 if (task.isSuccessful()) {
                     QuerySnapshot querySnapshot = task.getResult();
                     if (querySnapshot.isEmpty()) {
-                        Toast.makeText(doctor_homepage.this, "No current", Toast.LENGTH_SHORT).show();
+                        patnametv.setText("No Current Appointment");
+                        schedtimetv.setText("");
+                        callbtn.setVisibility(View.INVISIBLE);
+                        pat_record.setVisibility(View.INVISIBLE);
                     } else {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             patUid = document.getString("PatientUId");
@@ -235,6 +248,7 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
                                                 GlobalVariables gv = (GlobalVariables) getApplicationContext();
                                                 gv.setSDtimestart(document.getString("TimeStart"));
                                                 gv.setSDDate(datenow);
+                                                gv.setSDid(document.getId());
                                             }
 
                                         }

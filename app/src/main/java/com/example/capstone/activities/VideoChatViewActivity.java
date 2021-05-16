@@ -24,6 +24,8 @@ import androidx.core.content.ContextCompat;
 import com.example.capstone.GlobalVariables;
 import com.example.capstone.Login;
 import com.example.capstone.MainActivity;
+import com.example.capstone.MessageActivity;
+import com.example.capstone.NoteActivity;
 import com.example.capstone.R;
 import com.example.capstone.utilities.Constants;
 import com.example.capstone.utilities.PreferenceManager;
@@ -31,6 +33,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -57,7 +60,8 @@ public class VideoChatViewActivity extends AppCompatActivity {
     private boolean mCallEnd;
     private boolean mMuted;
     private  String scheddocu = "";
-
+    private  String name = "";
+    private  String friendid = "";
     private FrameLayout mLocalContainer;
     private RelativeLayout mRemoteContainer;
     private VideoCanvas mLocalVideo;
@@ -150,13 +154,14 @@ public class VideoChatViewActivity extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    updatepat();
                     endCall();
                     RtcEngine.destroy();
+                    updatepat();
+                    onRemoteUserLeft(uid);
                     Intent intent = new Intent(com.example.capstone.activities.VideoChatViewActivity.this, Login.class);
                     startActivity(intent);
                     finish();
-                    onRemoteUserLeft(uid);
+
                 }
             });
         }
@@ -179,12 +184,55 @@ public class VideoChatViewActivity extends AppCompatActivity {
         db= FirebaseFirestore.getInstance();
         initUI();
         GlobalVariables gv = (GlobalVariables) getApplicationContext();
+
        Channel1 = gv.getChannel_Name().toString();
+        mChatButton=(ImageButton) findViewById(R.id.videochathome_chat);
+        mAddNote= (ImageButton) findViewById(R.id.videochathome_addnote);
+        String usertype = preferenceManager.getString(Constants.USERTYPE);
+        if(usertype.equals("Patient")){
+            mAddNote.setVisibility(View.INVISIBLE);
+        }
+        Intent intented = getIntent();
+        name=intented.getStringExtra("name");
+        friendid=intented.getStringExtra("friendid");
+
 
         if (checkSelfPermission(REQUESTED_PERMISSIONS[0], PERMISSION_REQ_ID) &&
                 checkSelfPermission(REQUESTED_PERMISSIONS[1], PERMISSION_REQ_ID) &&
                 checkSelfPermission(REQUESTED_PERMISSIONS[2], PERMISSION_REQ_ID)) {
             initEngineAndJoinChannel();
+
+            mChatButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(usertype.equals("Patient")){
+                        Intent intent = new Intent(com.example.capstone.activities.VideoChatViewActivity.this, MessageActivity.class);
+                        intent.putExtra("friendid", friendid);
+                        intent.putExtra("name", name);
+                        intent.putExtra("usertype", "Doctors");
+                        intent.putExtra("type", "Patients");
+                        startActivity(intent);
+                    }
+                    else{
+                        Intent intent = new Intent(com.example.capstone.activities.VideoChatViewActivity.this, MessageActivity.class);
+                        intent.putExtra("friendid", gv.getSDPatUId());
+                        intent.putExtra("name", name);
+                        intent.putExtra("usertype", "Patients");
+                        intent.putExtra("type", "Doctors");
+                        startActivity(intent);
+
+
+                    }
+                }
+            });
+
+            mAddNote.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(com.example.capstone.activities.VideoChatViewActivity.this, NoteActivity.class);
+                    startActivity(intent);
+                }
+            });
         }
     }
 
@@ -234,13 +282,13 @@ public class VideoChatViewActivity extends AppCompatActivity {
                             db.collection("Schedule").document(scheddocu).update("Status","Completed").addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    Toast.makeText(VideoChatViewActivity.this, "wala naaa", Toast.LENGTH_SHORT).show();
+
                                 }
                             })
                                     .addOnFailureListener(new OnFailureListener() {
                                         @Override
                                         public void onFailure(@NonNull Exception e) {
-                                            Toast.makeText(VideoChatViewActivity.this, scheddocu, Toast.LENGTH_SHORT).show();
+
                                         }
                                     });
                         }

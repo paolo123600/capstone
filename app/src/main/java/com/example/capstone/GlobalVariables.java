@@ -123,6 +123,17 @@ public class GlobalVariables extends Application {
     String SDtimestop;
     String SDDocUid;
     String SDnote;
+    String SDid;
+
+    public String getSDid() {
+        return SDid;
+    }
+
+    public void setSDid(String SDid) {
+        this.SDid = SDid;
+    }
+
+
 
     public String getSDtimestart() {
         return SDtimestart;

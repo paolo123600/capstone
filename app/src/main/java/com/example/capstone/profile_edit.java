@@ -62,6 +62,7 @@ public class profile_edit extends AppCompatActivity {
         fullnameProfile.setKeyListener(null);
         genderProfile.setKeyListener(null);
         bdayProfile.setKeyListener(null);
+        emailProfile.setKeyListener(null);
 
         DocumentReference documentReference = fStore.collection("Patients").document(userId);
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {

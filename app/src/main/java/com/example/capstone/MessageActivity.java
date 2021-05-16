@@ -114,8 +114,6 @@ public class MessageActivity extends AppCompatActivity {
         myid = preferenceManager.getString(Constants.KEY_USER_ID);
 
 
-        friendid = getIntent().getStringExtra("friendid"); // retreive the friendid when we click on the item
-
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(friendid);

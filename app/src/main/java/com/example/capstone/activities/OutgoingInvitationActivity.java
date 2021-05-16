@@ -24,6 +24,7 @@ import com.example.capstone.utilities.Constants;
 import com.example.capstone.utilities.PreferenceManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
@@ -42,6 +43,7 @@ public class OutgoingInvitationActivity extends AppCompatActivity {
     private PreferenceManager preferenceManager;
     private String inviterToken = null;
     String meetingRoom = null;
+    String name;
 
 
     @Override
@@ -74,6 +76,7 @@ public class OutgoingInvitationActivity extends AppCompatActivity {
             textFirstChar.setText(user.firstName.substring(0, 1));
             textUsername.setText(String.format("%s %S", user.firstName, user.lastName));
             textEmail.setText(user.email);
+            name=user.lastName+", "+user.firstName;
         }
 
         ImageView imageStopInvitation = findViewById(R.id.imageStopInvitation);
@@ -102,7 +105,7 @@ public class OutgoingInvitationActivity extends AppCompatActivity {
 
     private void initiateMeeting(String meetingType, String receiverToken) {
         try {
-
+            String Uid= FirebaseAuth.getInstance().getCurrentUser().getUid();
             JSONArray tokens = new JSONArray();
             tokens.put(receiverToken);
 
@@ -111,10 +114,11 @@ public class OutgoingInvitationActivity extends AppCompatActivity {
 
             data.put(Constants.REMOTE_MSG_TYPE, Constants.REMOTE_MSG_INVITATION);
             data.put(Constants.REMOTE_MSG_MEETING_TYPE, meetingType);
-            data.put(Constants.KEY_FIRST_NAME, preferenceManager.getString(Constants.KEY_FIRST_NAME));
+            data.put(Constants.KEY_FIRST_NAME, Uid);
             data.put(Constants.KEY_LAST_NAME, preferenceManager.getString(Constants.KEY_LAST_NAME));
             data.put(Constants.KEY_EMAIL, preferenceManager.getString(Constants.KEY_EMAIL));
             data.put(Constants.REMOTE_MSG_INVITER_TOKEN, inviterToken);
+
 
             GlobalVariables gv = (GlobalVariables) getApplicationContext();
             gv.setChannel_Name(preferenceManager.getString(Constants.KEY_EMAIL));
@@ -202,6 +206,8 @@ public class OutgoingInvitationActivity extends AppCompatActivity {
 
 
                         Intent intents = new Intent(OutgoingInvitationActivity.this, VideoChatViewActivity.class);
+                        intents.putExtra("name",name);
+                        intents.putExtra("friendid","");
                         startActivity(intents);
                         finish();
                         mediaPlayer.stop();
