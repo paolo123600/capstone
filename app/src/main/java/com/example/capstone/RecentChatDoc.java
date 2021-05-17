@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.capstone.Model.Chatslist;
@@ -42,6 +43,7 @@ public class RecentChatDoc extends AppCompatActivity {
     Button recentchat;
     List<PatRC> mPats;
     RecyclerView recyclerView;
+    ImageView back;
     RecyclerView.LayoutManager layoutManager;
     UserAdapter mAdapter;
     FirebaseFirestore db;
@@ -63,6 +65,7 @@ public class RecentChatDoc extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         String User = preferenceManager.getString(Constants.KEY_USER_ID);
+        back = findViewById(R.id.backspace);
 
         clinicname = findViewById(R.id.clinicnamedoc);
         fAuth = FirebaseAuth.getInstance();
@@ -76,10 +79,17 @@ public class RecentChatDoc extends AppCompatActivity {
             }
         });
 
+
         DatabaseReference reference  = FirebaseDatabase.getInstance().getReference("Chatslist")
                 .child(User);
 
-
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RecentChatDoc.this, doctor_homepage.class);
+                startActivity(intent);
+            }
+        });
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

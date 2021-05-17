@@ -68,6 +68,13 @@ public class medical_records extends AppCompatActivity {
         medicallergies.setKeyListener(null);
         medicillness.setKeyListener(null);
 
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(medical_records.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
         editbtn.setOnClickListener(new View.OnClickListener() {
             @Override

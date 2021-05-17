@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.example.capstone.Model.Chatslist;
 import com.example.capstone.Model.DocRC;
@@ -34,7 +35,7 @@ import java.util.List;
 public class RecentChats extends AppCompatActivity   {
     List<Chatslist> userlist;
 
-
+    ImageView back;
     List <DocRC> mDocs;
     List <SecRC> mSecs;
     RecyclerView recyclerView;
@@ -56,7 +57,7 @@ FirebaseFirestore db;
         newchat= (Button) findViewById(R.id.btn_createchat);
 
         userlist = new ArrayList<>();
-
+        back = findViewById(R.id.backspace);
       recyclerView = (RecyclerView) findViewById(R.id.chat_recyclerview_recentchat4) ;
         recyclerView1=(RecyclerView) findViewById(R.id.chat_recyclerview_recentchat3) ;
         layoutManager = new LinearLayoutManager(this);
@@ -65,6 +66,14 @@ FirebaseFirestore db;
         recyclerView.setHasFixedSize(true);
         recyclerView1.setLayoutManager(layoutManager1);
         recyclerView1.setHasFixedSize(true);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RecentChats.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
         String User = preferenceManager.getString(Constants.KEY_USER_ID);
 

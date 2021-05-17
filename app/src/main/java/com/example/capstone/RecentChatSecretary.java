@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.example.capstone.Model.Chatslist;
 import com.example.capstone.Model.DocRC;
@@ -43,6 +44,7 @@ public class RecentChatSecretary extends AppCompatActivity {
     UserAdapter mAdapter;
     DocAdapter docAdapter;
     FirebaseFirestore db;
+    ImageView back;
     private PreferenceManager preferenceManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +63,15 @@ public class RecentChatSecretary extends AppCompatActivity {
         recyclerView1.setLayoutManager(layoutManager1);
         recyclerView1.setHasFixedSize(true);
         String User = preferenceManager.getString(Constants.KEY_USER_ID);
+        back = findViewById(R.id.backspace);
 
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RecentChatSecretary.this, secretary_homepage.class);
+                startActivity(intent);
+            }
+        });
 
         DatabaseReference reference  = FirebaseDatabase.getInstance().getReference("Chatslist")
                 .child(User);
