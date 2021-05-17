@@ -24,7 +24,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="@dimen/_2sdp"
-            android:background="@drawable/ic_backspace" />
+            />
 
     </LinearLayout>
 

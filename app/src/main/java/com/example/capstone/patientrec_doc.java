@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -31,6 +33,7 @@ public class patientrec_doc extends AppCompatActivity {
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     String userId;
+    ImageView back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,8 @@ public class patientrec_doc extends AppCompatActivity {
         fStore = FirebaseFirestore.getInstance();
 
         userId = fAuth.getCurrentUser().getUid();
+        back = findViewById(R.id.backspace);
+
 
         Intent intent = getIntent();
         String patid = intent.getStringExtra("patid");

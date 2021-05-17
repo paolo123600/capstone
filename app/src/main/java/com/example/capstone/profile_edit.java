@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -63,6 +64,7 @@ public class profile_edit extends AppCompatActivity {
         genderProfile.setKeyListener(null);
         bdayProfile.setKeyListener(null);
         emailProfile.setKeyListener(null);
+
 
         DocumentReference documentReference = fStore.collection("Patients").document(userId);
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {

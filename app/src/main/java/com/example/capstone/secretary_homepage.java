@@ -59,7 +59,7 @@ public class  secretary_homepage extends AppCompatActivity implements Navigation
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_secretary_homepage);
 
-        notifbtn = findViewById(R.id.patient_record);
+        notifbtn = (Button) findViewById(R.id.notif);
         chatbtn = findViewById(R.id.secretary_chat_btn);
 
         db = FirebaseFirestore.getInstance();
@@ -89,6 +89,14 @@ public class  secretary_homepage extends AppCompatActivity implements Navigation
 
         updateNavHeader();
 
+        notifbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(secretary_homepage.this,notification.class );
+                startActivity(intent);
+            }
+        });
+
         chatbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,12 +115,7 @@ public class  secretary_homepage extends AppCompatActivity implements Navigation
             }
         });
 
-        notifbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
     }
     @Override
     public void onBackPressed() {

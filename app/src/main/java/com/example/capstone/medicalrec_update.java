@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,7 +35,7 @@ public class medicalrec_update extends AppCompatActivity {
     EditText medicillness;
 
     Button update;
-
+    ImageView back;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     String userId;
@@ -56,10 +57,18 @@ public class medicalrec_update extends AppCompatActivity {
         medicBT.setKeyListener(null);
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
-
+        back = findViewById(R.id.backspace);
         userId = fAuth.getCurrentUser().getUid();
 
         update = findViewById(R.id.btn_updatemedical);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(medicalrec_update.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
         DocumentReference documentReference = fStore.collection("Patients").document(userId);
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {

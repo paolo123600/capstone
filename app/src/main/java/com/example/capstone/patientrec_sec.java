@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.example.capstone.activities.PastAppointments;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,7 +33,7 @@ public class patientrec_sec extends AppCompatActivity {
     EditText bloodp_patrec;
 
     Button history;
-
+    ImageView back;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     String userId;
@@ -75,6 +76,8 @@ public class patientrec_sec extends AppCompatActivity {
         preillness_patrec.setKeyListener(null);
         allergies_patrec.setKeyListener(null);
         bloodp_patrec.setKeyListener(null);
+
+
 
 
         DocumentReference documentReference = fStore.collection("Patients").document(patid);
