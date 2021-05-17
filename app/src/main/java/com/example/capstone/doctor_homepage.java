@@ -131,13 +131,21 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
         {
             condition=false;
         }
-
+        GlobalVariables gv = (GlobalVariables) getApplicationContext();
+        pat_record.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(doctor_homepage.this,patientrec_sec.class);
+                intent.putExtra("patid",patUid);
+                startActivity(intent);
+            }
+        });
         btn_dochat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), RecentChatDoc.class);
                 startActivity(intent);
-                finish();
+
             }
         });
 
@@ -260,6 +268,7 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
                                                 gv.setSDtimestart(document.getString("TimeStart"));
                                                 gv.setSDDate(datenow);
                                                 gv.setSDid(document.getId());
+                                               
                                             }
 
                                         }
@@ -335,7 +344,7 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
             case R.id.btn_patientrecord:
                 Intent intent = new Intent(getApplicationContext(), patient_record_clinic.class);
                 startActivity(intent);
-                finish();
+
                 break;
         }
 
