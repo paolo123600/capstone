@@ -14,7 +14,9 @@
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
 
 
         <ImageView
@@ -23,8 +25,15 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="@dimen/_2sdp"
-            />
+            android:background="@drawable/ic_backspace" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit Profile"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:textSize="@dimen/_15sdp"
+            android:textColor="@color/white"/>
 
     </LinearLayout>
 

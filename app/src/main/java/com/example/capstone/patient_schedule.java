@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -64,6 +65,8 @@ public class patient_schedule extends AppCompatActivity implements DatePickerDia
     private Dialog dialog;
     String doclastname;
 
+    ImageView back;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +85,15 @@ public class patient_schedule extends AppCompatActivity implements DatePickerDia
         GlobalVariables gv = (GlobalVariables) getApplicationContext();
         Calendar calendar = Calendar.getInstance();
         datenow = DateFormat.getDateInstance().format(calendar.getTime());
+
+        back = findViewById(R.id.backspace);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         SimpleDateFormat format = new SimpleDateFormat("MMM d,yyyy");
         format.setLenient(false);

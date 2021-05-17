@@ -38,6 +38,8 @@ public class profile_edit extends AppCompatActivity {
     FirebaseFirestore fStore;
     String userId;
 
+    ImageView back;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,10 +62,19 @@ public class profile_edit extends AppCompatActivity {
 
         update = findViewById(R.id.update_profile);
 
+        back = findViewById(R.id.backspace);
+
         fullnameProfile.setKeyListener(null);
         genderProfile.setKeyListener(null);
         bdayProfile.setKeyListener(null);
         emailProfile.setKeyListener(null);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
 
         DocumentReference documentReference = fStore.collection("Patients").document(userId);

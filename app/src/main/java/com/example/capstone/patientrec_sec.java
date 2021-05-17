@@ -38,6 +38,7 @@ public class patientrec_sec extends AppCompatActivity {
     FirebaseFirestore fStore;
     String userId;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +55,8 @@ public class patientrec_sec extends AppCompatActivity {
         preillness_patrec = findViewById(R.id.prexisting_patientrec);
         allergies_patrec = findViewById(R.id.allergies_patientrec);
         bloodp_patrec = findViewById(R.id.bloodppatientrec);
+
+        back = findViewById(R.id.backspace);
 
         history = findViewById(R.id.patrec_history);
 
@@ -78,6 +81,12 @@ public class patientrec_sec extends AppCompatActivity {
         bloodp_patrec.setKeyListener(null);
 
 
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
 
         DocumentReference documentReference = fStore.collection("Patients").document(patid);
