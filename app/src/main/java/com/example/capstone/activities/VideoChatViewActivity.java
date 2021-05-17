@@ -176,6 +176,11 @@ public class VideoChatViewActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        finish();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_chat_view);
@@ -184,6 +189,8 @@ public class VideoChatViewActivity extends AppCompatActivity {
         db= FirebaseFirestore.getInstance();
         initUI();
         GlobalVariables gv = (GlobalVariables) getApplicationContext();
+
+
 
        Channel1 = gv.getChannel_Name().toString();
         mChatButton=(ImageButton) findViewById(R.id.videochathome_chat);

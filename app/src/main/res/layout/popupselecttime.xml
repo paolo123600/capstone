@@ -79,7 +79,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lineardown"
         android:gravity="center"
-        android:paddingLeft="@dimen/_20sdp"
         android:layout_marginTop="@dimen/_20sdp">
 
 

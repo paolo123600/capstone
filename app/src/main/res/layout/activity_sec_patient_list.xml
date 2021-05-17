@@ -18,6 +18,12 @@
       app:layout_constraintTop_toTopOf="parent"
       app:mt_hint="Search by Surname" />
 
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_marginTop="@dimen/_43sdp"
+      app:layout_constraintTop_toBottomOf="@id/searchBar">
+
   <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -38,14 +44,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewpat"
         android:layout_width="match_parent"
-        android:layout_height="414dp"
-        android:layout_marginBottom="88dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.363"
-        app:layout_constraintStart_toStartOf="parent"
-
-        app:layout_constraintVertical_bias="0.0" />
+        android:layout_height="414dp" />
 
 
 
@@ -53,15 +52,14 @@
         android:id="@+id/button_doctor_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="-50dp"
-        android:layout_marginLeft="300dp"
         android:background="@drawable/darkround"
+        android:layout_gravity="right"
         android:text="Doctor"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:textColor="@color/white" />
 
   </LinearLayout>
+
+  </ScrollView>
 
 
 
