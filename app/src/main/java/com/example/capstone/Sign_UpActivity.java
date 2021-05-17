@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,6 +23,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.SignInMethodQueryResult;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -35,6 +37,7 @@ EditText ET_FName, ET_LName, ET_MI, ET_Email, ET_Pass, ET_ConPass , ET_Address, 
 FirebaseFirestore db;
 Spinner ET_Sex;
 Toolbar toolbar;
+boolean check;
 FirebaseAuth mAuth;
 DatabaseReference reference;
 private DatePickerDialog datePickerDialog;
@@ -61,7 +64,7 @@ protected void onCreate(Bundle savedInstanceState) {
     ET_Postal=(EditText) findViewById(R.id.postalcode);
     ET_Municipality=(EditText) findViewById(R.id.municipality);
     db= FirebaseFirestore.getInstance();
-
+        mAuth = FirebaseAuth.getInstance();
         ArrayAdapter<CharSequence> adapter =  ArrayAdapter.createFromResource(this,R.array.sex, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         ET_Sex.setAdapter(adapter);
@@ -74,6 +77,8 @@ protected void onCreate(Bundle savedInstanceState) {
         @Override
         public void onClick(View view) {
             ///bday
+
+
             gv.setBday(String.valueOf(dateButton.getText()));
 
             gv.setFname(String.valueOf(ET_FName.getText()));
@@ -88,12 +93,11 @@ protected void onCreate(Bundle savedInstanceState) {
             gv.setMunicipality(String.valueOf(ET_Municipality.getText()));
             gv.setPostal(String.valueOf(ET_Postal.getText()));
 
+
             if (ET_FName.getText().toString().trim().isEmpty()){
                 Toast.makeText(Sign_UpActivity.this, "Enter First Name",Toast.LENGTH_SHORT).show();
             }else if (ET_LName.getText().toString().trim().isEmpty()){
                 Toast.makeText(Sign_UpActivity.this, "Enter Last Name",Toast.LENGTH_SHORT).show();
-            }else if (ET_MI.getText().toString().trim().isEmpty()){
-                Toast.makeText(Sign_UpActivity.this, "Enter Middle Initial",Toast.LENGTH_SHORT).show();
             }else if (ET_Contact.getText().toString().trim().isEmpty()){
                 Toast.makeText(Sign_UpActivity.this, "Enter Contact Number",Toast.LENGTH_SHORT).show();
             }else if (ET_Nationality.getText().toString().trim().isEmpty()){
@@ -102,30 +106,42 @@ protected void onCreate(Bundle savedInstanceState) {
                 Toast.makeText(Sign_UpActivity.this, "Enter Email",Toast.LENGTH_SHORT).show();
             }else if (ET_Pass.getText().toString().trim().isEmpty()){
                 Toast.makeText(Sign_UpActivity.this, "Enter Password",Toast.LENGTH_SHORT).show();
-            }else if (!ET_Pass.getText().toString().equals(ET_ConPass.getText().toString())){
-                Toast.makeText(Sign_UpActivity.this, "Confirm Password",Toast.LENGTH_SHORT).show();
+            } else if (ET_Pass.getText().toString().length()<6){
+                Toast.makeText(Sign_UpActivity.this, "Password must be more than 6 characters",Toast.LENGTH_SHORT).show();
             }else if (ET_Address.getText().toString().trim().isEmpty()){
                 Toast.makeText(Sign_UpActivity.this, "Enter Enter Address",Toast.LENGTH_SHORT).show();
             }else if (ET_Municipality.getText().toString().trim().isEmpty()){
                 Toast.makeText(Sign_UpActivity.this, "Enter Municipality",Toast.LENGTH_SHORT).show();
             }else if (ET_Postal.getText().toString().trim().isEmpty()){
                 Toast.makeText(Sign_UpActivity.this, "Enter Postal Code",Toast.LENGTH_SHORT).show();
+            } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(ET_Email.getText().toString()).matches()){
+                Toast.makeText(Sign_UpActivity.this, "Please Enter Valid Email",Toast.LENGTH_SHORT).show();
+            }else if (!ET_Pass.getText().toString().equals(ET_ConPass.getText().toString())){
+                Toast.makeText(Sign_UpActivity.this, "Password not the same",Toast.LENGTH_SHORT).show();
             }else{
 
-                Intent intent = new Intent(Sign_UpActivity.this,Medical_RecordActivity.class);
 
-                startActivity(intent);
-            }
+                  mAuth.fetchSignInMethodsForEmail(gv.getEmail())
+                        .addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
+                                if (task.isSuccessful()){
+                                    boolean check =!task.getResult().getSignInMethods().isEmpty();
+                                    if (!check){
+                                        Intent intent = new Intent(Sign_UpActivity.this, Medical_RecordActivity.class);
+
+                                        startActivity(intent);
+                                    }
+                                    else {
+                                        Toast.makeText(Sign_UpActivity.this, "Email is already in used",Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            }
+                        });
+
+            }}
 
 
-
-
-
-
-
-
-
-        }
     });
 
 

@@ -161,7 +161,7 @@
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:paddingLeft="@dimen/_5sdp"
-                android:text="Create and account"
+                android:text="Create an account"
                 android:textColor="@color/button" />
 
 

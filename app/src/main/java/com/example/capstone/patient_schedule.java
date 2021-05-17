@@ -156,13 +156,13 @@ public class patient_schedule extends AppCompatActivity implements DatePickerDia
                             public void onClick(DialogInterface dialog, int which) {
                                 Date currentTime = Calendar.getInstance().getTime();
                                 db.collection("Schedule").document(scheddocu).update(
-                                        "Status", "Canceled",
+                                        "Status", "Cancelled",
                                         "DnT", currentTime
 
                                 ).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        Toast.makeText(patient_schedule.this, "Successfully Canceled", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(patient_schedule.this, "Successfully Cancelled", Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(patient_schedule.this, patient_schedule.class);
                                         startActivity(intent);
                                     }
