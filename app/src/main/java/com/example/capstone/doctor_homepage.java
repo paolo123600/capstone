@@ -62,7 +62,7 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
     String datenow;
     Date timenow;
     TextView patnametv, schedtimetv;
-
+    Boolean condition=false;
     private DrawerLayout drawer;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
@@ -126,11 +126,18 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
                 handler.postDelayed(this, delay);
             }
         }, delay);
+
+        if(condition=true)
+        {
+            condition=false;
+        }
+
         btn_dochat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), RecentChatDoc.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -176,6 +183,7 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
                                     intent.putExtra("user", user);
                                     intent.putExtra("type", "video");
                                     startActivity(intent);
+                                    finish();
                                 }
 
                             }
@@ -190,7 +198,10 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
 
 
     }
-
+    public void stophandler()
+    {
+        condition=true;
+    }
     private void checkschedcurrent() {
 
 
@@ -324,6 +335,7 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
             case R.id.btn_patientrecord:
                 Intent intent = new Intent(getApplicationContext(), patient_record_clinic.class);
                 startActivity(intent);
+                finish();
                 break;
         }
 

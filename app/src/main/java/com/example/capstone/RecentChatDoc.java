@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.capstone.Model.Chatslist;
@@ -48,7 +49,10 @@ public class RecentChatDoc extends AppCompatActivity {
     UserAdapter mAdapter;
     FirebaseFirestore db;
     FirebaseAuth fAuth;
+    LinearLayout secbtn;
     String userId;
+    String secname;
+    String secid;
     private PreferenceManager preferenceManager;
 
     TextView clinicname;
@@ -70,16 +74,40 @@ public class RecentChatDoc extends AppCompatActivity {
         clinicname = findViewById(R.id.clinicnamedoc);
         fAuth = FirebaseAuth.getInstance();
         userId = fAuth.getCurrentUser().getUid();
+        secbtn= (LinearLayout) findViewById(R.id.doc_chat_sec);
 
         DocumentReference documentReference = db.collection("Doctors").document(userId);
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                clinicname.setText(documentSnapshot.getString("ClinicName"));
+                secname=documentSnapshot.getString("ClinicName");
+                clinicname.setText(secname);
             }
         });
 
+        secbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                db.collection("Secretary").whereEqualTo("ClinicName",secname).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            for (QueryDocumentSnapshot queryDocumentSnapshot: task.getResult()){
+                                secid=queryDocumentSnapshot.getId();
+                                Intent intent = new Intent(RecentChatDoc.this, MessageActivity.class);
+                                intent.putExtra("friendid", secid);
+                                intent.putExtra("name", secname);
+                                intent.putExtra("usertype", "Secretary");
+                                intent.putExtra("type", "Doctors");
+                                startActivity(intent);
+                            }
 
+                        }
+                    }
+                });
+
+            }
+        });
         DatabaseReference reference  = FirebaseDatabase.getInstance().getReference("Chatslist")
                 .child(User);
 

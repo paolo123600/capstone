@@ -54,8 +54,8 @@ public class RecentChatSecretary extends AppCompatActivity {
         db= FirebaseFirestore.getInstance();
         createchatsec= (Button) findViewById(R.id.btn_recentchatsec);
         userlist = new ArrayList<>();
-        recyclerView=(RecyclerView)findViewById(R.id.chat_recyclerview_recentchatSec) ;
-        recyclerView1=(RecyclerView)findViewById(R.id.chat_recyclerview_recentchat2) ;
+        recyclerView=(RecyclerView)findViewById(R.id.chat_recyclerview_recentchat2) ;
+        recyclerView1=(RecyclerView)findViewById(R.id.chat_recyclerview_recentchatSec) ;
         layoutManager = new LinearLayoutManager(this);
         layoutManager1 = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
