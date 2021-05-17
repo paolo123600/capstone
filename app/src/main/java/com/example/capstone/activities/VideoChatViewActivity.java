@@ -177,6 +177,12 @@ public class VideoChatViewActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        updatepat();
+        endCall();
+        RtcEngine.destroy();
+
+        Intent intent = new Intent(com.example.capstone.activities.VideoChatViewActivity.this, Login.class);
+        startActivity(intent);
         finish();
     }
 
