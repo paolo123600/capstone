@@ -36,17 +36,20 @@
         android:layout_width="@dimen/_290sdp"
         android:layout_height="@dimen/_50sdp"
         android:layout_marginTop="36dp"
-        android:background="@color/white"
+        android:background="@color/blue2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         android:gravity="center">
 
         <TextView
+            android:id="@+id/clinicnamedoc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Secretary" />
+            android:text="Secretary"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_20sdp"/>
 
     </LinearLayout>
 
@@ -73,7 +76,6 @@
         android:id="@+id/chat_recyclerview_recentchatDoc"
         android:layout_width="match_parent"
         android:layout_height="377dp"
-        android:padding="@dimen/_10sdp"
         android:paddingTop="@dimen/_20sdp" />
 
     </LinearLayout>

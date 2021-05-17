@@ -37,7 +37,9 @@
         android:layout_marginEnd="30dp"
         android:layout_marginRight="30dp"
         android:text="asd"
-        android:textStyle="bold"/>
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:gravity="center_horizontal" />
 
 </LinearLayout>
 
