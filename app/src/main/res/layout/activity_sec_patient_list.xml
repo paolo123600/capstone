@@ -38,6 +38,7 @@
         android:layout_marginBottom="16dp"
         android:text="Patients:"
         android:textSize="24sp"
+        android:paddingLeft="@dimen/_10sdp"
         app:layout_constraintBottom_toTopOf="@+id/recyclerViewpat"
         app:layout_constraintStart_toStartOf="parent" />
 

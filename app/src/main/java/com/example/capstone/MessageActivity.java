@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -63,6 +64,7 @@ public class MessageActivity extends AppCompatActivity {
     private PreferenceManager preferenceManager;
 
 
+    ImageView back;
 
     DatabaseReference reference;
 
@@ -85,6 +87,7 @@ public class MessageActivity extends AppCompatActivity {
         friendid = getIntent().getStringExtra("friendid"); // retreive the friendid when we click on the item
         usertype = getIntent().getStringExtra("usertype");
         type = getIntent().getStringExtra("type");
+        back = findViewById(R.id.profile_image_toolbar_message);
 
 
         if (usertype.equals("Doctors") && type.equals("Patients")) {
@@ -94,9 +97,6 @@ public class MessageActivity extends AppCompatActivity {
         }
 
         toolbar = findViewById(R.id.toolbar_message);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         usernameonToolbar = findViewById(R.id.username_ontoolbar_message);
@@ -108,6 +108,13 @@ public class MessageActivity extends AppCompatActivity {
 
         send = findViewById(R.id.send_messsage_btn);
         et_message = findViewById(R.id.edit_message_text);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
 
 

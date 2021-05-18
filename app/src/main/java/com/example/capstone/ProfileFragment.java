@@ -78,6 +78,7 @@ public class ProfileFragment extends AppCompatActivity {
                 number.setText(documentSnapshot.getString("Contact"));
                 email.setText(documentSnapshot.getString("Email"));
                 postal.setText(documentSnapshot.getString("Postal"));
+                birthday.setText(documentSnapshot.getString("Birthday"));
             }
         });
 

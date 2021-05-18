@@ -96,7 +96,7 @@
                 android:background="@drawable/roundtbox"
                 android:inputType="textPersonName"
                 android:layout_marginLeft="@dimen/_10sdp"
-                android:paddingLeft="@dimen/_25sdp"/>
+                android:padding="@dimen/_15sdp"/>
 
         </LinearLayout>
 

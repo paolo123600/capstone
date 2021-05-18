@@ -91,7 +91,8 @@ public class patient_schedule extends AppCompatActivity implements DatePickerDia
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                Intent intent = new Intent(getApplicationContext(), Login.class);
+                startActivity(intent);
             }
         });
 
@@ -267,6 +268,7 @@ public class patient_schedule extends AppCompatActivity implements DatePickerDia
                                                     Button btnTag = new Button(patient_schedule.this);
                                                     btnTag.setLayoutParams(new ActionBar.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT));
                                                     btnTag.setText(btntext[j]);
+                                                    btnTag.setWidth(440);
                                                     btnTag.setId(j);
                                                     btnTag.setOnClickListener(new View.OnClickListener() {
                                                         @Override
@@ -295,6 +297,7 @@ public class patient_schedule extends AppCompatActivity implements DatePickerDia
                                                     Button btnTag = new Button(patient_schedule.this);
                                                     btnTag.setLayoutParams(new ActionBar.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT));
                                                     btnTag.setText(btntext[j]);
+                                                    btnTag.setWidth(440);
                                                     btnTag.setId(j);
                                                     btnTag.setOnClickListener(new View.OnClickListener() {
                                                         @Override

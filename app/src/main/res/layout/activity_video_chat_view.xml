@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:background="@color/lightblue">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@id/icon_padding"
@@ -34,7 +34,7 @@
                 android:background="@color/localBackground" />
 
 
-        </RelativeLayout>
+        </LinearLayout>
 
         <RelativeLayout
             android:id="@+id/icon_padding"
