@@ -234,7 +234,7 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
             }
         }
 
-        Toast.makeText(this, "timestart: "+timestart+"timestop: "+timestop, Toast.LENGTH_SHORT).show();
+
 
 
         db.collection("Schedule").whereEqualTo("SchedDate", datenow).whereEqualTo("TimeStart", timestart).whereEqualTo("DoctorUId", preferenceManager.getString(Constants.KEY_USER_ID)).whereEqualTo("TimeStop", timestop).whereIn("Status", Arrays.asList("Paid", "Completed"))

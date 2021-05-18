@@ -1,12 +1,12 @@
 package com.example.capstone.Model;
 
 public class SecRC {
-    String ClinicName , UserId, Type;
+    String ClinicName , UserId;
 
-    public SecRC(String clinicName, String userId, String type) {
+    public SecRC(String clinicName, String userId) {
         ClinicName = clinicName;
         UserId = userId;
-        Type = type;
+
     }
 
     public String getClinicName() {
@@ -25,13 +25,7 @@ public class SecRC {
         UserId = userId;
     }
 
-    public String getType() {
-        return Type;
-    }
 
-    public void setType(String type) {
-        Type = type;
-    }
 
     public SecRC() {
     }
