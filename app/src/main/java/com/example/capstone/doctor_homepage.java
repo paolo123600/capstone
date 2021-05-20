@@ -191,7 +191,6 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
                                     intent.putExtra("user", user);
                                     intent.putExtra("type", "video");
                                     startActivity(intent);
-                                    finish();
                                 }
 
                             }
