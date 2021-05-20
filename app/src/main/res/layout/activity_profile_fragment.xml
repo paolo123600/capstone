@@ -275,9 +275,10 @@
                android:id="@+id/editbtn"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               android:text="Edit"
+               android:text="Edit Profile"
                android:background="@drawable/darkround"
-               android:textColor="@color/white"/>
+               android:textColor="@color/white"
+               android:padding="@dimen/_10sdp"/>
 
        </LinearLayout>
 

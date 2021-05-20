@@ -20,7 +20,9 @@
         android:theme="@style/Theme.Capstone"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".paymentform"></activity>
+        <activity android:name=".doctor_editprofile"></activity>
+        <activity android:name=".doctor_viewporfile" />
+        <activity android:name=".paymentform" />
         <activity android:name=".activities.PastAppointments" />
         <activity
             android:name=".profile_edit"

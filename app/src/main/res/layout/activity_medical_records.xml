@@ -257,7 +257,8 @@
                 android:id="@+id/medicalrec_edit_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Edit"
+                android:text="Edit Records"
+                android:padding="@dimen/_10sdp"
                 android:textColor="@color/white"
                 android:background="@drawable/darkround"/>
 

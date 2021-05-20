@@ -191,7 +191,6 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
                                     intent.putExtra("user", user);
                                     intent.putExtra("type", "video");
                                     startActivity(intent);
-                                    finish();
                                 }
 
                             }
@@ -344,6 +343,13 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
             case R.id.btn_patientrecord:
                 Intent intent = new Intent(getApplicationContext(), patient_record_clinic.class);
                 startActivity(intent);
+
+                break;
+
+            case R.id.nav_profile_dodc:
+
+                Intent intent1 = new Intent(getApplicationContext(), doctor_viewporfile.class);
+                startActivity(intent1);
 
                 break;
         }
