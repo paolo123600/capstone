@@ -44,7 +44,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
                     android:background="@drawable/pat_rec_button"
-                    android:text="Pateint record"
+                    android:text="Patient record"
                     android:textColor="@color/white"
                     android:visibility="invisible" />
 
