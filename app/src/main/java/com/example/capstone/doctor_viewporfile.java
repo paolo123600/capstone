@@ -129,12 +129,12 @@ public class doctor_viewporfile extends AppCompatActivity {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                 firstname.setText(documentSnapshot.getString("LastName") + ", " + documentSnapshot.getString("FirstName") + " " + documentSnapshot.getString("MiddleInitial"));
-                gender.setText(documentSnapshot.getString("Sex"));
+                gender.setText(documentSnapshot.getString("Gender"));
                 address.setText(documentSnapshot.getString("Address"));
                 municipality.setText(documentSnapshot.getString("Municipality"));
-                number.setText(documentSnapshot.getString("Contact"));
+                number.setText(documentSnapshot.getString("ContactNumber"));
                 email.setText(documentSnapshot.getString("Email"));
-                postal.setText(documentSnapshot.getString("Postal"));
+                postal.setText(documentSnapshot.getString("PostalCode"));
                 birthday.setText(documentSnapshot.getString("Birthday"));
             }
         });

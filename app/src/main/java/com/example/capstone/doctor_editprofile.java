@@ -73,13 +73,13 @@ public class doctor_editprofile extends AppCompatActivity {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                 fullnameProfile.setText(documentSnapshot.getString("LastName") + ", " + documentSnapshot.getString("FirstName") + " " + documentSnapshot.getString("MiddleInitial"));
-                genderProfile.setText(documentSnapshot.getString("Sex"));
+                genderProfile.setText(documentSnapshot.getString("Gender"));
                 bdayProfile.setText(documentSnapshot.getString("Birthday"));
                 municiplatyProfile.setText(documentSnapshot.getString("Municipality"));
-                numberProfile.setText(documentSnapshot.getString("Contact"));
+                numberProfile.setText(documentSnapshot.getString("ContactNumber"));
                 emailProfile.setText(documentSnapshot.getString("Email"));
                 addressProfile.setText(documentSnapshot.getString("Address"));
-                postalPorfile.setText(documentSnapshot.getString("Postal"));
+                postalPorfile.setText(documentSnapshot.getString("PostalCode"));
             }
         });
 
@@ -94,10 +94,10 @@ public class doctor_editprofile extends AppCompatActivity {
 
                 Map<String, Object> Doctors = new HashMap<>();
                 Doctors.put("Municipality", municipality);
-                Doctors.put("Contact", number);
+                Doctors.put("ContactNumber", number);
                 Doctors.put("Email", email);
                 Doctors.put("Address", address);
-                Doctors.put("Postal", postal);
+                Doctors.put("PostalCode", postal);
 
 
                 documentReference.update(Doctors);
