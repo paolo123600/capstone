@@ -223,7 +223,7 @@
                 android:id="@+id/medicalrec_allergies"
                 android:inputType="textMultiLine"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_80sdp"
+                android:layout_height="wrap_content"
                 android:background="@drawable/roundtbox"
                 android:padding="@dimen/_10sdp" />
 
@@ -237,7 +237,7 @@
                 android:id="@+id/medicalrec_illness"
                 android:inputType="textMultiLine"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_80sdp"
+                android:layout_height="wrap_content"
                 android:background="@drawable/roundtbox"
                 android:padding="@dimen/_10sdp"/>
 

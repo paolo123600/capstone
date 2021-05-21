@@ -32,7 +32,6 @@
         android:gravity="center"
 
         android:hint="Email Address"
-        android:inputType="textPassword"
         android:paddingLeft="10dp"
         android:textAlignment="center"
         tools:layout_editor_absoluteX="99dp"

@@ -70,12 +70,14 @@
             app:layout_constraintTop_toBottomOf="@+id/nameline"
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_10sdp">
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/Fname"
                 android:inputType="textPersonName"
-                android:layout_width="@dimen/_110sdp"
+                android:layout_width="0dp"
+                android:layout_weight="2"
                 android:layout_height="match_parent"
                 android:background="@drawable/roundtbox"
                 android:padding="@dimen/_5sdp"/>
@@ -83,7 +85,8 @@
             <EditText
                 android:id="@+id/Lname"
                 android:inputType="textPersonName"
-                android:layout_width="@dimen/_110sdp"
+                android:layout_width="0dp"
+                android:layout_weight="2"
                 android:layout_height="match_parent"
                 android:background="@drawable/roundtbox"
                 android:layout_marginLeft="@dimen/_10sdp"
@@ -91,12 +94,14 @@
 
             <EditText
                 android:id="@+id/Mi"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:background="@drawable/roundtbox"
                 android:inputType="textPersonName"
                 android:layout_marginLeft="@dimen/_10sdp"
-                android:padding="@dimen/_15sdp"/>
+                android:paddingLeft="@dimen/_10sdp"
+                android:maxLength="1"/>
 
         </LinearLayout>
 
@@ -120,13 +125,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nationality"
-                android:layout_marginLeft="@dimen/_70sdp"/>
+                android:layout_marginLeft="@dimen/_60sdp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Sex"
-                android:layout_marginLeft="@dimen/_49sdp"/>
+                android:layout_marginLeft="@dimen/_69sdp"/>
 
 
         </LinearLayout>
@@ -143,7 +148,8 @@
 
             <Button
                 android:id="@+id/btn_bday"
-                android:layout_width="@dimen/_120sdp"
+                android:layout_width="0dp"
+                android:layout_weight="2"
                 android:layout_height="match_parent"
                 android:onClick="openDatePickerView"
                 android:hint="January 1 2021"
@@ -153,7 +159,8 @@
 
             <EditText
                 android:id="@+id/nationality"
-                android:layout_width="@dimen/_90sdp"
+                android:layout_width="0dp"
+                android:layout_weight="2"
                 android:layout_height="match_parent"
                 android:background="@drawable/roundtbox"
                 android:layout_marginLeft="@dimen/_10sdp"
@@ -162,7 +169,8 @@
             <Spinner
                 android:id="@+id/gender"
                 android:visibility="visible"
-                android:layout_width="@dimen/_66sdp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:background="@drawable/roundtbox"
                 android:layout_marginLeft="@dimen/_10sdp"/>
