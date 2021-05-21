@@ -110,9 +110,10 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
 
         try {
             Date currentTime = Calendar.getInstance().getTime();
-            String timenow1 =dateFormat.format(currentTime);
+//            String timenow1 =dateFormat.format(currentTime);
 
 
+            String timenow1 ="12:20PM";
             timenow = dateFormat.parse(timenow1);
 
         } catch (ParseException e) {
