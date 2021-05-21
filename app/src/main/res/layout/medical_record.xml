@@ -70,7 +70,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Height"/>
+                android:text="Height(kg)"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -116,7 +116,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Weight"/>
+                android:text="Weight(cm)"/>
 
             <TextView
                 android:layout_width="wrap_content"

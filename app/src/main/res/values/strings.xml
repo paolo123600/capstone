@@ -81,6 +81,10 @@
     <dimen name="control_bottom_horizontal_margin">30dp</dimen>
 
 
+    <string name="changepass">Are you sure you want to change your password</string>
+    <string name="changepass1">Please check your email to set your new password</string>
+
+
     <!-- PLEASE KEEP THIS App ID IN SAFE PLACE -->
     <!-- Get your own App ID at https://dashboard.agora.io/ -->
     <!-- After you entered the App ID, remove <##> outside of Your App ID -->

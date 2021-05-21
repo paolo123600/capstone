@@ -58,6 +58,12 @@ public class patientrec_doc extends AppCompatActivity {
         userId = fAuth.getCurrentUser().getUid();
         back = findViewById(R.id.backspace);
 
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         Intent intent = getIntent();
         String patid = intent.getStringExtra("patid");
