@@ -67,7 +67,12 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     String userId;
-
+    private Handler handler = new Handler();
+    private Runnable runnable = new Runnable() {     public void run() {
+        checkschedcurrent();
+        handler.postDelayed(this, 60000);
+    }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,9 +110,9 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
 
         try {
             Date currentTime = Calendar.getInstance().getTime();
-//            String timenow1 =dateFormat.format(currentTime);
+            String timenow1 =dateFormat.format(currentTime);
 
-            String timenow1 = "4:50PM";
+
             timenow = dateFormat.parse(timenow1);
 
         } catch (ParseException e) {
@@ -117,20 +122,9 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
 
         checkschedcurrent();
 
-        final Handler handler = new Handler();
-        final int delay = 60000; // 1000 milliseconds == 1 second
+        handler.postDelayed(runnable, 60000);
 
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                checkschedcurrent();
-                handler.postDelayed(this, delay);
-            }
-        }, delay);
 
-        if(condition=true)
-        {
-            condition=false;
-        }
         GlobalVariables gv = (GlobalVariables) getApplicationContext();
         pat_record.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -374,5 +368,17 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
         });
 
 
+    }
+    @Override
+    protected void onPause() {
+        handler.removeCallbacks(runnable);
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume()
+    {
+        handler.postDelayed(runnable, 6000);
+        super.onResume();
     }
 }

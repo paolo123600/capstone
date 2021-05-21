@@ -37,7 +37,7 @@ public class IncomingInvitationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_incoming_invitation);
 
-        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.phone_ringing);
+        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.ringing_old_phone);
         mediaPlayer.setLooping(true);
         mediaPlayer.setVolume(100, 100);
         mediaPlayer.start();

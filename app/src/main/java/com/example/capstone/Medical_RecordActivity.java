@@ -8,11 +8,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -31,6 +34,10 @@ public class Medical_RecordActivity extends AppCompatActivity implements Adapter
     Button btn_Continue;
     Spinner ET_BloodType;
     FirebaseFirestore db;
+
+    private ProgressBar signInProgressBar;
+    RelativeLayout progressbg;
+    ConstraintLayout bg_remove;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +55,10 @@ public class Medical_RecordActivity extends AppCompatActivity implements Adapter
         ET_Illness=(EditText) findViewById(R.id.illness);
         btn_Continue = (Button) findViewById(R.id.btn_continue);
 
+        signInProgressBar = findViewById(R.id.signInProgressBar);
+        progressbg = findViewById(R.id.progress_bg);
+        bg_remove = findViewById(R.id.bgremove);
+
 
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.blood, android.R.layout.simple_spinner_item);
@@ -59,6 +70,10 @@ public class Medical_RecordActivity extends AppCompatActivity implements Adapter
         btn_Continue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                progressbg.setVisibility(View.VISIBLE);
+                signInProgressBar.setVisibility(View.VISIBLE);
+                bg_remove.setVisibility(View.INVISIBLE);
 
                 gv.setEContactP(ET_ContactP.getText().toString());
                 gv.setEContactN(ET_ContactN.getText().toString());
@@ -85,7 +100,6 @@ public class Medical_RecordActivity extends AppCompatActivity implements Adapter
                     Toast.makeText(Medical_RecordActivity.this, "Enter Allergies",Toast.LENGTH_SHORT).show();
                 }else{
 
-                }
 
 
                 String email = gv.getEmail();;
@@ -99,7 +113,6 @@ public class Medical_RecordActivity extends AppCompatActivity implements Adapter
                 Map<String,Object> Verification = new HashMap<>();
                 Verification.put("Email",email);
                 Verification.put("VCode",randomCode);
-
                 db.collection("Verification")
                         .add(Verification)
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -108,17 +121,13 @@ public class Medical_RecordActivity extends AppCompatActivity implements Adapter
 
                                 try{
 
-
                                 }
                                 catch (Exception e){
                                   Toast.makeText(getApplicationContext(), "Verification Code Error!", Toast.LENGTH_LONG).show();
                                }
 
 
-
-
                                 Intent intent = new Intent(Medical_RecordActivity.this,Sign_Up_VerifyActivity.class);
-
                                 startActivity(intent);
                             }
                         }).addOnFailureListener(new OnFailureListener() {
@@ -127,6 +136,7 @@ public class Medical_RecordActivity extends AppCompatActivity implements Adapter
                         Toast.makeText(Medical_RecordActivity.this,"Failed",Toast.LENGTH_SHORT).show();
                     }
                 });
+                }
 
                 ;
             }
