@@ -94,7 +94,7 @@ public class doctor_viewporfile extends AppCompatActivity {
                         onBackPressed();
                     }
                 });
-                //
+                ////
                 mAuth.sendPasswordResetEmail(String.valueOf(email.getText())).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete( Task<Void> task) {
