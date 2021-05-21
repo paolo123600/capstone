@@ -227,7 +227,8 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:background="@drawable/roundtbox"
-                android:padding="@dimen/_10sdp"/>
+                android:padding="@dimen/_10sdp"
+                android:inputType="textImeMultiLine"/>
 
             <EditText
                 android:id="@+id/weight_patientrec"
@@ -236,7 +237,8 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/roundtbox"
                 android:padding="@dimen/_10sdp"
-                android:layout_marginLeft="@dimen/_10sdp"/>
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:inputType="textImeMultiLine"/>
 
             <EditText
                 android:id="@+id/emergency_contact_patientrec"
@@ -245,7 +247,8 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/roundtbox"
                 android:padding="@dimen/_10sdp"
-                android:layout_marginLeft="@dimen/_10sdp"/>
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:inputType="textImeMultiLine"/>
 
         </LinearLayout>
 
@@ -285,7 +288,8 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:background="@drawable/roundtbox"
-                android:padding="@dimen/_10sdp"/>
+                android:padding="@dimen/_10sdp"
+                android:inputType="textImeMultiLine"/>
 
             <EditText
                 android:id="@+id/bloodppatientrec"
@@ -298,13 +302,15 @@
 
         </LinearLayout>
 
+
         <LinearLayout
-            android:id="@+id/preexistinglbl"
+            android:id="@+id/preexistingedittxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/bloodtypeeditxt"
+            app:layout_constraintTop_toBottomOf="@+id/bloodtypeeditxt"
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_10sdp"
+            android:orientation="vertical"
             android:layout_marginTop="@dimen/_10sdp">
 
             <TextView
@@ -312,39 +318,26 @@
                 android:layout_height="wrap_content"
                 android:text="Pre existing illness"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Allergies"
-                android:layout_marginLeft="@dimen/_65sdp"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/preexistingedittxt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/preexistinglbl"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_10sdp">
-
             <EditText
                 android:id="@+id/prexisting_patientrec"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="@dimen/_80sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@drawable/roundtbox"
                 android:padding="@dimen/_10sdp"
                 android:inputType="textMultiLine"/>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Allergies"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
             <EditText
                 android:id="@+id/allergies_patientrec"
-                android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/roundtbox"
                 android:padding="@dimen/_10sdp"
-                android:layout_marginLeft="@dimen/_10sdp"
                 android:inputType="textMultiLine"/>
 
         </LinearLayout>
