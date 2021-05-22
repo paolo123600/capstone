@@ -9,8 +9,8 @@
 
     <TextView
         android:id="@+id/tv_privacy"
-        android:layout_width="match_parent"
-        android:layout_height="329dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
@@ -21,7 +21,9 @@
         android:layout_marginTop="98dp"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="-1dp"
+        android:background="@drawable/circle_button_booknow"
         android:justificationMode="inter_word"
+        android:padding="20dp"
         android:text="By Agreeing on this page you are letting the application see the patients personal information that will be needed in the application. According to the Republic Act No. 10173 or the Data Privacy Act of 2012 (DPA) “to protect the fundamental human right to privacy of communication while ensuring free flow of information to promote innovation and growth [and] the [State’s] inherent obligation to ensure that personal information in information and communications systems in government and in the private sector are secured and protected”."
         android:textSize="@dimen/_15sdp" />
 
