@@ -32,14 +32,16 @@
                 android:layout_weight="1"
                 android:layout_width="@dimen/_65sdp"
                 android:layout_height="wrap_content"
-                android:text="Mon"/>
+                android:text="Mon"
+
+                />
 
             <Button
                 android:id="@+id/docsched_tuesday"
-                android:layout_weight="1"
                 android:layout_width="@dimen/_60sdp"
                 android:layout_height="wrap_content"
-                android:text="tue"/>
+                android:layout_weight="1"
+                android:text="tue" />
 
             <Button
                 android:id="@+id/docsched_wednesday"
@@ -116,11 +118,11 @@
                 android:layout_marginLeft="@dimen/_20sdp">
 
                 <EditText
-                    android:id="@+id/docsched_minbooking"
+                    android:id="@+id/docsched_maxbooking"
                     android:layout_weight="3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="Minimum Booking"/>
+                    android:hint="Maximum Booking"/>
 
                 <EditText
                     android:id="@+id/docsched_price"
@@ -145,10 +147,10 @@
                     android:text="Cancel"/>
 
                 <Button
-                    android:id="@+id/docsched_update"
+                    android:id="@+id/docsched_save"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="update"/>
+                    android:text="save"/>
 
             </LinearLayout>
 
