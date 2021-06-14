@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".docsched_page3">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/docsched_monday"
+                android:layout_weight="1"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="wrap_content"
+                android:text="M"/>
+
+            <Button
+                android:id="@+id/docsched_tuesday"
+                android:layout_weight="1"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="wrap_content"
+                android:text="t"/>
+
+            <Button
+                android:id="@+id/docsched_wednesday"
+                android:layout_weight="1"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="wrap_content"
+                android:text="w"/>
+
+            <Button
+                android:id="@+id/docsched_thursday"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="tth"/>
+
+            <Button
+                android:id="@+id/docsched_friday"
+                android:layout_weight="1"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="wrap_content"
+                android:text="f"/>
+
+            <Button
+                android:id="@+id/docsched_saturday"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SAT"/>
+
+            <Button
+                android:id="@+id/docsched_sunday"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SUN"/>
+
+        </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/_20sdp">
+
+                <EditText
+                    android:id="@+id/docsched_starttime"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Start time"
+                    android:layout_marginRight="@dimen/_50sdp"/>
+
+                <EditText
+                    android:id="@+id/docsched_endtime"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="End time"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/_20sdp">
+
+                <EditText
+                    android:id="@+id/docsched_minbooking"
+                    android:layout_weight="3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Minimum Booking"/>
+
+                <EditText
+                    android:id="@+id/docsched_price"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Price"
+                    android:layout_marginLeft="@dimen/_67sdp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:layout_marginTop="@dimen/_20sdp">
+
+                <Button
+                    android:id="@+id/docsched_cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cancel"/>
+
+                <Button
+                    android:id="@+id/docsched_update"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="update"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
