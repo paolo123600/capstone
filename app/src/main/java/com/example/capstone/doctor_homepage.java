@@ -1,4 +1,4 @@
-package com.example.capstone;
+           package com.example.capstone;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -113,7 +113,7 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
 //            String timenow1 =dateFormat.format(currentTime);
 
 
-            String timenow1 ="4:45PM";
+            String timenow1 ="4:40PM";
             timenow = dateFormat.parse(timenow1);
 
         } catch (ParseException e) {
@@ -262,7 +262,7 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
                                                 gv.setSDtimestart(document.getString("TimeStart"));
                                                 gv.setSDDate(datenow);
                                                 gv.setSDid(document.getId());
-
+                                               
                                             }
 
                                         }

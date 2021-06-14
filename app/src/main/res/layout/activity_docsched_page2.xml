@@ -25,6 +25,14 @@
             android:text="@string/Manage_schedule"
             android:textSize="@dimen/_20ssp"/>
 
+
+        <TextView
+            android:id="@+id/docnameTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Doc_name"
+            android:textSize="@dimen/_20ssp"/>
+
         <Button
             android:id="@+id/docsched_add"
             android:layout_width="wrap_content"
@@ -35,10 +43,10 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/docsched_schedule"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="316dp"
+            android:layout_marginTop="@dimen/_10sdp"
             tools:layout_editor_absoluteX="139dp"
-            tools:layout_editor_absoluteY="241dp"
-            android:layout_marginTop="@dimen/_10sdp"/>
+            tools:layout_editor_absoluteY="241dp" />
 
 
     </LinearLayout>

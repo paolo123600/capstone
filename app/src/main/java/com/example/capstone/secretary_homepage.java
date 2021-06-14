@@ -93,7 +93,7 @@ public class  secretary_homepage extends AppCompatActivity implements Navigation
         managesched.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), docsched_page3.class);
+                Intent intent = new Intent(getApplicationContext(), docshed_page1.class);
                 startActivity(intent);
             }
         });
