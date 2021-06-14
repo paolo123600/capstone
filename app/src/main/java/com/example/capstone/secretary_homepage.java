@@ -40,6 +40,7 @@ public class  secretary_homepage extends AppCompatActivity implements Navigation
     private LinearLayout Patrec_button;
     private Button notifbtn;
     private LinearLayout chatbtn;
+    LinearLayout managesched;
 
     private PreferenceManager preferenceManager;
     FirebaseFirestore db;
@@ -61,6 +62,7 @@ public class  secretary_homepage extends AppCompatActivity implements Navigation
 
         notifbtn = (Button) findViewById(R.id.notif);
         chatbtn = findViewById(R.id.secretary_chat_btn);
+        managesched = findViewById(R.id.manage_schedule_button);
 
         db = FirebaseFirestore.getInstance();
 
@@ -88,6 +90,13 @@ public class  secretary_homepage extends AppCompatActivity implements Navigation
         toggle.syncState();
 
         updateNavHeader();
+        managesched.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), docsched_page3.class);
+                startActivity(intent);
+            }
+        });
 
         notifbtn.setOnClickListener(new View.OnClickListener() {
             @Override

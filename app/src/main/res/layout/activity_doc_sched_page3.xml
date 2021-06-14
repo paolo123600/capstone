@@ -78,9 +78,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="@dimen/_20sdp">
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_20sdp"
+                android:layout_marginLeft="@dimen/_20sdp">
 
-                <EditText
+                <TextView
                     android:id="@+id/docsched_starttime"
                     android:layout_weight="1"
                     android:layout_width="0dp"
@@ -88,7 +90,7 @@
                     android:hint="Start time"
                     android:layout_marginRight="@dimen/_50sdp"/>
 
-                <EditText
+                <TextView
                     android:id="@+id/docsched_endtime"
                     android:layout_weight="1"
                     android:layout_width="0dp"
@@ -102,7 +104,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="@dimen/_20sdp">
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_20sdp"
+                android:layout_marginLeft="@dimen/_20sdp">
 
                 <EditText
                     android:id="@+id/docsched_minbooking"
