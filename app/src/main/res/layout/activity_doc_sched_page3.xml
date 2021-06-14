@@ -9,12 +9,17 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="@dimen/_20sdp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
 
         <LinearLayout
@@ -25,37 +30,37 @@
             <Button
                 android:id="@+id/docsched_monday"
                 android:layout_weight="1"
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="@dimen/_65sdp"
                 android:layout_height="wrap_content"
-                android:text="M"/>
+                android:text="Mon"/>
 
             <Button
                 android:id="@+id/docsched_tuesday"
                 android:layout_weight="1"
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="@dimen/_60sdp"
                 android:layout_height="wrap_content"
-                android:text="t"/>
+                android:text="tue"/>
 
             <Button
                 android:id="@+id/docsched_wednesday"
                 android:layout_weight="1"
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="@dimen/_60sdp"
                 android:layout_height="wrap_content"
-                android:text="w"/>
+                android:text="wed"/>
 
             <Button
                 android:id="@+id/docsched_thursday"
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="tth"/>
+                android:text="thu"/>
 
             <Button
                 android:id="@+id/docsched_friday"
                 android:layout_weight="1"
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="@dimen/_60sdp"
                 android:layout_height="wrap_content"
-                android:text="f"/>
+                android:text="fri"/>
 
             <Button
                 android:id="@+id/docsched_saturday"
@@ -72,6 +77,8 @@
                 android:text="SUN"/>
 
         </LinearLayout>
+
+            </HorizontalScrollView>
 
 
             <LinearLayout
@@ -121,7 +128,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="Price"
-                    android:layout_marginLeft="@dimen/_67sdp"/>
+                    android:layout_marginLeft="@dimen/_50sdp"/>
 
             </LinearLayout>
 
