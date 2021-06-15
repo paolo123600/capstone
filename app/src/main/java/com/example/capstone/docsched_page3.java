@@ -66,10 +66,10 @@ public class docsched_page3 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (!monstat) {
-                    monbtn.setBackgroundColor(Color.parseColor("#4CAF50"));
+                    monbtn.setBackgroundResource(R.drawable.daybg);
                     monstat = true ;
                 }else  {
-                    monbtn.setBackgroundColor(Color.parseColor("#787878"));
+                    monbtn.setBackgroundResource(R.drawable.daybg2);
                     monstat = false;
                 }
             }
@@ -78,10 +78,10 @@ public class docsched_page3 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (!tuestat) {
-                    tuebtn.setBackgroundColor(Color.parseColor("#4CAF50"));
+                    tuebtn.setBackgroundResource(R.drawable.daybg);
                     tuestat = true ;
                 }else  {
-                    tuebtn.setBackgroundColor(Color.parseColor("#787878"));
+                    tuebtn.setBackgroundResource(R.drawable.daybg2);
                     tuestat = false;
                 }
             }
@@ -90,10 +90,10 @@ public class docsched_page3 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (!wedstat) {
-                    wedbtn.setBackgroundColor(Color.parseColor("#4CAF50"));
+                    wedbtn.setBackgroundResource(R.drawable.daybg);
                     wedstat = true ;
                 }else  {
-                    wedbtn.setBackgroundColor(Color.parseColor("#787878"));
+                    wedbtn.setBackgroundResource(R.drawable.daybg2);
                     wedstat = false;
                 }
             }
@@ -102,10 +102,10 @@ public class docsched_page3 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (!thustat) {
-                    thubtn.setBackgroundColor(Color.parseColor("#4CAF50"));
+                    thubtn.setBackgroundResource(R.drawable.daybg);
                     thustat = true ;
                 }else  {
-                    thubtn.setBackgroundColor(Color.parseColor("#787878"));
+                    thubtn.setBackgroundResource(R.drawable.daybg2);
                     thustat = false;
                 }
             }
@@ -114,10 +114,10 @@ public class docsched_page3 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (!fristat) {
-                    fribtn.setBackgroundColor(Color.parseColor("#4CAF50"));
+                    fribtn.setBackgroundResource(R.drawable.daybg);
                     fristat = true ;
                 }else  {
-                    fribtn.setBackgroundColor(Color.parseColor("#787878"));
+                    fribtn.setBackgroundResource(R.drawable.daybg2);
                     fristat = false;
                 }
             }
@@ -126,10 +126,10 @@ public class docsched_page3 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (!satstat) {
-                    satbtn.setBackgroundColor(Color.parseColor("#4CAF50"));
+                    satbtn.setBackgroundResource(R.drawable.daybg);
                     satstat = true ;
                 }else  {
-                    satbtn.setBackgroundColor(Color.parseColor("#787878"));
+                    satbtn.setBackgroundResource(R.drawable.daybg2);
                     satstat = false;
                 }
             }
@@ -138,10 +138,10 @@ public class docsched_page3 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (!sunstat) {
-                    sunbtn.setBackgroundColor(Color.parseColor("#4CAF50"));
+                    sunbtn.setBackgroundResource(R.drawable.daybg);
                     sunstat = true ;
                 }else  {
-                    sunbtn.setBackgroundColor(Color.parseColor("#787878"));
+                    sunbtn.setBackgroundResource(R.drawable.daybg2);
                     sunstat = false;
                 }
             }

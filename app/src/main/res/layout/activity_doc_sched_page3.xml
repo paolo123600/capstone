@@ -31,7 +31,9 @@
                 android:id="@+id/docsched_monday"
                 android:layout_weight="1"
                 android:layout_width="@dimen/_65sdp"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_30sdp"
+                android:background="@drawable/daybg2"
+                android:layout_marginRight="@dimen/_5sdp"
                 android:text="Mon"
 
                 />
@@ -39,7 +41,9 @@
             <Button
                 android:id="@+id/docsched_tuesday"
                 android:layout_width="@dimen/_60sdp"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_30sdp"
+                android:background="@drawable/daybg2"
+                android:layout_marginRight="@dimen/_5sdp"
                 android:layout_weight="1"
                 android:text="tue" />
 
@@ -47,35 +51,45 @@
                 android:id="@+id/docsched_wednesday"
                 android:layout_weight="1"
                 android:layout_width="@dimen/_60sdp"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_30sdp"
+                android:background="@drawable/daybg2"
+                android:layout_marginRight="@dimen/_5sdp"
                 android:text="wed"/>
 
             <Button
                 android:id="@+id/docsched_thursday"
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_30sdp"
+                android:background="@drawable/daybg2"
+                android:layout_marginRight="@dimen/_5sdp"
                 android:text="thu"/>
 
             <Button
                 android:id="@+id/docsched_friday"
                 android:layout_weight="1"
                 android:layout_width="@dimen/_60sdp"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_30sdp"
+                android:background="@drawable/daybg2"
+                android:layout_marginRight="@dimen/_5sdp"
                 android:text="fri"/>
 
             <Button
                 android:id="@+id/docsched_saturday"
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_30sdp"
+                android:background="@drawable/daybg2"
+                android:layout_marginRight="@dimen/_5sdp"
                 android:text="SAT"/>
 
             <Button
                 android:id="@+id/docsched_sunday"
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_30sdp"
+                android:background="@drawable/daybg2"
+                android:layout_marginRight="@dimen/_5sdp"
                 android:text="SUN"/>
 
         </LinearLayout>
