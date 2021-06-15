@@ -42,6 +42,7 @@ public class docsched_page3 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doc_sched_page3);
 
+
         db = FirebaseFirestore.getInstance();
         starttime = findViewById(R.id.docsched_starttime);
         endtime = findViewById(R.id.docsched_endtime);
