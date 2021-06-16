@@ -19,6 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.capstone.activities.VideoCall_Main;
 import com.example.capstone.utilities.Constants;
 import com.example.capstone.utilities.PreferenceManager;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -93,7 +94,7 @@ public class  secretary_homepage extends AppCompatActivity implements Navigation
         managesched.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), docshed_page1.class);
+                Intent intent = new Intent(getApplicationContext(), VideoCall_Main.class);
                 startActivity(intent);
             }
         });

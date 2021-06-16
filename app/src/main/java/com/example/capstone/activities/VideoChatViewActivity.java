@@ -1,6 +1,7 @@
 package com.example.capstone.activities;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -27,6 +29,7 @@ import com.example.capstone.MainActivity;
 import com.example.capstone.MessageActivity;
 import com.example.capstone.NoteActivity;
 import com.example.capstone.R;
+import com.example.capstone.patient_schedule;
 import com.example.capstone.utilities.Constants;
 import com.example.capstone.utilities.PreferenceManager;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -37,6 +40,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.Calendar;
+import java.util.Date;
 
 import io.agora.rtc.IRtcEngineEventHandler;
 import io.agora.rtc.RtcEngine;
@@ -66,6 +72,10 @@ public class VideoChatViewActivity extends AppCompatActivity {
     private RelativeLayout mRemoteContainer;
     private VideoCanvas mLocalVideo;
     private VideoCanvas mRemoteVideo;
+    private RelativeLayout smalllayout;
+    private RelativeLayout chtlayout;
+
+    private boolean chatmode = false;
 
     private ImageView mCallBtn;
     private ImageView mMuteBtn;
@@ -192,6 +202,8 @@ public class VideoChatViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_video_chat_view);
         preferenceManager = new PreferenceManager(getApplicationContext());
         usertype=preferenceManager.getString(Constants.USERTYPE);
+        smalllayout = findViewById(R.id.smallvclayout);
+        chtlayout = findViewById(R.id.chatlayout);
         db= FirebaseFirestore.getInstance();
         initUI();
         GlobalVariables gv = (GlobalVariables) getApplicationContext();
@@ -218,24 +230,22 @@ public class VideoChatViewActivity extends AppCompatActivity {
             mChatButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(usertype.equals("Patient")){
-                        Intent intent = new Intent(com.example.capstone.activities.VideoChatViewActivity.this, MessageActivity.class);
-                        intent.putExtra("friendid", friendid);
-                        intent.putExtra("name", name);
-                        intent.putExtra("usertype", "Doctors");
-                        intent.putExtra("type", "Patients");
-                        startActivity(intent);
-                    }
-                    else{
-                        Intent intent = new Intent(com.example.capstone.activities.VideoChatViewActivity.this, MessageActivity.class);
-                        intent.putExtra("friendid", gv.getSDPatUId());
-                        intent.putExtra("name", name);
-                        intent.putExtra("usertype", "Patients");
-                        intent.putExtra("type", "Doctors");
-                        startActivity(intent);
 
+                    if (!chatmode) {
+                        chtlayout.setVisibility(View.VISIBLE);
+                        ViewGroup.LayoutParams params = smalllayout.getLayoutParams();
+                        params.height = 1000;
 
+                        smalllayout.setLayoutParams(params);
+
+                        chatmode = true;
+                    } else {
+                        chtlayout.setVisibility(View.INVISIBLE);
+
+                        smalllayout.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                        chatmode = false;
                     }
+
                 }
             });
 
@@ -269,13 +279,34 @@ public class VideoChatViewActivity extends AppCompatActivity {
     }
 
     public void onCallClicked(View view) {
-        updatepat();
-        endCall();
-        RtcEngine.destroy();
+        AlertDialog.Builder builder = new AlertDialog.Builder(VideoChatViewActivity.this)
+                .setTitle("End the call")
+                .setMessage("Are you sure you want to end the call?")
 
-        Intent intent = new Intent(com.example.capstone.activities.VideoChatViewActivity.this, Login.class);
-        startActivity(intent);
-        finish();
+                .setPositiveButton("End", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        updatepat();
+                        endCall();
+                        RtcEngine.destroy();
+                        Intent intent = new Intent(com.example.capstone.activities.VideoChatViewActivity.this, Login.class);
+                        startActivity(intent);
+                        finish();
+
+                    }
+                });
+                builder.setNegativeButton("Decline", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+
+
+
+
     }
 
     private void updatepat() {
