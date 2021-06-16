@@ -35,7 +35,7 @@ public class docsched_page3 extends AppCompatActivity {
     Button monbtn, tuebtn, wedbtn, thubtn , fribtn, satbtn, sunbtn , cancelbtn, savebtn;
     boolean monstat = false, tuestat = false, wedstat = false, thustat = false, fristat = false, satstat = false, sunstat = false;
     private FirebaseFirestore db;
-    String docname, docid;
+    String docname, docid , type , documentid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +61,8 @@ public class docsched_page3 extends AppCompatActivity {
         Intent intent = getIntent();
         docname = intent.getStringExtra("docname");
         docid = intent.getStringExtra("docid");
+        type = intent.getStringExtra("type");
+        documentid = intent.getStringExtra("Documentid");
 
 
         monbtn.setOnClickListener(new View.OnClickListener() {
@@ -151,7 +153,7 @@ public class docsched_page3 extends AppCompatActivity {
         savebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+            if (type.equals("Add")){
                 String maxbooking = maxbookingtv.getText().toString();
                 String price = pricetv.getText().toString();
 
@@ -182,6 +184,43 @@ public class docsched_page3 extends AppCompatActivity {
                                 Log.w("TAG", "Error writing document", e);
                             }
                         });
+            }
+
+            else {
+                String maxbooking = maxbookingtv.getText().toString();
+                String price = pricetv.getText().toString();
+
+                Map<String, Object> DocSched = new HashMap<>();
+                DocSched.put("DocId", docid);
+                DocSched.put("StartTime", starttime.getText());
+                DocSched.put("EndTime", endtime.getText());
+                DocSched.put("MaximumBooking", maxbooking );
+                DocSched.put("Price", price);
+                DocSched.put("Monday", monstat);
+                DocSched.put("Tuesday", tuestat);
+                DocSched.put("Wednesday", wedstat);
+                DocSched.put("Thursday", thustat);
+                DocSched.put("Friday", fristat);
+                DocSched.put("Saturday", satstat);
+                DocSched.put("Sunday", sunstat);
+
+                db.collection("DoctorSchedules").document(documentid).update(DocSched)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d("TAG", "DocumentSnapshot successfully written!");
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w("TAG", "Error writing document", e);
+                            }
+                        });
+
+
+            }
+
             }
         });
 
