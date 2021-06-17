@@ -116,7 +116,7 @@ public class MessageActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (FromCall == "true") {
+                if (FromCall.equals("true")) {
                     Intent intent = new Intent(getApplicationContext(), Login.class);
                     startActivity(intent);
                 }else {

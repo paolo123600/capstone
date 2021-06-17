@@ -246,8 +246,8 @@ public class VideoChatViewActivity extends AppCompatActivity {
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             intent.putExtra("friendid", friendid);
                             intent.putExtra("name", name);
-                            intent.putExtra("usertype", "Doctors");
-                            intent.putExtra("type", "Patients");
+                            intent.putExtra("usertype", "Patients");
+                            intent.putExtra("type", "Doctors");
                             intent.putExtra("FromCall", "true");
                             startActivity(intent);
                         }
