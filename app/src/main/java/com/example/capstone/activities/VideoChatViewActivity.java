@@ -262,7 +262,9 @@ public class VideoChatViewActivity extends AppCompatActivity {
                             startActivity(intent);
                         }
                         else{
+                            enterPictureInPictureMode(pictureInPictureParams.build());
                             Intent intent = new Intent(com.example.capstone.activities.VideoChatViewActivity.this, MessageActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             intent.putExtra("friendid", gv.getSDPatUId());
                             intent.putExtra("name", name);
                             intent.putExtra("usertype", "Patients");
@@ -631,6 +633,16 @@ public class VideoChatViewActivity extends AppCompatActivity {
             ViewGroup.LayoutParams params = mLocalContainer.getLayoutParams();
             params.height = (int) getResources().getDimension(R.dimen.local_preview_height);
             mLocalContainer.setLayoutParams(params);
+
+            if (onStopCalled) {
+                ViewGroup.LayoutParams params2 = mLocalContainer.getLayoutParams();
+                params2.height = (int) getResources().getDimension(R.dimen.local_preview_height);
+                mLocalContainer.setLayoutParams(params2);
+
+                Intent intent = new Intent(getApplicationContext(), VideoChatViewActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivityIfNeeded(intent, 0);
+            }
 
 
 
