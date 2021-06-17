@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                     try {
                                         datesched  = format.parse(scheddate);
                                     } catch (ParseException e) {
-                                        Toast.makeText(MainActivity.this, "error1", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(MainActivity.this, "error4", Toast.LENGTH_SHORT).show();
                                     }
                                     if(nowdate.before(datesched)||nowdate.equals(datesched)){
 
@@ -248,7 +248,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         try {
              nowdate = format.parse(datenow);
         } catch (ParseException e) {
-            Toast.makeText(MainActivity.this, "error1", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "error5", Toast.LENGTH_SHORT).show();
         }
         try {
 

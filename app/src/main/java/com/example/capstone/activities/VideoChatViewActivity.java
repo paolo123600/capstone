@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Rational;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -171,6 +172,11 @@ public class VideoChatViewActivity extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    Intent intent = new Intent(getApplicationContext(), VideoChatViewActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+
+                    startActivityIfNeeded(intent, 0);
+
                     new AlertDialog.Builder(VideoChatViewActivity.this)
                             .setTitle("The call has ended")
                             .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
@@ -251,7 +257,14 @@ public class VideoChatViewActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         if(usertype.equals("Patient")){
-                            enterPictureInPictureMode(pictureInPictureParams.build());
+                            Rational rational = new Rational(2,
+                                    3);
+                            PictureInPictureParams params3 =
+                                    new PictureInPictureParams.Builder()
+                                            .setAspectRatio(rational)
+                                            .build();
+                            setPictureInPictureParams(params3);
+                            enterPictureInPictureMode(params3);
                             Intent intent = new Intent(com.example.capstone.activities.VideoChatViewActivity.this, MessageActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             intent.putExtra("friendid", friendid);
@@ -262,7 +275,15 @@ public class VideoChatViewActivity extends AppCompatActivity {
                             startActivity(intent);
                         }
                         else{
-                            enterPictureInPictureMode(pictureInPictureParams.build());
+                            Rational rational = new Rational(2,
+                                    3);
+                            PictureInPictureParams params3 =
+                                    new PictureInPictureParams.Builder()
+                                            .setAspectRatio(rational)
+                                            .build();
+                            setPictureInPictureParams(params3);
+                            enterPictureInPictureMode(params3);
+
                             Intent intent = new Intent(com.example.capstone.activities.VideoChatViewActivity.this, MessageActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             intent.putExtra("friendid", gv.getSDPatUId());
@@ -585,7 +606,14 @@ public class VideoChatViewActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            enterPictureInPictureMode(pictureInPictureParams.build());
+            Rational rational = new Rational(2,
+                    3);
+            PictureInPictureParams params3 =
+                    new PictureInPictureParams.Builder()
+                            .setAspectRatio(rational)
+                            .build();
+            setPictureInPictureParams(params3);
+            enterPictureInPictureMode(params3);
 
 
 
@@ -605,7 +633,7 @@ public class VideoChatViewActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        onStopCalled = true;
+        onStopCalled = false;
     }
 
     @Override
@@ -615,12 +643,11 @@ public class VideoChatViewActivity extends AppCompatActivity {
             mCallBtn.setVisibility(View.GONE);
             mMuteBtn.setVisibility(View.GONE);
             mSwitchCameraBtn.setVisibility(View.GONE);
-            mLocalContainer.setVisibility(View.INVISIBLE);
             mChatButton.setVisibility(View.GONE);
 
             params2 = mLocalContainer.getLayoutParams();
             ViewGroup.LayoutParams params = mLocalContainer.getLayoutParams();
-            params.height = 0;
+            params.height = 100;
 
             mLocalContainer.setLayoutParams(params);
         } else {
@@ -635,14 +662,49 @@ public class VideoChatViewActivity extends AppCompatActivity {
             mLocalContainer.setLayoutParams(params);
 
             if (onStopCalled) {
-                ViewGroup.LayoutParams params2 = mLocalContainer.getLayoutParams();
-                params2.height = (int) getResources().getDimension(R.dimen.local_preview_height);
-                mLocalContainer.setLayoutParams(params2);
+
 
                 Intent intent = new Intent(getApplicationContext(), VideoChatViewActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+
                 startActivityIfNeeded(intent, 0);
-            }
+
+                if (onStopCalled){
+                AlertDialog.Builder builder = new AlertDialog.Builder(VideoChatViewActivity.this)
+                        .setTitle("End the call")
+                        .setMessage("Are you sure you want to end the call?")
+
+                        .setPositiveButton("End", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                    updatepat();
+                                    endCall();
+                                    RtcEngine.destroy();
+                                    Intent intent = new Intent(getApplicationContext(), Login.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    startActivity(intent);
+                                    finishAndRemoveTask();
+                                } else {
+
+                                }
+
+
+                            }
+                        });
+                builder.setNegativeButton("Decline", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        ViewGroup.LayoutParams params2 = mLocalContainer.getLayoutParams();
+                        params2.height = (int) getResources().getDimension(R.dimen.local_preview_height);
+                        mLocalContainer.setLayoutParams(params2);
+                        dialogInterface.dismiss();
+                    }
+                })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+
+            }}
 
 
 
