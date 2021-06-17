@@ -61,6 +61,8 @@ public class MessageActivity extends AppCompatActivity {
     FirebaseUser firebaseUser;
     EditText et_message;
     Button send;
+
+    String FromCall = "";
     private PreferenceManager preferenceManager;
 
 
@@ -89,6 +91,8 @@ public class MessageActivity extends AppCompatActivity {
         type = getIntent().getStringExtra("type");
         back = findViewById(R.id.profile_image_toolbar_message);
 
+        FromCall = getIntent().getStringExtra("FromCall");
+
 
         if (usertype.equals("Doctors") && type.equals("Patients")) {
             chat_act.setVisibility(View.INVISIBLE);
@@ -112,7 +116,12 @@ public class MessageActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                if (FromCall == "true") {
+                    Intent intent = new Intent(getApplicationContext(), Login.class);
+                    startActivity(intent);
+                }else {
+                    onBackPressed();
+                }
             }
         });
 

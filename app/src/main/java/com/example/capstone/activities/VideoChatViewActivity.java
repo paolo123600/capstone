@@ -193,10 +193,12 @@ public class VideoChatViewActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        updatepat();
-        endCall();
-        RtcEngine.destroy();
-        finish();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            enterPictureInPictureMode(pictureInPictureParams.build());
+
+        } else {
+
+        }
     }
 
     @Override
@@ -238,7 +240,29 @@ public class VideoChatViewActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        enterPictureInPictureMode(pictureInPictureParams.build());
+                        if(usertype.equals("Patient")){
+                            enterPictureInPictureMode(pictureInPictureParams.build());
+                            Intent intent = new Intent(com.example.capstone.activities.VideoChatViewActivity.this, MessageActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            intent.putExtra("friendid", friendid);
+                            intent.putExtra("name", name);
+                            intent.putExtra("usertype", "Doctors");
+                            intent.putExtra("type", "Patients");
+                            intent.putExtra("FromCall", "true");
+                            startActivity(intent);
+                        }
+                        else{
+                            Intent intent = new Intent(com.example.capstone.activities.VideoChatViewActivity.this, MessageActivity.class);
+                            intent.putExtra("friendid", gv.getSDPatUId());
+                            intent.putExtra("name", name);
+                            intent.putExtra("usertype", "Patients");
+                            intent.putExtra("type", "Doctors");
+                            intent.putExtra("FromCall", "true");
+                            startActivity(intent);
+
+
+                        }
+
 
 
 
@@ -313,6 +337,9 @@ public class VideoChatViewActivity extends AppCompatActivity {
                             updatepat();
                             endCall();
                             RtcEngine.destroy();
+                            Intent intent = new Intent(getApplicationContext(), Login.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
                             finishAndRemoveTask();
                         } else {
 
