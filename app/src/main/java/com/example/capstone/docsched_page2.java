@@ -35,6 +35,7 @@ public class docsched_page2 extends AppCompatActivity {
     TextView docnameTV;
     String docname , docid;
     Button addbtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +91,8 @@ public class docsched_page2 extends AppCompatActivity {
                 }
                 holder.daysTV.setText(days);
                 holder.timeTV.setText(model.getStartTime()+" to "+model.getEndTime());
+                holder.maxBook.setText("Max Booking: " + model.getMaximumBooking());
+                holder.Pricedocshed.setText("Price: " + model.getPrice());
                 holder.editbtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -169,6 +172,8 @@ public class docsched_page2 extends AppCompatActivity {
 
         TextView daysTV;
         TextView timeTV;
+        TextView maxBook;
+        TextView Pricedocshed;
         Button editbtn;
         Button deletebtn;
 
@@ -179,6 +184,9 @@ public class docsched_page2 extends AppCompatActivity {
             timeTV = itemView.findViewById(R.id.list_doctime);
             editbtn = itemView.findViewById(R.id.list_docedit);
             deletebtn = itemView.findViewById(R.id.list_docdelete);
+
+            maxBook = itemView.findViewById(R.id.docsched_maxbooking);
+            Pricedocshed = itemView.findViewById(R.id.docsched_price);
 
 
         }

@@ -1,9 +1,11 @@
 package com.example.capstone.activities;
 
 import android.Manifest;
+import android.app.PictureInPictureParams;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -88,6 +90,8 @@ public class VideoChatViewActivity extends AppCompatActivity {
     private SurfaceView mRemoteView;
     FirebaseFirestore db;
    private String Channel1 = "";
+
+   private PictureInPictureParams.Builder pictureInPictureParams;
 
     private final IRtcEngineEventHandler mRtcEventHandler = new IRtcEngineEventHandler() {
         /**
@@ -208,6 +212,10 @@ public class VideoChatViewActivity extends AppCompatActivity {
         initUI();
         GlobalVariables gv = (GlobalVariables) getApplicationContext();
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            pictureInPictureParams = new PictureInPictureParams.Builder();
+        }
+
 
 
        Channel1 = gv.getChannel_Name().toString();
@@ -230,21 +238,15 @@ public class VideoChatViewActivity extends AppCompatActivity {
             mChatButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        enterPictureInPictureMode(pictureInPictureParams.build());
+                        gotoChat();
 
-                    if (!chatmode) {
-                        chtlayout.setVisibility(View.VISIBLE);
-                        ViewGroup.LayoutParams params = smalllayout.getLayoutParams();
-                        params.height = 1000;
 
-                        smalllayout.setLayoutParams(params);
-
-                        chatmode = true;
                     } else {
-                        chtlayout.setVisibility(View.INVISIBLE);
 
-                        smalllayout.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-                        chatmode = false;
                     }
+
 
                 }
             });
@@ -256,6 +258,28 @@ public class VideoChatViewActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
+        }
+    }
+
+    private void gotoChat() {
+        GlobalVariables gv = (GlobalVariables) getApplicationContext();
+        if(usertype.equals("Patient")){
+            Intent intent = new Intent(com.example.capstone.activities.VideoChatViewActivity.this, MessageActivity.class);
+            intent.putExtra("friendid", friendid);
+            intent.putExtra("name", name);
+            intent.putExtra("usertype", "Doctors");
+            intent.putExtra("type", "Patients");
+            startActivity(intent);
+        }
+        else{
+            Intent intent = new Intent(com.example.capstone.activities.VideoChatViewActivity.this, MessageActivity.class);
+            intent.putExtra("friendid", gv.getSDPatUId());
+            intent.putExtra("name", name);
+            intent.putExtra("usertype", "Patients");
+            intent.putExtra("type", "Doctors");
+            startActivity(intent);
+
+
         }
     }
 
