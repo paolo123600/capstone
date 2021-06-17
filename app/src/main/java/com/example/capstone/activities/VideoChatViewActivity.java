@@ -80,6 +80,7 @@ public class VideoChatViewActivity extends AppCompatActivity {
 
     private boolean chatmode = false;
     private boolean onStopCalled = false;
+    private ViewGroup.LayoutParams params2;
 
     private ImageView mCallBtn;
     private ImageView mMuteBtn;
@@ -170,13 +171,22 @@ public class VideoChatViewActivity extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    endCall();
-                    RtcEngine.destroy();
-                    updatepat();
-                    onRemoteUserLeft(uid);
-                    Intent intent = new Intent(com.example.capstone.activities.VideoChatViewActivity.this, Login.class);
-                    startActivity(intent);
-                    finish();
+                    new AlertDialog.Builder(VideoChatViewActivity.this)
+                            .setTitle("The call has ended")
+                            .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                        updatepat();
+                                        endCall();
+                                        RtcEngine.destroy();
+                                        Intent intent = new Intent(getApplicationContext(), Login.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        startActivity(intent);
+                                        finishAndRemoveTask();
+                                    }
+                                }
+                            }).show();
 
                 }
             });
@@ -246,8 +256,8 @@ public class VideoChatViewActivity extends AppCompatActivity {
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             intent.putExtra("friendid", friendid);
                             intent.putExtra("name", name);
-                            intent.putExtra("usertype", "Patients");
-                            intent.putExtra("type", "Doctors");
+                            intent.putExtra("usertype", "Doctors");
+                            intent.putExtra("type", "Patients");
                             intent.putExtra("FromCall", "true");
                             startActivity(intent);
                         }
@@ -605,6 +615,12 @@ public class VideoChatViewActivity extends AppCompatActivity {
             mSwitchCameraBtn.setVisibility(View.GONE);
             mLocalContainer.setVisibility(View.INVISIBLE);
             mChatButton.setVisibility(View.GONE);
+
+            params2 = mLocalContainer.getLayoutParams();
+            ViewGroup.LayoutParams params = mLocalContainer.getLayoutParams();
+            params.height = 0;
+
+            mLocalContainer.setLayoutParams(params);
         } else {
             mCallBtn.setVisibility(View.VISIBLE);
             mMuteBtn.setVisibility(View.VISIBLE);
@@ -612,7 +628,10 @@ public class VideoChatViewActivity extends AppCompatActivity {
             mLocalContainer.setVisibility(View.VISIBLE);
             mChatButton.setVisibility(View.VISIBLE);
 
-            Toast.makeText(this, "asd", Toast.LENGTH_SHORT).show();
+            ViewGroup.LayoutParams params = mLocalContainer.getLayoutParams();
+            params.height = (int) getResources().getDimension(R.dimen.local_preview_height);
+            mLocalContainer.setLayoutParams(params);
+
 
 
 
