@@ -5,6 +5,7 @@ import android.app.PictureInPictureParams;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -78,6 +79,7 @@ public class VideoChatViewActivity extends AppCompatActivity {
     private RelativeLayout chtlayout;
 
     private boolean chatmode = false;
+    private boolean onStopCalled = false;
 
     private ImageView mCallBtn;
     private ImageView mMuteBtn;
@@ -194,9 +196,6 @@ public class VideoChatViewActivity extends AppCompatActivity {
         updatepat();
         endCall();
         RtcEngine.destroy();
-
-        Intent intent = new Intent(com.example.capstone.activities.VideoChatViewActivity.this, Login.class);
-        startActivity(intent);
         finish();
     }
 
@@ -240,7 +239,7 @@ public class VideoChatViewActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         enterPictureInPictureMode(pictureInPictureParams.build());
-                        gotoChat();
+
 
 
                     } else {
@@ -310,12 +309,15 @@ public class VideoChatViewActivity extends AppCompatActivity {
                 .setPositiveButton("End", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
 
-                        updatepat();
-                        endCall();
-                        RtcEngine.destroy();
-                        Intent intent = new Intent(com.example.capstone.activities.VideoChatViewActivity.this, Login.class);
-                        startActivity(intent);
-                        finish();
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            updatepat();
+                            endCall();
+                            RtcEngine.destroy();
+                            finishAndRemoveTask();
+                        } else {
+
+                        }
+
 
                     }
                 });
@@ -540,4 +542,54 @@ public class VideoChatViewActivity extends AppCompatActivity {
         }
 
     }
+
+    @Override
+    protected void onPause() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            enterPictureInPictureMode(pictureInPictureParams.build());
+
+
+
+        } else {
+
+        }
+
+
+        super.onPause();
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        onStopCalled = true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        onStopCalled = true;
+    }
+
+    @Override
+    public void onPictureInPictureModeChanged(boolean isInPictureInPictureMode, Configuration newConfig) {
+        super.onPictureInPictureModeChanged(isInPictureInPictureMode, newConfig);
+        if (isInPictureInPictureMode) {
+            mCallBtn.setVisibility(View.GONE);
+            mMuteBtn.setVisibility(View.GONE);
+            mSwitchCameraBtn.setVisibility(View.GONE);
+            mLocalContainer.setVisibility(View.INVISIBLE);
+            mChatButton.setVisibility(View.GONE);
+        } else {
+            mCallBtn.setVisibility(View.VISIBLE);
+            mMuteBtn.setVisibility(View.VISIBLE);
+            mSwitchCameraBtn.setVisibility(View.VISIBLE);
+            mLocalContainer.setVisibility(View.VISIBLE);
+            mChatButton.setVisibility(View.VISIBLE);
+
+            Toast.makeText(this, "asd", Toast.LENGTH_SHORT).show();
+
+
+
+        }
+    }
 }
+
