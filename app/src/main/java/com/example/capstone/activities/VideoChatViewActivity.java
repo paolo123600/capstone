@@ -94,7 +94,7 @@ public class VideoChatViewActivity extends AppCompatActivity {
     private SurfaceView mRemoteView;
     FirebaseFirestore db;
    private String Channel1 = "";
-
+private  boolean inpip = false;
    private PictureInPictureParams.Builder pictureInPictureParams;
 
     private final IRtcEngineEventHandler mRtcEventHandler = new IRtcEngineEventHandler() {
@@ -172,11 +172,12 @@ public class VideoChatViewActivity extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Intent intent = new Intent(getApplicationContext(), VideoChatViewActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    if (inpip) {
+                        Intent intent = new Intent(getApplicationContext(), VideoChatViewActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 
-                    startActivityIfNeeded(intent, 0);
-
+                        startActivityIfNeeded(intent, 0);
+                    }
                     new AlertDialog.Builder(VideoChatViewActivity.this)
                             .setTitle("The call has ended")
                             .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
@@ -640,6 +641,7 @@ public class VideoChatViewActivity extends AppCompatActivity {
     public void onPictureInPictureModeChanged(boolean isInPictureInPictureMode, Configuration newConfig) {
         super.onPictureInPictureModeChanged(isInPictureInPictureMode, newConfig);
         if (isInPictureInPictureMode) {
+            inpip = true;
             mCallBtn.setVisibility(View.GONE);
             mMuteBtn.setVisibility(View.GONE);
             mSwitchCameraBtn.setVisibility(View.GONE);
@@ -651,6 +653,7 @@ public class VideoChatViewActivity extends AppCompatActivity {
 
             mLocalContainer.setLayoutParams(params);
         } else {
+            inpip = false;
             mCallBtn.setVisibility(View.VISIBLE);
             mMuteBtn.setVisibility(View.VISIBLE);
             mSwitchCameraBtn.setVisibility(View.VISIBLE);
