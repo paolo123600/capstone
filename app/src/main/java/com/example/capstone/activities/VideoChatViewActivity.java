@@ -173,7 +173,7 @@ public class VideoChatViewActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     Intent intent = new Intent(getApplicationContext(), VideoChatViewActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 
                     startActivityIfNeeded(intent, 0);
 
@@ -639,11 +639,15 @@ public class VideoChatViewActivity extends AppCompatActivity {
     @Override
     public void onPictureInPictureModeChanged(boolean isInPictureInPictureMode, Configuration newConfig) {
         super.onPictureInPictureModeChanged(isInPictureInPictureMode, newConfig);
+
         if (isInPictureInPictureMode) {
             mCallBtn.setVisibility(View.GONE);
             mMuteBtn.setVisibility(View.GONE);
             mSwitchCameraBtn.setVisibility(View.GONE);
+            mLocalContainer.setVisibility(View.GONE);
             mChatButton.setVisibility(View.GONE);
+
+      mLocalView.setVisibility(View.GONE);
 
             params2 = mLocalContainer.getLayoutParams();
             ViewGroup.LayoutParams params = mLocalContainer.getLayoutParams();
@@ -656,6 +660,8 @@ public class VideoChatViewActivity extends AppCompatActivity {
             mSwitchCameraBtn.setVisibility(View.VISIBLE);
             mLocalContainer.setVisibility(View.VISIBLE);
             mChatButton.setVisibility(View.VISIBLE);
+
+            mLocalView.setVisibility(View.VISIBLE);
 
             ViewGroup.LayoutParams params = mLocalContainer.getLayoutParams();
             params.height = (int) getResources().getDimension(R.dimen.local_preview_height);
