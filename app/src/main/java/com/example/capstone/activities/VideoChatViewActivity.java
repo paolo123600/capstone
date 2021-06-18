@@ -172,29 +172,16 @@ private  boolean inpip = false;
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if (inpip) {
-                        Intent intent = new Intent(getApplicationContext(), VideoChatViewActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-
-                        startActivityIfNeeded(intent, 0);
+                    Toast.makeText(VideoChatViewActivity.this, "The call has been ended", Toast.LENGTH_LONG).show();
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        updatepat();
+                        endCall();
+                        RtcEngine.destroy();
+                        Intent intent = new Intent(getApplicationContext(), Login.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        finishAndRemoveTask();
                     }
-                    new AlertDialog.Builder(VideoChatViewActivity.this)
-                            .setTitle("The call has ended")
-                            .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                        updatepat();
-                                        endCall();
-                                        RtcEngine.destroy();
-                                        Intent intent = new Intent(getApplicationContext(), Login.class);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                        startActivity(intent);
-                                        finishAndRemoveTask();
-                                    }
-                                }
-                            }).show();
-
                 }
             });
         }
