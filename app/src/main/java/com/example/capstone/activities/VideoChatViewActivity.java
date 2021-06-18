@@ -635,6 +635,7 @@ private  boolean inpip = false;
             mSwitchCameraBtn.setVisibility(View.GONE);
             mLocalContainer.setVisibility(View.GONE);
             mChatButton.setVisibility(View.GONE);
+            mAddNote.setVisibility(View.GONE);
 
       mLocalView.setVisibility(View.GONE);
 
@@ -650,6 +651,7 @@ private  boolean inpip = false;
             mSwitchCameraBtn.setVisibility(View.VISIBLE);
             mLocalContainer.setVisibility(View.VISIBLE);
             mChatButton.setVisibility(View.VISIBLE);
+            mAddNote.setVisibility(View.VISIBLE);
 
             mLocalView.setVisibility(View.VISIBLE);
 
