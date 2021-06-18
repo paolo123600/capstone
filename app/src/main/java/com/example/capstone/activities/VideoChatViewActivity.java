@@ -640,12 +640,16 @@ private  boolean inpip = false;
     @Override
     public void onPictureInPictureModeChanged(boolean isInPictureInPictureMode, Configuration newConfig) {
         super.onPictureInPictureModeChanged(isInPictureInPictureMode, newConfig);
+
         if (isInPictureInPictureMode) {
             inpip = true;
             mCallBtn.setVisibility(View.GONE);
             mMuteBtn.setVisibility(View.GONE);
             mSwitchCameraBtn.setVisibility(View.GONE);
+            mLocalContainer.setVisibility(View.GONE);
             mChatButton.setVisibility(View.GONE);
+
+      mLocalView.setVisibility(View.GONE);
 
             params2 = mLocalContainer.getLayoutParams();
             ViewGroup.LayoutParams params = mLocalContainer.getLayoutParams();
@@ -659,6 +663,8 @@ private  boolean inpip = false;
             mSwitchCameraBtn.setVisibility(View.VISIBLE);
             mLocalContainer.setVisibility(View.VISIBLE);
             mChatButton.setVisibility(View.VISIBLE);
+
+            mLocalView.setVisibility(View.VISIBLE);
 
             ViewGroup.LayoutParams params = mLocalContainer.getLayoutParams();
             params.height = (int) getResources().getDimension(R.dimen.local_preview_height);
