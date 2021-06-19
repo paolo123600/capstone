@@ -20,7 +20,8 @@
         android:theme="@style/Theme.Capstone"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".Selectdate"></activity>
+        <activity android:name=".select_Appoint"></activity>
+        <activity android:name=".selectDate" />
         <activity android:name=".selectDoc" />
         <activity android:name=".datepicker" />
         <activity android:name=".docsched_page3" />
@@ -120,11 +121,11 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.VideoChatViewActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
+            android:resizeableActivity="true"
             android:screenOrientation="portrait"
             android:supportsPictureInPicture="true"
-            android:resizeableActivity="true"
-            android:taskAffinity=".activities.VideoChatViewActivity"
-            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"/>
+            android:taskAffinity=".activities.VideoChatViewActivity" />
         <activity
             android:name=".burger_test"
             android:screenOrientation="portrait" />
