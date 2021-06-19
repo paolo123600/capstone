@@ -73,7 +73,7 @@ public class patient_schedule extends AppCompatActivity implements DatePickerDia
         setContentView(R.layout.activity_patient_schedule);
 
         docnametv=(TextView) findViewById(R.id.tvdocname);
-       clinicnametv=(TextView) findViewById(R.id.tvclinicname);
+        clinicnametv=(TextView) findViewById(R.id.tvclinicname);
         statustv=(TextView) findViewById(R.id.tvstatus);
         datetv=(TextView) findViewById(R.id.tvdate);
         timetv=(TextView) findViewById(R.id.tvtime);

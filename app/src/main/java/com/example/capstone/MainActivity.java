@@ -153,8 +153,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         if(task.isSuccessful()){
                             QuerySnapshot querySnapshot = task.getResult();
                             if (querySnapshot.isEmpty()) {
+                                Intent intent = new Intent(MainActivity.this, selectDoc.class);
+                                startActivity(intent);
 
-                                createSelectDoctorDialog();
                             }
                             else{
                                 Date nowdate= new Date();
@@ -192,7 +193,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                     }
 
                         }  if (schedalready==false){
-                                    createSelectDoctorDialog();
+                                    Intent intent = new Intent(MainActivity.this, selectDoc.class);
+                                    startActivity(intent);
                                 }  }
 
 
@@ -224,8 +226,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
+                drawer.addDrawerListener(toggle);
+                toggle.syncState();
 
 
 

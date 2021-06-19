@@ -24,6 +24,8 @@ public class GlobalVariables extends Application {
     private  String Allergies;
     private  String Illness;
     private  String Channel_Name;
+    //select Time
+    private String Time;
 
     public int getCounter() {
         return counter;

@@ -20,7 +20,9 @@
         android:theme="@style/Theme.Capstone"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".datepicker"></activity>
+        <activity android:name=".selecttime"></activity>
+        <activity android:name=".selectDoc" />
+        <activity android:name=".datepicker" />
         <activity android:name=".docsched_page3" />
         <activity android:name=".docsched_page2" />
         <activity android:name=".docshed_page1" />

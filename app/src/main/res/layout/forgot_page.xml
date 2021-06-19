@@ -46,7 +46,7 @@
        android:layout_marginTop="250dp"
         android:layout_marginLeft="-230dp"
         android:background="@drawable/darkround"
-        android:text="VERIFY"
+        android:text="CONFIRM"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="321dp"

@@ -32,7 +32,7 @@ import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MainActivity_chat extends AppCompatActivity {
+public class  MainActivity_chat extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     Toolbar toolbar;
