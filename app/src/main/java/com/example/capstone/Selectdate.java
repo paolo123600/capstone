@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import java.util.Calendar;
 
-public class selecttime extends AppCompatActivity {
+public class Selectdate extends AppCompatActivity {
     TextView tvDate;
     EditText etDate;
     DatePickerDialog.OnDateSetListener setListener;
@@ -20,7 +20,7 @@ public class selecttime extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_selecttime);
+        setContentView(R.layout.activity_selectdate);
 
         tvDate = findViewById(R.id.tv_date);
         etDate = findViewById(R.id.et_date);
@@ -33,7 +33,7 @@ public class selecttime extends AppCompatActivity {
         tvDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePickerDialog datePickerDialog = new DatePickerDialog(MainActivity.this,
+                DatePickerDialog datePickerDialog = new DatePickerDialog(Selectdate.this,
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,setListener,year,month,day);
             }
         });

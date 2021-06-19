@@ -6,6 +6,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,12 +40,12 @@ public class selectDoc extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_doc);
 
-        final View selectDoctorView = getLayoutInflater().inflate(R.layout.activity_select_doc,null);
+
         // Start
-        doctorlist= (RecyclerView) selectDoctorView.findViewById(R.id.DoctorRF);
+        doctorlist= (RecyclerView) findViewById(R.id.DoctorRF);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference clinicsRef = db.collection("Clinics");
-        Spinner spinner = (Spinner) selectDoctorView.findViewById(R.id.spinnerclinic);
+        Spinner spinner = (Spinner) findViewById(R.id.spinnerclinic);
         List<String> Clinics = new ArrayList<>();
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, Clinics);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -92,13 +93,14 @@ public class selectDoc extends AppCompatActivity {
                         holder.itemView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
+                                Intent intent = new Intent(selectDoc.this, Selectdate.class);
                                 GlobalVariables gv =(GlobalVariables) getApplicationContext ();
                                 gv.setSDDocemail(model.getEmail());
                                 gv.setSDDocUid(model.getUserId());
-                                doclastname=model.getLastName();
+                                gv.setSDDocLastName(model.getLastName());
                                 gv.setSDClinic(Clinicname);
-                                DialogFragment datepicker = new DatePickerFragment();
-                                datepicker.show(getSupportFragmentManager(),"date picker");
+                                startActivity(intent);
+
 
 
 

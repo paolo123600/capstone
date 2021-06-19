@@ -23,6 +23,7 @@ public class GlobalVariables extends Application {
     private  String BloodType;
     private  String Allergies;
     private  String Illness;
+
     private  String Channel_Name;
     //select Time
     private String Time;
@@ -126,6 +127,16 @@ public class GlobalVariables extends Application {
     String SDDocUid;
     String SDnote;
     String SDid;
+    String SDDocLastName;
+    public String getSDDocLastName() {
+        return SDDocLastName;
+    }
+
+    public void setSDDocLastName(String SDDocLastName) {
+        this.SDDocLastName = SDDocLastName;
+    }
+
+
 
     public String getSDid() {
         return SDid;
