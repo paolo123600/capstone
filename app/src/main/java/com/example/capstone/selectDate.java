@@ -5,12 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.Calendar;
 
-public class selecttime extends AppCompatActivity {
+public class selectDate extends AppCompatActivity {
     TextView tvDate;
     EditText etDate;
     DatePickerDialog.OnDateSetListener setListener;
@@ -22,7 +23,7 @@ public class selecttime extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selecttime);
 
-        tvDate = findViewById(R.id.tv_date);
+
         etDate = findViewById(R.id.et_date);
 
         Calendar calendar  = Calendar.getInstance();
@@ -30,11 +31,19 @@ public class selecttime extends AppCompatActivity {
         final int month = calendar.get(Calendar.MONTH);
         final int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        tvDate.setOnClickListener(new View.OnClickListener() {
+
+        etDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePickerDialog datePickerDialog = new DatePickerDialog(MainActivity.this,
-                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,setListener,year,month,day);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(selectDate.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        month = month+1;
+                        String date = day+ "/" + month + "/" + year;
+                        etDate.setText(date);
+                    }
+                }, year,month,day);
+                    datePickerDialog.show();
             }
         });
 
