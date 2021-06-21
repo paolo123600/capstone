@@ -41,6 +41,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
+                android:background="@drawable/darkround"
+                android:textColor="@color/white"
                 android:text="Edit" />
 
 
@@ -68,6 +70,8 @@
                 android:id="@+id/list_docdelete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/darkround"
+                android:textColor="@color/white"
                 android:text="Delete"
                 android:layout_gravity="right"/>
 
@@ -100,6 +104,7 @@
                 android:text="price"/>
 
             <Switch
+                android:id="@+id/btnswitch"
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>

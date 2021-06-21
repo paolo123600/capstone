@@ -63,19 +63,45 @@ public class docsched_page3 extends AppCompatActivity {
         docid = intent.getStringExtra("docid");
         type = intent.getStringExtra("type");
         documentid = intent.getStringExtra("Documentid");
+        starttime.setText(intent.getStringExtra("StartTime"));
+        endtime.setText(intent.getStringExtra("EndTime"));
+        maxbookingtv.setText(intent.getStringExtra("MaximumBooking"));
+        pricetv.setText(intent.getStringExtra("Price"));
+
 
         if (type.equals("Update")) {
             Intent intent1 = getIntent();
 
-Boolean monday = intent1.getBooleanExtra("Monday", false);
+boolean monday = intent1.getBooleanExtra("Monday", false);
+boolean tuesday = intent1.getBooleanExtra("Tuesday", false);
+boolean wednesday = intent1.getBooleanExtra("Wednesday", false);
+boolean thursday = intent1.getBooleanExtra("Thursday", false);
+boolean friday = intent1.getBooleanExtra("Friday", false);
+boolean saturday = intent1.getBooleanExtra("Saturday", false);
+boolean sunday = intent1.getBooleanExtra("Sunday", false);
+
 if (monday){
     monbtn.setBackgroundResource(R.drawable.daybg);
     tuestat = true ;
-}
-
-
-
-
+} if (tuesday) {
+    tuebtn.setBackgroundResource(R.drawable.daybg);
+    tuestat = true ;
+} if (wednesday) {
+    wedbtn.setBackgroundResource(R.drawable.daybg);
+    wedstat = true ;
+} if (thursday) {
+    thubtn.setBackgroundResource(R.drawable.daybg);
+    thustat = true ;
+} if (friday) {
+    fribtn.setBackgroundResource(R.drawable.daybg);
+    fristat = true ;
+} if (saturday) {
+    satbtn.setBackgroundResource(R.drawable.daybg);
+    satstat = true ;
+} if (sunday) {
+    sunbtn.setBackgroundResource(R.drawable.daybg);
+    sunstat = true ;
+            }
         }
 
         monbtn.setOnClickListener(new View.OnClickListener() {
