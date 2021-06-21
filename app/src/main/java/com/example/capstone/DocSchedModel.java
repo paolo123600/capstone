@@ -91,7 +91,7 @@ public class DocSchedModel {
         Sunday = sunday;
     }
 
-    public DocSchedModel( String startTime, String endTime, String maximumBooking, String price, Boolean monday, Boolean tuesday, Boolean wednesday, Boolean thursday, Boolean friday, Boolean saturday, Boolean sunday) {
+    public DocSchedModel( String startTime, String endTime, String maximumBooking, String price, Boolean monday, Boolean tuesday, Boolean wednesday, Boolean thursday, Boolean friday, Boolean saturday, Boolean sunday , Boolean inactive) {
         StartTime = startTime;
         EndTime = endTime;
         MaximumBooking = maximumBooking;
@@ -103,6 +103,7 @@ public class DocSchedModel {
         Friday = friday;
         Saturday = saturday;
         Sunday = sunday;
+        InActive = inactive;
     }
 
     String StartTime;
@@ -116,6 +117,16 @@ public class DocSchedModel {
     Boolean Friday;
     Boolean Saturday;
     Boolean Sunday;
+    Boolean InActive;
+    public Boolean getInActive() {
+        return InActive;
+    }
+
+    public void setInActive(Boolean inActive) {
+        InActive = inActive;
+    }
+
+
 
     public DocSchedModel() {
     }

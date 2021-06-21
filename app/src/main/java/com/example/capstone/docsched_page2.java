@@ -36,6 +36,7 @@ public class docsched_page2 extends AppCompatActivity {
     String docname , docid;
     Button addbtn;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,8 +69,13 @@ public class docsched_page2 extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(@NonNull DocSchedViewHolder holder, int position, @NonNull DocSchedModel model) {
                 String days= "";
+                if (model.getInActive() == true ){
+
+
+                }
                 if (model.getMonday() == true){
                     days += "M";
+
                 }
                 if (model.getTuesday() == true){
                     days += " T";
@@ -102,6 +108,8 @@ public class docsched_page2 extends AppCompatActivity {
                         intent.putExtra("docname", "Doctor " + docname);
                         intent.putExtra("type", "Update");
                         intent.putExtra("Documentid",documentid );
+                       intent.putExtra("Monday",model.getMonday());
+
                         startActivity(intent);
                     }
                 });

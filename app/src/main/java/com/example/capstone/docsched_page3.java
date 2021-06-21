@@ -64,6 +64,19 @@ public class docsched_page3 extends AppCompatActivity {
         type = intent.getStringExtra("type");
         documentid = intent.getStringExtra("Documentid");
 
+        if (type.equals("Update")) {
+            Intent intent1 = getIntent();
+
+Boolean monday = intent1.getBooleanExtra("Monday", false);
+if (monday){
+    monbtn.setBackgroundResource(R.drawable.daybg);
+    tuestat = true ;
+}
+
+
+
+
+        }
 
         monbtn.setOnClickListener(new View.OnClickListener() {
             @Override

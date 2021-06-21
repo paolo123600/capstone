@@ -93,7 +93,7 @@ public class selectDoc extends AppCompatActivity {
                         holder.itemView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                Intent intent = new Intent(selectDoc.this, select_Appoint.class);
+                                Intent intent = new Intent(selectDoc.this, selectDate.class);
                                 GlobalVariables gv =(GlobalVariables) getApplicationContext ();
                                 gv.setSDDocemail(model.getEmail());
                                 gv.setSDDocUid(model.getUserId());

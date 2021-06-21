@@ -21,7 +21,7 @@ public class selectDate extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_selecttime);
+        setContentView(R.layout.activity_selectdate);
 
 
         etDate = findViewById(R.id.et_date);
