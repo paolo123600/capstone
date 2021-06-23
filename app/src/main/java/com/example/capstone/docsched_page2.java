@@ -96,7 +96,10 @@ public class docsched_page2 extends AppCompatActivity {
                 }
                 if (model.getTuesday() == true){
                     days += " T";
+
+
                 }
+
                 if (model.getWednesday() == true){
                     days += " W";
                 }
