@@ -118,6 +118,7 @@ public class DocSchedModel {
     Boolean Saturday;
     Boolean Sunday;
     Boolean InActive;
+
     public Boolean getInActive() {
         return InActive;
     }

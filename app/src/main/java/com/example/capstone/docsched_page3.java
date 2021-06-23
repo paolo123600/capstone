@@ -80,9 +80,10 @@ boolean friday = intent1.getBooleanExtra("Friday", false);
 boolean saturday = intent1.getBooleanExtra("Saturday", false);
 boolean sunday = intent1.getBooleanExtra("Sunday", false);
 
+if (type.equals("Update"))
 if (monday){
     monbtn.setBackgroundResource(R.drawable.daybg);
-    tuestat = true ;
+    monstat = true ;
 } if (tuesday) {
     tuebtn.setBackgroundResource(R.drawable.daybg);
     tuestat = true ;
@@ -209,6 +210,7 @@ if (monday){
                 DocSched.put("Friday", fristat);
                 DocSched.put("Saturday", satstat);
                 DocSched.put("Sunday", sunstat);
+                DocSched.put("InActive", true);
 
                 db.collection("DoctorSchedules").document().set(DocSched)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {

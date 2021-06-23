@@ -32,7 +32,7 @@ import java.util.List;
 public class selectDoc extends AppCompatActivity {
     private RecyclerView doctorlist;
     private  FirestoreRecyclerAdapter adapter;
-    FirebaseFirestore db;
+
     private String doclastname;
 
     @Override
