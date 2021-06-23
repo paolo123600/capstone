@@ -27,7 +27,7 @@
             app:layout_constraintHorizontal_bias="0.08"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="@string/Clinicdialog" />
+            tools:text="Time" />
 
         <Spinner
             android:id="@+id/spinnerclinic"
@@ -41,10 +41,165 @@
             android:layout_marginRight="@dimen/_20sdp" />
 
 
+
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/linear_date"
+        android:layout_width="403dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/lineartaas"
+        tools:layout_editor_absoluteX="8dp">
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="0dp"
+            android:layout_height="65dp"
+            android:layout_marginLeft="18dp"
+            android:layout_weight="0.5"
+            android:text="@string/Clinicdialog"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.08"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Date" />
+
+        <EditText
+            android:id="@+id/et_apdate"
+            android:layout_width="137dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:layout_weight="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/textView2"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_max"
+        android:layout_width="403dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="2dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/linear_date"
+        tools:layout_editor_absoluteX="8dp">
+
+        <TextView
+            android:id="@+id/tv_max"
+            android:layout_width="0dp"
+            android:layout_height="65dp"
+            android:layout_marginLeft="18dp"
+            android:layout_weight="0.5"
+            android:text="@string/Clinicdialog"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.08"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Max" />
+
+        <EditText
+            android:id="@+id/et_max"
+            android:layout_width="137dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:layout_weight="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/textView2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_price"
+        android:layout_width="403dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="2dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/linear_max"
+        tools:layout_editor_absoluteX="8dp">
+
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="0dp"
+            android:layout_height="65dp"
+            android:layout_marginLeft="18dp"
+            android:layout_weight="0.5"
+            android:text="@string/Clinicdialog"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.08"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Price" />
+
+        <EditText
+            android:id="@+id/et_price"
+            android:layout_width="137dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:layout_weight="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/textView2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:id="@+id/linear_book"
+        android:layout_width="403dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="2dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/linear_price"
+        tools:layout_editor_absoluteX="8dp">
+
+        <TextView
+            android:id="@+id/tv_book"
+            android:layout_width="0dp"
+            android:layout_height="65dp"
+            android:layout_marginLeft="18dp"
+            android:layout_weight="0.5"
+            android:text="@string/Clinicdialog"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.08"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Booked" />
+
+        <EditText
+            android:id="@+id/et_book"
+            android:layout_width="137dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:layout_weight="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/textView2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </LinearLayout>
+
+    <Button
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="174dp"
+        tools:layout_editor_absoluteY="370dp"
+        android:text="Save"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
