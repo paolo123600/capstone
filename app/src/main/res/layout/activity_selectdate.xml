@@ -17,9 +17,7 @@
         android:text="Select Date of Appointement"
         android:textSize="20dp"
         android:layout_marginTop="-2dp"
-        android:paddingBottom="20dp"
-
-        />
+        android:paddingBottom="20dp"/>
 
     <LinearLayout
         android:layout_width="340dp"
