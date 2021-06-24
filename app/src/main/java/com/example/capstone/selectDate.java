@@ -166,7 +166,7 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
         String dow = simpledateformat.format(date1);
         etDate.setText(date);
 
-        Query query = db.collection("DoctorSchedules").whereEqualTo("DocId",gv.getSDDocUid()).whereEqualTo(dow,true);
+        Query query = db.collection("DoctorSchedules").whereEqualTo("DocId",gv.getSDDocUid()).whereEqualTo(dow,true).whereEqualTo("InActive",true);
         FirestoreRecyclerOptions<DocSchedModel> options = new FirestoreRecyclerOptions.Builder<DocSchedModel>()
                 .setQuery(query,DocSchedModel.class)
                 .build();
@@ -188,6 +188,7 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
                 holder.list_bookbtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+//                        gv.setSDtimestart(model);
 
                     }
                 });
