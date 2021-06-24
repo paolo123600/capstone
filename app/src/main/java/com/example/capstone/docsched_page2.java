@@ -3,17 +3,21 @@ package com.example.capstone;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.LauncherActivityInfo;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +45,7 @@ public class docsched_page2 extends AppCompatActivity {
     String docname , docid;
     String realDocID;
     Button addbtn;
+    int row_index;
 
     boolean asd = true, qwe = false;
 
@@ -80,16 +85,34 @@ public class docsched_page2 extends AppCompatActivity {
             @Override
             public DocSchedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_doc_page2 , parent , false);
+
                 return new DocSchedViewHolder(view);
+
             }
 
             @Override
             protected void onBindViewHolder(@NonNull DocSchedViewHolder holder, int position, @NonNull DocSchedModel model) {
                 String days= "";
+
+
                 if (model.getInActive() == true ){
                     holder.switchbtn.setChecked(true);
+                    holder.maxBook.setTextColor(Color.GRAY);
+                    holder.daysTV.setTextColor(Color.GRAY);
+                    holder.Pricedocshed.setTextColor(Color.GRAY);
+                    holder.daysTV.setTextColor(Color.GRAY);
+                    holder.timeTV.setTextColor(Color.GRAY);
+                    holder.docsched_linearlayout.setBackgroundColor(Color.WHITE);
+                    holder.docsched_cardview.setBackgroundColor(Color.WHITE);
                 } else if (model.getInActive() == false) {
                     holder.switchbtn.setChecked(false);
+                    holder.maxBook.setTextColor(Color.WHITE);
+                    holder.daysTV.setTextColor(Color.WHITE);
+                    holder.Pricedocshed.setTextColor(Color.WHITE);
+                    holder.daysTV.setTextColor(Color.WHITE);
+                    holder.timeTV.setTextColor(Color.WHITE);
+                    holder.docsched_linearlayout.setBackgroundColor(Color.GRAY);
+                    holder.docsched_cardview.setBackgroundColor(Color.GRAY);
                 }
                 if (model.getMonday() == true){
                     days += "M";
@@ -125,7 +148,7 @@ public class docsched_page2 extends AppCompatActivity {
                         String documentid = getSnapshots().getSnapshot(position).getId();
                         Intent intent = new Intent(getApplicationContext(), docsched_page3.class);
                         intent.putExtra("docid", docid);
-                        intent.putExtra("docname", "Doctor " + docname);
+                        intent.putExtra("docname", docname);
                         intent.putExtra("type", "Update");
                         intent.putExtra("Documentid",documentid );
                         intent.putExtra("Monday",model.getMonday());
@@ -159,6 +182,7 @@ public class docsched_page2 extends AppCompatActivity {
                             DocSched.put("InActive", false);
                             Toast.makeText(docsched_page2.this, "OFF", Toast.LENGTH_SHORT).show();
                             db.collection("DoctorSchedules").document(documentid).update(DocSched);
+
                         }
                     }
                 });
@@ -217,14 +241,17 @@ public class docsched_page2 extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), docsched_page3.class);
                 intent.putExtra("docid", docid);
-                intent.putExtra("docname", "Doctor " + docname);
+                intent.putExtra("docname", docname);
                 intent.putExtra("type", "Add");
                 startActivity(intent);
             }
         });
     }
 
-    private class DocSchedViewHolder extends  RecyclerView.ViewHolder {
+    private class DocSchedViewHolder extends RecyclerView.ViewHolder {
+
+        LinearLayout docsched_linearlayout;
+        CardView docsched_cardview;
 
         TextView daysTV;
         TextView timeTV;
@@ -236,7 +263,8 @@ public class docsched_page2 extends AppCompatActivity {
 
         public DocSchedViewHolder(@NonNull View itemView) {
             super(itemView);
-
+            docsched_linearlayout = itemView.findViewById(R.id.docsched_linearlayout);
+            docsched_cardview = itemView.findViewById(R.id.docsched_cardview);
             daysTV = itemView.findViewById(R.id.list_docdays);
             timeTV = itemView.findViewById(R.id.list_doctime);
             editbtn = itemView.findViewById(R.id.list_docedit);
