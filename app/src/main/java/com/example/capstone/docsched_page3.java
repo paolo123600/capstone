@@ -72,15 +72,17 @@ public class docsched_page3 extends AppCompatActivity {
         if (type.equals("Update")) {
             Intent intent1 = getIntent();
 
-boolean monday = intent1.getBooleanExtra("Monday", false);
-boolean tuesday = intent1.getBooleanExtra("Tuesday", false);
-boolean wednesday = intent1.getBooleanExtra("Wednesday", false);
-boolean thursday = intent1.getBooleanExtra("Thursday", false);
-boolean friday = intent1.getBooleanExtra("Friday", false);
-boolean saturday = intent1.getBooleanExtra("Saturday", false);
-boolean sunday = intent1.getBooleanExtra("Sunday", false);
 
-if (type.equals("Update"))
+
+if (type.equals("Update")){
+    boolean monday = intent1.getBooleanExtra("Monday", false);
+    boolean tuesday = intent1.getBooleanExtra("Tuesday", false);
+    boolean wednesday = intent1.getBooleanExtra("Wednesday", false);
+    boolean thursday = intent1.getBooleanExtra("Thursday", false);
+    boolean friday = intent1.getBooleanExtra("Friday", false);
+    boolean saturday = intent1.getBooleanExtra("Saturday", false);
+    boolean sunday = intent1.getBooleanExtra("Sunday", false);
+
 if (monday){
     monbtn.setBackgroundResource(R.drawable.daybg);
     monstat = true ;
@@ -103,7 +105,7 @@ if (monday){
     sunbtn.setBackgroundResource(R.drawable.daybg);
     sunstat = true ;
             }
-        }
+        }}
 
         monbtn.setOnClickListener(new View.OnClickListener() {
             @Override
