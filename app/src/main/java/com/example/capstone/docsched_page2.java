@@ -148,7 +148,7 @@ public class docsched_page2 extends AppCompatActivity {
                         String documentid = getSnapshots().getSnapshot(position).getId();
                         Intent intent = new Intent(getApplicationContext(), docsched_page3.class);
                         intent.putExtra("docid", docid);
-                        intent.putExtra("docname", "Doctor " + docname);
+                        intent.putExtra("docname", docname);
                         intent.putExtra("type", "Update");
                         intent.putExtra("Documentid",documentid );
                         intent.putExtra("Monday",model.getMonday());
@@ -241,7 +241,7 @@ public class docsched_page2 extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), docsched_page3.class);
                 intent.putExtra("docid", docid);
-                intent.putExtra("docname", "Doctor " + docname);
+                intent.putExtra("docname", docname);
                 intent.putExtra("type", "Add");
                 startActivity(intent);
             }
