@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -35,10 +36,13 @@ public class selectDoc extends AppCompatActivity {
 
     private String doclastname;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_doc);
+
 
 
         // Start
@@ -107,6 +111,16 @@ public class selectDoc extends AppCompatActivity {
                             }
                         });
 
+                        holder.view_info.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(getApplicationContext(), View_doctor_info.class);
+                                GlobalVariables gv =(GlobalVariables) getApplicationContext ();
+                                gv.setSDDocUid(model.getUserId());
+                                startActivity(intent);
+                            }
+                        });
+
                     }
                 };
 
@@ -132,8 +146,10 @@ public class selectDoc extends AppCompatActivity {
         private TextView list_docname;
         private TextView list_docemail;
         private TextView list_docclinic;
+        private Button view_info;
         public DoctorsViewHolder(@NonNull View itemView){
             super(itemView);
+            view_info = itemView.findViewById(R.id.viewdocinfo);
             list_docname = itemView.findViewById(R.id.list_patientname);
             list_docemail = itemView.findViewById(R.id.list_patemail);
             list_docclinic= itemView.findViewById(R.id.list_docclinic);
