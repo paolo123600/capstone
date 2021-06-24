@@ -200,6 +200,8 @@ if (monday){
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), docsched_page2.class);
+                intent.putExtra("docid", docid);
+                intent.putExtra("docname", docname);
                 startActivity(intent);
             }
         });
