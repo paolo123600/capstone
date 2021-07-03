@@ -72,12 +72,12 @@
                 android:layout_height="wrap_content"
                 android:text="Emergency Contact Person"/>
 
-            <EditText
+            <TextView
                 android:id="@+id/Econtact_person"
                 android:inputType="textPersonName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/roundtbox"
+                android:text="Name"
                 android:padding="@dimen/_10sdp"/>
 
             <TextView
@@ -86,12 +86,12 @@
                 android:text="Emergency Contact Number"
                 android:layout_marginTop="@dimen/_10sdp"/>
 
-            <EditText
+            <TextView
                 android:id="@+id/Econtact_number"
                 android:inputType="number"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/roundtbox"
+                android:text="Number"
                 android:padding="@dimen/_10sdp"/>
 
         </LinearLayout>
@@ -130,20 +130,20 @@
             android:layout_marginLeft="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_10sdp">
 
-            <EditText
+            <TextView
                 android:id="@+id/medicalrec_height"
                 android:inputType="numberDecimal"
                 android:layout_width="@dimen/_120sdp"
                 android:layout_height="match_parent"
-                android:background="@drawable/roundtbox"
+                android:text="Height"
                 android:padding="@dimen/_10sdp"/>
 
-            <EditText
+            <TextView
                 android:id="@+id/medicalrec_bloodtype"
                 android:visibility="visible"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/roundtbox"
+                android:text="bood type"
                 android:padding="@dimen/_10sdp"
                 android:layout_marginLeft="@dimen/_10sdp"/>
 
@@ -184,20 +184,20 @@
             android:layout_marginLeft="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_10sdp">
 
-            <EditText
+            <TextView
                 android:id="@+id/medicalrec_weight"
                 android:inputType="numberDecimal"
                 android:layout_width="@dimen/_120sdp"
                 android:layout_height="match_parent"
                 android:padding="@dimen/_10sdp"
-                android:background="@drawable/roundtbox"/>
+                android:text="weight"/>
 
-            <EditText
+            <TextView
                 android:id="@+id/medicalrec_bloodpressure"
                 android:inputType="number"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/roundtbox"
+                android:text="Blood Pressure"
                 android:padding="@dimen/_10sdp"
                 android:layout_marginLeft="@dimen/_10sdp"/>
 
@@ -219,12 +219,12 @@
                 android:layout_height="wrap_content"
                 android:text="Allergies"/>
 
-            <EditText
+            <TextView
                 android:id="@+id/medicalrec_allergies"
                 android:inputType="textMultiLine"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/roundtbox"
+                android:text="Allergies"
                 android:padding="@dimen/_10sdp" />
 
             <TextView
@@ -233,12 +233,12 @@
                 android:text="Pre-existing Illness"
                 android:layout_marginTop="@dimen/_10sdp"/>
 
-            <EditText
+            <TextView
                 android:id="@+id/medicalrec_illness"
                 android:inputType="textMultiLine"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/roundtbox"
+                android:text="Pre-existing illness"
                 android:padding="@dimen/_10sdp"/>
 
         </LinearLayout>

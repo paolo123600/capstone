@@ -4,42 +4,129 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/mainbg"
     tools:context=".View_doctor_info">
+
+    <LinearLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/blue2"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+
+        <ImageView
+            android:id="@+id/backspace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:background="@drawable/ic_backspace" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Doctor Information"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:textSize="@dimen/_15sdp"
+            android:textColor="@color/white"/>
+
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:background="@drawable/daybg3"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:padding="@dimen/_10sdp">
 
         <TextView
             android:id="@+id/View_docname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Doctor Name"/>
+            android:text="Doctor Name"
+            android:textSize="@dimen/_15sdp"/>
 
         <TextView
             android:id="@+id/View_docclinic_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Clinic name"/>
+            android:text="Clinic name"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:textSize="@dimen/_15sdp"/>
+
+        <TextView
+            android:id="@+id/View_docgender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gender"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:textSize="@dimen/_15sdp"/>
+
+        <TextView
+            android:id="@+id/View_docbday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="bday"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:textSize="@dimen/_15sdp"/>
+
+
+        <TextView
+            android:id="@+id/View_docschool"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="School graduated"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:textSize="@dimen/_15sdp"/>
+
+        <TextView
+            android:id="@+id/View_docyeargrad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Year grad"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:textSize="@dimen/_15sdp"/>
+
+        <TextView
+            android:id="@+id/View_docspecialty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Specialty"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:textSize="@dimen/_15sdp"/>
 
         <TextView
             android:id="@+id/View_PRC"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="PRC"/>
+            android:text="PRC"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:textSize="@dimen/_15sdp"/>
 
         <TextView
             android:id="@+id/View_PTR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="PTR"/>
+            android:text="PTR"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:textSize="@dimen/_15sdp"/>
 
 
 

@@ -76,7 +76,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/docsched_schedule"
             android:layout_width="match_parent"
-            android:layout_height="316dp"
+            android:layout_height="match_parent"
             android:layout_marginTop="@dimen/_10sdp"
             tools:layout_editor_absoluteX="139dp"
             tools:layout_editor_absoluteY="241dp" />

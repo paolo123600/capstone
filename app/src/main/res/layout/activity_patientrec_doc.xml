@@ -87,21 +87,21 @@
                 android:layout_marginEnd="@dimen/_10sdp"
                 android:orientation="horizontal">
 
-                <EditText
+                <TextView
                     android:id="@+id/full_name_patientrec"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
-                    android:background="@drawable/roundtbox"
+                    android:text="Name"
                     android:padding="@dimen/_10sdp"
                     android:inputType="textImeMultiLine"/>
 
-                <EditText
+                <TextView
                     android:id="@+id/birthday_patientrec"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
-                    android:background="@drawable/roundtbox"
+                    android:text="Birthday"
                     android:padding="@dimen/_10sdp"
                     android:layout_marginLeft="@dimen/_10sdp"/>
 
@@ -139,20 +139,20 @@
                 android:layout_marginEnd="@dimen/_10sdp"
                 android:orientation="horizontal">
 
-                <EditText
+                <TextView
                     android:id="@+id/number_patientrec"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
-                    android:background="@drawable/roundtbox"
+                    android:text="Contact Number"
                     android:padding="@dimen/_10sdp"/>
 
-                <EditText
+                <TextView
                     android:id="@+id/gender_patientrec"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
-                    android:background="@drawable/roundtbox"
+                    android:text="Sex"
                     android:padding="@dimen/_10sdp"
                     android:layout_marginLeft="@dimen/_10sdp"/>
 
@@ -212,29 +212,29 @@
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_10sdp">
 
-                <EditText
+                <TextView
                     android:id="@+id/height_patientrec"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
-                    android:background="@drawable/roundtbox"
+                    android:text="Heiht"
                     android:padding="@dimen/_10sdp"/>
 
-                <EditText
+                <TextView
                     android:id="@+id/weight_patientrec"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
-                    android:background="@drawable/roundtbox"
+                    android:text="Weight"
                     android:padding="@dimen/_10sdp"
                     android:layout_marginLeft="@dimen/_10sdp"/>
 
-                <EditText
+                <TextView
                     android:id="@+id/emergency_contact_patientrec"
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="match_parent"
-                    android:background="@drawable/roundtbox"
+                    android:text="Emergency contact"
                     android:padding="@dimen/_10sdp"
                     android:layout_marginLeft="@dimen/_10sdp"/>
 
@@ -270,20 +270,20 @@
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_10sdp">
 
-                <EditText
+                <TextView
                     android:id="@+id/bloodtype_patientrec"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
-                    android:background="@drawable/roundtbox"
+                    android:text="Blood Type"
                     android:padding="@dimen/_10sdp"/>
 
-                <EditText
+                <TextView
                     android:id="@+id/bloodppatientrec"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
-                    android:background="@drawable/roundtbox"
+                    android:text="Blood Pressure"
                     android:padding="@dimen/_10sdp"
                     android:layout_marginLeft="@dimen/_10sdp"/>
 
@@ -319,21 +319,21 @@
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_10sdp">
 
-                <EditText
+                <TextView
                     android:id="@+id/prexisting_patientrec"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="@dimen/_80sdp"
-                    android:background="@drawable/roundtbox"
+                    android:text="Pre existing illness"
                     android:padding="@dimen/_10sdp"
                     android:inputType="textMultiLine"/>
 
-                <EditText
+                <TextView
                     android:id="@+id/allergies_patientrec"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
-                    android:background="@drawable/roundtbox"
+                    android:text="Allergies"
                     android:padding="@dimen/_10sdp"
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:inputType="textMultiLine"/>
