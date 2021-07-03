@@ -4,7 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.app.AlertDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -36,12 +39,13 @@ public class docsched_page3 extends AppCompatActivity {
     boolean monstat = false, tuestat = false, wedstat = false, thustat = false, fristat = false, satstat = false, sunstat = false;
     private FirebaseFirestore db;
     String docname, docid , type , documentid;
+    Context mContext = this;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doc_sched_page3);
-
 
         db = FirebaseFirestore.getInstance();
         starttime = findViewById(R.id.docsched_starttime);
@@ -192,12 +196,23 @@ if (monday){
             }
         });
 
+        cancelbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), docsched_page2.class);
+                intent.putExtra("docid", docid);
+                intent.putExtra("docname", docname);
+                startActivity(intent);
+            }
+        });
+
         savebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
             if (type.equals("Add")){
                 String maxbooking = maxbookingtv.getText().toString();
                 String price = pricetv.getText().toString();
+                Intent intent = getIntent();
 
                 Map<String, Object> DocSched = new HashMap<>();
                 DocSched.put("DocId", docid);
@@ -214,19 +229,44 @@ if (monday){
                 DocSched.put("Sunday", sunstat);
                 DocSched.put("InActive", true);
 
-                db.collection("DoctorSchedules").document().set(DocSched)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                builder.setCancelable(true);
+                builder.setTitle("Add to Schedule");
+                builder.setMessage("Do you want to add this schedule?");
+                builder.setPositiveButton("Confirm",
+                        new DialogInterface.OnClickListener() {
                             @Override
-                            public void onSuccess(Void aVoid) {
-                                Log.d("TAG", "DocumentSnapshot successfully written!");
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                db.collection("DoctorSchedules").document().set(DocSched)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.d("TAG", "DocumentSnapshot successfully written!");
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.w("TAG", "Error writing document", e);
+                                            }
+                                        });
+                                Intent intent = new Intent(getApplicationContext(), docsched_page2.class);
+                                intent.putExtra("docid", docid);
+                                intent.putExtra("docname", docname);
+                                startActivity(intent);
                             }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w("TAG", "Error writing document", e);
-                            }
+
                         });
+                builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
             }
 
             else {
@@ -247,20 +287,44 @@ if (monday){
                 DocSched.put("Saturday", satstat);
                 DocSched.put("Sunday", sunstat);
 
-                db.collection("DoctorSchedules").document(documentid).update(DocSched)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                builder.setCancelable(true);
+                builder.setTitle("Update Schedule");
+                builder.setMessage("Confirm update of schedule?");
+                builder.setPositiveButton("Confirm",
+                        new DialogInterface.OnClickListener() {
                             @Override
-                            public void onSuccess(Void aVoid) {
-                                Log.d("TAG", "DocumentSnapshot successfully written!");
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w("TAG", "Error writing document", e);
-                            }
-                        });
+                            public void onClick(DialogInterface dialog, int which) {
 
+                                db.collection("DoctorSchedules").document(documentid).update(DocSched)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.d("TAG", "DocumentSnapshot successfully written!");
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.w("TAG", "Error writing document", e);
+                                            }
+                                        });
+
+                                Intent intent = new Intent(getApplicationContext(), docsched_page2.class);
+                                intent.putExtra("docid", docid);
+                                intent.putExtra("docname", docname);
+                                startActivity(intent);
+                            }
+
+                        });
+                builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
 
             }
 

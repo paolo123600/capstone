@@ -7,9 +7,11 @@
     app:cardElevation="8dp"
     android:layout_margin="8dp"
     android:background="@color/mainbg"
-    android:clickable="true">
+    android:clickable="true"
+    android:id="@+id/docsched_cardview">
 
     <LinearLayout
+        android:id="@+id/docsched_linearlayout"
         android:orientation="vertical"
         android:layout_margin="8dp"
         android:background="@android:color/white"

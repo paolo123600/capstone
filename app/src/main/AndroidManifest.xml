@@ -60,6 +60,7 @@
         <activity
             android:name=".NewPass"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".patient_record_clinic"
             android:screenOrientation="portrait" />
