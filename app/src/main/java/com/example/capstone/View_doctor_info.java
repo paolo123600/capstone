@@ -60,6 +60,7 @@ public class View_doctor_info extends AppCompatActivity {
                 docschoolgrad.setText("Graduate School: " + documentSnapshot.getString("SchoolGrad"));
                 docyeargrad.setText("Year Graduated: " + documentSnapshot.getString("YearGrad"));
                 docspecialty.setText("Specialty: " + documentSnapshot.getString("DocType"));
+
             }
         });
     }
