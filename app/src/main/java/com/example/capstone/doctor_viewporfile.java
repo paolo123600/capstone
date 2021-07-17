@@ -31,6 +31,9 @@ public class doctor_viewporfile extends AppCompatActivity {
     TextView number;
     TextView email;
     TextView postal;
+    TextView ptr;
+    TextView prc;
+    TextView doctype;
     ImageView back;
     //change pass
     Dialog dialog3;
@@ -56,6 +59,9 @@ public class doctor_viewporfile extends AppCompatActivity {
         number = findViewById(R.id.number_profile);
         email = findViewById(R.id.email_profile);
         postal = findViewById(R.id.postal_profile);
+        ptr = findViewById(R.id.number_ptr);
+        prc = findViewById(R.id.number_prc);
+        doctype = findViewById(R.id.doctor_type);
         back = findViewById(R.id.backspace);
 
         editbutton = findViewById(R.id.editbtn);
@@ -73,6 +79,9 @@ public class doctor_viewporfile extends AppCompatActivity {
         number.setKeyListener(null);
         email.setKeyListener(null);
         postal.setKeyListener(null);
+        doctype.setKeyListener(null);
+        ptr.setKeyListener(null);
+        prc.setKeyListener(null);
         changepass = (Button) findViewById(R.id.changepass);
         editbutton = findViewById(R.id.editbtn);
         mAuth = FirebaseAuth.getInstance();
@@ -136,6 +145,9 @@ public class doctor_viewporfile extends AppCompatActivity {
                 email.setText(documentSnapshot.getString("Email"));
                 postal.setText(documentSnapshot.getString("PostalCode"));
                 birthday.setText(documentSnapshot.getString("Birthday"));
+                doctype.setText(documentSnapshot.getString("DocType"));
+                ptr.setText(documentSnapshot.getString("PTR"));
+                prc.setText(documentSnapshot.getString("PRC"));
             }
         });
 
@@ -146,12 +158,5 @@ public class doctor_viewporfile extends AppCompatActivity {
             }
         });
 
-        editbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), doctor_editprofile.class);
-                startActivity(intent);
-            }
-        });
     }
 }
