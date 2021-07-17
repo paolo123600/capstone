@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.capstone.R;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -34,7 +33,7 @@ public class Clinic_view extends AppCompatActivity {
         setContentView(R.layout.activity_clinic_view);
 
         firebaseFirestore = FirebaseFirestore.getInstance();
-        mClinicList = findViewById(R.id.clinic_list);
+        mClinicList = findViewById(R.id.scheddoc_list);
 
         back = findViewById(R.id.backspace);
 
