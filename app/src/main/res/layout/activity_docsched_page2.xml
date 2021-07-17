@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/mainbg"
-    tools:context=".docsched_page2"
-    >
+    tools:context=".docsched_page2">
 
     <LinearLayout
         android:id="@+id/toolbar"
@@ -50,8 +49,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginLeft="@dimen/_10sdp"
-        android:layout_marginRight="@dimen/_10sdp"
-        android:id="@+id/linearLayout">
+        android:layout_marginRight="@dimen/_10sdp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -75,15 +73,13 @@
             android:backgroundTint="@color/black"
             android:layout_gravity="right"/>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/docsched_schedule"
-                android:layout_width="match_parent"
-                android:layout_height="450dp"
-                android:layout_marginTop="@dimen/_10sdp"
-                tools:layout_editor_absoluteX="139dp"
-                tools:layout_editor_absoluteY="241dp" />
-
-
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/docsched_schedule"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_10sdp"
+            tools:layout_editor_absoluteX="139dp"
+            tools:layout_editor_absoluteY="241dp" />
 
 
     </LinearLayout>

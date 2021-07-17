@@ -80,11 +80,12 @@
                     android:layout_height="wrap_content"
                     android:text="Name" />
 
-                <EditText
+                <TextView
                     android:id="@+id/first_name_profile"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/roundtbox"
+                    android:text="Name"
+                    android:textColor="@color/black"
                     android:padding="@dimen/_10sdp"/>
 
                 <TextView
@@ -93,11 +94,12 @@
                     android:text="Address"
                     android:layout_marginTop="@dimen/_10sdp"/>
 
-                <EditText
+                <TextView
                     android:id="@+id/address_profile"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/roundtbox"
+                    android:text="Address"
+                    android:textColor="@color/black"
                     android:padding="@dimen/_10sdp"/>
 
             </LinearLayout>
@@ -113,15 +115,17 @@
                 android:layout_marginTop="@dimen/_10sdp">
 
                 <TextView
+                    android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Municipality"/>
 
                 <TextView
+                    android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Postal code"
-                    android:layout_marginLeft="@dimen/_143sdp"/>
+                    android:layout_marginLeft="@dimen/_90sdp"/>
 
 
             </LinearLayout>
@@ -135,20 +139,22 @@
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_10sdp">
 
-                <EditText
+                <TextView
                     android:id="@+id/municipality_profile"
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="match_parent"
-                    android:background="@drawable/roundtbox"
+                    android:text="Municipality"
+                    android:textColor="@color/black"
                     android:padding="@dimen/_10sdp"/>
 
-                <EditText
+                <TextView
                     android:id="@+id/postal_profile"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
-                    android:background="@drawable/roundtbox"
+                    android:text="Postal"
+                    android:textColor="@color/black"
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:padding="@dimen/_10sdp"/>
 
@@ -167,15 +173,17 @@
                 android:layout_marginTop="@dimen/_10sdp">
 
                 <TextView
+                    android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Email Address"/>
 
                 <TextView
+                    android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Sex"
-                    android:layout_marginLeft="@dimen/_132sdp"/>
+                    android:layout_marginLeft="@dimen/_40sdp"/>
 
 
             </LinearLayout>
@@ -189,21 +197,23 @@
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_10sdp">
 
-                <EditText
+                <TextView
                     android:id="@+id/email_profile"
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="match_parent"
-                    android:background="@drawable/roundtbox"
+                    android:text="Email"
+                    android:textColor="@color/black"
                     android:padding="@dimen/_10sdp"
                     android:inputType="textImeMultiLine"/>
 
-                <EditText
+                <TextView
                     android:id="@+id/gender_profile"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
-                    android:background="@drawable/roundtbox"
+                    android:text="Sex"
+                    android:textColor="@color/black"
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:padding="@dimen/_10sdp"/>
 
@@ -220,15 +230,17 @@
                 android:layout_marginTop="@dimen/_10sdp">
 
                 <TextView
+                    android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Contact Number"/>
 
                 <TextView
+                    android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Birthday"
-                    android:layout_marginLeft="@dimen/_75sdp"/>
+                    android:layout_marginLeft="@dimen/_55sdp"/>
 
 
             </LinearLayout>
@@ -242,20 +254,22 @@
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_10sdp">
 
-                <EditText
+                <TextView
                     android:id="@+id/number_profile"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:layout_height="match_parent"
-                    android:background="@drawable/roundtbox"
+                    android:text="Contact number"
+                    android:textColor="@color/black"
                     android:padding="@dimen/_10sdp"/>
 
-                <EditText
+                <TextView
                     android:id="@+id/birthday_profile"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
-                    android:background="@drawable/roundtbox"
+                    android:text="Birthday"
+                    android:textColor="@color/black"
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:padding="@dimen/_10sdp"/>
 
@@ -267,17 +281,9 @@
                 app:layout_constraintTop_toBottomOf="@id/contactedittxt"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_11sdp"
                 android:gravity="center">
 
-                <Button
-                    android:id="@+id/editbtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Edit Profile"
-                    android:padding="@dimen/_10sdp"
-                    android:background="@drawable/darkround"
-                    android:textColor="@color/white"/>
                 <Button
                     android:id="@+id/changepass"
                     android:layout_width="wrap_content"
