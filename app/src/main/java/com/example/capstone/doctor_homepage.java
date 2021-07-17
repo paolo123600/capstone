@@ -57,6 +57,7 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
     private Button  pat_record;
     String gmail = "";
     String patUid = "";
+    String currentday= "";
     private List<User> users;
     private PreferenceManager preferenceManager;
     String datenow;
@@ -66,6 +67,8 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
     private DrawerLayout drawer;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
+    String SchedTimeStart;
+    String SchedTimeEnd;
     String userId;
     private Handler handler = new Handler();
     private Runnable runnable = new Runnable() {     public void run() {
@@ -82,7 +85,12 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
         preferenceManager = new PreferenceManager(getApplicationContext());
         btn_dochat = (Button) findViewById(R.id.btn_chat_dochome);
         Calendar calendar = Calendar.getInstance();
-        datenow = DateFormat.getDateInstance().format(calendar.getTime());
+        SimpleDateFormat format = new SimpleDateFormat("MMMM d, yyyy");
+        Date DDate = calendar.getTime();
+        datenow = format.format(DDate);
+
+
+
 
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
@@ -109,7 +117,36 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
         SimpleDateFormat dateFormat = new SimpleDateFormat("h:mmaa");
 
         try {
+
+            Calendar calendar2 = Calendar.getInstance();
+            int day = calendar2.get(Calendar.DAY_OF_WEEK);
+
+            switch (day) {
+                case Calendar.SUNDAY:
+                    currentday = "Sunday";
+                    break;
+                case Calendar.MONDAY:
+                    currentday = "Monday";
+                    break;
+                case Calendar.TUESDAY:
+                    currentday = "Tuesday";
+                    break;
+                case Calendar.WEDNESDAY:
+                    currentday = "Wednesday";
+                    break;
+                case Calendar.THURSDAY:
+                    currentday = "Thursday";
+                    break;
+                case Calendar.FRIDAY:
+                    currentday = "Friday";
+                    break;
+                case Calendar.SATURDAY:
+                    currentday = "Saturday";
+                    break;
+            }
+
             Date currentTime = Calendar.getInstance().getTime();
+
 //            String timenow1 =dateFormat.format(currentTime);
 
 
@@ -207,80 +244,114 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
     private void checkschedcurrent() {
 
 
-        String[] time = {"8:00AM","8:30AM","9:00AM","9:30AM","10:00AM","10:30AM","11:00AM","11:30AM","12:00PM","12:30PM","1:00PM","1:30PM","2:00PM","2:30PM","3:00PM","3:30PM","4:00PM","4:30PM","5:00PM","5:30PM","6:00PM","6:30PM","7:00PM","7:30PM","8:00PM","8:30PM"};
-        String[] btntext = {"8:00-8:30AM","8:30-9:00AM","9:00-9:30AM","9:30-10:00AM","10:00-10:30AM","10:30-11:00AM","11:00-11:30AM","11:30-12:00PM","12:00-12:30PM","12:30-1:00PM","1:00-1:30PM","1:30-2:00PM","2:00-2:30PM","2:30-3:00PM","3:00-3:30PM","3:30-4:00PM","4:00-4:30PM","4:30-5:00PM","5:00-5:30PM","5:30-6:00PM","6:00-6:30PM","6:30-7:00PM","7:00-7:30PM","7:30-8:00PM"};
-        //initializing time
-        Date d1= new Date(), d2= new Date();
-        String timestart = "", timestop = "";
-        SimpleDateFormat dateFormat = new SimpleDateFormat("h:mmaa");
-        //converting time
-        for (int j=0 ; j<time.length-1 ; j++){
-            try {
-                d1 = dateFormat.parse(time[j]);
-                d2= dateFormat.parse(time[j+1]);
+db.collection("DoctorSchedules").whereEqualTo(currentday,true).whereEqualTo("DocId", preferenceManager.getString(Constants.KEY_USER_ID)).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+    @Override
+    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+        if (task.isSuccessful()){
+            if (!task.getResult().isEmpty()){
+                String timestart = "none", timestop = "none";
+                for (QueryDocumentSnapshot document : task.getResult()) {
+
+                    String time1 = document.getString("StartTime");
+                    String time2 = document.getString("EndTime");
+                    Date d1= new Date(), d2= new Date();
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("h:mm aa");
+
+                    try {
+                        d1 = dateFormat.parse(time1);
+                        d2= dateFormat.parse(time2);
             } catch (ParseException e) {
                 Toast.makeText(doctor_homepage.this, "errorsettingtime", Toast.LENGTH_SHORT).show();
 
             }
-            if (timenow.after(d1) && timenow.before(d2) || timenow.equals(d2)) {
-                timestart=time[j];
-                timestop=time[j+1];
+                    if (timenow.after(d1) && timenow.before(d2) || timenow.equals(d2)) {
+                timestart=time1;
+                timestop=time2;
+
             }
-        }
+        } Toast.makeText(doctor_homepage.this, datenow, Toast.LENGTH_LONG).show();
+                Toast.makeText(doctor_homepage.this, " start: "+timestart+" stop: "+timestop, Toast.LENGTH_LONG).show();
+                db.collection("Schedules").whereEqualTo("Date", datenow).whereEqualTo("StartTime", timestart).whereEqualTo("DoctorUId", preferenceManager.getString(Constants.KEY_USER_ID)).whereEqualTo("EndTime", timestop).whereIn("Status", Arrays.asList("Paid", "Completed"))
+                        .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            QuerySnapshot querySnapshot = task.getResult();
+                            if (querySnapshot.isEmpty()) {
+                                patnametv.setText("Nogfsadgsd");
+                                schedtimetv.setText("");
+                                callbtn.setVisibility(View.INVISIBLE);
+                                pat_record.setVisibility(View.INVISIBLE);
+                            } else {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    patUid = document.getString("PatientUId");
 
+                                    db.collection("Patients").document(patUid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                DocumentSnapshot document1 = task.getResult();
+                                                {
+                                                    if (document1.exists()) {
+                                                        gmail = document1.getString("Email");
+                                                        patnametv.setText(document1.getString("LastName") + ", " + document1.getString("FirstName"));
+                                                        schedtimetv.setText("Time: " + document.getString("StartTime") + " - " + document.getString("EndTime"));
+                                                        callbtn.setVisibility(View.VISIBLE);
+                                                        pat_record.setVisibility(View.VISIBLE);
+                                                        GlobalVariables gv = (GlobalVariables) getApplicationContext();
+                                                        gv.setSDtimestart(document.getString("TimeStart"));
+                                                        gv.setSDDate(datenow);
+                                                        gv.setSDid(document.getId());
 
+                                                    }
 
+                                                }
 
-        db.collection("Schedule").whereEqualTo("SchedDate", datenow).whereEqualTo("TimeStart", timestart).whereEqualTo("DoctorUId", preferenceManager.getString(Constants.KEY_USER_ID)).whereEqualTo("TimeStop", timestop).whereIn("Status", Arrays.asList("Paid", "Completed"))
-                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    QuerySnapshot querySnapshot = task.getResult();
-                    if (querySnapshot.isEmpty()) {
-                        patnametv.setText("No Current Appointment");
-                        schedtimetv.setText("");
-                        callbtn.setVisibility(View.INVISIBLE);
-                        pat_record.setVisibility(View.INVISIBLE);
-                    } else {
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            patUid = document.getString("PatientUId");
-
-                            db.collection("Patients").document(patUid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                    if (task.isSuccessful()) {
-                                        DocumentSnapshot document1 = task.getResult();
-                                        {
-                                            if (document1.exists()) {
-                                                gmail = document1.getString("Email");
-                                                patnametv.setText(document1.getString("LastName") + ", " + document1.getString("FirstName"));
-                                                schedtimetv.setText("Time: " + document.getString("TimeStart") + " - " + document.getString("TimeStop"));
-                                                callbtn.setVisibility(View.VISIBLE);
-                                                pat_record.setVisibility(View.VISIBLE);
-                                                GlobalVariables gv = (GlobalVariables) getApplicationContext();
-                                                gv.setSDtimestart(document.getString("TimeStart"));
-                                                gv.setSDDate(datenow);
-                                                gv.setSDid(document.getId());
-                                               
                                             }
-
                                         }
-
-                                    }
+                                    });
                                 }
-                            });
+                            }
+
+
+                        } else {
+
                         }
+
                     }
 
-
-                } else {
-
+                });
                 }
 
             }
 
-        });
+            }
+
+});
+
+
+//        String[] time = {"8:00AM","8:30AM","9:00AM","9:30AM","10:00AM","10:30AM","11:00AM","11:30AM","12:00PM","12:30PM","1:00PM","1:30PM","2:00PM","2:30PM","3:00PM","3:30PM","4:00PM","4:30PM","5:00PM","5:30PM","6:00PM","6:30PM","7:00PM","7:30PM","8:00PM","8:30PM"};
+//        String[] btntext = {"8:00-8:30AM","8:30-9:00AM","9:00-9:30AM","9:30-10:00AM","10:00-10:30AM","10:30-11:00AM","11:00-11:30AM","11:30-12:00PM","12:00-12:30PM","12:30-1:00PM","1:00-1:30PM","1:30-2:00PM","2:00-2:30PM","2:30-3:00PM","3:00-3:30PM","3:30-4:00PM","4:00-4:30PM","4:30-5:00PM","5:00-5:30PM","5:30-6:00PM","6:00-6:30PM","6:30-7:00PM","7:00-7:30PM","7:30-8:00PM"};
+//        //initializing time
+//        Date d1= new Date(), d2= new Date();
+//        String timestart = "", timestop = "";
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("h:mmaa");
+//        //converting time
+//        for (int j=0 ; j<time.length-1 ; j++){
+//            try {
+//                d1 = dateFormat.parse(time[j]);
+//                d2= dateFormat.parse(time[j+1]);
+//            } catch (ParseException e) {
+//                Toast.makeText(doctor_homepage.this, "errorsettingtime", Toast.LENGTH_SHORT).show();
+//
+//            }
+//            if (timenow.after(d1) && timenow.before(d2) || timenow.equals(d2)) {
+//                timestart=time[j];
+//                timestop=time[j+1];
+//            }
+//        }
+
+
 
     }
 

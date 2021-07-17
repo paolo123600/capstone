@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onClick(View v) {
                 Calendar calendar = Calendar.getInstance();
                 datenow = DateFormat.getDateInstance().format(calendar.getTime());
-                db.collection("Schedule").whereEqualTo("PatientUId",patuid).whereEqualTo("Status","Paid")
+                db.collection("Schedules").whereEqualTo("PatientUId",patuid).whereEqualTo("Status","Paid")
                         .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             }
                             else{
                                 Date nowdate= new Date();
-                                SimpleDateFormat format = new SimpleDateFormat("MMM d,yyyy");
+                                SimpleDateFormat format = new SimpleDateFormat("MMMM d,yyyy");
                                 format.setLenient(false);
                                 try {
                                     nowdate = format.parse(datenow);
@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                 }
                                 for (QueryDocumentSnapshot doc : task.getResult()) {
 
-                                    String scheddate = doc.getString("SchedDate");
+                                    String scheddate = doc.getString("Date");
                                     Date datesched = new Date();
                                     try {
                                         datesched  = format.parse(scheddate);
@@ -182,7 +182,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                                     }
                                     else if (nowdate.after(datesched)) {  String documentsched =doc.getId();
-                                    db.collection("Schedule").document(documentsched).update("Status","Completed").addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    db.collection("Schedules").document(documentsched).update("Status","Completed").addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
 

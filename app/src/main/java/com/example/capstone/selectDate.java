@@ -1,6 +1,7 @@
 package com.example.capstone;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,7 +9,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.opengl.Visibility;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,10 +22,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.capstone.utilities.Constants;
+import com.example.capstone.utilities.PreferenceManager;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -35,7 +44,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class selectDate extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     TextView tvDate;
@@ -50,7 +61,9 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
     GlobalVariables gv;
     String[] daysofweek = {"Monday" , "Tuesday" , "Wednesday" , "Thursday" , "Friday", "Saturday" , "Sunday"};
     ArrayList<Integer> validdaysofweek = new ArrayList<Integer>();
+    String patuid;
     String docid ="";
+    private PreferenceManager preferenceManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +75,9 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
         gv = (GlobalVariables) getApplicationContext();
 
         calendar = Calendar.getInstance();
+        preferenceManager = new PreferenceManager(getApplicationContext());
 
+        patuid = preferenceManager.getString(Constants.KEY_USER_ID);
         Year = calendar.get(Calendar.YEAR) ;
         Month = calendar.get(Calendar.MONTH);
         Day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -159,12 +174,20 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
     @Override
     public void onDateSet(DatePickerDialog view, int Year, int Month, int Day ) {
 
-        String date = "Date: "+Day+"/"+(Month+1)+"/"+Year;
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, Year);
+        calendar.set(Calendar.MONTH, Month);
+        calendar.set(Calendar.DAY_OF_MONTH, Day);
+        Date date2 = calendar.getTime();
+        String date = Day+"/"+(Month+1)+"/"+Year;
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+        SimpleDateFormat format = new SimpleDateFormat("MMMM d ,yyyy");
         SimpleDateFormat simpledateformat = new SimpleDateFormat("EEEE");
         Date date1 = new Date(Year, Month, Day-1);
+        String datestring = format.format(date2);
         String dow = simpledateformat.format(date1);
         etDate.setText(date);
+
 
         Query query = db.collection("DoctorSchedules").whereEqualTo("DocId",gv.getSDDocUid()).whereEqualTo(dow,true).whereEqualTo("InActive",true);
         FirestoreRecyclerOptions<DocSchedModel> options = new FirestoreRecyclerOptions.Builder<DocSchedModel>()
@@ -181,17 +204,84 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
 
             @Override
             protected void onBindViewHolder(@NonNull DocSchedViewHolder holder, int position, @NonNull DocSchedModel model) {
-             holder.list_time.setText("Time:"+model.getStartTime()+" - "+model.getEndTime());
-                holder.list_maxbook.setText("Max Booking:"+model.getMaximumBooking());
-                holder.list_price.setText("Price:"+model.getPrice());
-                holder.list_numberbook.setText("No of Books:"+"");
-                holder.list_bookbtn.setOnClickListener(new View.OnClickListener() {
+
+                db.collection("Schedules").whereEqualTo("DoctorUId",gv.getSDDocUid()).whereEqualTo("StartTime",model.getStartTime()).whereEqualTo("EndTime", model.getEndTime()).whereEqualTo("Date", datestring ).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
-                    public void onClick(View view) {
-//                        gv.setSDtimestart(model);
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+
+                           int count = task.getResult().size();
+                           int maxbook = Integer.parseInt(model.getMaximumBooking());
+                            if (maxbook == count){
+                                holder.list_numberbook.setText("No of Books:"+"Full");
+                                holder.list_bookbtn.setVisibility(View.GONE);
+                            }else {
+                                holder.list_numberbook.setText("No of Books:"+count);
+                                holder.list_bookbtn.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+
+                                        Date currentTime = Calendar.getInstance().getTime();
+                                        Map<String, Object> PatSched = new HashMap<>();
+                                        PatSched.put("DoctorUId", docid);
+                                        PatSched.put("StartTime", model.getStartTime());
+                                        PatSched.put("EndTime", model.getEndTime());
+                                        PatSched.put("Position", count+1);
+                                        PatSched.put ("Date", datestring );
+                                        PatSched.put ("Status", "Paid" );
+                                        PatSched.put ("PatientUId", patuid );
+                                        PatSched.put ("Dnt",currentTime);
+
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(selectDate.this);
+                                        builder.setCancelable(true);
+                                        builder.setTitle("Booking");
+                                        builder.setMessage("Do you want to book this schedule?");
+                                        builder.setPositiveButton("Confirm",
+                                                new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
+
+                                                        db.collection("Schedules").document().set(PatSched)
+                                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                    @Override
+                                                                    public void onSuccess(Void aVoid) {
+                                                                        Log.d("TAG", "DocumentSnapshot successfully written!");
+                                                                        Intent intent = new Intent(selectDate.this , MainActivity.class);
+                                                                        startActivity(intent);
+                                                                    }
+                                                                })
+                                                                .addOnFailureListener(new OnFailureListener() {
+                                                                    @Override
+                                                                    public void onFailure(@NonNull Exception e) {
+                                                                        Log.w("TAG", "Error writing document", e);
+                                                                    }
+                                                                });
+                                                    }
+                                                });
+                                        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                            }
+                                        });
+
+                                        AlertDialog dialog = builder.create();
+                                        dialog.show();
+
+                                    }
+                                });
+                            }
+
+                        } else {
+                            Log.d("TAG", "Error getting documents: ", task.getException());
+                        }
 
                     }
                 });
+                holder.list_time.setText("Time:"+model.getStartTime()+" - "+model.getEndTime());
+                holder.list_maxbook.setText("Max Booking:"+model.getMaximumBooking());
+                holder.list_price.setText("Price:"+model.getPrice());
+
+
             }
         };
 
@@ -199,8 +289,6 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
         docschedlist.setLayoutManager(new LinearLayoutManager(selectDate.this));
         docschedlist.setAdapter(adapter);
         adapter.startListening();
-
-
 
     }
 
