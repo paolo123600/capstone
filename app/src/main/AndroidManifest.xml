@@ -20,7 +20,8 @@
         android:theme="@style/Theme.Capstone"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".View_doctor_info"></activity>
+        <activity android:name=".pat_payment"></activity>
+        <activity android:name=".View_doctor_info" />
         <activity android:name=".select_Appoint" />
         <activity android:name=".selectDate" />
         <activity android:name=".selectDoc" />
@@ -60,7 +61,6 @@
         <activity
             android:name=".NewPass"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".patient_record_clinic"
             android:screenOrientation="portrait" />

@@ -72,8 +72,7 @@ public class Login extends AppCompatActivity {
 
         setContentView(R.layout.login_page);
         db= FirebaseFirestore.getInstance();
-        user = findViewById(R.id.Username);
-        pass = findViewById(R.id.Password);
+
         login = findViewById(R.id.logbtn);
         signup = findViewById(R.id.btntvSignup);
         signInProgressBar = findViewById(R.id.signInProgressBar);
