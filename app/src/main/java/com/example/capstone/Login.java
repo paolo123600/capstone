@@ -135,6 +135,7 @@ public class Login extends AppCompatActivity {
         mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
+
                 if(task.isSuccessful()){
                     String Uid=FirebaseAuth.getInstance().getCurrentUser().getUid();
                     GlobalVariables gv= (GlobalVariables) getApplicationContext();

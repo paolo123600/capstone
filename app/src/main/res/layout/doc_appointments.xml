@@ -28,9 +28,11 @@
                 android:id="@+id/list_patientname_appointmentDoc"
                 android:layout_width="365dp"
                 android:layout_height="match_parent"
+                android:layout_alignParentBottom="true"
                 android:layout_marginLeft="10dp"
-                android:gravity="start"
 
+                android:layout_marginBottom="0dp"
+                android:gravity="start"
                 android:text="Patname"
                 android:textAllCaps="true"
                 android:textSize="20dp"

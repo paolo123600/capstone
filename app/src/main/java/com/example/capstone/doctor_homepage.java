@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,11 +19,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstone.activities.OutgoingInvitationActivity;
 import com.example.capstone.models.User;
 import com.example.capstone.utilities.Constants;
 import com.example.capstone.utilities.PreferenceManager;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -39,6 +45,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
+
+import org.w3c.dom.Text;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -66,12 +74,55 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
     Boolean condition=false;
     private DrawerLayout drawer;
     FirebaseAuth fAuth;
+    FirestoreRecyclerAdapter adapter;
     FirebaseFirestore fStore;
     String SchedTimeStart;
     String SchedTimeEnd;
+    RecyclerView mFirestorelist;
     String userId;
     private Handler handler = new Handler();
-    private Runnable runnable = new Runnable() {     public void run() {
+    private Runnable runnable = new Runnable() {     public void run() {   SimpleDateFormat dateFormat = new SimpleDateFormat("h:mmaa");
+
+        try {
+
+            Calendar calendar2 = Calendar.getInstance();
+            int day = calendar2.get(Calendar.DAY_OF_WEEK);
+
+            switch (day) {
+                case Calendar.SUNDAY:
+                    currentday = "Sunday";
+                    break;
+                case Calendar.MONDAY:
+                    currentday = "Monday";
+                    break;
+                case Calendar.TUESDAY:
+                    currentday = "Tuesday";
+                    break;
+                case Calendar.WEDNESDAY:
+                    currentday = "Wednesday";
+                    break;
+                case Calendar.THURSDAY:
+                    currentday = "Thursday";
+                    break;
+                case Calendar.FRIDAY:
+                    currentday = "Friday";
+                    break;
+                case Calendar.SATURDAY:
+                    currentday = "Saturday";
+                    break;
+            }
+
+            Date currentTime = Calendar.getInstance().getTime();
+
+//            String timenow1 =dateFormat.format(currentTime);
+
+
+            String timenow1 ="4:40PM";
+            timenow = dateFormat.parse(timenow1);
+
+        } catch (ParseException e) {
+            Toast.makeText(doctor_homepage.this, "error getting time", Toast.LENGTH_SHORT).show();
+        }
         checkschedcurrent();
         handler.postDelayed(this, 60000);
     }
@@ -85,11 +136,11 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
         preferenceManager = new PreferenceManager(getApplicationContext());
         btn_dochat = (Button) findViewById(R.id.btn_chat_dochome);
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat format = new SimpleDateFormat("MMMM d, yyyy");
+        SimpleDateFormat format = new SimpleDateFormat("MMMM d ,yyyy");
         Date DDate = calendar.getTime();
         datenow = format.format(DDate);
 
-
+    mFirestorelist = (RecyclerView)findViewById(R.id.scheddoc_list);
 
 
         fAuth = FirebaseAuth.getInstance();
@@ -167,9 +218,10 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
         pat_record.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(doctor_homepage.this,patientrec_sec.class);
-                intent.putExtra("patid",patUid);
-                startActivity(intent);
+//                Intent intent = new Intent(doctor_homepage.this,patientrec_sec.class);
+//                intent.putExtra("patid",patUid);
+//                startActivity(intent);
+                checkschedcurrent();
             }
         });
         btn_dochat.setOnClickListener(new View.OnClickListener() {
@@ -269,9 +321,59 @@ db.collection("DoctorSchedules").whereEqualTo(currentday,true).whereEqualTo("Doc
                 timestop=time2;
 
             }
-        } Toast.makeText(doctor_homepage.this, datenow, Toast.LENGTH_LONG).show();
+        } Query query =  db.collection("Schedules").whereEqualTo("Date", datenow).whereEqualTo("StartTime", timestart).whereEqualTo("DoctorUId", preferenceManager.getString(Constants.KEY_USER_ID)).whereIn("Status", Arrays.asList("Paid", "Completed")).whereNotEqualTo("Position",1).orderBy("Position", Query.Direction.ASCENDING).limit(5);
+                FirestoreRecyclerOptions<DocTodaySchedModel> options = new FirestoreRecyclerOptions.Builder<DocTodaySchedModel>()
+                        .setQuery(query, DocTodaySchedModel.class)
+                        .build();
+
+                adapter = new FirestoreRecyclerAdapter<DocTodaySchedModel, SchedHolder>(options) {
+                    @NonNull
+                    @Override
+                    public SchedHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.doctor_singlesched,parent,false);
+                        return new SchedHolder(view);
+                    }
+
+                    @Override
+                    protected void onBindViewHolder(@NonNull SchedHolder holder, int position, @NonNull DocTodaySchedModel model) {
+                        db.collection("Patients").document(model.PatientUId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document = task.getResult();
+                                    if (document.exists()) {
+                                        holder.tv_patientnamelist.setText(document.getString("LastName")+", "+document.getString("FirstName"));
+                                        holder.tv_positionlist.setText(model.Position+"");
+                                        holder.btnViewRecord.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+
+                                            }
+                                        });
+                                    } else {
+                                        Toast.makeText(doctor_homepage.this, "document does not exist", Toast.LENGTH_SHORT).show();
+                                    }
+                                } else {
+
+                                }
+                            }
+                        });
+
+                    }
+                };
+
+                mFirestorelist.setHasFixedSize(true);
+                mFirestorelist.setLayoutManager(new LinearLayoutManager(doctor_homepage.this));
+                mFirestorelist.setAdapter(adapter);
+                adapter.stopListening();
+                adapter.startListening();
+
+
+
+
+                Toast.makeText(doctor_homepage.this, datenow, Toast.LENGTH_LONG).show();
                 Toast.makeText(doctor_homepage.this, " start: "+timestart+" stop: "+timestop, Toast.LENGTH_LONG).show();
-                db.collection("Schedules").whereEqualTo("Date", datenow).whereEqualTo("StartTime", timestart).whereEqualTo("DoctorUId", preferenceManager.getString(Constants.KEY_USER_ID)).whereEqualTo("EndTime", timestop).whereIn("Status", Arrays.asList("Paid", "Completed"))
+                db.collection("Schedules").whereEqualTo("Date", datenow).whereEqualTo("StartTime", timestart).whereEqualTo("DoctorUId", preferenceManager.getString(Constants.KEY_USER_ID)).whereEqualTo("EndTime", timestop).whereIn("Status", Arrays.asList("Paid", "Completed")).whereEqualTo("Position",1)
                         .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -311,6 +413,7 @@ db.collection("DoctorSchedules").whereEqualTo(currentday,true).whereEqualTo("Doc
                                         }
                                     });
                                 }
+
                             }
 
 
@@ -321,6 +424,7 @@ db.collection("DoctorSchedules").whereEqualTo(currentday,true).whereEqualTo("Doc
                     }
 
                 });
+
                 }
 
             }
@@ -350,7 +454,6 @@ db.collection("DoctorSchedules").whereEqualTo(currentday,true).whereEqualTo("Doc
 //                timestop=time[j+1];
 //            }
 //        }
-
 
 
     }
@@ -452,5 +555,19 @@ db.collection("DoctorSchedules").whereEqualTo(currentday,true).whereEqualTo("Doc
     {
         handler.postDelayed(runnable, 6000);
         super.onResume();
+    }
+
+    private class SchedHolder extends  RecyclerView.ViewHolder {
+
+        private TextView tv_patientnamelist, tv_positionlist;
+        private Button btnViewRecord;
+        public SchedHolder(@NonNull View itemView) {
+            super(itemView);
+            tv_patientnamelist = (TextView) itemView.findViewById(R.id.patname);
+            tv_positionlist = (TextView) itemView.findViewById(R.id.Sched_pos);
+            btnViewRecord = (Button) itemView.findViewById(R.id.view_patInfo);
+
+
+        }
     }
 }

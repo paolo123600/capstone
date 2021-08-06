@@ -19,44 +19,27 @@
 
         <LinearLayout
             android:id="@+id/docnameid"
-            android:layout_width="355dp"
-            android:layout_height="50dp"
+            android:layout_width="347dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="4dp"
+
             android:layout_weight="9"
             android:orientation="horizontal"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="9dp">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
 
             <TextView
-                android:id="@+id/sched_list"
+                android:id="@+id/patname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+
+                android:layout_marginTop="12dp"
                 android:text="Patient Name"
                 android:textAllCaps="true"
                 android:textSize="18sp"
                 android:textStyle="bold" />
-
-
-            <TextView
-                android:id="@+id/Sched_pos"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginLeft="10dp"
-                android:text="Position:"
-                android:textSize="17dp"
-                android:textStyle="bold" />
-
-
-            <Button
-                android:id="@+id/view_patInfo"
-                android:layout_width="139dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-
-                android:layout_marginLeft="10dp"
-                android:text="Patient Info" />
 
 
         </LinearLayout>
@@ -64,11 +47,32 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/docnameid"
-            tools:layout_editor_absoluteX="-41dp">
+            android:layout_marginTop="4dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/docnameid">
 
 
+            <TextView
+                android:id="@+id/Sched_pos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_13sdp"
+
+                android:layout_marginLeft="-4dp"
+                android:text="Position:"
+                android:textSize="17dp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/view_patInfo"
+                android:layout_width="139dp"
+                android:layout_height="wrap_content"
+
+
+                android:layout_marginLeft="220dp"
+                android:text="Patient Info" />
 
         </LinearLayout>
 

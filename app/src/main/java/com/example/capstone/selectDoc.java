@@ -27,6 +27,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.lang.ref.Reference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,7 +49,7 @@ public class selectDoc extends AppCompatActivity {
         // Start
         doctorlist= (RecyclerView) findViewById(R.id.DoctorRF);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference clinicsRef = db.collection("Clinics");
+        Query clinicsRef = db.collection("Clinics").whereEqualTo("Status","Registered");
         Spinner spinner = (Spinner) findViewById(R.id.spinnerclinic);
         List<String> Clinics = new ArrayList<>();
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, Clinics);

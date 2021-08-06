@@ -138,6 +138,7 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
 
                 // Setting Min Date to today date
                 Calendar min_date_c = Calendar.getInstance();
+                min_date_c.add(Calendar.DATE,2);
                 datePickerDialog.setMinDate(min_date_c);
 
                 // Setting Max Date to next 2 years
@@ -205,7 +206,7 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
             @Override
             protected void onBindViewHolder(@NonNull DocSchedViewHolder holder, int position, @NonNull DocSchedModel model) {
 
-                db.collection("Schedules").whereEqualTo("DoctorUId",gv.getSDDocUid()).whereEqualTo("StartTime",model.getStartTime()).whereEqualTo("EndTime", model.getEndTime()).whereEqualTo("Date", datestring ).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                db.collection("Schedules").whereEqualTo("DoctorUId",gv.getSDDocUid()).whereEqualTo("StartTime",model.getStartTime()).whereEqualTo("EndTime", model.getEndTime()).whereEqualTo("Date", datestring ).whereEqualTo("Status","Paid").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
@@ -231,6 +232,7 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
                                         PatSched.put ("Status", "Paid" );
                                         PatSched.put ("PatientUId", patuid );
                                         PatSched.put ("Dnt",currentTime);
+                                        PatSched.put("ClinicName",gv.getSDClinic());
 
                                         AlertDialog.Builder builder = new AlertDialog.Builder(selectDate.this);
                                         builder.setCancelable(true);

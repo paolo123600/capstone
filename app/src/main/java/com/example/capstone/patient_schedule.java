@@ -64,6 +64,7 @@ public class patient_schedule extends AppCompatActivity implements DatePickerDia
     private String end = "";
     private Dialog dialog;
     String doclastname;
+    int Position ;
 
     ImageView back;
 
@@ -97,6 +98,7 @@ public class patient_schedule extends AppCompatActivity implements DatePickerDia
         });
 
         SimpleDateFormat format = new SimpleDateFormat("MMM d,yyyy");
+        SimpleDateFormat format2 = new SimpleDateFormat("MMMM d ,yyyy");
         format.setLenient(false);
         try {
             nowdate = format.parse(datenow);
@@ -104,17 +106,17 @@ public class patient_schedule extends AppCompatActivity implements DatePickerDia
             Toast.makeText(patient_schedule.this, "error1", Toast.LENGTH_SHORT).show();
         }
 
-        db.collection("Schedule").whereEqualTo("PatientUId",Patuid).whereEqualTo("Status","Paid").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("Schedules").whereEqualTo("PatientUId",Patuid).whereEqualTo("Status","Paid").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                     if (task.isSuccessful()){
 
                         for (QueryDocumentSnapshot doc : task.getResult()) {
-                            String scheddate = doc.getString("SchedDate");
+                            String scheddate = doc.getString("Date");
                                 Date datesched = new Date();
 
                             try {
-                               datesched  = format.parse(scheddate);
+                               datesched  = format2.parse(scheddate);
                             } catch (ParseException e) {
                                 Toast.makeText(patient_schedule.this, "error1", Toast.LENGTH_SHORT).show();
                             }
@@ -140,11 +142,13 @@ public class patient_schedule extends AppCompatActivity implements DatePickerDia
                                     });
                                     clinicnametv.setText(doc.getString("ClinicName"));
                                     statustv.setText("Status: "+doc.getString("Status"));
-                                    timetv.setText("Time :"+doc.getString("TimeStart")+"-"+doc.getString("TimeStop"));
-                                    datetv.setText("Date :"+doc.getString("SchedDate"));
-                                    gv.setSDDate(doc.getString("SchedDate"));
+                                    timetv.setText("Time :"+doc.getString("StartTime")+"-"+doc.getString("EndTime"));
+                                    datetv.setText("Date :"+doc.getString("Date"));
+                                    gv.setSDDate(doc.getString("Date"));
                                     gv.setSDClinic(doc.getString("ClinicName"));
                                     gv.setSDDocUid(doc.getString("DoctorUId"));
+                                    gv.setSDtimestart(doc.getString("StartTime"));
+                                    gv.setSDtimestop(doc.getString("EndTime"));
 
                                 }
 
@@ -168,13 +172,43 @@ public class patient_schedule extends AppCompatActivity implements DatePickerDia
                         .setPositiveButton("Accept", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 Date currentTime = Calendar.getInstance().getTime();
-                                db.collection("Schedule").document(scheddocu).update(
+                                db.collection("Schedules").document(scheddocu).update(
                                         "Status", "Cancelled",
-                                        "DnT", currentTime
+                                        "Dnt", currentTime,
+                                        "Position",0
 
                                 ).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
+
+                                        db.collection("Schedules").whereEqualTo("DoctorUId",gv.getSDDocUid()).whereEqualTo("StartTime",gv.getSDtimestart()).whereEqualTo("EndTime",gv.getSDtimestop()).whereEqualTo("Status","Paid").whereEqualTo("Date",gv.getSDDate()).get()
+                                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                        if(task.isSuccessful()){
+
+                                                            for (QueryDocumentSnapshot doc : task.getResult()) {
+
+                                                                 int docpostion = doc.getLong("Position").intValue();
+                                                                if ( docpostion > Position-1){
+                                                                    String docuid = doc.getId();
+                                                                    db.collection("Schedules").document(docuid).update(
+                                                                            "Position",docpostion-1
+
+                                                                    ).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                        @Override
+                                                                        public void onSuccess(Void aVoid) {
+
+                                                                        }
+                                                                    });
+
+                                                                }
+
+
+                                                            }
+                                                        }
+                                                    }
+                                                });
                                         Toast.makeText(patient_schedule.this, "Successfully Cancelled", Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(patient_schedule.this, patient_schedule.class);
                                         startActivity(intent);
