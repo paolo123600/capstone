@@ -136,7 +136,7 @@ public class patient_record_doctor extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(@NonNull  patient_record_doctor.PatientViewHolder holder, int position, @NonNull PatientModel model) {
 
-                    holder.listFirstname.setText(model.getLastName()+", "+model.getFirstName());
+                holder.listFirstname.setText(model.getLastName()+", "+model.getFirstName());
                 holder.listemail.setText(model.getEmail());
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override

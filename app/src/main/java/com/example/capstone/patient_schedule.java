@@ -97,7 +97,7 @@ public class patient_schedule extends AppCompatActivity implements DatePickerDia
             }
         });
 
-        SimpleDateFormat format = new SimpleDateFormat("MMM d,yyyy");
+        SimpleDateFormat format = new SimpleDateFormat("MMMM dd,yyyy");
         SimpleDateFormat format2 = new SimpleDateFormat("MMMM d ,yyyy");
         format.setLenient(false);
         try {

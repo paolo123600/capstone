@@ -2,6 +2,8 @@ package com.example.capstone;
 
 import android.app.Application;
 
+import java.util.Date;
+
 public class GlobalVariables extends Application {
 
     private String Contact;
@@ -373,6 +375,50 @@ public class GlobalVariables extends Application {
 
     }
 
+    String startTime;
+    String endTime;
+    int post;
+    String dateconsult;
+    Date dateandtime;
 
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
+    public int getPost() {
+        return post;
+    }
+
+    public void setPost(int position) {
+        this.post= position;
+    }
+
+    public String getDateconsult() {
+        return dateconsult;
+    }
+
+    public void setDateconsult(String dateconsult) {
+        this.dateconsult = dateconsult;
+    }
+
+    public Date getDateandtime() {
+        return dateandtime;
+    }
+
+    public void setDateandtime(Date dateandtime) {
+        this.dateandtime = dateandtime;
+    }
 
 }

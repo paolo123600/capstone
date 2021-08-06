@@ -56,6 +56,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.MetadataChanges;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -100,11 +101,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private String lstart = "";
     private  String lend = "";
     private String end = "";
+    TextView docname, patienttime, position;
+    LinearLayout logo, schedstats;
+    private String document_id_reference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        docname = findViewById(R.id.doctor_name);
+        patienttime = findViewById(R.id.est_time);
+        position = findViewById(R.id.position_queue);
+
+        logo = findViewById(R.id.imagelogo);
+        schedstats = findViewById(R.id.linearLayout1);
+        schedstats.setVisibility(LinearLayout.GONE);
+
 
         db = FirebaseFirestore.getInstance();
 
@@ -128,6 +141,54 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         updateNavHeader();
 
 
+        db.collection("Schedules").whereEqualTo("PatientUId", patuid).whereEqualTo("Status","Paid")
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    QuerySnapshot querySnapshot = task.getResult();
+                    if(!querySnapshot.isEmpty()){
+                        logo.setVisibility(LinearLayout.GONE);
+                        schedstats.setVisibility(LinearLayout.VISIBLE);
+
+                        for (QueryDocumentSnapshot patient : task.getResult()){
+                            document_id_reference = patient.getId();
+                                    db.collection("Doctors").document(patient.getString("DoctorUId"))
+                                            .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                            if(task.isSuccessful()){
+                                                DocumentSnapshot document = task.getResult();
+                                                docname.setText(document.getString("LastName"));
+                                            }
+                                        }
+                                    });
+                                    patienttime.setText(patient.getString("StartTime") + " - " +patient.getString("EndTime"));
+                                    position.setText(patient.get("Position") + "");
+
+                            DocumentReference docRef = db.collection("Schedules").document(document_id_reference);
+                            docRef.addSnapshotListener(MetadataChanges.INCLUDE, new EventListener<DocumentSnapshot>() {
+                                @Override
+                                public void onEvent(@Nullable DocumentSnapshot snapshot,
+                                                    @Nullable FirebaseFirestoreException e) {
+                                    if(!snapshot.getString("Status").equals("Paid")){
+                                        schedstats.setVisibility(LinearLayout.GONE);
+                                        logo.setVisibility(LinearLayout.VISIBLE);
+                                    }
+                                    else{
+                                        position.setText(snapshot.get("Position") + "");
+                                    }
+                                }
+                            });
+
+                        }
+                    }
+                    else{
+
+                    }
+                }
+            }
+        });
 
         chat.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,9 +196,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         Intent intent = new Intent(MainActivity.this, RecentChats.class);
         startActivity(intent);
-
-
-
 
             }
         });
@@ -153,9 +211,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         if(task.isSuccessful()){
                             QuerySnapshot querySnapshot = task.getResult();
                             if (querySnapshot.isEmpty()) {
-                                Intent intent = new Intent(MainActivity.this, selectDoc.class);
+                                Intent intent = new Intent(MainActivity.this, PaymentMethod.class);
                                 startActivity(intent);
-
                             }
                             else{
                                 Date nowdate= new Date();
@@ -375,8 +432,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         int lpos = new ArrayList<String>(Arrays.asList(time)).indexOf(lstart);
                         int lposend = new ArrayList<String>(Arrays.asList(time)).indexOf(lend);
                         ArrayList<String> Existing = new ArrayList<String>();
-
-
 
 
                         db.collection("Schedule").whereEqualTo("SchedDate",gv.getSDDate()).whereEqualTo("DoctorUId",gv.getSDDocUid()).get()
@@ -674,9 +729,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
     }
-
-
-
 
     private void sendFCMTokenToDatabase (String token) {
         FirebaseFirestore database = FirebaseFirestore.getInstance();

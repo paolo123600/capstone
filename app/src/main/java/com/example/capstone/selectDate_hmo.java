@@ -12,6 +12,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.opengl.Visibility;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -48,7 +49,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class selectDate extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class selectDate_hmo extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     TextView tvDate;
     EditText etDate;
     private RecyclerView docschedlist;
@@ -63,14 +64,15 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
     ArrayList<Integer> validdaysofweek = new ArrayList<Integer>();
     String patuid;
     String docid ="";
+    int PatPost;
     private PreferenceManager preferenceManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_selectdate);
+        setContentView(R.layout.activity_selectdate_hmo);
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        docschedlist = (RecyclerView) findViewById(R.id.recycleviewdocsched);
+        docschedlist = (RecyclerView) findViewById(R.id.recycleviewdocsched_hmo);
         etDate = findViewById(R.id.et_date);
         gv = (GlobalVariables) getApplicationContext();
 
@@ -130,7 +132,7 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
 
         etDate.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                datePickerDialog = DatePickerDialog.newInstance(selectDate.this, Year, Month, Day);
+                datePickerDialog = DatePickerDialog.newInstance(selectDate_hmo.this, Year, Month, Day);
                 datePickerDialog.setThemeDark(false);
                 datePickerDialog.showYearPickerFirst(false);
                 datePickerDialog.setTitle("Date Picker");
@@ -163,7 +165,7 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
                     @Override
                     public void onCancel(DialogInterface dialogInterface) {
 
-                        Toast.makeText(selectDate.this, "Datepicker Canceled", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(selectDate_hmo.this, "Datepicker Canceled", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -199,14 +201,14 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
             @NonNull
             @Override
             public DocSchedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.selectdate_recyclerview,parent,false);
-                return new selectDate.DocSchedViewHolder(view);
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.selectdate_recyclerview_hmo,parent,false);
+                return new selectDate_hmo.DocSchedViewHolder(view);
             }
 
             @Override
             protected void onBindViewHolder(@NonNull DocSchedViewHolder holder, int position, @NonNull DocSchedModel model) {
 
-                db.collection("Schedules").whereEqualTo("DoctorUId",gv.getSDDocUid()).whereEqualTo("StartTime",model.getStartTime()).whereEqualTo("EndTime", model.getEndTime()).whereEqualTo("Date", datestring ).whereEqualTo("Status","Paid").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                db.collection("Schedules").whereEqualTo("DoctorUId",gv.getSDDocUid()).whereEqualTo("StartTime",model.getStartTime()).whereEqualTo("EndTime", model.getEndTime()).whereEqualTo("Date", datestring ).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
@@ -222,19 +224,17 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
                                     @Override
                                     public void onClick(View view) {
 
-                                        Date currentTime = Calendar.getInstance().getTime();
-                                        Map<String, Object> PatSched = new HashMap<>();
-                                        PatSched.put("DoctorUId", docid);
-                                        PatSched.put("StartTime", model.getStartTime());
-                                        PatSched.put("EndTime", model.getEndTime());
-                                        PatSched.put("Position", count+1);
-                                        PatSched.put ("Date", datestring );
-                                        PatSched.put ("Status", "Paid" );
-                                        PatSched.put ("PatientUId", patuid );
-                                        PatSched.put ("Dnt",currentTime);
-                                        PatSched.put("ClinicName",gv.getSDClinic());
+                                        Intent intent = new Intent(selectDate_hmo.this, upload_hmo.class);
 
-                                        AlertDialog.Builder builder = new AlertDialog.Builder(selectDate.this);
+                                        Date currentTime = Calendar.getInstance().getTime();
+
+                                        gv.setStartTime(model.getStartTime());
+                                        gv.setEndTime(model.getEndTime());
+                                        gv.setPost(count);
+                                        gv.setDateconsult(datestring);
+                                        gv.setDateandtime(currentTime);
+
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(selectDate_hmo.this);
                                         builder.setCancelable(true);
                                         builder.setTitle("Booking");
                                         builder.setMessage("Do you want to book this schedule?");
@@ -242,22 +242,8 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
                                                 new DialogInterface.OnClickListener() {
                                                     @Override
                                                     public void onClick(DialogInterface dialog, int which) {
-
-                                                        db.collection("Schedules").document().set(PatSched)
-                                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                                    @Override
-                                                                    public void onSuccess(Void aVoid) {
-                                                                        Log.d("TAG", "DocumentSnapshot successfully written!");
-                                                                        Intent intent = new Intent(selectDate.this , MainActivity.class);
-                                                                        startActivity(intent);
-                                                                    }
-                                                                })
-                                                                .addOnFailureListener(new OnFailureListener() {
-                                                                    @Override
-                                                                    public void onFailure(@NonNull Exception e) {
-                                                                        Log.w("TAG", "Error writing document", e);
-                                                                    }
-                                                                });
+                                                        Intent intent = new Intent(selectDate_hmo.this, upload_hmo.class);
+                                                        startActivity(intent);
                                                     }
                                                 });
                                         builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
@@ -281,19 +267,17 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
                 });
                 holder.list_time.setText("Time:"+model.getStartTime()+" - "+model.getEndTime());
                 holder.list_maxbook.setText("Max Booking:"+model.getMaximumBooking());
-                holder.list_price.setText("Price:"+model.getPrice());
 
 
             }
         };
 
         docschedlist.setHasFixedSize(true);
-        docschedlist.setLayoutManager(new LinearLayoutManager(selectDate.this));
+        docschedlist.setLayoutManager(new LinearLayoutManager(selectDate_hmo.this));
         docschedlist.setAdapter(adapter);
         adapter.startListening();
 
     }
-
 
     private class DocSchedViewHolder extends RecyclerView.ViewHolder {
         private TextView list_time;
@@ -303,11 +287,10 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
         private Button list_bookbtn;
         public DocSchedViewHolder(@NonNull View itemView) {
             super(itemView);
-            list_bookbtn = itemView.findViewById(R.id.rec_booknow);
-            list_time = itemView.findViewById(R.id.rec_time);
-            list_price = itemView.findViewById(R.id.rec_price);
-            list_maxbook = itemView.findViewById(R.id.rec_maxbooking);
-            list_numberbook = itemView.findViewById(R.id.rec_numbooking);
+            list_bookbtn = itemView.findViewById(R.id.rec_booknow_hmo);
+            list_time = itemView.findViewById(R.id.rec_time_hmo);
+            list_maxbook = itemView.findViewById(R.id.rec_maxbooking_hmo);
+            list_numberbook = itemView.findViewById(R.id.rec_numbooking_hmo);
         }
     }
 }

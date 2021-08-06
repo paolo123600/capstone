@@ -41,6 +41,7 @@
     <string name="status">status</string>
     <string name="patient_name">Patients name</string>
     <string name="Clinicdialog">Clinic:</string>
+    <string name="Hmodialog">Health Insurance:</string>
     <string name="Doctordialog">Doctor:</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
@@ -49,6 +50,7 @@
     <string name="password_hint">• • • • • •</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Open navigation drawer</string>
+    <string name="cardNum">Enter card number</string>
 
 
     <string name="Doc_name">Doctor</string>
