@@ -43,6 +43,8 @@ public class  secretary_homepage extends AppCompatActivity implements Navigation
     private LinearLayout chatbtn;
     LinearLayout managesched;
 
+    LinearLayout appointment_btn;
+
     private PreferenceManager preferenceManager;
     FirebaseFirestore db;
 
@@ -64,6 +66,8 @@ public class  secretary_homepage extends AppCompatActivity implements Navigation
         notifbtn = (Button) findViewById(R.id.notif);
         chatbtn = findViewById(R.id.secretary_chat_btn);
         managesched = findViewById(R.id.manage_schedule_button);
+
+        appointment_btn = findViewById(R.id.appointment_button);
 
         db = FirebaseFirestore.getInstance();
 
@@ -91,6 +95,14 @@ public class  secretary_homepage extends AppCompatActivity implements Navigation
         toggle.syncState();
 
         updateNavHeader();
+
+        appointment_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
         managesched.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
