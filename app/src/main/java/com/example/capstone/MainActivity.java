@@ -204,7 +204,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onClick(View v) {
                 Calendar calendar = Calendar.getInstance();
                 datenow = DateFormat.getDateInstance().format(calendar.getTime());
-                db.collection("Schedules").whereEqualTo("PatientUId",patuid).whereEqualTo("Status","Paid")
+                db.collection("Schedules").whereEqualTo("PatientUId",patuid).whereIn("Status", Arrays.asList("Paid","Pending Approval"))
                         .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -234,7 +234,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                     }
                                     if(nowdate.before(datesched)||nowdate.equals(datesched)){
 
-                                        Toast.makeText(MainActivity.this, "You already have an appointment.", Toast.LENGTH_SHORT).show();
+                                        if(doc.getString("Status").equals("Paid")){
+                                            Toast.makeText(MainActivity.this, "You already have an appointment.", Toast.LENGTH_SHORT).show();
+                                        }
+                                        else if(doc.getString("Status").equals("Pending Approval")){
+                                            Toast.makeText(MainActivity.this, "Your appointment is currently under review.", Toast.LENGTH_SHORT).show();
+                                        }
                                         schedalready=true;
 
                                     }
@@ -245,8 +250,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                                         }
                                     });
-
-
                                     }
 
                         }  if (schedalready==false){
