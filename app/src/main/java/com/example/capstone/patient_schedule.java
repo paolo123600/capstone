@@ -123,7 +123,7 @@ public class patient_schedule extends AppCompatActivity implements DatePickerDia
                                 if(nowdate.before(datesched)||nowdate.equals(datesched)){
                                     cancelbtn.setVisibility(View.VISIBLE);
                                     reschedbtn.setVisibility(View.VISIBLE);
-                                    scheddocu=doc.getId();
+                                    scheddocu =doc.getId();
                                     docid=doc.getString("DoctorUId");
                                     db.collection("Doctors").document(docid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                         @Override
@@ -235,8 +235,9 @@ public class patient_schedule extends AppCompatActivity implements DatePickerDia
         reschedbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogFragment datepicker = new DatePickerFragment();
-                datepicker.show(getSupportFragmentManager(),"date picker");
+                Intent intent = new Intent(getApplicationContext(), reschedule_date.class);
+                intent.putExtra("schedid", scheddocu);
+                startActivity(intent);
             }
         });
 
