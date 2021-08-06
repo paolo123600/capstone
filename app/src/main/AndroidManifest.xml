@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.android.vending.BILLING" />
 
     <application
         android:name=".GlobalVariables"
@@ -20,7 +21,9 @@
         android:theme="@style/Theme.Capstone"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".pat_payment"></activity>
+        <activity android:name=".pat_blood_pressure"></activity>
+        <activity android:name=".add_patient_HMO" />
+        <activity android:name=".pat_payment" />
         <activity android:name=".View_doctor_info" />
         <activity android:name=".select_Appoint" />
         <activity android:name=".selectDate" />

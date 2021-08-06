@@ -75,6 +75,8 @@ public class Login extends AppCompatActivity {
 
         login = findViewById(R.id.logbtn);
         signup = findViewById(R.id.btntvSignup);
+        user = findViewById(R.id.Username);
+        pass = findViewById(R.id.Password);
         signInProgressBar = findViewById(R.id.signInProgressBar);
         progressbg = findViewById(R.id.progress_bg);
         bg_remove = findViewById(R.id.bgremove);

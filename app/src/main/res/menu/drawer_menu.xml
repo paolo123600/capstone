@@ -15,6 +15,10 @@
             android:icon="@drawable/ic_medicalrecord"
             android:title="Medical Records" />
         <item
+            android:id="@+id/blood_p"
+            android:icon="@drawable/ic_baseline_water_drop_24"
+            android:title="Blood Pressure" />
+        <item
             android:id="@+id/nav_about"
             android:icon="@drawable/ic_about"
             android:title="About" />

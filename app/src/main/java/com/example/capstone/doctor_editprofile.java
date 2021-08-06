@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,12 +25,12 @@ import java.util.Map;
 public class doctor_editprofile extends AppCompatActivity {
 
 
-    EditText fullnameProfile;
-    EditText genderProfile;
-    EditText bdayProfile;
+    TextView fullnameProfile;
+    TextView genderProfile;
+    TextView bdayProfile;
     EditText municiplatyProfile;
     EditText numberProfile;
-    EditText emailProfile;
+    TextView emailProfile;
     EditText addressProfile;
     EditText postalPorfile;
 

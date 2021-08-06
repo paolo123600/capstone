@@ -279,8 +279,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.nav_about:
-                Intent intent1 = new Intent(MainActivity.this, VideoCall_Main.class);
+                Intent intent1 = new Intent(MainActivity.this, add_patient_HMO.class);
                 startActivity(intent1);
+                break;
+            case R.id.blood_p:
+                Intent intent3 = new Intent(MainActivity.this, pat_blood_pressure.class);
+                startActivity(intent3);
                 break;
             case R.id.nav_profile:
                 Intent intent = new Intent(MainActivity.this, ProfileFragment.class);
