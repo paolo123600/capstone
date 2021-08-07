@@ -18,39 +18,28 @@ public class SendEmail extends Application {
 
     public void EmailSend(String vcode, String receiver){
 /////
-        final String username="medicall.capstone@gmail.com";
-        final String password="!capstone04";
-        String messageToSend = "Thank you for registering in our medical application!" +
-                "" +
-                "This is the Verification Code:" + vcode +
-                "" +
-                "Please enter this code to verify your account.";
+        GlobalVariables gv =(GlobalVariables) getApplicationContext ();
 
 
-        Properties props = new Properties();
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable","true");
-        props.put("mail.smtp.host","smtp.gmail.com");
-        props.put("mail.smtp.port","587");
-        Session ses = Session.getInstance(props,
-                new javax.mail.Authenticator(){
-                    @Override
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(username,password);
-                    }
-                });
-        try{
-            MimeMessage mess = new MimeMessage(ses);
-            mess.setFrom(new InternetAddress(username));
-            mess.setRecipient(Message.RecipientType.TO, new InternetAddress(receiver));
-            mess.setSubject("Verification");
-            mess.setText(messageToSend);
-            Transport.send(mess);
 
-        }
-        catch (MessagingException e){
-            throw new RuntimeException(e);
-        }
+        String Pass =  gv.getPassword();
+        String Fname =gv.getFname();
+        String Lname =gv.getLname();
+        String Mname =gv.getMname();
+        String Contact = gv.getContact();
+        String Sex =gv.getSex();
+        String Address =gv.getAddress();
+        String Postal =gv.getPostal();
+        String Municipality =gv.getMunicipality();
+        String EEContactP =gv.getEContactP();
+        String EContactN =gv.getEContactN();
+        String Height =gv.getHeight();
+        String Weight =gv.getWeight();
+        String BloodP =gv.getBloodP();
+        String BloodType =gv.getBloodType();
+        String Allergies =gv.getAllergies();
+        String Illness =gv.getIllness();
+        String Bday = gv.getBday();
     }
 
 }
