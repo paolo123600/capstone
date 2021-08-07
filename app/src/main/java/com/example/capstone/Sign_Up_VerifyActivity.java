@@ -79,6 +79,7 @@ public class Sign_Up_VerifyActivity extends AppCompatActivity {
                                 if (task.isSuccessful()){
 
 
+
                                         //getting the data and checking if it is equal
                                     for(QueryDocumentSnapshot document : task.getResult()) {
 
