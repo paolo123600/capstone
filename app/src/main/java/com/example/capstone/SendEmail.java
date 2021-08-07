@@ -40,6 +40,7 @@ public class SendEmail extends Application {
         String Allergies =gv.getAllergies();
         String Illness =gv.getIllness();
         String Bday = gv.getBday();
+
     }
 
 }
