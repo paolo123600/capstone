@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.capstone.utilities.PreferenceManager;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -25,6 +26,7 @@ public class docshed_page1 extends AppCompatActivity {
     private RecyclerView mFirestoreList;
     private FirebaseFirestore db;
     FirestoreRecyclerAdapter adapter;
+    PreferenceManager preferenceManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,8 +34,8 @@ public class docshed_page1 extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
         mFirestoreList = findViewById(R.id.docsched_list);
-
-        Query query = db.collection("Doctors");
+        preferenceManager = new PreferenceManager(getApplicationContext());
+        Query query = db.collection("Doctors").whereEqualTo("ClinicName",preferenceManager.getString("ClinicName"));
 
         FirestoreRecyclerOptions<DoctorModel> options = new FirestoreRecyclerOptions.Builder<DoctorModel>()
                 .setQuery(query,DoctorModel.class)

@@ -19,7 +19,7 @@
 
         <LinearLayout
             android:id="@+id/docnameid"
-            android:layout_width="347dp"
+            android:layout_width="match_parent"
             android:layout_height="36dp"
             android:layout_marginTop="4dp"
 
@@ -31,7 +31,7 @@
 
 
             <TextView
-                android:id="@+id/patname"
+                android:id="@+id/notif_pat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
@@ -54,33 +54,14 @@
 
 
             <TextView
-                android:id="@+id/notif_doc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_13sdp"
-                android:layout_marginLeft="-4dp"
-                android:text="Doctor:"
-                android:textSize="17dp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/notif_satus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_13sdp"
-                android:layout_marginLeft="-4dp"
-                android:text="Status:"
-                android:textSize="17dp"
-                android:textStyle="bold" />
-            <TextView
-                android:id="@+id/Sched_pos"
+                android:id="@+id/notif_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_13sdp"
                 android:layout_marginLeft="-4dp"
                 android:text="Date:"
                 android:textSize="17dp"
-                android:textStyle="bold" />
+                 />
 
 
 

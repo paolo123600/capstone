@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".notification"
     android:background="@color/mainbg">
 
@@ -21,4 +22,16 @@
         android:textSize="20dp"
         tools:layout_editor_absoluteX="35dp"
         tools:layout_editor_absoluteY="40dp" />
+
+    <Spinner
+        android:id="@+id/statspinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleview_notif"
+        android:layout_width="match_parent"
+        android:layout_height="490dp" />
+
 </LinearLayout>

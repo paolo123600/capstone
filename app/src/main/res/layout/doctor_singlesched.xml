@@ -31,7 +31,7 @@
 
 
             <TextView
-                android:id="@+id/patname"
+                android:id="@+id/notif_pat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
@@ -55,7 +55,7 @@
 
 
             <TextView
-                android:id="@+id/Sched_pos"
+                android:id="@+id/notif_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_13sdp"

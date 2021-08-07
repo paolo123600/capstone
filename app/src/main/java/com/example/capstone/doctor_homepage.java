@@ -3,7 +3,6 @@ package com.example.capstone;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -46,9 +45,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
-import org.w3c.dom.Text;
-
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -563,8 +559,8 @@ db.collection("DoctorSchedules").whereEqualTo(currentday,true).whereEqualTo("Doc
         private Button btnViewRecord;
         public SchedHolder(@NonNull View itemView) {
             super(itemView);
-            tv_patientnamelist = (TextView) itemView.findViewById(R.id.patname);
-            tv_positionlist = (TextView) itemView.findViewById(R.id.Sched_pos);
+            tv_patientnamelist = (TextView) itemView.findViewById(R.id.notif_pat);
+            tv_positionlist = (TextView) itemView.findViewById(R.id.notif_date);
             btnViewRecord = (Button) itemView.findViewById(R.id.view_patInfo);
 
 

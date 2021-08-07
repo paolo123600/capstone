@@ -1,7 +1,9 @@
 package com.example.capstone;
 
+import java.util.Date;
+
 public class DocTodaySchedModel {
-    public DocTodaySchedModel(String doctorUId, String patientUId, String startTime, String endTime, int position, String date, String status) {
+    public DocTodaySchedModel(String doctorUId, String patientUId, String startTime, String endTime, int position, String date, String status, String clinicname, Date dnt) {
         DoctorUId = doctorUId;
         PatientUId = patientUId;
         StartTime = startTime;
@@ -9,6 +11,8 @@ public class DocTodaySchedModel {
         Position = position;
         Date = date;
         Status = status;
+        Clinicname = clinicname;
+        Dnt = dnt;
     }
 
     public String getDoctorUId() {
@@ -70,6 +74,33 @@ public class DocTodaySchedModel {
     public DocTodaySchedModel() {
     }
 
-    String DoctorUId, PatientUId, StartTime, EndTime,  Date, Status;
+    String DoctorUId;
+    String PatientUId;
+    String StartTime;
+    String EndTime;
+    String Date;
+    String Status;
+    String Clinicname;
+    Date Dnt;
     int Position;
+
+    public java.util.Date getDnt() {
+        return Dnt;
+    }
+
+    public void setDnt(java.sql.Date dnt) {
+        Dnt = dnt;
+    }
+
+
+
+    public String getClinicname() {
+        return Clinicname;
+    }
+
+    public void setClinicname(String clinicname) {
+        Clinicname = clinicname;
+    }
+
+
 }
