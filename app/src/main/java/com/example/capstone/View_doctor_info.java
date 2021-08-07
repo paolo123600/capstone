@@ -3,6 +3,7 @@ package com.example.capstone;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -27,6 +28,10 @@ public class View_doctor_info extends AppCompatActivity {
     String docid;
     FirebaseFirestore db;
 
+    String name;
+    String bold;
+    String boldname;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +50,7 @@ public class View_doctor_info extends AppCompatActivity {
         gv = (GlobalVariables) getApplicationContext();
         db = FirebaseFirestore.getInstance();
         docid = gv.getSDDocUid();
+
 
 
         DocumentReference documentReference = db.collection("Doctors").document(docid);

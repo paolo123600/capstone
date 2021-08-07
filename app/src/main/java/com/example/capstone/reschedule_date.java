@@ -234,7 +234,7 @@ public class reschedule_date extends AppCompatActivity implements DatePickerDial
 
                                         Date currentTime = Calendar.getInstance().getTime();
                                         db.collection("Schedules").document(schedid).update(
-                                                "Status", "Cancelled",
+                                                "Status", "Rescheduled",
                                                 "Dnt", currentTime,
                                                 "Position",0
 

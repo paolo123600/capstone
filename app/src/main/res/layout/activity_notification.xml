@@ -8,16 +8,17 @@
     tools:context=".notification"
     android:background="@color/mainbg">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/_10sdp">
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="39dp"
-        android:layout_marginLeft="39dp"
-        android:layout_marginTop="36dp"
+
         android:text="@string/Notification"
         android:textSize="20dp"
         tools:layout_editor_absoluteX="35dp"
@@ -29,9 +30,14 @@
         android:layout_height="wrap_content"
         android:layout_weight="1" />
 
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycleview_notif"
         android:layout_width="match_parent"
-        android:layout_height="490dp" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/_10sdp"/>
+
+
 
 </LinearLayout>

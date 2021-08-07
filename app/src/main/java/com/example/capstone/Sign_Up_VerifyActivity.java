@@ -38,6 +38,7 @@ import java.util.Map;
 public class Sign_Up_VerifyActivity extends AppCompatActivity {
     EditText ET_VCode;
     Button btn_Continue;
+    Button emailreg;
     FirebaseFirestore db;
     String VEmail= "";
     String Vcode="";
@@ -55,6 +56,9 @@ public class Sign_Up_VerifyActivity extends AppCompatActivity {
 
         preferenceManager = new PreferenceManager(getApplicationContext());
 
+        mAuth = FirebaseAuth.getInstance();
+        emailreg = findViewById(R.id.btn_emailsup);
+
         btn_Continue= (Button) findViewById(R.id.btn_verify);
         ET_VCode=(EditText) findViewById(R.id.verify);
         db= FirebaseFirestore.getInstance();
@@ -62,88 +66,15 @@ public class Sign_Up_VerifyActivity extends AppCompatActivity {
             static final String TAG = "Read Data Activity";
             @Override
             public void onClick(View view) {
-                String EVCode= ET_VCode.getText().toString();
-                //Getting values
 
+            }
+        });
+
+        emailreg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 email = gv.getEmail();
-                mAuth = FirebaseAuth.getInstance();
-
-
-
-                db.collection("Verification")
-                        .whereEqualTo("Email",email)
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()){
-
-
-
-                                        //getting the data and checking if it is equal
-                                    for(QueryDocumentSnapshot document : task.getResult()) {
-
-                                        Log.d(TAG, document.getId() + "=>" + document.getData());
-                                         VEmail = document.get("Email").toString();
-                                         Vcode = document.get("VCode").toString();
-
-
-                                    }
-                                        //deleting the email in verification
-                                        if(email.equals(VEmail)&&EVCode.equals(Vcode)){
-
-                                            db.collection("Verification")
-                                                    .whereEqualTo("Email",email)
-                                                    .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                                    if (task.isSuccessful() && !task.getResult().isEmpty()){
-
-                                                        DocumentSnapshot documentSnapshot = task.getResult().getDocuments().get(0);
-                                                        String documentID = documentSnapshot.getId();
-                                                        db.collection("Verification")
-                                                                .document(documentID)
-                                                                .delete()
-                                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                                    @Override
-                                                                    public void onSuccess(Void aVoid) {
-
-                                                                    }
-
-                                                                }).addOnFailureListener(new OnFailureListener() {
-                                                            @Override
-                                                            public void onFailure(@NonNull Exception e) {
-                                                                Toast.makeText(Sign_Up_VerifyActivity.this, "Deleting failed", Toast.LENGTH_SHORT).show();
-                                                            }
-                                                        });
-
-
-
-                                                    }
-                                                }
-                                            });
-                                                //adding the Patient Record
-                                                registerUSer();
-
-
-
-                                        }
-
-                                        else{
-                                            Toast.makeText(Sign_Up_VerifyActivity.this,"Incorrect Verification Code",Toast.LENGTH_SHORT).show();
-
-                                        }
-
-
-
-                                }
-                                else {
-
-                                    Toast.makeText(Sign_Up_VerifyActivity.this,"Fail",Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
-
+                registerUSer();
             }
         });
 }
@@ -207,13 +138,15 @@ public class Sign_Up_VerifyActivity extends AppCompatActivity {
                                         @Override
                                         public void onSuccess(Void aVoid) {
 
-
                                             new AlertDialog.Builder(Sign_Up_VerifyActivity.this)
                                                     .setTitle("Account Successfully Created")
                                                     .setMessage("You have successfully created an account!! You can now login in the login page.")
                                                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                                         @Override
                                                         public void onClick(DialogInterface dialogInterface, int i) {
+                                                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                                            user.sendEmailVerification();
+
                                                             Intent intent = new Intent(Sign_Up_VerifyActivity.this,Login.class);
                                                             startActivity(intent);
                                                         }

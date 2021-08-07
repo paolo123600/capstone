@@ -100,45 +100,11 @@ public class Medical_RecordActivity extends AppCompatActivity implements Adapter
                     Toast.makeText(Medical_RecordActivity.this, "Enter Allergies",Toast.LENGTH_SHORT).show();
                 }else{
 
+                    Intent intent = new Intent(Medical_RecordActivity.this,Sign_Up_VerifyActivity.class);
+                    startActivity(intent);
 
 
-                String email = gv.getEmail();;
-
-                SecureRandom random = new SecureRandom();
-                String randomCode = new BigInteger(30, random).toString(32).toUpperCase();
-
-                SendEmail SE = new SendEmail();
-                SE.EmailSend(randomCode, email);
-
-                Map<String,Object> Verification = new HashMap<>();
-                Verification.put("Email",email);
-                Verification.put("VCode",randomCode);
-                db.collection("Verification")
-                        .add(Verification)
-                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                            @Override
-                            public void onSuccess(DocumentReference documentReference) {
-
-                                try{
-
-                                }
-                                catch (Exception e){
-                                  Toast.makeText(getApplicationContext(), "Verification Code Error!", Toast.LENGTH_LONG).show();
-                               }
-
-
-                                Intent intent = new Intent(Medical_RecordActivity.this,Sign_Up_VerifyActivity.class);
-                                startActivity(intent);
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(Medical_RecordActivity.this,"Failed",Toast.LENGTH_SHORT).show();
-                    }
-                });
                 }
-
-                ;
             }
         });
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();

@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -19,14 +20,14 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 public class medical_records extends AppCompatActivity {
 
-    EditText contactperson;
-    EditText contactnum;
-    EditText medicheight;
-    EditText medicBP;
-    EditText medicBT;
-    EditText medicweight;
-    EditText medicallergies;
-    EditText medicillness;
+    TextView contactperson;
+    TextView contactnum;
+    TextView medicheight;
+    TextView medicBP;
+    TextView medicBT;
+    TextView medicweight;
+    TextView medicallergies;
+    TextView medicillness;
 
     ImageView back;
 

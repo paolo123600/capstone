@@ -97,4 +97,8 @@
     <!-- You will need to deploy your own token server for production release -->
     <!-- Leave this value empty if Security keys/Token is not enabled for your project -->
     <string name="agora_access_token"></string>
+
+
+    <!-- BOLD-->
+    <string name="bold"><b><i>FirstName</i></b></string>
 </resources>

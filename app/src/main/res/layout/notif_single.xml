@@ -9,36 +9,29 @@
     android:clickable="true"
     android:background="@color/mainbg">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:orientation="horizontal"
-        android:layout_margin="8dp"
-        android:background="@drawable/shapes"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/docnameid"
             android:layout_width="match_parent"
-            android:layout_height="36dp"
-            android:layout_marginTop="4dp"
-
-            android:layout_weight="9"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginLeft="@dimen/_10sdp">
 
 
             <TextView
                 android:id="@+id/notif_pat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
                 android:text="Patient Name"
                 android:textAllCaps="true"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
 
 
         </LinearLayout>
@@ -67,6 +60,8 @@
 
         </LinearLayout>
 
+</LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </androidx.cardview.widget.CardView>

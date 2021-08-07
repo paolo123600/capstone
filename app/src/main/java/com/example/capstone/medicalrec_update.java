@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,7 +30,7 @@ public class medicalrec_update extends AppCompatActivity {
     EditText contactnum;
     EditText medicheight;
     EditText medicBP;
-    EditText medicBT;
+    TextView medicBT;
     EditText medicweight;
     EditText medicallergies;
     EditText medicillness;

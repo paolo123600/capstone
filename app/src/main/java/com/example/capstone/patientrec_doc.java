@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -18,17 +19,17 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 public class patientrec_doc extends AppCompatActivity {
 
-    EditText name_patrec;
-    EditText bday_patrec;
-    EditText gender_patrec;
-    EditText number_patrec;
-    EditText height_patrec;
-    EditText bt_patrec;
-    EditText weight_patrec;
-    EditText emcontact_patrec;
-    EditText preillness_patrec;
-    EditText allergies_patrec;
-    EditText bloodp_patrec;
+    TextView name_patrec;
+    TextView bday_patrec;
+    TextView gender_patrec;
+    TextView number_patrec;
+    TextView height_patrec;
+    TextView bt_patrec;
+    TextView weight_patrec;
+    TextView emcontact_patrec;
+    TextView preillness_patrec;
+    TextView allergies_patrec;
+    TextView bloodp_patrec;
 
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
