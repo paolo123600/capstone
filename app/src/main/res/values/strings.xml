@@ -98,6 +98,16 @@
     <!-- Leave this value empty if Security keys/Token is not enabled for your project -->
     <string name="agora_access_token"></string>
 
+        <string-array name="Status">
+            <item>All</item>
+            <item>Booked</item>
+            <item>Pending</item>
+            <item>Rescheduled</item>
+            <item>Cancelled</item>
+
+        </string-array>
+
+
 
     <!-- BOLD-->
     <string name="bold"><b><i>FirstName</i></b></string>
