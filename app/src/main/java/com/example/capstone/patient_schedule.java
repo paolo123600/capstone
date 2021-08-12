@@ -106,7 +106,7 @@ public class patient_schedule extends AppCompatActivity implements DatePickerDia
             Toast.makeText(patient_schedule.this, "error1", Toast.LENGTH_SHORT).show();
         }
 
-        db.collection("Schedules").whereEqualTo("PatientUId",Patuid).whereEqualTo("Status","Paid").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("Schedules").whereEqualTo("PatientUId",Patuid).whereIn("Status",Arrays.asList("Paid","Pending Approval")).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                     if (task.isSuccessful()){
@@ -121,8 +121,9 @@ public class patient_schedule extends AppCompatActivity implements DatePickerDia
                                 Toast.makeText(patient_schedule.this, "error1", Toast.LENGTH_SHORT).show();
                             }
                                 if(nowdate.before(datesched)||nowdate.equals(datesched)){
+                                    if(doc.getString("Status").equals("Paid")){
+                                        reschedbtn.setVisibility(View.VISIBLE);}
                                     cancelbtn.setVisibility(View.VISIBLE);
-                                    reschedbtn.setVisibility(View.VISIBLE);
                                     scheddocu =doc.getId();
                                     docid=doc.getString("DoctorUId");
                                     db.collection("Doctors").document(docid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
