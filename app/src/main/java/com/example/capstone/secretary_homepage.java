@@ -99,7 +99,8 @@ public class  secretary_homepage extends AppCompatActivity implements Navigation
         appointment_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(secretary_homepage.this, Pending_Appointments.class);
+                startActivity(intent);
             }
         });
 

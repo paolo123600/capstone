@@ -44,11 +44,14 @@ public class Login extends AppCompatActivity {
     private ProgressBar signInProgressBar;
     RelativeLayout progressbg;
     ConstraintLayout bg_remove;
+    GlobalVariables gv;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+
+        gv = (GlobalVariables) getApplicationContext();
 
         preferenceManager = new PreferenceManager(getApplicationContext());
         if (preferenceManager.getBoolean(Constants.KEY_IS_SIGNED_IN)) {

@@ -6,6 +6,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.SpannedString;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -111,6 +116,7 @@ FirestoreRecyclerAdapter adapter;
              @Override
              public Schedholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                  View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.notif_single,parent,false);
+
                  return new Schedholder(view);
              }
 
@@ -131,9 +137,10 @@ FirestoreRecyclerAdapter adapter;
                                              public void onSuccess(DocumentSnapshot documentSnapshot2) {
                                                  documentSnapshot2.getData();
                                                  String docname= "Doc. "+documentSnapshot2.getString("LastName");
+
                                                  switch (status){
                                                      case "Paid":
-                                                         holder.tvpatname.setText(patname+" has booked an appointment with "+docname+" for "+date);
+                                                         holder.tvpatname.setText(patname+ " has book an appointment with " +docname+ " dated " + date);
                                                          break;
                                                      case "Pending Approval":
                                                          holder.tvpatname.setText(patname+" has booked an appointment with "+docname+" that is currently pending for "+date);
