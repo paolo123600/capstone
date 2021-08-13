@@ -64,6 +64,18 @@ public class selectDoc extends AppCompatActivity {
 
                         Clinics.add(subject);
                     }
+                    for (String clinics  : Clinics ){
+                        db.collection("Doctors").whereEqualTo("ClinicName",clinics).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()){
+                                    if (task.getResult().isEmpty()){
+                                        Clinics.remove(clinics);
+                                    }
+                                }
+                            }
+                        });
+                    }
                     adapter1.notifyDataSetChanged();
                 }
             }
