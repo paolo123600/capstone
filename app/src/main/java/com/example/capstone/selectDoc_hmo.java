@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +20,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstone.Model.DocHMO;
 import com.example.capstone.Model.HMOModel;
+import com.example.capstone.utilities.Constants;
+import com.example.capstone.utilities.PreferenceManager;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -37,7 +40,11 @@ public class selectDoc_hmo extends AppCompatActivity {
     private RecyclerView doctorlist;
     private FirestoreRecyclerAdapter adapter;
     private String doclastname;
+    PreferenceManager preferenceManager;
+    String patuid="";
+    TextView nonetv;
 
+    
     List <DocHMO> DoctorHMO;
     List <HMOModel> HMOList;
 
@@ -47,27 +54,55 @@ public class selectDoc_hmo extends AppCompatActivity {
         setContentView(R.layout.activity_select_doc_hmo);
 
         // Start
+        nonetv = (TextView)findViewById(R.id.tvnone);
         doctorlist= (RecyclerView) findViewById(R.id.DoctorRF);
+        preferenceManager = new PreferenceManager(getApplicationContext());
+        patuid = preferenceManager.getString(Constants.KEY_USER_ID);
+        Toast.makeText(this, "d:"+patuid, Toast.LENGTH_SHORT).show();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference clinicsRef = db.collection("HMO");
+        CollectionReference clinicsRef = db.collection("Patients").document(patuid).collection("HMO");
         Spinner spinner = (Spinner) findViewById(R.id.spinnerhmo);
         List<String> hmo = new ArrayList<>();
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, hmo);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter1);
+//        db.collection("Patients").document(patuid).collection("HMO")
+//                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                if (task.isSuccessful()){
+//
+//                }
+//            }
+//        });
         clinicsRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
+
                         String subject = document.getString("HMOName");
 
                         hmo.add(subject);
                     }
+//                    for (String hmos : hmo){
+//                        db.collection("HMO").document(hmos).collection("Doctors").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                                if (task.isSuccessful()){
+//                                    if (task.getResult().isEmpty()){
+//                                        hmo.remove(hmos);
+//                                    }
+//                                }
+//                            }
+//                        });
+//                    }
+
                     adapter1.notifyDataSetChanged();
                 }
             }
         });
+
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
@@ -75,58 +110,87 @@ public class selectDoc_hmo extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                String Clinicname = spinner.getSelectedItem().toString();
-                DoctorHMO = new ArrayList<>();
-                //query
-                Query query = db.collection("Doctors");
-                FirestoreRecyclerOptions<DoctorModel> options = new FirestoreRecyclerOptions.Builder<DoctorModel>()
-                        .setQuery(query,DoctorModel.class)
-                        .build();
-                //adapter
-                adapter = new FirestoreRecyclerAdapter<DoctorModel, selectDoc_hmo.DoctorsViewHolder>(options) {
-                    @NonNull
+                String hmoname = spinner.getSelectedItem().toString();
+                List<String> doctors = new ArrayList<>();
+                doctors.clear();
+                db.collection("HMO").document(hmoname).collection("Doctors").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
-                    public selectDoc_hmo.DoctorsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.doctor_list_single,parent,false);
-                        return new selectDoc_hmo.DoctorsViewHolder(view);
-                    }
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()){
+                            if(!task.getResult().isEmpty()){
+                                doctorlist.setVisibility(View.VISIBLE);
+                                nonetv.setVisibility(View.GONE );
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    String subject = document.getString("DocUId");
 
-                    @Override
-                    protected void onBindViewHolder(@NonNull selectDoc_hmo.DoctorsViewHolder holder, int position, @NonNull DoctorModel model) {
-                        holder.list_docname.setText("Doc "+model.getLastName());
-                        holder.list_docemail.setText(model.getEmail());
-                        holder.list_docclinic.setText(model.getClinic());
-                        holder.itemView.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                Intent intent = new Intent(selectDoc_hmo.this, selectDate_hmo.class);
-                                GlobalVariables gv =(GlobalVariables) getApplicationContext ();
-                                gv.setSDDocemail(model.getEmail());
-                                gv.setSDDocUid(model.getUserId());
-                                gv.setSDDocLastName(model.getLastName());
-                                gv.setSDClinic(Clinicname);
-                                startActivity(intent);
+                                    doctors.add(subject);
+                                }
 
+
+                                //query
+                                Query query = db.collection("Doctors").whereIn("UserId",doctors);
+                                FirestoreRecyclerOptions<DoctorModel> options = new FirestoreRecyclerOptions.Builder<DoctorModel>()
+                                        .setQuery(query,DoctorModel.class)
+                                        .build();
+                                //adapter
+                                adapter = new FirestoreRecyclerAdapter<DoctorModel, selectDoc_hmo.DoctorsViewHolder>(options) {
+                                    @NonNull
+                                    @Override
+                                    public selectDoc_hmo.DoctorsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                                        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.doctor_list_single,parent,false);
+                                        return new selectDoc_hmo.DoctorsViewHolder(view);
+                                    }
+
+                                    @Override
+                                    protected void onBindViewHolder(@NonNull selectDoc_hmo.DoctorsViewHolder holder, int position, @NonNull DoctorModel model) {
+                                        holder.list_docname.setText("Doc "+model.getLastName());
+                                        holder.list_docemail.setText(model.getEmail());
+                                        holder.list_docclinic.setText(model.getClinic());
+                                        holder.itemView.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                Intent intent = new Intent(selectDoc_hmo.this, selectDate_hmo.class);
+                                                GlobalVariables gv =(GlobalVariables) getApplicationContext ();
+                                                gv.setSDDocemail(model.getEmail());
+                                                gv.setSDDocUid(model.getUserId());
+                                                gv.setSDDocLastName(model.getLastName());
+                                                gv.setSDClinic(model.getClinic());
+                                                startActivity(intent);
+
+
+                                            }
+                                        });
+
+                                        holder.view_info.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                Intent intent = new Intent(getApplicationContext(), View_doctor_info.class);
+                                                GlobalVariables gv =(GlobalVariables) getApplicationContext ();
+                                                gv.setSDDocUid(model.getUserId());
+                                                startActivity(intent);
+                                            }
+                                        });
+
+                                    }
+
+
+
+                                };
+
+                                doctorlist.setHasFixedSize(true);
+                                doctorlist.setLayoutManager(new LinearLayoutManager(selectDoc_hmo.this));
+                                doctorlist.setAdapter(adapter);
+                                adapter.startListening();
                             }
-                        });
-
-                        holder.view_info.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent intent = new Intent(getApplicationContext(), View_doctor_info.class);
-                                GlobalVariables gv =(GlobalVariables) getApplicationContext ();
-                                gv.setSDDocUid(model.getUserId());
-                                startActivity(intent);
+                            else {
+                                doctorlist.setVisibility(View.GONE);
+                                nonetv.setText("There is currently no doctors for "+hmoname);
+                                nonetv.setVisibility(View.VISIBLE);
                             }
-                        });
-
+                        }
                     }
-                };
+                });
 
-                doctorlist.setHasFixedSize(true);
-                doctorlist.setLayoutManager(new LinearLayoutManager(selectDoc_hmo.this));
-                doctorlist.setAdapter(adapter);
-                adapter.startListening();
 
             }
 

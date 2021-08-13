@@ -53,8 +53,8 @@ public class Login extends AppCompatActivity {
 
         gv = (GlobalVariables) getApplicationContext();
 
-        preferenceManager = new PreferenceManager(getApplicationContext());
-        if (preferenceManager.getBoolean(Constants.KEY_IS_SIGNED_IN)) {
+            preferenceManager = new PreferenceManager(getApplicationContext());
+            if (preferenceManager.getBoolean(Constants.KEY_IS_SIGNED_IN)) {
             if (preferenceManager.getString(Constants.USERTYPE).equals("Patient")){
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
