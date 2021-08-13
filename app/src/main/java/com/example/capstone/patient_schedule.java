@@ -540,6 +540,7 @@ public class patient_schedule extends AppCompatActivity implements DatePickerDia
         } catch (ParseException e) {
             Toast.makeText(patient_schedule.this, "error", Toast.LENGTH_SHORT).show();
         }
+
         try {
             currentdateminus2 = format.parse(currentDateminus2String);
         } catch (ParseException e) {
