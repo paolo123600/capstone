@@ -23,6 +23,8 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity android:name=".reschedule_date"></activity>
+        <activity android:name=".Pending_Appointments"/>
+        <activity android:name=".Pending_Confirmation"/>
         <activity android:name=".PaymentMethod" />
         <activity android:name=".selectDoc_hmo" />
         <activity android:name=".selectDate_hmo" />

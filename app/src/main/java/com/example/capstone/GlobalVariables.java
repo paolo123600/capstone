@@ -421,4 +421,61 @@ public class GlobalVariables extends Application {
         this.dateandtime = dateandtime;
     }
 
+    public String getPending_patname() {
+        return Pending_patname;
+    }
+
+    public void setPending_patname(String pending_patname) {
+        Pending_patname = pending_patname;
+    }
+
+    public String getPending_sched() {
+        return Pending_sched;
+    }
+
+    public void setPending_sched(String pending_sched) {
+        Pending_sched = pending_sched;
+    }
+
+    public String getPending_hmo() {
+        return Pending_hmo;
+    }
+
+    public void setPending_hmo(String pending_hmo) {
+        Pending_hmo = pending_hmo;
+    }
+
+    public String getPending_docname() {
+        return Pending_docname;
+    }
+
+    public void setPending_docname(String pending_docname) {
+        Pending_docname = pending_docname;
+    }
+
+    String Pending_patname;
+    String Pending_sched;
+    String Pending_hmo;
+    String Pending_docname;
+
+    public String getPending_docUid() {
+        return Pending_docUid;
+    }
+
+    public void setPending_docUid(String pending_docUid) {
+        Pending_docUid = pending_docUid;
+    }
+
+    String Pending_docUid;
+
+    public String getPending_patUid() {
+        return Pending_patUid;
+    }
+
+    public void setPending_patUid(String pending_patUid) {
+        Pending_patUid = pending_patUid;
+    }
+
+    String Pending_patUid;
+
 }

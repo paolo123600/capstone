@@ -212,6 +212,9 @@ public class upload_hmo extends AppCompatActivity {
                                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                         @Override
                                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                                            String schedid = db.collection("Schedules").document().getId();
+
                                             Map<String, Object> patienthmo = new HashMap<>();
                                             patienthmo.put("ClinicName", doctor.getString("ClinicName"));
                                             patienthmo.put("PatientUId", patuid);
@@ -224,11 +227,13 @@ public class upload_hmo extends AppCompatActivity {
                                             patienthmo.put("Position", gv.getPost()+1);
                                             patienthmo.put("Status", "Pending Approval");
                                             patienthmo.put("DoctorUId", gv.getSDDocUid());
+                                            patienthmo.put("SchedId", schedid);
 
-                                            db.collection("Schedules").document().set(patienthmo)
+                                            db.collection("Schedules").document(schedid).set(patienthmo)
                                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                         @Override
                                                         public void onSuccess(Void aVoid) {
+
                                                             if(progressDialog.isShowing()){
                                                                 progressDialog.dismiss();
                                                             }
