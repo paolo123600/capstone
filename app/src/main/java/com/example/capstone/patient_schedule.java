@@ -368,8 +368,6 @@ public class patient_schedule extends AppCompatActivity implements DatePickerDia
         dialogbuilder.setView(selectDateView);
         dialog= dialogbuilder.create();
         dialog.show();
-
-
     }
 
     public void createconfirmDialog(){
