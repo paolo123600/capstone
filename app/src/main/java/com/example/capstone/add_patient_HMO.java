@@ -5,7 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActionBar;
 import android.os.Bundle;
+import android.text.InputType;
+import android.text.Layout;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -61,10 +64,12 @@ public class add_patient_HMO extends AppCompatActivity{
 
 
 
+
         Spinner spinnertag = new Spinner(this);
         spinnertag.setId(count);
+
         List<String> hmo = new ArrayList<>();
-        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, hmo);
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getApplicationContext(), R.layout.custom_spinner, hmo);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnertag.setAdapter(adapter1);
         clinicsRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -102,20 +107,40 @@ public class add_patient_HMO extends AppCompatActivity{
 
             }
         });
-        spinnertag.setLayoutParams(new ActionBar.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT));
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.setMargins(5, 30, 0, 0);
+        spinnertag.setLayoutParams(params);
+
+
+
+
 
         llspinner.addView(spinnertag);
 
         EditText textViewtag = new EditText(this);
         textViewtag.setId(tvcount);
         textViewtag.setVisibility(View.INVISIBLE);
-        textViewtag.setLayoutParams(new ActionBar.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT));
+        textViewtag.setHeight(200);
+        textViewtag.setInputType(InputType.TYPE_TEXT_FLAG_IME_MULTI_LINE);
+        textViewtag.setBackgroundResource(R.drawable.edittext_bg);
+        textViewtag.setHint("Enter HMO");
+        LinearLayout.LayoutParams edittxtparams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 120);
+        edittxtparams.setMargins(0, 10, 0, 0);
+        textViewtag.setLayoutParams(edittxtparams);
+        textViewtag.setPadding(10, 0, 10, 0);
         lltextbox.addView(textViewtag);
+
+
 
         Button btnaddtag = new Button(this);
         btnaddtag.setId(btnaddcount);
-        btnaddtag.setLayoutParams(new ActionBar.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT));
-        btnaddtag.setText("Add");
+        LinearLayout.LayoutParams btnaddparams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 120);
+        btnaddparams.setMargins(9, 10, 0, 0);
+        btnaddtag.setLayoutParams(btnaddparams);
+        btnaddtag.setBackgroundResource(R.drawable.ic_add);
+
+
+
         btnaddtag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -129,8 +154,10 @@ public class add_patient_HMO extends AppCompatActivity{
 
         Button btnminustag = new Button(this);
         btnminustag.setId(btnminuscount);
-        btnminustag.setLayoutParams(new ActionBar.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT));
-        btnminustag.setText("Minus");
+        LinearLayout.LayoutParams btnminusparams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 120);
+        btnminusparams.setMargins(9, 10, 0, 0);
+        btnminustag.setLayoutParams(btnminusparams);
+        btnminustag.setBackgroundResource(R.drawable.ic_remove);
         btnminustag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -206,7 +233,7 @@ public class add_patient_HMO extends AppCompatActivity{
         Spinner spinnertag = new Spinner(this);
         spinnertag.setId(count);
         List<String> hmo = new ArrayList<>();
-        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, hmo);
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getApplicationContext(), R.layout.custom_spinner, hmo);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnertag.setAdapter(adapter1);
         clinicsRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -245,20 +272,35 @@ public class add_patient_HMO extends AppCompatActivity{
 
             }
         });
-        spinnertag.setLayoutParams(new ActionBar.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT));
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.setMargins(5, 30, 0, 0);
+        spinnertag.setLayoutParams(params);
+
+
 
         llspinner.addView(spinnertag);
+
 
         EditText textViewtag = new EditText(this);
         textViewtag.setId(tvcount);
         textViewtag.setVisibility(View.INVISIBLE);
-        textViewtag.setLayoutParams(new ActionBar.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT));
+        textViewtag.setInputType(InputType.TYPE_TEXT_FLAG_IME_MULTI_LINE);
+        textViewtag.setBackgroundResource(R.drawable.edittext_bg);
+        LinearLayout.LayoutParams edittxtparams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 120);
+        edittxtparams.setMargins(0, 10, 0, 0);
+        textViewtag.setLayoutParams(edittxtparams);
+        textViewtag.setPadding(10, 0, 10, 0);
         lltextbox.addView(textViewtag);
+        textViewtag.setHint("Enter HMO");
+
 
         Button btnaddtag = new Button(this);
         btnaddtag.setId(btnaddcount);
-        btnaddtag.setLayoutParams(new ActionBar.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT));
-        btnaddtag.setText("Add");
+        LinearLayout.LayoutParams btnaddparams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 120);
+        btnaddparams.setMargins(9, 10, 0, 0);
+        btnaddtag.setLayoutParams(btnaddparams);
+        btnaddtag.setBackgroundResource(R.drawable.ic_add);
         btnaddtag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -274,8 +316,10 @@ public class add_patient_HMO extends AppCompatActivity{
 
         Button btnminustag = new Button(this);
         btnminustag.setId(btnminuscount);
-        btnminustag.setLayoutParams(new ActionBar.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT));
-        btnminustag.setText("Minus");
+        LinearLayout.LayoutParams btnminusparams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 120);
+        btnminusparams.setMargins(9, 10, 0, 0);
+        btnminustag.setLayoutParams(btnminusparams);
+        btnminustag.setBackgroundResource(R.drawable.ic_remove);
         btnminustag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

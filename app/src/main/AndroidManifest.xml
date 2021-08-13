@@ -29,11 +29,6 @@
         <activity android:name=".upload_hmo" />
         <activity android:name=".pat_blood_pressure" />
         <activity android:name=".add_patient_HMO" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".pat_payment" />
         <activity android:name=".View_doctor_info" />
@@ -159,6 +154,12 @@
         <activity
             android:name=".Login"
             android:screenOrientation="portrait">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
         <activity

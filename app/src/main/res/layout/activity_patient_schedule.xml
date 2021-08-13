@@ -59,7 +59,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-
+        android:id="@+id/sched_llayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -152,7 +152,28 @@
                     android:visibility="invisible" />
         </LinearLayout>
         </LinearLayout>
+
     </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/sched_llayout"
+            android:orientation="vertical">
+
+            <Spinner
+                android:id="@+id/statspinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/managesched_recview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
