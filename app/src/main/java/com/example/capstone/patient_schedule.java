@@ -116,15 +116,12 @@ public class patient_schedule extends AppCompatActivity implements DatePickerDia
 
 
         ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(this,
-                R.array.Status, android.R.layout.simple_spinner_item);
+                R.array.StatusPat, android.R.layout.simple_spinner_item);
 
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinner_status.setAdapter(arrayAdapter);
 
-        Query query = db.collection("Schedules").orderBy("Dnt", Query.Direction.ASCENDING).limit(20);
-
-        Shownotif(query);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -278,8 +275,105 @@ public class patient_schedule extends AppCompatActivity implements DatePickerDia
                 startActivity(intent);
             }
         });
+        spinner_status.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Query  query1 = db.collection("Schedules").whereEqualTo("PatientUId", Patuid).orderBy("Dnt", Query.Direction.ASCENDING).limit(20);
+                String selectedstat = spinner_status.getSelectedItem().toString();
+                switch (selectedstat) {
+                    case "All":
+                        query1 = db.collection("Schedules").whereEqualTo("PatientUId", Patuid).orderBy("Dnt", Query.Direction.ASCENDING).limit(20);
+                        break;
+                    case "":
+                        query1 = db.collection("Schedules").whereEqualTo("Status", "Completed").whereEqualTo("PatientUId", Patuid).orderBy("Dnt", Query.Direction.ASCENDING).limit(20);
+                    case "Rescheduled":
+                        query1 = db.collection("Schedules").whereEqualTo("Status", "Rescheduled").whereEqualTo("PatientUId", Patuid).orderBy("Dnt", Query.Direction.ASCENDING).limit(20);
+
+                        break;
+                    case "Cancelled":
+                        query1 = db.collection("Schedules").whereEqualTo("Status", "Cancelled").whereEqualTo("PatientUId", Patuid).orderBy("Dnt", Query.Direction.ASCENDING).limit(20);
+
+                        break;
+                }
+                    FirestoreRecyclerOptions<DocTodaySchedModel> options = new FirestoreRecyclerOptions.Builder<DocTodaySchedModel>()
+                            .setQuery(query1, DocTodaySchedModel.class)
+                            .build();
+                    adapter = new FirestoreRecyclerAdapter<DocTodaySchedModel, patient_schedule.Schedholder>(options) {
+                        @NonNull
+                        @Override
+                        public patient_schedule.Schedholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.notif_single,parent,false);
+                            return new patient_schedule.Schedholder(view);
+                        }
+
+                        @Override
+                        protected void onBindViewHolder(@NonNull patient_schedule.Schedholder holder, int position, @NonNull DocTodaySchedModel model) {
+                            String date= model.getDate();
+                            String status = model.getStatus();
+                            Date bookeddate = model.getDnt();
+                            db.collection("Patients").document(model.getPatientUId()).get()
+                                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onSuccess(DocumentSnapshot documentSnapshot1) {
+                                            documentSnapshot1.getData();
+                                            String patname = documentSnapshot1.getString("LastName")+", "+documentSnapshot1.getString("FirstName");
+                                            db.collection("Doctors").document(model.getDoctorUId()).get()
+                                                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                                        @Override
+                                                        public void onSuccess(DocumentSnapshot documentSnapshot2) {
+                                                            documentSnapshot2.getData();
+                                                            String docname= "Doc. "+documentSnapshot2.getString("LastName");
+                                                            switch (status){
+                                                                case "Paid":
+                                                                    holder.tvpatname.setText(patname+" has booked an appointment with "+docname+" for "+date);
+                                                                    break;
+                                                                case "Pending Approval":
+                                                                    holder.tvpatname.setText(patname+" has booked an appointment with "+docname+" that is currently pending for "+date);
+                                                                    break;
+                                                                case "Rescheduled":
+                                                                    holder.tvpatname.setText(patname+" has rescheduled an appointment with "+docname+" dated "+date);
+                                                                    break;
+                                                                case "Cancelled":
+                                                                    holder.tvpatname.setText(patname+" has cancelled an appointment with "+docname+" dated "+date);
+                                                                    break;
+
+                                                            }
+                                                            SimpleDateFormat simpleDate =  new SimpleDateFormat("MMM d ,yyyy h:ma");
+                                                            String bookeddatestring = simpleDate.format(bookeddate);
+                                                            holder.tvdate.setText(bookeddatestring);
+                                                        }
+                                                    }).addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Toast.makeText(patient_schedule.this, "error showing patient", Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(patient_schedule.this, "error showing patient", Toast.LENGTH_SHORT).show();
+                                }
+                            });
 
 
+
+
+                        }
+                    };
+                    mFirestorelist.setHasFixedSize(true);
+                    mFirestorelist.setLayoutManager(new LinearLayoutManager(patient_schedule.this));
+                    mFirestorelist.setAdapter(adapter);
+                    adapter.startListening();
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
     public void createSelectDateDialog(){
         dialogbuilder = new AlertDialog.Builder(this);
@@ -559,41 +653,7 @@ public class patient_schedule extends AppCompatActivity implements DatePickerDia
 
         }
 
-        spinner_status.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Query query;
-                String selectedstat = spinner_status.getSelectedItem().toString();
-                switch (selectedstat) {
-                    case "All":
-                        query = db.collection("Schedules").whereEqualTo("PatientUId", Patuid).orderBy("Dnt", Query.Direction.ASCENDING).limit(20);
-                        Shownotif(query);
-                        break;
-                    case "Booked":
-                        query = db.collection("Schedules").whereEqualTo("Status","Paid").whereEqualTo("PatientUId", Patuid).orderBy("Dnt", Query.Direction.ASCENDING).limit(20);
-                        Shownotif(query);
-                        break;
-                    case "Pending":
-                        query = db.collection("Schedules").whereEqualTo("Status","Pending Approval").whereEqualTo("PatientUId", Patuid).orderBy("Dnt", Query.Direction.ASCENDING).limit(20);
-                        Shownotif(query);
-                        break;
-                    case "Rescheduled":
-                        query = db.collection("Schedules").whereEqualTo("Status","Rescheduled").whereEqualTo("PatientUId", Patuid).orderBy("Dnt", Query.Direction.ASCENDING).limit(20);
-                        Shownotif(query);
-                        break;
-                    case "Cancelled":
-                        query = db.collection("Schedules").whereEqualTo("Status","Cancelled").whereEqualTo("PatientUId", Patuid).orderBy("Dnt", Query.Direction.ASCENDING).limit(20);
-                        Shownotif(query);
-                        break;
-                }
-                ;
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
 
     }
 
@@ -607,80 +667,8 @@ public class patient_schedule extends AppCompatActivity implements DatePickerDia
         }
     }
 
-    public void Shownotif(Query query){
-
-        FirestoreRecyclerOptions<DocTodaySchedModel> options = new FirestoreRecyclerOptions.Builder<DocTodaySchedModel>()
-                .setQuery(query, DocTodaySchedModel.class)
-                .build();
-        adapter = new FirestoreRecyclerAdapter<DocTodaySchedModel, patient_schedule.Schedholder>(options) {
-            @NonNull
-            @Override
-            public patient_schedule.Schedholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.notif_single,parent,false);
-                return new patient_schedule.Schedholder(view);
-            }
-
-            @Override
-            protected void onBindViewHolder(@NonNull patient_schedule.Schedholder holder, int position, @NonNull DocTodaySchedModel model) {
-                String date= model.getDate();
-                String status = model.getStatus();
-                Date bookeddate = model.getDnt();
-                db.collection("Patients").document(model.getPatientUId()).get()
-                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                            @Override
-                            public void onSuccess(DocumentSnapshot documentSnapshot1) {
-                                documentSnapshot1.getData();
-                                String patname = documentSnapshot1.getString("LastName")+", "+documentSnapshot1.getString("FirstName");
-                                db.collection("Doctors").document(model.getDoctorUId()).get()
-                                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                            @Override
-                                            public void onSuccess(DocumentSnapshot documentSnapshot2) {
-                                                documentSnapshot2.getData();
-                                                String docname= "Doc. "+documentSnapshot2.getString("LastName");
-                                                switch (status){
-                                                    case "Paid":
-                                                        holder.tvpatname.setText(patname+" has booked an appointment with "+docname+" for "+date);
-                                                        break;
-                                                    case "Pending Approval":
-                                                        holder.tvpatname.setText(patname+" has booked an appointment with "+docname+" that is currently pending for "+date);
-                                                        break;
-                                                    case "Rescheduled":
-                                                        holder.tvpatname.setText(patname+" has rescheduled an appointment with "+docname+" dated "+date);
-                                                        break;
-                                                    case "Cancelled":
-                                                        holder.tvpatname.setText(patname+" has cancelled an appointment with "+docname+" dated "+date);
-                                                        break;
-
-                                                }
-                                                SimpleDateFormat simpleDate =  new SimpleDateFormat("MMM d ,yyyy h:ma");
-                                                String bookeddatestring = simpleDate.format(bookeddate);
-                                                holder.tvdate.setText(bookeddatestring);
-                                            }
-                                        }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(patient_schedule.this, "error showing patient", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(patient_schedule.this, "error showing patient", Toast.LENGTH_SHORT).show();
-                    }
-                });
 
 
-
-
-            }
-        };
-        mFirestorelist.setHasFixedSize(true);
-        mFirestorelist.setLayoutManager(new LinearLayoutManager(this));
-        mFirestorelist.setAdapter(adapter);
-        adapter.startListening();
-
-    }
 }
 
 

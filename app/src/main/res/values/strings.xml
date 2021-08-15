@@ -106,6 +106,13 @@
             <item>Cancelled</item>
 
         </string-array>
+    <string-array name="StatusPat">
+        <item>All</item>
+        <item>Completed</item>
+        <item>Rescheduled</item>
+        <item>Cancelled</item>
+
+    </string-array>
 
 
 
