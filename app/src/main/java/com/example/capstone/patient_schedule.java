@@ -284,8 +284,9 @@ public class patient_schedule extends AppCompatActivity implements DatePickerDia
                     case "All":
                         query1 = db.collection("Schedules").whereEqualTo("PatientUId", Patuid).orderBy("Dnt", Query.Direction.ASCENDING).limit(20);
                         break;
-                    case "":
+                    case "Completed":
                         query1 = db.collection("Schedules").whereEqualTo("Status", "Completed").whereEqualTo("PatientUId", Patuid).orderBy("Dnt", Query.Direction.ASCENDING).limit(20);
+                        break;
                     case "Rescheduled":
                         query1 = db.collection("Schedules").whereEqualTo("Status", "Rescheduled").whereEqualTo("PatientUId", Patuid).orderBy("Dnt", Query.Direction.ASCENDING).limit(20);
 
@@ -302,7 +303,7 @@ public class patient_schedule extends AppCompatActivity implements DatePickerDia
                         @NonNull
                         @Override
                         public patient_schedule.Schedholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.notif_single,parent,false);
+                            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.notif_single_patient,parent,false);
                             return new patient_schedule.Schedholder(view);
                         }
 
@@ -324,17 +325,23 @@ public class patient_schedule extends AppCompatActivity implements DatePickerDia
                                                             documentSnapshot2.getData();
                                                             String docname= "Doc. "+documentSnapshot2.getString("LastName");
                                                             switch (status){
-                                                                case "Paid":
-                                                                    holder.tvpatname.setText(patname+" has booked an appointment with "+docname+" for "+date);
-                                                                    break;
-                                                                case "Pending Approval":
-                                                                    holder.tvpatname.setText(patname+" has booked an appointment with "+docname+" that is currently pending for "+date);
+                                                                case "Completed":
+                                                                    holder.tvpatname.setText("Patient: "+ patname);
+                                                                    holder.tvdocname.setText("Doctor: "+docname);
+                                                                    holder.tvdatesched.setText("Date: "+date);
+                                                                    holder.tvstatus.setText("Status: "+"Paid");
                                                                     break;
                                                                 case "Rescheduled":
-                                                                    holder.tvpatname.setText(patname+" has rescheduled an appointment with "+docname+" dated "+date);
+                                                                    holder.tvpatname.setText("Patient: "+ patname);
+                                                                    holder.tvdocname.setText("Doctor: "+docname);
+                                                                    holder.tvdatesched.setText("Date: "+date);
+                                                                    holder.tvstatus.setText("Status: "+"Rescheduled");
                                                                     break;
                                                                 case "Cancelled":
-                                                                    holder.tvpatname.setText(patname+" has cancelled an appointment with "+docname+" dated "+date);
+                                                                    holder.tvpatname.setText("Patient: "+ patname);
+                                                                    holder.tvdocname.setText("Doctor: "+docname);
+                                                                    holder.tvdatesched.setText("Date: "+date);
+                                                                    holder.tvstatus.setText("Status: "+"Cancelled");
                                                                     break;
 
                                                             }
@@ -658,10 +665,13 @@ public class patient_schedule extends AppCompatActivity implements DatePickerDia
     }
 
     private class Schedholder extends RecyclerView.ViewHolder{
-        TextView tvpatname , tvdocname , tvstatus, tvdate;
+        TextView tvpatname , tvdocname , tvstatus, tvdate, tvdatesched;
         public Schedholder(@NonNull View itemView) {
             super(itemView);
-            tvpatname = itemView.findViewById(R.id.notif_pat);
+            tvpatname = itemView.findViewById(R.id.notif_patname);
+            tvdocname = itemView.findViewById(R.id.notif_docname);
+            tvstatus = itemView.findViewById(R.id.notif_patStatus);
+            tvdatesched = itemView.findViewById(R.id.notif_datesched);
             tvdate = itemView.findViewById(R.id.notif_date);
 
         }
