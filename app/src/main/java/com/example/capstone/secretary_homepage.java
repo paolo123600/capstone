@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.capstone.activities.VideoCall_Main;
+import com.example.capstone.secretary.Secretary_schedlist;
 import com.example.capstone.utilities.Constants;
 import com.example.capstone.utilities.PreferenceManager;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -42,6 +43,7 @@ public class  secretary_homepage extends AppCompatActivity implements Navigation
     private Button notifbtn;
     private LinearLayout chatbtn;
     LinearLayout managesched;
+    Button bottomchat;
 
     LinearLayout appointment_btn;
 
@@ -66,6 +68,7 @@ public class  secretary_homepage extends AppCompatActivity implements Navigation
         notifbtn = (Button) findViewById(R.id.notif);
         chatbtn = findViewById(R.id.secretary_chat_btn);
         managesched = findViewById(R.id.manage_schedule_button);
+        bottomchat = findViewById(R.id.sec_bottom_chat);
 
         appointment_btn = findViewById(R.id.appointment_button);
 
@@ -119,8 +122,15 @@ public class  secretary_homepage extends AppCompatActivity implements Navigation
                 startActivity(intent);
             }
         });
-
         chatbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(secretary_homepage.this, Secretary_schedlist.class);
+                startActivity(intent);
+            }
+        });
+
+        bottomchat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(secretary_homepage.this, RecentChatSecretary.class);
@@ -193,6 +203,8 @@ public class  secretary_homepage extends AppCompatActivity implements Navigation
            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                navUsername.setText(documentSnapshot.getString("ClinicName"));
                navEmail.setText(documentSnapshot.getString("Email"));
+
+               String clname = navUsername.getText().toString();
            }
        });
 

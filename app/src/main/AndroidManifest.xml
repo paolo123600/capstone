@@ -22,16 +22,16 @@
         android:theme="@style/Theme.Capstone"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".reschedule_date"></activity>
-        <activity android:name=".Pending_Appointments"/>
-        <activity android:name=".Pending_Confirmation"/>
+        <activity android:name=".secretary.Secretary_schedlist"></activity>
+        <activity android:name=".reschedule_date" />
+        <activity android:name=".Pending_Appointments" />
+        <activity android:name=".Pending_Confirmation" />
         <activity android:name=".PaymentMethod" />
         <activity android:name=".selectDoc_hmo" />
         <activity android:name=".selectDate_hmo" />
         <activity android:name=".upload_hmo" />
         <activity android:name=".pat_blood_pressure" />
-        <activity android:name=".add_patient_HMO" >
-        </activity>
+        <activity android:name=".add_patient_HMO"></activity>
         <activity android:name=".pat_payment" />
         <activity android:name=".View_doctor_info" />
         <activity android:name=".select_Appoint" />
@@ -156,13 +156,11 @@
         <activity
             android:name=".Login"
             android:screenOrientation="portrait">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".MainActivity"
