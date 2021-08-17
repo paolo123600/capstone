@@ -38,6 +38,13 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/_50sdp">
+
+    <LinearLayout
         android:id="@+id/selectdatell"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -54,34 +61,63 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/edittxtll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/selectdatell"
-        android:gravity="center"
-        android:layout_marginTop="@dimen/_30sdp"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/_10sdp">
 
         <EditText
-            android:id="@+id/bp_log"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Enter blood pressure"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bp_date"
-            app:layout_constraintVertical_bias="0.225" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
+            android:id="@+id/bp_upper"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:gravity="center"
             android:layout_height="wrap_content"/>
 
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textSize="@dimen/_20sdp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="/"/>
+
+
+        <EditText
+            android:id="@+id/bp_lower"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:layout_height="wrap_content" />
 
         <Button
             android:id="@+id/submit_bp"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="3"
             android:layout_height="wrap_content"
-            android:text="Submit" />
+            android:text="Submit"
+            android:layout_marginStart="@dimen/_50sdp"
+            android:layout_marginLeft="@dimen/_50sdp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toBottomOf="@+id/edittxtll"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:orientation="vertical">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recview_bp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
 
     </LinearLayout>
 
