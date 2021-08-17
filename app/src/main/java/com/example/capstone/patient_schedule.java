@@ -78,9 +78,6 @@ public class patient_schedule extends AppCompatActivity implements DatePickerDia
 
     ImageView back;
 
-
-
-
     Spinner spinner_status;
     RecyclerView mFirestorelist;
     FirestoreRecyclerAdapter adapter;
@@ -278,21 +275,21 @@ public class patient_schedule extends AppCompatActivity implements DatePickerDia
         spinner_status.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Query  query1 = db.collection("Schedules").whereEqualTo("PatientUId", Patuid).orderBy("Dnt", Query.Direction.ASCENDING).limit(20);
+                Query  query1 = db.collection("Schedules").whereEqualTo("PatientUId", Patuid).orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
                 String selectedstat = spinner_status.getSelectedItem().toString();
                 switch (selectedstat) {
                     case "All":
-                        query1 = db.collection("Schedules").whereEqualTo("PatientUId", Patuid).orderBy("Dnt", Query.Direction.ASCENDING).limit(20);
+                        query1 = db.collection("Schedules").whereEqualTo("PatientUId", Patuid).whereIn("Status", Arrays.asList("Completed" ,"Rescheduled", "Cancelled")).orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
                         break;
                     case "Completed":
-                        query1 = db.collection("Schedules").whereEqualTo("Status", "Completed").whereEqualTo("PatientUId", Patuid).orderBy("Dnt", Query.Direction.ASCENDING).limit(20);
+                        query1 = db.collection("Schedules").whereEqualTo("Status", "Completed").whereEqualTo("PatientUId", Patuid).orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
                         break;
                     case "Rescheduled":
-                        query1 = db.collection("Schedules").whereEqualTo("Status", "Rescheduled").whereEqualTo("PatientUId", Patuid).orderBy("Dnt", Query.Direction.ASCENDING).limit(20);
+                        query1 = db.collection("Schedules").whereEqualTo("Status", "Rescheduled").whereEqualTo("PatientUId", Patuid).orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
 
                         break;
                     case "Cancelled":
-                        query1 = db.collection("Schedules").whereEqualTo("Status", "Cancelled").whereEqualTo("PatientUId", Patuid).orderBy("Dnt", Query.Direction.ASCENDING).limit(20);
+                        query1 = db.collection("Schedules").whereEqualTo("Status", "Cancelled").whereEqualTo("PatientUId", Patuid).orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
 
                         break;
                 }

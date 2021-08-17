@@ -54,7 +54,7 @@ FirestoreRecyclerAdapter adapter;
 
         spinner_status.setAdapter(arrayAdapter);
 
-        Query query = db.collection("Schedules").orderBy("Dnt", Query.Direction.ASCENDING).limit(20);
+        Query query = db.collection("Schedules").orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
 
         Shownotif(query);
 
@@ -65,23 +65,23 @@ FirestoreRecyclerAdapter adapter;
                 String selectedstat = spinner_status.getSelectedItem().toString();
                 switch (selectedstat) {
                     case "All":
-                        query = db.collection("Schedules").orderBy("Dnt", Query.Direction.ASCENDING).limit(20);
+                        query = db.collection("Schedules").orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
                         Shownotif(query);
                         break;
                     case "Booked":
-                         query = db.collection("Schedules").whereEqualTo("Status","Paid").orderBy("Dnt", Query.Direction.ASCENDING).limit(20);
+                         query = db.collection("Schedules").whereEqualTo("Status","Paid").orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
                         Shownotif(query);
                         break;
                     case "Pending":
-                         query = db.collection("Schedules").whereEqualTo("Status","Pending Approval").orderBy("Dnt", Query.Direction.ASCENDING).limit(20);
+                         query = db.collection("Schedules").whereEqualTo("Status","Pending Approval").orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
                         Shownotif(query);
                         break;
                     case "Rescheduled":
-                         query = db.collection("Schedules").whereEqualTo("Status","Rescheduled").orderBy("Dnt", Query.Direction.ASCENDING).limit(20);
+                         query = db.collection("Schedules").whereEqualTo("Status","Rescheduled").orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
                         Shownotif(query);
                         break;
                     case "Cancelled":
-                         query = db.collection("Schedules").whereEqualTo("Status","Cancelled").orderBy("Dnt", Query.Direction.ASCENDING).limit(20);
+                         query = db.collection("Schedules").whereEqualTo("Status","Cancelled").orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
                         Shownotif(query);
                         break;
                 }

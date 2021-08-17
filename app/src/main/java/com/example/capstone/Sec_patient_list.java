@@ -20,8 +20,11 @@ import com.example.capstone.utilities.Constants;
 import com.example.capstone.utilities.PreferenceManager;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.mancj.materialsearchbar.MaterialSearchBar;
 
 public class Sec_patient_list extends AppCompatActivity {
@@ -107,6 +110,7 @@ btnchange.setOnClickListener(new View.OnClickListener() {
         adapter.stopListening();
         patientlist = (RecyclerView) findViewById(R.id.recyclerViewpat);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+
         if (searchtype == "Patients") {
             query = db.collection(searchtype).whereEqualTo(clinicname, "True").orderBy("LastName").startAt(text).endAt(text+'\uf8ff');
         }else {

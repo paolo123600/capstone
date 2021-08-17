@@ -19,10 +19,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -40,6 +45,7 @@ public class docsched_page3 extends AppCompatActivity {
     private FirebaseFirestore db;
     String docname, docid , type , documentid;
     Context mContext = this;
+    Boolean conflict = false;
 
 
     @Override
@@ -209,127 +215,200 @@ if (monday){
         savebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            if (type.equals("Add")){
-                String maxbooking = maxbookingtv.getText().toString();
-                String price = pricetv.getText().toString();
-                Intent intent = getIntent();
+                conflict =false;
+                String stringnewstart;
+                String stringnewend;
+                Date datenewstart = new Date();
+                Date datenewend = new Date();
+                stringnewstart = starttime.getText().toString();
+                stringnewend = endtime.getText().toString();
 
-                Map<String, Object> DocSched = new HashMap<>();
-                DocSched.put("DocId", docid);
-                DocSched.put("StartTime", starttime.getText());
-                DocSched.put("EndTime", endtime.getText());
-                DocSched.put("MaximumBooking", maxbooking );
-                DocSched.put("Price", price);
-                DocSched.put("Monday", monstat);
-                DocSched.put("Tuesday", tuestat);
-                DocSched.put("Wednesday", wedstat);
-                DocSched.put("Thursday", thustat);
-                DocSched.put("Friday", fristat);
-                DocSched.put("Saturday", satstat);
-                DocSched.put("Sunday", sunstat);
-                DocSched.put("InActive", true);
+                if (monstat == false && tuestat == false && wedstat == false && thustat == false && fristat == false && satstat == false && sunstat == false) {
+                    Toast.makeText(docsched_page3.this, "Please select day/s of week", Toast.LENGTH_SHORT).show();
+                } else {
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                builder.setCancelable(true);
-                builder.setTitle("Add to Schedule");
-                builder.setMessage("Do you want to add this schedule?");
-                builder.setPositiveButton("Confirm",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
 
-                                db.collection("DoctorSchedules").document().set(DocSched)
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void aVoid) {
-                                                Log.d("TAG", "DocumentSnapshot successfully written!");
-                                            }
-                                        })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                Log.w("TAG", "Error writing document", e);
-                                            }
-                                        });
-                                Intent intent = new Intent(getApplicationContext(), docsched_page2.class);
-                                intent.putExtra("docid", docid);
-                                intent.putExtra("docname", docname);
-                                startActivity(intent);
-                            }
-
-                        });
-                builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    SimpleDateFormat f24hours = new SimpleDateFormat("hh:mm aa");
+                    try {
+                        datenewstart = f24hours.parse(stringnewstart);
+                        datenewend = f24hours.parse(stringnewend);
+                    } catch (ParseException e) {
+                        Toast.makeText(docsched_page3.this, "Error converting new time ", Toast.LENGTH_SHORT).show();
                     }
-                });
+                    if (datenewstart.after(datenewend)) {
+                        Toast.makeText(docsched_page3.this, "The End Time should not be before the Start Time", Toast.LENGTH_SHORT).show();
+                    } else {
 
-                AlertDialog dialog = builder.create();
-                dialog.show();
+                        if (type.equals("Add")) {
+                            Date finalDatenewstart = datenewstart;
+                            Date finalDatenewend = datenewend;
+                            Date finalDatenewend1 = datenewend;
+                            db.collection("DoctorSchedules").whereEqualTo("DocId", docid).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        if (task.getResult().isEmpty()) {
 
-            }
+                                            addsched(conflict);
+                                        } else {
+                                            for (QueryDocumentSnapshot doc : task.getResult()) {
+                                                String stringstart;
+                                                String stringend;
+                                                Boolean same = false;
+                                                if (monstat == true && doc.getBoolean("Monday") == true) {
+                                                    same = true;
+                                                }
+                                                if (tuestat == true && doc.getBoolean("Tuesday") == true) {
+                                                    same = true;
+                                                }
+                                                if (wedstat == true && doc.getBoolean("Wednesday") == true) {
+                                                    same = true;
+                                                }
+                                                if (thustat == true && doc.getBoolean("Thursday") == true) {
+                                                    same = true;
+                                                }
+                                                if (fristat == true && doc.getBoolean("Friday") == true) {
+                                                    same = true;
+                                                }
+                                                if (satstat == true && doc.getBoolean("Saturday") == true) {
+                                                    same = true;
+                                                }
+                                                if (sunstat == true && doc.getBoolean("Sunday") == true) {
+                                                    same = true;
+                                                }
+                                                if (same) {
+                                                    Date dateendtime = new Date();
+                                                    Date datestarttime = new Date();
 
-            else {
-                String maxbooking = maxbookingtv.getText().toString();
-                String price = pricetv.getText().toString();
 
-                Map<String, Object> DocSched = new HashMap<>();
-                DocSched.put("DocId", docid);
-                DocSched.put("StartTime", starttime.getText());
-                DocSched.put("EndTime", endtime.getText());
-                DocSched.put("MaximumBooking", maxbooking );
-                DocSched.put("Price", price);
-                DocSched.put("Monday", monstat);
-                DocSched.put("Tuesday", tuestat);
-                DocSched.put("Wednesday", wedstat);
-                DocSched.put("Thursday", thustat);
-                DocSched.put("Friday", fristat);
-                DocSched.put("Saturday", satstat);
-                DocSched.put("Sunday", sunstat);
+                                                    stringstart = doc.getString("StartTime");
+                                                    stringend = doc.getString("EndTime");
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                builder.setCancelable(true);
-                builder.setTitle("Update Schedule");
-                builder.setMessage("Confirm update of schedule?");
-                builder.setPositiveButton("Confirm",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
 
-                                db.collection("DoctorSchedules").document(documentid).update(DocSched)
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void aVoid) {
-                                                Log.d("TAG", "DocumentSnapshot successfully written!");
+                                                    SimpleDateFormat f24hours = new SimpleDateFormat("hh:mm aa");
+                                                    try {
+                                                        dateendtime = f24hours.parse(stringend);
+                                                        datestarttime = f24hours.parse(stringstart);
+                                                    } catch (ParseException e) {
+                                                        Toast.makeText(docsched_page3.this, "Error converting time", Toast.LENGTH_SHORT).show();
+                                                    }
+
+                                                    if (finalDatenewstart.after(datestarttime) && finalDatenewstart.before(dateendtime) || finalDatenewstart.equals(datestarttime) || finalDatenewstart.equals(dateendtime)) {
+                                                        conflict = true;
+
+                                                    } else {
+                                                        if (finalDatenewend.after(datestarttime) && finalDatenewend.before(dateendtime) || finalDatenewend.equals(datestarttime) || finalDatenewend.equals(dateendtime)) {
+                                                            conflict = true;
+
+                                                        } else {
+                                                            if (finalDatenewend.after(datestarttime) && finalDatenewstart.before(datestarttime)){
+                                                                conflict = true;
+                                                            }
+
+                                                        }
+
+                                                    }
+                                                } else {
+
+                                                }
                                             }
-                                        })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                Log.w("TAG", "Error writing document", e);
-                                            }
-                                        });
+                                            addsched(conflict);
 
-                                Intent intent = new Intent(getApplicationContext(), docsched_page2.class);
-                                intent.putExtra("docid", docid);
-                                intent.putExtra("docname", docname);
-                                startActivity(intent);
-                            }
+                                        }
+                                    }
+                                }
 
-                        });
-                builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                            });
+
+
+                        } else {
+                            Date finalDatenewstart = datenewstart;
+                            Date finalDatenewend = datenewend;
+                            Date finalDatenewend1 = datenewend;
+                            db.collection("DoctorSchedules").whereEqualTo("DocId", docid).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        if (task.getResult().isEmpty()) {
+                                            updatesched(conflict);
+                                        } else {
+                                            for (QueryDocumentSnapshot doc : task.getResult()) {
+                                                if (!documentid.equals(doc.getId())){
+                                                String stringstart;
+                                                String stringend;
+                                                Boolean same = false;
+                                                if (monstat == true && doc.getBoolean("Monday") == true) {
+                                                    same = true;
+                                                }
+                                                if (tuestat == true && doc.getBoolean("Tuesday") == true) {
+                                                    same = true;
+                                                }
+                                                if (wedstat == true && doc.getBoolean("Wednesday") == true) {
+                                                    same = true;
+                                                }
+                                                if (thustat == true && doc.getBoolean("Thursday") == true) {
+                                                    same = true;
+                                                }
+                                                if (fristat == true && doc.getBoolean("Friday") == true) {
+                                                    same = true;
+                                                }
+                                                if (satstat == true && doc.getBoolean("Saturday") == true) {
+                                                    same = true;
+                                                }
+                                                if (sunstat == true && doc.getBoolean("Sunday") == true) {
+                                                    same = true;
+                                                }
+                                                if (same) {
+                                                    Date dateendtime = new Date();
+                                                    Date datestarttime = new Date();
+
+
+                                                    stringstart = doc.getString("StartTime");
+                                                    stringend = doc.getString("EndTime");
+
+
+                                                    SimpleDateFormat f24hours = new SimpleDateFormat("hh:mm aa");
+                                                    try {
+                                                        dateendtime = f24hours.parse(stringend);
+                                                        datestarttime = f24hours.parse(stringstart);
+                                                    } catch (ParseException e) {
+                                                        Toast.makeText(docsched_page3.this, "Error converting time", Toast.LENGTH_SHORT).show();
+                                                    }
+
+                                                    if (finalDatenewstart.after(datestarttime) && finalDatenewstart.before(dateendtime) || finalDatenewstart.equals(datestarttime) || finalDatenewstart.equals(dateendtime)) {
+                                                        conflict = true;
+
+                                                    } else {
+                                                        if (finalDatenewend.after(datestarttime) && finalDatenewend.before(dateendtime) || finalDatenewend.equals(datestarttime) || finalDatenewend.equals(dateendtime)) {
+                                                            conflict = true;
+
+                                                        } else {
+                                                            if (finalDatenewend.after(datestarttime) && finalDatenewstart.before(datestarttime)){
+                                                            conflict = true;
+                                                        }
+
+                                                        }
+
+                                                    }
+                                                } else {
+
+                                                }
+                                            }}
+                                            updatesched(conflict);
+
+                                        }
+                                    }
+                                }
+
+                            });
+
+
+
+                        }
+
                     }
-                });
-
-                AlertDialog dialog = builder.create();
-                dialog.show();
-
-            }
-
-            }
-        });
+                }
+            }   });
 
 
         starttime.setOnClickListener(new View.OnClickListener() {
@@ -400,5 +479,132 @@ if (monday){
             }
         });
 
+    }
+
+    public void addsched (Boolean conflict){
+
+        if (conflict ){
+            Toast.makeText(this, "There has been a conflict between schedules. Please check and try again.", Toast.LENGTH_SHORT).show();
+        }else {
+            String maxbooking = maxbookingtv.getText().toString();
+            String price = pricetv.getText().toString();
+            Intent intent = getIntent();
+
+            Map<String, Object> DocSched = new HashMap<>();
+            DocSched.put("DocId", docid);
+            DocSched.put("StartTime", starttime.getText());
+            DocSched.put("EndTime", endtime.getText());
+            DocSched.put("MaximumBooking", maxbooking);
+            DocSched.put("Price", price);
+            DocSched.put("Monday", monstat);
+            DocSched.put("Tuesday", tuestat);
+            DocSched.put("Wednesday", wedstat);
+            DocSched.put("Thursday", thustat);
+            DocSched.put("Friday", fristat);
+            DocSched.put("Saturday", satstat);
+            DocSched.put("Sunday", sunstat);
+            DocSched.put("InActive", true);
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+            builder.setCancelable(true);
+            builder.setTitle("Add to Schedule");
+            builder.setMessage("Do you want to add this schedule?");
+            builder.setPositiveButton("Confirm",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            db.collection("DoctorSchedules").document().set(DocSched)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Log.d("TAG", "DocumentSnapshot successfully written!");
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.w("TAG", "Error writing document", e);
+                                        }
+                                    });
+                            Intent intent = new Intent(getApplicationContext(), docsched_page2.class);
+                            intent.putExtra("docid", docid);
+                            intent.putExtra("docname", docname);
+                            startActivity(intent);
+                        }
+
+                    });
+            builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            });
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
+    }
+
+    public void updatesched (Boolean conflict){
+
+        if (conflict ){
+            Toast.makeText(this, "There has been a conflict between schedules. Please check and try again.", Toast.LENGTH_SHORT).show();
+        }else {
+            String maxbooking = maxbookingtv.getText().toString();
+            String price = pricetv.getText().toString();
+
+            Map<String, Object> DocSched = new HashMap<>();
+            DocSched.put("DocId", docid);
+            DocSched.put("StartTime", starttime.getText());
+            DocSched.put("EndTime", endtime.getText());
+            DocSched.put("MaximumBooking", maxbooking);
+            DocSched.put("Price", price);
+            DocSched.put("Monday", monstat);
+            DocSched.put("Tuesday", tuestat);
+            DocSched.put("Wednesday", wedstat);
+            DocSched.put("Thursday", thustat);
+            DocSched.put("Friday", fristat);
+            DocSched.put("Saturday", satstat);
+            DocSched.put("Sunday", sunstat);
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+            builder.setCancelable(true);
+            builder.setTitle("Update Schedule");
+            builder.setMessage("Confirm update of schedule?");
+            builder.setPositiveButton("Confirm",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            db.collection("DoctorSchedules").document(documentid).update(DocSched)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Log.d("TAG", "DocumentSnapshot successfully written!");
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.w("TAG", "Error writing document", e);
+                                        }
+                                    });
+
+                            Intent intent = new Intent(getApplicationContext(), docsched_page2.class);
+                            intent.putExtra("docid", docid);
+                            intent.putExtra("docname", docname);
+                            startActivity(intent);
+                        }
+
+                    });
+            builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            });
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
     }
 }

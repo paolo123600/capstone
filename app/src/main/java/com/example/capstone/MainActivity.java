@@ -220,6 +220,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             else{
                                 Date nowdate= new Date();
                                 SimpleDateFormat format = new SimpleDateFormat("MMMM d,yyyy");
+
+                                SimpleDateFormat format2 = new SimpleDateFormat("MMMM d ,yyyy");
                                 format.setLenient(false);
                                 try {
                                     nowdate = format.parse(datenow);
@@ -231,7 +233,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                     String scheddate = doc.getString("Date");
                                     Date datesched = new Date();
                                     try {
-                                        datesched  = format.parse(scheddate);
+                                        datesched  = format2.parse(scheddate);
                                     } catch (ParseException e) {
                                         Toast.makeText(MainActivity.this, "error4", Toast.LENGTH_SHORT).show();
                                     }

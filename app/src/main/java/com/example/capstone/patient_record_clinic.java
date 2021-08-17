@@ -19,9 +19,16 @@ import android.widget.Toast;
 import com.example.capstone.utilities.PreferenceManager;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.mancj.materialsearchbar.MaterialSearchBar;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class patient_record_clinic extends AppCompatActivity {
 
@@ -30,6 +37,7 @@ public class patient_record_clinic extends AppCompatActivity {
     //
     private FirestoreRecyclerAdapter adapter;
     private String clinicname;
+    private  String clinicid;
 
 
     private PreferenceManager preferenceManager;
@@ -64,6 +72,7 @@ public class patient_record_clinic extends AppCompatActivity {
                     adapter.stopListening();
                     getpatient();
                 } else {
+                    adapter.stopListening();
                     txt = txt.substring(0, 1).toUpperCase() + txt.substring(1).toLowerCase();
                     startsearchpatient(txt.toString());
                     Toast.makeText(patient_record_clinic.this, txt.toString(), Toast.LENGTH_SHORT).show();
@@ -82,89 +91,147 @@ public class patient_record_clinic extends AppCompatActivity {
     }
 
     private void startsearchpatient(String text) {
-        adapter.stopListening();
+
         patientrecList = (RecyclerView) findViewById(R.id.patientrec_sec);
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
-        //Query
-        Query query = firebaseFirestore.collection("Patients").whereEqualTo(clinicname, "True").orderBy("LastName").startAt(text).endAt(text + '\uf8ff');
-        //RecyclerOptions
-        FirestoreRecyclerOptions<PatientModel> options = new FirestoreRecyclerOptions.Builder<PatientModel>()
-                .setQuery(query, PatientModel.class)
-                .build();
 
-        adapter = new FirestoreRecyclerAdapter<PatientModel, patient_record_clinic.PatientViewHolder>(options) {
-            @NonNull
+        List<String> Patients = new ArrayList<>();
+        firebaseFirestore.collection("Clinics").whereEqualTo("ClinicName", clinicname).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
-            public patient_record_clinic.PatientViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_patientrec_sec, parent, false);
-                return new patient_record_clinic.PatientViewHolder(view);
-            }
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    if (!task.getResult().isEmpty()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            clinicid = document.getId();
+                            firebaseFirestore.collection("Clinics").document(clinicname).collection("Patients").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        if (!task.getResult().isEmpty()) {
+                                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                                String patuid = document.getString("PatUId");
 
-            @Override
-            protected void onBindViewHolder(@NonNull patient_record_clinic.PatientViewHolder holder, int position, @NonNull PatientModel model) {
-                holder.listFirstname.setText(model.getLastName() + "," + model.getFirstName());
-                holder.listemail.setText(model.getEmail());
+                                                Patients.add(patuid);
+                                                Query query = firebaseFirestore.collection("Patients").whereIn("UserId", Patients).orderBy("LastName").startAt(text).endAt(text + '\uf8ff');
+                                                //RecyclerOptions
+                                                FirestoreRecyclerOptions<PatientModel> options = new FirestoreRecyclerOptions.Builder<PatientModel>()
+                                                        .setQuery(query, PatientModel.class)
+                                                        .build();
 
-                String patientID = model.getUserId();
+                                                adapter = new FirestoreRecyclerAdapter<PatientModel, patient_record_clinic.PatientViewHolder>(options) {
+                                                    @NonNull
+                                                    @Override
+                                                    public patient_record_clinic.PatientViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                                                        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_patientrec_sec, parent, false);
+                                                        return new patient_record_clinic.PatientViewHolder(view);
+                                                    }
 
-                holder.patientR.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getApplicationContext(), patientrec_sec.class);
-                        intent.putExtra("patid", patientID);
-                        startActivity(intent);
+                                                    @Override
+                                                    protected void onBindViewHolder(@NonNull patient_record_clinic.PatientViewHolder holder, int position, @NonNull PatientModel model) {
+                                                        holder.listFirstname.setText(model.getLastName() + "," + model.getFirstName());
+                                                        holder.listemail.setText(model.getEmail());
+
+                                                        String patientID = model.getUserId();
+
+                                                        holder.patientR.setOnClickListener(new View.OnClickListener() {
+                                                            @Override
+                                                            public void onClick(View v) {
+                                                                Intent intent = new Intent(getApplicationContext(), patientrec_sec.class);
+                                                                intent.putExtra("patid", patientID);
+                                                                startActivity(intent);
+                                                            }
+                                                        });
+                                                    }
+                                                };
+
+                                                patientrecList.setHasFixedSize(true);
+                                                patientrecList.setLayoutManager(new LinearLayoutManager(patient_record_clinic.this));
+                                                patientrecList.setAdapter(adapter);
+                                                adapter.startListening();
+                                            }
+                                        }
+                                    }
+                                }
+                            });
+
+
+
+                        }
                     }
-                });
+                }
             }
-        };
-
-        patientrecList.setHasFixedSize(true);
-        patientrecList.setLayoutManager(new LinearLayoutManager(this));
-        patientrecList.setAdapter(adapter);
-        adapter.startListening();
-
+        });
     }
 
     private void getpatient() {
 
         patientrecList = (RecyclerView) findViewById(R.id.patientrec_sec);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        Query query = db.collection("Patients").whereEqualTo(clinicname, "True");
-        FirestoreRecyclerOptions<PatientModel> options = new FirestoreRecyclerOptions.Builder<PatientModel>()
-                .setQuery(query, PatientModel.class)
-                .build();
-
-        adapter = new FirestoreRecyclerAdapter<PatientModel, patient_record_clinic.PatientViewHolder>(options) {
-
-            @NonNull
+        List<String> Patients = new ArrayList<>();
+        db.collection("Clinics").whereEqualTo("ClinicName",clinicname).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
-            public patient_record_clinic.PatientViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_patientrec_sec, parent, false);
-                return new patient_record_clinic.PatientViewHolder(view);
-            }
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()){
+                    if (!task.getResult().isEmpty()){
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            clinicid = document.getId();
+                            db.collection("Clinics").document(clinicid).collection("Patients").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()){
+                                        if (!task.getResult().isEmpty()){
+                                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                                String patuid = document.getString("PatUId");
 
-            @Override
-            protected void onBindViewHolder(@NonNull patient_record_clinic.PatientViewHolder holder, int position, @NonNull PatientModel model) {
-                holder.listFirstname.setText(model.getLastName() + "," + model.getFirstName());
-                holder.listemail.setText(model.getEmail());
+                                                Patients.add(patuid);
+                                            }
+                                            Query query = db.collection("Patients").whereIn("UserId",Patients).orderBy("LastName");
+                                            FirestoreRecyclerOptions<PatientModel> options = new FirestoreRecyclerOptions.Builder<PatientModel>()
+                                                    .setQuery(query, PatientModel.class)
+                                                    .build();
 
-                String patientID = model.getUserId();
+                                            adapter = new FirestoreRecyclerAdapter<PatientModel, patient_record_clinic.PatientViewHolder>(options) {
 
-                holder.patientR.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getApplicationContext(), patientrec_sec.class);
-                        intent.putExtra("patid", patientID);
-                        startActivity(intent);
+                                                @NonNull
+                                                @Override
+                                                public patient_record_clinic.PatientViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                                                    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_patientrec_sec, parent, false);
+                                                    return new patient_record_clinic.PatientViewHolder(view);
+                                                }
+
+                                                @Override
+                                                protected void onBindViewHolder(@NonNull patient_record_clinic.PatientViewHolder holder, int position, @NonNull PatientModel model) {
+                                                    holder.listFirstname.setText(model.getLastName() + "," + model.getFirstName());
+                                                    holder.listemail.setText(model.getEmail());
+
+                                                    String patientID = model.getUserId();
+
+                                                    holder.patientR.setOnClickListener(new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View v) {
+                                                            Intent intent = new Intent(getApplicationContext(), patientrec_sec.class);
+                                                            intent.putExtra("patid", patientID);
+                                                            startActivity(intent);
+                                                        }
+                                                    });
+                                                }
+                                            };
+
+                                            patientrecList.setHasFixedSize(true);
+                                            patientrecList.setLayoutManager(new LinearLayoutManager(patient_record_clinic.this));
+                                            patientrecList.setAdapter(adapter);
+                                            adapter.startListening();
+                                        }
+                                    }
+                                }
+                            });
+                        }
                     }
-                });
+                }
             }
-        };
+        });
 
-        patientrecList.setHasFixedSize(true);
-        patientrecList.setLayoutManager(new LinearLayoutManager(this));
-        patientrecList.setAdapter(adapter);
-        adapter.startListening();
+
 
     }
 

@@ -33,6 +33,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.date.MonthAdapter;
@@ -247,9 +248,29 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
                                                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                     @Override
                                                                     public void onSuccess(Void aVoid) {
-                                                                        Log.d("TAG", "DocumentSnapshot successfully written!");
-                                                                        Intent intent = new Intent(selectDate.this , MainActivity.class);
-                                                                        startActivity(intent);
+                                                                       db.collection("Clinics").whereEqualTo("ClinicName",gv.getSDClinic()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                                           @Override
+                                                                           public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                                               if ( task.isSuccessful()){
+                                                                                   if (!task.getResult().isEmpty()){
+                                                                                       for (QueryDocumentSnapshot doc : task.getResult()) {
+                                                                                           String docuid =doc.getId();
+                                                                                           Map<String, Object> Pat = new HashMap<>();
+                                                                                           Pat.put("PatUId",patuid);
+                                                                                           db.collection("Clinics").document(docuid).collection("Patients").document(patuid).set(Pat).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                                               @Override
+                                                                                               public void onSuccess(Void aVoid) {
+                                                                                                   Log.d("TAG", "DocumentSnapshot successfully written!");
+                                                                                                   Intent intent = new Intent(selectDate.this , MainActivity.class);
+                                                                                                   startActivity(intent);
+                                                                                               }
+                                                                                           });
+                                                                                       }
+                                                                                   }
+                                                                               }
+                                                                           }
+                                                                       });
+
                                                                     }
                                                                 })
                                                                 .addOnFailureListener(new OnFailureListener() {
