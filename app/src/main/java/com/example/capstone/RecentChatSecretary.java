@@ -7,10 +7,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.capstone.Model.ChatlistModel;
+import com.example.capstone.Model.Chats;
 import com.example.capstone.Model.Chatslist;
 import com.example.capstone.Model.DocRC;
 import com.example.capstone.Model.PatRC;
@@ -18,18 +24,26 @@ import com.example.capstone.adapters.DocAdapter;
 import com.example.capstone.adapters.UserAdapter;
 import com.example.capstone.utilities.Constants;
 import com.example.capstone.utilities.PreferenceManager;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class RecentChatSecretary extends AppCompatActivity {
@@ -42,8 +56,11 @@ public class RecentChatSecretary extends AppCompatActivity {
     RecyclerView.LayoutManager layoutManager;
     RecyclerView.LayoutManager layoutManager1;
     UserAdapter mAdapter;
-    DocAdapter docAdapter;
+    FirestoreRecyclerAdapter docAdapter;
     FirebaseFirestore db;
+    String thelastmessage;
+    FirebaseUser firebaseUser;
+    String mainuserid;
     ImageView back;
     private PreferenceManager preferenceManager;
     @Override
@@ -54,14 +71,13 @@ public class RecentChatSecretary extends AppCompatActivity {
         db= FirebaseFirestore.getInstance();
         createchatsec= (Button) findViewById(R.id.btn_recentchatsec);
         userlist = new ArrayList<>();
+        mainuserid = preferenceManager.getString(Constants.KEY_USER_ID);
         recyclerView=(RecyclerView)findViewById(R.id.chat_recyclerview_recentchat2) ;
         recyclerView1=(RecyclerView)findViewById(R.id.chat_recyclerview_recentchatSec) ;
         layoutManager = new LinearLayoutManager(this);
         layoutManager1 = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
-        recyclerView1.setLayoutManager(layoutManager1);
-        recyclerView1.setHasFixedSize(true);
         String User = preferenceManager.getString(Constants.KEY_USER_ID);
         back = findViewById(R.id.backspace);
 
@@ -89,9 +105,9 @@ public class RecentChatSecretary extends AppCompatActivity {
 
 
                 }
-
-                ChatsListings();
                 ChatsListingsdoc();
+                ChatsListings();
+
             }
 
             @Override
@@ -116,34 +132,91 @@ public class RecentChatSecretary extends AppCompatActivity {
     }
 
     private void ChatsListingsdoc() {
-        mDocs = new ArrayList<>();
 
-        db.collection("Doctors").get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful()){
+        Query query = db.collection("Secretary").document(mainuserid).collection("ChatList").whereEqualTo("UserType","Doctors").orderBy("DateAndTime", Query.Direction.DESCENDING);
+        FirestoreRecyclerOptions<ChatlistModel> options = new FirestoreRecyclerOptions.Builder<ChatlistModel>()
+                .setQuery(query,ChatlistModel.class)
+                .build();
 
-                            for (QueryDocumentSnapshot doc : task.getResult()) {
-                                DocRC docRC = doc.toObject(DocRC.class);
+        docAdapter = new FirestoreRecyclerAdapter<ChatlistModel, DocRecentViewHolder>(options) {
+            @NonNull
+            @Override
+            public DocRecentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layoutofusers,parent,false);
+                return new DocRecentViewHolder(view);
+            }
 
-                                for (Chatslist chatslist: userlist){
+            @Override
+            protected void onBindViewHolder(@NonNull DocRecentViewHolder holder, int position, @NonNull ChatlistModel model) {
+                Date dnt = new Date();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM dd hh:mm aa");
+                String datentime="";
+                String docid = model.getUserId();
+                db.collection("Doctors").document(docid).get()
+                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if(task.isSuccessful()){
+                                    DocumentSnapshot documentSnapshot = task.getResult();
+                                    String docname = "Dr. "+ documentSnapshot.getString("LastName");
+                                    holder.tvname.setText(docname);
 
-                                    if(chatslist.getId().equals(docRC.getUserId())){
+                                    holder.itemView.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
 
-
-                                        mDocs.add(docRC);
-
-                                    }
-
+                                            Intent intent = new Intent(RecentChatSecretary.this, MessageActivity.class);
+                                            intent.putExtra("friendid", docid);
+                                            intent.putExtra("name", docname);
+                                            intent.putExtra("usertype", "Doctors");
+                                            intent.putExtra("type", "Secretary");
+                                            startActivity(intent);
+                                        }
+                                    });
                                 }
-
                             }
-                            docAdapter = new DocAdapter(RecentChatSecretary.this, mDocs, true,"Secretary");
-                            recyclerView1.setAdapter(docAdapter);
-                        }
-                    }
-                });
+
+                        });
+                LastMessage(docid,holder.tvmessage);
+                dnt = model.getDateAndTime();
+                datentime = dateFormat.format(dnt);
+                holder.tvtime.setText(datentime);
+
+            }
+        };
+
+        recyclerView1.setHasFixedSize(true);
+        recyclerView1.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView1.setAdapter(docAdapter);
+        docAdapter.startListening();
+//        mDocs = new ArrayList<>();
+
+//        db.collection("Doctors").get()
+//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        if(task.isSuccessful()){
+//
+//                            for (QueryDocumentSnapshot doc : task.getResult()) {
+//                                DocRC docRC = doc.toObject(DocRC.class);
+//
+//                                for (Chatslist chatslist: userlist){
+//
+//                                    if(chatslist.getId().equals(docRC.getUserId())){
+//
+//
+//                                        mDocs.add(docRC);
+//
+//                                    }
+//
+//                                }
+//
+//                            }
+//                            docAdapter = new DocAdapter(RecentChatSecretary.this, mDocs, true,"Secretary");
+//                            recyclerView1.setAdapter(docAdapter);
+//                        }
+//                    }
+//                });
 
     }
 
@@ -176,5 +249,86 @@ public class RecentChatSecretary extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    private class DocRecentViewHolder extends RecyclerView.ViewHolder {
+        TextView tvname;
+        TextView tvmessage;
+        TextView tvtime;
+        public DocRecentViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            tvname = itemView.findViewById(R.id.username_userfrag);
+            tvmessage = itemView.findViewById(R.id.lastMessage);
+            tvtime = itemView.findViewById(R.id.tvtime);
+        }
+    }
+
+    private void LastMessage(String friendid, final TextView last_msg) {
+
+        thelastmessage = "default";
+
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Chats");
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot ds: snapshot.getChildren()) {
+
+                    Chats chats = ds.getValue(Chats.class);
+
+                    if (firebaseUser!=null &&  chats!=null) {
+
+
+                        if (chats.getSender().equals(friendid) && chats.getReciever().equals(firebaseUser.getUid()) ||
+                                chats.getSender().equals(firebaseUser.getUid()) && chats.getReciever().equals(friendid)) {
+
+
+                            thelastmessage = chats.getMessage();
+                        }
+
+
+
+
+                    }
+
+                }
+
+
+                switch (thelastmessage) {
+
+                    case "default":
+                        last_msg.setText("No message");
+                        break;
+
+                    default:
+                        last_msg.setText(thelastmessage);
+
+                }
+
+
+                thelastmessage = "default";
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+
+
+
+
+
+
+
     }
 }

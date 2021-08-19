@@ -42,21 +42,32 @@
 
 </LinearLayout>
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_marginTop="@dimen/_10sdp">
-    <TextView
-        android:id="@+id/lastMessage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/username_userfrag"
-        android:text="Message"
-        android:textSize="15sp"
-        android:textStyle="italic" />
+        <LinearLayout
+            android:layout_width="371dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:orientation="horizontal">
 
-</LinearLayout>
+            <TextView
+                android:id="@+id/lastMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/username_userfrag"
+                android:text="Message"
+                android:textSize="15sp"
+                android:textStyle="italic" />
+
+            <TextView
+                android:id="@+id/tvtime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/username_userfrag"
+                android:layout_marginLeft="@dimen/_180sdp"
+                android:text="time"
+                android:textSize="15sp"
+                android:textStyle="italic" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

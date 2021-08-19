@@ -37,14 +37,20 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -59,6 +65,7 @@ public class MessageActivity extends AppCompatActivity {
     TextView usernameonToolbar;
     Toolbar toolbar;
     FirebaseUser firebaseUser;
+    FirebaseFirestore db;
     EditText et_message;
     Button send;
 
@@ -84,6 +91,7 @@ public class MessageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
         preferenceManager = new PreferenceManager(getApplicationContext());
+
         //send pic
         chat_act = (LinearLayout) findViewById(R.id.chat_act);
         friendid = getIntent().getStringExtra("friendid"); // retreive the friendid when we click on the item
@@ -310,7 +318,7 @@ public class MessageActivity extends AppCompatActivity {
 
         final DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
-
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("sender", myid);
@@ -320,48 +328,79 @@ public class MessageActivity extends AppCompatActivity {
 
         reference.child("Chats").push().setValue(hashMap);
 
+        // ChatList
+        DocumentReference query = null;
+        Date currentTime = Calendar.getInstance().getTime();
+        if (type.equals("Doctors")){
+            query = db.collection("Doctors").document(myid).collection("ChatList").document(friendid);
+        } else  if (type.equals("Patients")){
+            query = db.collection("Patients").document(myid).collection("ChatList").document(friendid);
+        } else  if (type.equals("Secretary")){
+            query = db.collection("Secretary").document(myid).collection("ChatList").document(friendid);
+        }
+        Map<String, Object> Chat = new HashMap<>();
+        Chat.put("UserId", friendid);
+        Chat.put("DateAndTime", currentTime );
+        Chat.put ("UserType",usertype);
+        query.set(Chat);
 
-        final DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("Chatslist").child(myid).child(friendid);
+        if (usertype.equals("Doctors")){
+            query = db.collection("Doctors").document(myid).collection("ChatList").document(friendid);
+        } else  if (usertype.equals("Patients")){
+            query = db.collection("Patients").document(myid).collection("ChatList").document(friendid);
+        } else  if (usertype.equals("Secretary")){
+            query = db.collection("Secretary").document(myid).collection("ChatList").document(friendid);
+        }
+        else {
+            Toast.makeText(this, "sdaf", Toast.LENGTH_SHORT).show();
+        }
+        Map<String, Object> Chat2 = new HashMap<>();
+        Chat2.put("UserId", myid);
+        Chat2.put("DateAndTime", currentTime );
+        Chat2.put ("UserType",type);
+        query.set(Chat2);
 
-        reference1.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-
-                if (!snapshot.exists()) {
-
-
-                    reference1.child("id").setValue(friendid);
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-            final DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference("Chatslist").child(friendid).child(myid);
-
-        reference2.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-
-                if (!snapshot.exists()) {
-
-
-                    reference2.child("id").setValue(myid);
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+//        final DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("Chatslist").child(myid).child(friendid);
+//
+//        reference1.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//
+//
+//                if (!snapshot.exists()) {
+//
+//
+//                    reference1.child("id").setValue(friendid);
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//
+//            final DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference("Chatslist").child(friendid).child(myid);
+//
+//        reference2.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//
+//
+//                if (!snapshot.exists()) {
+//
+//
+//                    reference2.child("id").setValue(myid);
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
 
     }
 
