@@ -101,17 +101,19 @@ public class patient_record_clinic extends AppCompatActivity {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     if (!task.getResult().isEmpty()) {
+                        Toast.makeText(patient_record_clinic.this, "hhere", Toast.LENGTH_SHORT).show();
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             clinicid = document.getId();
-                            firebaseFirestore.collection("Clinics").document(clinicname).collection("Patients").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            firebaseFirestore.collection("Clinics").document(clinicid).collection("Patients").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                     if (task.isSuccessful()) {
                                         if (!task.getResult().isEmpty()) {
                                             for (QueryDocumentSnapshot document : task.getResult()) {
                                                 String patuid = document.getString("PatUId");
-
                                                 Patients.add(patuid);
+                                            }
+
                                                 Query query = firebaseFirestore.collection("Patients").whereIn("UserId", Patients).orderBy("LastName").startAt(text).endAt(text + '\uf8ff');
                                                 //RecyclerOptions
                                                 FirestoreRecyclerOptions<PatientModel> options = new FirestoreRecyclerOptions.Builder<PatientModel>()
@@ -148,7 +150,7 @@ public class patient_record_clinic extends AppCompatActivity {
                                                 patientrecList.setLayoutManager(new LinearLayoutManager(patient_record_clinic.this));
                                                 patientrecList.setAdapter(adapter);
                                                 adapter.startListening();
-                                            }
+
                                         }
                                     }
                                 }
