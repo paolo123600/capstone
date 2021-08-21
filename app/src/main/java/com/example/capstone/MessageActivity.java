@@ -330,6 +330,7 @@ public class MessageActivity extends AppCompatActivity {
 
         // ChatList
         DocumentReference query = null;
+        DocumentReference query2 = null;
         Date currentTime = Calendar.getInstance().getTime();
         if (type.equals("Doctors")){
             query = db.collection("Doctors").document(myid).collection("ChatList").document(friendid);
@@ -345,11 +346,11 @@ public class MessageActivity extends AppCompatActivity {
         query.set(Chat);
 
         if (usertype.equals("Doctors")){
-            query = db.collection("Doctors").document(myid).collection("ChatList").document(friendid);
+            query2 = db.collection("Doctors").document(friendid).collection("ChatList").document(myid);
         } else  if (usertype.equals("Patients")){
-            query = db.collection("Patients").document(myid).collection("ChatList").document(friendid);
+            query2 = db.collection("Patients").document(friendid).collection("ChatList").document(myid);
         } else  if (usertype.equals("Secretary")){
-            query = db.collection("Secretary").document(myid).collection("ChatList").document(friendid);
+            query2 = db.collection("Secretary").document(friendid).collection("ChatList").document(myid);
         }
         else {
             Toast.makeText(this, "sdaf", Toast.LENGTH_SHORT).show();
@@ -358,7 +359,7 @@ public class MessageActivity extends AppCompatActivity {
         Chat2.put("UserId", myid);
         Chat2.put("DateAndTime", currentTime );
         Chat2.put ("UserType",type);
-        query.set(Chat2);
+        query2.set(Chat2);
 
 //        final DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("Chatslist").child(myid).child(friendid);
 //

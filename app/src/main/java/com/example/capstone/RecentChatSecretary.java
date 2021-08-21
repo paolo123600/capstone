@@ -55,7 +55,7 @@ public class RecentChatSecretary extends AppCompatActivity {
     RecyclerView recyclerView1;
     RecyclerView.LayoutManager layoutManager;
     RecyclerView.LayoutManager layoutManager1;
-    UserAdapter mAdapter;
+    FirestoreRecyclerAdapter mAdapter;
     FirestoreRecyclerAdapter docAdapter;
     FirebaseFirestore db;
     String thelastmessage;
@@ -76,8 +76,6 @@ public class RecentChatSecretary extends AppCompatActivity {
         recyclerView1=(RecyclerView)findViewById(R.id.chat_recyclerview_recentchatSec) ;
         layoutManager = new LinearLayoutManager(this);
         layoutManager1 = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setHasFixedSize(true);
         String User = preferenceManager.getString(Constants.KEY_USER_ID);
         back = findViewById(R.id.backspace);
 
@@ -195,12 +193,12 @@ public class RecentChatSecretary extends AppCompatActivity {
 
     private void ChatsListings() {
 
-        Query query = db.collection("Secretary").document(mainuserid).collection("ChatList").whereEqualTo("UserType","Doctors").orderBy("DateAndTime", Query.Direction.DESCENDING);
+        Query query = db.collection("Secretary").document(mainuserid).collection("ChatList").whereEqualTo("UserType","Patients").orderBy("DateAndTime", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<ChatlistModel> options = new FirestoreRecyclerOptions.Builder<ChatlistModel>()
                 .setQuery(query,ChatlistModel.class)
                 .build();
 
-        docAdapter = new FirestoreRecyclerAdapter<ChatlistModel, DocRecentViewHolder>(options) {
+        mAdapter = new FirestoreRecyclerAdapter<ChatlistModel, DocRecentViewHolder>(options) {
             @NonNull
             @Override
             public DocRecentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -220,7 +218,7 @@ public class RecentChatSecretary extends AppCompatActivity {
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                 if(task.isSuccessful()){
                                     DocumentSnapshot documentSnapshot = task.getResult();
-                                    String patname = "Dr. "+ documentSnapshot.getString("LastName");
+                                    String patname = documentSnapshot.getString("FirstName")+ documentSnapshot.getString("LastName");
                                     holder.tvname.setText(patname);
 
                                     holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -247,40 +245,11 @@ public class RecentChatSecretary extends AppCompatActivity {
             }
         };
 
-        recyclerView1.setHasFixedSize(true);
-        recyclerView1.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView1.setAdapter(docAdapter);
-        docAdapter.startListening();
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(mAdapter);
+        mAdapter.startListening();
 
-
-//        mPats = new ArrayList<>();
-//
-//        db.collection("Patients").get()
-//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                        if(task.isSuccessful()){
-//
-//                            for (QueryDocumentSnapshot doc : task.getResult()) {
-//                                PatRC pats = doc.toObject(PatRC.class);
-//
-//                                for (Chatslist chatslist: userlist){
-//
-//                                    if(chatslist.getId().equals(pats.getUserId())){
-//
-//
-//                                        mPats.add(pats);
-//
-//                                    }
-//
-//                                }
-//
-//                            }
-//                            mAdapter = new UserAdapter(RecentChatSecretary.this, mPats, true,"Secretary");
-//                            recyclerView.setAdapter(mAdapter);
-//                        }
-//                    }
-//                });
     }
 
     private class DocRecentViewHolder extends RecyclerView.ViewHolder {
@@ -352,14 +321,6 @@ public class RecentChatSecretary extends AppCompatActivity {
 
             }
         });
-
-
-
-
-
-
-
-
 
 
     }
