@@ -52,7 +52,7 @@ public class  secretary_homepage extends AppCompatActivity implements Navigation
 
     private DrawerLayout drawer;
 
-    TextView navname;
+
 
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
@@ -81,6 +81,10 @@ public class  secretary_homepage extends AppCompatActivity implements Navigation
         currentuser = fAuth.getCurrentUser();
 
         userId = fAuth.getCurrentUser().getUid();
+
+        ////////////
+
+
 
         ///////////
         Patrec_button = findViewById(R.id.notification_button);
@@ -204,7 +208,8 @@ public class  secretary_homepage extends AppCompatActivity implements Navigation
                navUsername.setText(documentSnapshot.getString("ClinicName"));
                navEmail.setText(documentSnapshot.getString("Email"));
 
-               String clname = navUsername.getText().toString();
+
+
            }
        });
 

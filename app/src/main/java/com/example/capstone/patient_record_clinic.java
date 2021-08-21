@@ -112,6 +112,7 @@ public class patient_record_clinic extends AppCompatActivity {
                                             for (QueryDocumentSnapshot document : task.getResult()) {
                                                 String patuid = document.getString("PatUId");
                                                 Patients.add(patuid);
+
                                             }
 
                                                 Query query = firebaseFirestore.collection("Patients").whereIn("UserId", Patients).orderBy("LastName").startAt(text).endAt(text + '\uf8ff');

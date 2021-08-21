@@ -151,7 +151,7 @@ public class MessageActivity extends AppCompatActivity {
 
 //                Users users = snapshot.getValue(Users.class);
 //
-             usernameonToolbar.setText(getIntent().getStringExtra("name")); // set the text of the user on textivew in toolbar
+                usernameonToolbar.setText(getIntent().getStringExtra("name")); // set the text of the user on textivew in toolbar
 
 
                 readMessages(myid, friendid);
