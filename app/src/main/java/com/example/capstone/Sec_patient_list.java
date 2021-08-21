@@ -24,8 +24,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.mancj.materialsearchbar.MaterialSearchBar;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Sec_patient_list extends AppCompatActivity {
 
@@ -39,6 +43,7 @@ public class Sec_patient_list extends AppCompatActivity {
     private RecyclerView.Adapter adapter2;
     MaterialSearchBar materialSearchBar;
     FirebaseFirestore db;
+    private  String clinicid;
     String txt;
     private PreferenceManager preferenceManager;
     @Override
@@ -106,59 +111,90 @@ btnchange.setOnClickListener(new View.OnClickListener() {
     }
 
     private void startsearchpatient(String text) {
-        Query query;
-        adapter.stopListening();
         patientlist = (RecyclerView) findViewById(R.id.recyclerViewpat);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        if (searchtype == "Patients") {
-            query = db.collection(searchtype).whereEqualTo(clinicname, "True").orderBy("LastName").startAt(text).endAt(text+'\uf8ff');
-        }else {
-            query = db.collection(searchtype).whereEqualTo("ClinicName", clinicname).orderBy("LastName").startAt(text).endAt(text+'\uf8ff');
-        }
-        FirestoreRecyclerOptions<PatientModel> options = new FirestoreRecyclerOptions.Builder<PatientModel>()
-                .setQuery(query,PatientModel.class)
-                .build();
-
-        adapter = new FirestoreRecyclerAdapter<PatientModel, Sec_patient_list.PatientsViewHolder>(options) {
-
-            @NonNull
+        List<String> Patients = new ArrayList<>();
+        db.collection("Clinics").whereEqualTo("ClinicName",clinicname).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
-            public Sec_patient_list.PatientsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.patient_list_single,parent,false);
-                return new Sec_patient_list.PatientsViewHolder(view);
-            }
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()){
+                    if (!task.getResult().isEmpty()){
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            clinicid = document.getId();
+                            db.collection("Clinics").document(clinicid).collection("Patients").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()){
+                                        if (!task.getResult().isEmpty()){
+                                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                                String patuid = document.getString("PatUId");
 
-            @Override
-            protected void onBindViewHolder(@NonNull Sec_patient_list.PatientsViewHolder holder, int position, @NonNull PatientModel model) {
-                if (searchtype == "Patients") {
-                    holder.list_patname.setText(model.getLastName()+", "+model.getFirstName());
-                }else {
-                    holder.list_patname.setText("Dr."+" "+model.getLastName());
-                }
-                holder.list_patemail.setText(model.getEmail());
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(getApplicationContext(), MessageActivity.class);
-                        intent.putExtra("friendid", model.getUserId());
-                        if (searchtype == "Patients") {
-                            intent.putExtra("name", model.getLastName()+", "+model.getFirstName());
-                        }else {
-                            intent.putExtra("name", "Dr."+" "+model.getLastName());
+                                                Patients.add(patuid);
+                                            }
+                                            Query query ;
+                                            if (searchtype == "Patients") {
+                                               query = db.collection("Patients").whereIn("UserId", Patients).orderBy("LastName").startAt(text).endAt(text + '\uf8ff');
+                                            }else {
+                                                query = db.collection(searchtype).whereEqualTo("ClinicName", clinicname).orderBy("LastName").startAt(text).endAt(text + '\uf8ff');
+                                            }
+                                            FirestoreRecyclerOptions<PatientModel> options = new FirestoreRecyclerOptions.Builder<PatientModel>()
+                                                    .setQuery(query,PatientModel.class)
+                                                    .build();
+
+                                            adapter = new FirestoreRecyclerAdapter<PatientModel, Sec_patient_list.PatientsViewHolder>(options) {
+
+                                                @NonNull
+                                                @Override
+                                                public Sec_patient_list.PatientsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                                                    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.patient_list_single,parent,false);
+                                                    return new Sec_patient_list.PatientsViewHolder(view);
+                                                }
+
+                                                @Override
+                                                protected void onBindViewHolder(@NonNull Sec_patient_list.PatientsViewHolder holder, int position, @NonNull PatientModel model) {
+                                                    if (searchtype == "Patients") {
+                                                        holder.list_patname.setText(model.getLastName()+", "+model.getFirstName());
+                                                    }else {
+                                                        holder.list_patname.setText("Dr."+" "+model.getLastName());
+                                                    }
+                                                    holder.list_patemail.setText(model.getEmail());
+                                                    holder.itemView.setOnClickListener(new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View view) {
+                                                            Intent intent = new Intent(getApplicationContext(), MessageActivity.class);
+                                                            intent.putExtra("friendid", model.getUserId());
+                                                            if (searchtype == "Patients") {
+                                                                intent.putExtra("name", model.getLastName()+", "+model.getFirstName());
+                                                            }else {
+                                                                intent.putExtra("name", "Dr."+" "+model.getLastName());
+                                                            }
+                                                            intent.putExtra("usertype", searchtype);
+                                                            intent.putExtra("type", "Secretary");
+                                                            startActivity(intent);
+                                                        }
+                                                    });
+                                                }
+                                            };
+
+                                            patientlist.setHasFixedSize(true);
+                                            patientlist.setLayoutManager(new LinearLayoutManager(Sec_patient_list.this));
+                                            patientlist.setAdapter(adapter);
+                                            adapter.startListening();
+                                        }
+                                    }
+                                }
+                            });
+
+
+
                         }
-                        intent.putExtra("usertype", searchtype);
-                        intent.putExtra("type", "Secretary");
-                        startActivity(intent);
                     }
-                });
+                }
             }
-        };
+        });
 
-        patientlist.setHasFixedSize(true);
-        patientlist.setLayoutManager(new LinearLayoutManager(Sec_patient_list.this));
-        patientlist.setAdapter(adapter);
-        adapter.startListening();
+//
 
 
 
@@ -166,11 +202,31 @@ btnchange.setOnClickListener(new View.OnClickListener() {
     }
 
     private void getpatient() {
-        Query query;
+
         patientlist = (RecyclerView) findViewById(R.id.recyclerViewpat);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        List<String> Patients = new ArrayList<>();
+        db.collection("Clinics").whereEqualTo("ClinicName",clinicname).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()){
+                    if (!task.getResult().isEmpty()){
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            clinicid = document.getId();
+                            db.collection("Clinics").document(clinicid).collection("Patients").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()){
+                                        if (!task.getResult().isEmpty()){
+                                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                                String patuid = document.getString("PatUId");
+
+                                                Patients.add(patuid);
+                                            }
+                                            Query query ;
         if (searchtype == "Patients") {
-            query = db.collection(searchtype).whereEqualTo(clinicname, "True");
+             query = db.collection("Patients").whereIn("UserId",Patients).orderBy("LastName");
         }else {
             query = db.collection(searchtype).whereEqualTo("ClinicName", clinicname);
         }
@@ -217,6 +273,18 @@ btnchange.setOnClickListener(new View.OnClickListener() {
         patientlist.setLayoutManager(new LinearLayoutManager(Sec_patient_list.this));
         patientlist.setAdapter(adapter);
         adapter.startListening();
+                                        }
+                                    }
+                                }
+                            });
+
+
+
+                        }
+                    }
+                }
+            }
+        });
 
     }
 
