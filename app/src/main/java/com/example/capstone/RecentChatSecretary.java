@@ -189,66 +189,98 @@ public class RecentChatSecretary extends AppCompatActivity {
         recyclerView1.setLayoutManager(new LinearLayoutManager(this));
         recyclerView1.setAdapter(docAdapter);
         docAdapter.startListening();
-//        mDocs = new ArrayList<>();
 
-//        db.collection("Doctors").get()
+
+    }
+
+    private void ChatsListings() {
+
+        Query query = db.collection("Secretary").document(mainuserid).collection("ChatList").whereEqualTo("UserType","Doctors").orderBy("DateAndTime", Query.Direction.DESCENDING);
+        FirestoreRecyclerOptions<ChatlistModel> options = new FirestoreRecyclerOptions.Builder<ChatlistModel>()
+                .setQuery(query,ChatlistModel.class)
+                .build();
+
+        docAdapter = new FirestoreRecyclerAdapter<ChatlistModel, DocRecentViewHolder>(options) {
+            @NonNull
+            @Override
+            public DocRecentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layoutofusers,parent,false);
+                return new DocRecentViewHolder(view);
+            }
+
+            @Override
+            protected void onBindViewHolder(@NonNull DocRecentViewHolder holder, int position, @NonNull ChatlistModel model) {
+                Date dnt = new Date();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM dd hh:mm aa");
+                String datentime="";
+                String patid = model.getUserId();
+                db.collection("Patients").document(patid).get()
+                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if(task.isSuccessful()){
+                                    DocumentSnapshot documentSnapshot = task.getResult();
+                                    String patname = "Dr. "+ documentSnapshot.getString("LastName");
+                                    holder.tvname.setText(patname);
+
+                                    holder.itemView.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+
+                                            Intent intent = new Intent(RecentChatSecretary.this, MessageActivity.class);
+                                            intent.putExtra("friendid", patid);
+                                            intent.putExtra("name", patname);
+                                            intent.putExtra("usertype", "Patients");
+                                            intent.putExtra("type", "Secretary");
+                                            startActivity(intent);
+                                        }
+                                    });
+                                }
+                            }
+
+                        });
+                LastMessage(patid,holder.tvmessage);
+                dnt = model.getDateAndTime();
+                datentime = dateFormat.format(dnt);
+                holder.tvtime.setText(datentime);
+
+            }
+        };
+
+        recyclerView1.setHasFixedSize(true);
+        recyclerView1.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView1.setAdapter(docAdapter);
+        docAdapter.startListening();
+
+
+//        mPats = new ArrayList<>();
+//
+//        db.collection("Patients").get()
 //                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
 //                    @Override
 //                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
 //                        if(task.isSuccessful()){
 //
 //                            for (QueryDocumentSnapshot doc : task.getResult()) {
-//                                DocRC docRC = doc.toObject(DocRC.class);
+//                                PatRC pats = doc.toObject(PatRC.class);
 //
 //                                for (Chatslist chatslist: userlist){
 //
-//                                    if(chatslist.getId().equals(docRC.getUserId())){
+//                                    if(chatslist.getId().equals(pats.getUserId())){
 //
 //
-//                                        mDocs.add(docRC);
+//                                        mPats.add(pats);
 //
 //                                    }
 //
 //                                }
 //
 //                            }
-//                            docAdapter = new DocAdapter(RecentChatSecretary.this, mDocs, true,"Secretary");
-//                            recyclerView1.setAdapter(docAdapter);
+//                            mAdapter = new UserAdapter(RecentChatSecretary.this, mPats, true,"Secretary");
+//                            recyclerView.setAdapter(mAdapter);
 //                        }
 //                    }
 //                });
-
-    }
-
-    private void ChatsListings() {
-        mPats = new ArrayList<>();
-
-        db.collection("Patients").get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful()){
-
-                            for (QueryDocumentSnapshot doc : task.getResult()) {
-                                PatRC pats = doc.toObject(PatRC.class);
-
-                                for (Chatslist chatslist: userlist){
-
-                                    if(chatslist.getId().equals(pats.getUserId())){
-
-
-                                        mPats.add(pats);
-
-                                    }
-
-                                }
-
-                            }
-                            mAdapter = new UserAdapter(RecentChatSecretary.this, mPats, true,"Secretary");
-                            recyclerView.setAdapter(mAdapter);
-                        }
-                    }
-                });
     }
 
     private class DocRecentViewHolder extends RecyclerView.ViewHolder {
