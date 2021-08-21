@@ -2,15 +2,16 @@ package com.example.capstone.secretary;
 
 public class SecretaryListModel {
 
-    private String FirstName, LastName, DocType, ClinicName;
+    private String FirstName, LastName, DocType, ClinicName, UserId;
 
     private SecretaryListModel() {}
 
-    private SecretaryListModel(String FirstName, String LastName, String DocType, String ClinicName) {
+    private SecretaryListModel(String FirstName, String LastName, String DocType, String ClinicName, String UserId) {
         this.FirstName = FirstName;
         this.LastName = LastName;
         this.DocType = DocType;
         this.ClinicName = ClinicName;
+        this.UserId = UserId;
 
     }
 
@@ -44,5 +45,13 @@ public class SecretaryListModel {
 
     public void setClinicName(String clinicName) {
         this.ClinicName = clinicName;
+    }
+
+    public String getUserId() {
+        return UserId;
+    }
+
+    public void setUserId(String userId) {
+        UserId = userId;
     }
 }

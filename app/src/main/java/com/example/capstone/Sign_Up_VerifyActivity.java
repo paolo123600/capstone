@@ -140,7 +140,7 @@ public class Sign_Up_VerifyActivity extends AppCompatActivity {
 
                                             new AlertDialog.Builder(Sign_Up_VerifyActivity.this)
                                                     .setTitle("Account Successfully Created")
-                                                    .setMessage("You have successfully created an account!! You can now login in the login page.")
+                                                    .setMessage("You have successfully created an account!! Please confirm your email before logging in.")
                                                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                                         @Override
                                                         public void onClick(DialogInterface dialogInterface, int i) {

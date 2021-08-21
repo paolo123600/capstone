@@ -147,7 +147,7 @@ public class RecentChatSecretary extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(@NonNull DocRecentViewHolder holder, int position, @NonNull ChatlistModel model) {
                 Date dnt = new Date();
-                SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM dd hh:mm aa");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd hh:mm aa");
                 String datentime="";
                 String docid = model.getUserId();
                 db.collection("Doctors").document(docid).get()

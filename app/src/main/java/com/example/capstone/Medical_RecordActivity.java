@@ -1,5 +1,6 @@
 package com.example.capstone;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -14,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -100,9 +102,19 @@ public class Medical_RecordActivity extends AppCompatActivity implements Adapter
                     Toast.makeText(Medical_RecordActivity.this, "Enter Allergies",Toast.LENGTH_SHORT).show();
                 }else{
 
-                    Intent intent = new Intent(Medical_RecordActivity.this,Sign_Up_VerifyActivity.class);
-                    startActivity(intent);
-
+                    new AlertDialog.Builder(Medical_RecordActivity.this).setMessage("Do you have HMO?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(getApplicationContext(), add_patient_HMO.class);
+                            startActivity(intent);
+                        }
+                    }).setNegativeButton("None", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(getApplicationContext(), Sign_Up_VerifyActivity.class);
+                            startActivity(intent);
+                        }
+                    }).show();
 
                 }
             }
