@@ -18,35 +18,18 @@
             app:layout_constraintTop_toTopOf="parent"
             android:orientation="vertical"
             android:layout_marginTop="@dimen/_150sdp"
-            android:layout_marginLeft="@dimen/_30sdp"
-            android:layout_marginEnd="@dimen/_30sdp"
-            android:layout_marginStart="@dimen/_30sdp"
-            android:layout_marginRight="@dimen/_30sdp"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_20sdp"
             android:gravity="center">
 
-        <EditText
-            android:id="@+id/verify"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Verification Code"
-            android:inputType="textPassword"
-            android:paddingLeft="10dp"
-            tools:layout_editor_absoluteX="99dp"
-            tools:layout_editor_absoluteY="251dp" />
-
-        <Button
-            android:id="@+id/btn_verify"
-            android:layout_width="130dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/verify"
-            android:background="@drawable/darkround"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:text="VERIFY"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="321dp"
-            android:textColor="@color/white"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Please click the finish button to complete your registration."
+                android:gravity="center"
+                android:textSize="@dimen/_20sdp"/>
 
             <Button
                 android:id="@+id/btn_emailsup"
@@ -54,8 +37,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/verify"
                 android:background="@drawable/darkround"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:text="Register"
+                android:layout_marginTop="@dimen/_30sdp"
+                android:text="Finish"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:layout_editor_absoluteY="321dp"

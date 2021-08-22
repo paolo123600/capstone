@@ -59,16 +59,9 @@ public class Sign_Up_VerifyActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         emailreg = findViewById(R.id.btn_emailsup);
 
-        btn_Continue= (Button) findViewById(R.id.btn_verify);
-        ET_VCode=(EditText) findViewById(R.id.verify);
-        db= FirebaseFirestore.getInstance();
-        btn_Continue.setOnClickListener(new View.OnClickListener() {
-            static final String TAG = "Read Data Activity";
-            @Override
-            public void onClick(View view) {
 
-            }
-        });
+        db= FirebaseFirestore.getInstance();
+
 
         emailreg.setOnClickListener(new View.OnClickListener() {
             @Override
