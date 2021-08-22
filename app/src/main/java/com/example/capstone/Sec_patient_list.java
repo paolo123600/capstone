@@ -111,6 +111,8 @@ btnchange.setOnClickListener(new View.OnClickListener() {
     }
 
     private void startsearchpatient(String text) {
+        Query query;
+        adapter.stopListening();
         patientlist = (RecyclerView) findViewById(R.id.recyclerViewpat);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -226,7 +228,7 @@ btnchange.setOnClickListener(new View.OnClickListener() {
                                             }
                                             Query query ;
         if (searchtype == "Patients") {
-             query = db.collection("Patients").whereIn("UserId",Patients).orderBy("LastName");
+            query = db.collection(searchtype).whereEqualTo(clinicname, "True");
         }else {
             query = db.collection(searchtype).whereEqualTo("ClinicName", clinicname);
         }

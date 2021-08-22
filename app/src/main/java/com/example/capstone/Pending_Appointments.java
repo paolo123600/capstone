@@ -89,7 +89,6 @@ public class Pending_Appointments extends AppCompatActivity {
                 });
 
                 holder.schedtime.setText("Schedule: " + model.getDate());
-                holder.schedtime.setText("HMO: " + model.getHmo());
                 holder.itemView.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View v) {
@@ -104,7 +103,8 @@ public class Pending_Appointments extends AppCompatActivity {
                         gv.setPending_docUid(model.getDoctorUId());
                         gv.setPending_patUid(model.getPatientUId());
                         gv.setPending_hmo(model.getHmo());
-                        gv.setPending_sched(model.getDate() + " (" + model.getStartTime() + "-" + ")" );
+                        gv.setPending_sched(model.getDate() + " (" + model.getStartTime() + " - " + model.getEndTime() + ")" );
+                        gv.setPending_cardNumber(model.getCardNumber());
                         startActivity(intent);
                     }
                 });

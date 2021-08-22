@@ -478,4 +478,14 @@ public class GlobalVariables extends Application {
 
     String Pending_patUid;
 
+    public String getPending_cardNumber() {
+        return Pending_cardNumber;
+    }
+
+    public void setPending_cardNumber(String pending_cardNumber) {
+        Pending_cardNumber = pending_cardNumber;
+    }
+
+    String Pending_cardNumber;
+
 }

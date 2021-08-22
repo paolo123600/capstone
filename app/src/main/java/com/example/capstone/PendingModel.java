@@ -9,6 +9,7 @@ public class PendingModel {
     private String Hmo;
     private String StartTime;
     private String EndTime;
+    private String CardNumber;
 
     public PendingModel(){
 
@@ -70,7 +71,15 @@ public class PendingModel {
         EndTime = endTime;
     }
 
-    public PendingModel(String clinicName, String date, String doctorUId, String patientUId, String hmo, String startTime, String endTime){
+    public String getCardNumber() {
+        return CardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        CardNumber = cardNumber;
+    }
+
+    public PendingModel(String clinicName, String date, String doctorUId, String patientUId, String hmo, String startTime, String endTime, String cardNumber){
         ClinicName = clinicName;
         Date = date;
         DoctorUId = doctorUId;
@@ -78,5 +87,6 @@ public class PendingModel {
         Hmo = hmo;
         StartTime = startTime;
         EndTime = endTime;
+        CardNumber = cardNumber;
     }
 }

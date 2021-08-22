@@ -2,20 +2,26 @@ package com.example.capstone;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import com.bumptech.glide.Glide;
 import com.example.capstone.utilities.PreferenceManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -28,6 +34,8 @@ import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 
@@ -40,6 +48,7 @@ public class Pending_Confirmation extends AppCompatActivity {
     private Button Accept;
     private Button Decline;
     private ImageView HMO_Image;
+    private TextView CardNumber;
     GlobalVariables gv;
     FirebaseFirestore db;
     ProgressDialog progressDialog;
@@ -47,6 +56,8 @@ public class Pending_Confirmation extends AppCompatActivity {
     String storageid;
     private FirebaseStorage storage;
     private StorageReference storageReference;
+    Bitmap getpic;
+    String image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +72,7 @@ public class Pending_Confirmation extends AppCompatActivity {
         HMO_Image = (ImageView) findViewById(R.id.conf_hmoimage);
         Accept = (Button) findViewById(R.id.conf_btnaccept);
         Decline = (Button) findViewById(R.id.conf_btndecline);
+        CardNumber = (TextView) findViewById(R.id.conf_hmocardnum);
         gv = (GlobalVariables) getApplicationContext();
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
@@ -91,6 +103,7 @@ public class Pending_Confirmation extends AppCompatActivity {
 
         Schedule.setText("Schedule: " + gv.getPending_sched());
         HMO_Name.setText("HMO: " + gv.getPending_hmo());
+        CardNumber.setText("Card Number: " + gv.getPending_cardNumber());
 
         Accept.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -202,6 +215,13 @@ public class Pending_Confirmation extends AppCompatActivity {
             }
         });
 
+        HMO_Image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Pending_Confirmation.this, ImageFullscreen.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void retrieveHMO(){
@@ -220,8 +240,15 @@ public class Pending_Confirmation extends AppCompatActivity {
                             storageid = sched.getString("StorageId");
                             storageReference = FirebaseStorage.getInstance().getReference("PatientHMO/" + storageid);
 
-                            if(storageid==null){
+                            if(storageid==""){
                                 if(progressDialog.isShowing()){
+                                    final int sdk = Build.VERSION.SDK_INT;
+                                    if(sdk < Build.VERSION_CODES.R){
+                                        HMO_Image.setBackgroundResource(R.drawable.nopreview);
+                                    }
+                                    else{
+                                        HMO_Image.setBackgroundResource(R.drawable.nopreview);
+                                    }
                                     progressDialog.dismiss();
                                 }
                             }
@@ -233,7 +260,7 @@ public class Pending_Confirmation extends AppCompatActivity {
                                                 @Override
                                                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                                                     if(progressDialog.isShowing()){
-                                                        Bitmap getpic = BitmapFactory.decodeFile(localfile.getAbsolutePath());
+                                                        getpic = BitmapFactory.decodeFile(localfile.getAbsolutePath());
                                                         HMO_Image.setImageBitmap(getpic);
                                                         progressDialog.dismiss();
                                                     }
@@ -251,5 +278,6 @@ public class Pending_Confirmation extends AppCompatActivity {
             }
         });
     }
+
 
 }

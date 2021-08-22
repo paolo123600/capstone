@@ -20,7 +20,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/PendingHMO"
         android:layout_gravity="center"
-        android:layout_width="370dp"
+        android:layout_width="match_parent"
         android:layout_height="550dp"
         android:paddingTop="20dp" />
 
