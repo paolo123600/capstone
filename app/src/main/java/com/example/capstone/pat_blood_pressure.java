@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -41,6 +42,7 @@ public class pat_blood_pressure extends AppCompatActivity {
     String userId;
     String collectionBpDate, edittxtupper, edittxtlower;
     RecyclerView mFirestoreList;
+    ImageView back;
 
     private FirestoreRecyclerAdapter adapter;
 
@@ -49,7 +51,7 @@ public class pat_blood_pressure extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pat_blood_pressure);
 
-        bpdate = findViewById(R.id.bp_date);
+
         bpupper = findViewById(R.id.bp_upper);
         bplower = findViewById(R.id.bp_lower);
 
@@ -64,14 +66,21 @@ public class pat_blood_pressure extends AppCompatActivity {
 
 
         userId = fAuth.getCurrentUser().getUid();
-
+        back = findViewById(R.id.backspace);
 
         Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);
         final int month = calendar.get(Calendar.MONTH);
         final int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        bpdate.setText(getTodaysDate());
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+
 
 
         Query query = db.collection("Patients").document(userId).collection("BP").orderBy("Dnt", Query.Direction.DESCENDING).limit(20);;
@@ -118,7 +127,7 @@ public class pat_blood_pressure extends AppCompatActivity {
         submitbp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                collectionBpDate = bpdate.getText().toString();
+
                 edittxtupper = bpupper.getText().toString();
                 edittxtlower = bplower.getText().toString();
 

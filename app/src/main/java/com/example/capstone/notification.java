@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +38,7 @@ Spinner spinner_status;
 RecyclerView mFirestorelist;
 FirebaseFirestore db;
 FirestoreRecyclerAdapter adapter;
+    ImageView back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,7 @@ FirestoreRecyclerAdapter adapter;
         spinner_status= (Spinner)findViewById(R.id.statspinner);
         mFirestorelist = (RecyclerView)findViewById(R.id.recycleview_notif);
         db= FirebaseFirestore.getInstance();
+        back = findViewById(R.id.backspace);
 
         ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(this,
                 R.array.Status, android.R.layout.simple_spinner_item);
@@ -54,9 +57,19 @@ FirestoreRecyclerAdapter adapter;
 
         spinner_status.setAdapter(arrayAdapter);
 
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+
         Query query = db.collection("Schedules").orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
 
         Shownotif(query);
+
+
 
         spinner_status.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

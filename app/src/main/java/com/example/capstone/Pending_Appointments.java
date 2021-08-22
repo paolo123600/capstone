@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +33,7 @@ public class Pending_Appointments extends AppCompatActivity {
     private PreferenceManager preferenceManager;
     GlobalVariables gv;
     FirebaseFirestore db;
+    ImageView back;
 
     String patientname, schedule, docname, hmoname;
 
@@ -39,13 +41,22 @@ public class Pending_Appointments extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pending_appointment);
-
+        back = findViewById(R.id.backspace);
         preferenceManager = new PreferenceManager(getApplicationContext());
         pendinglist = (RecyclerView) findViewById(R.id.PendingHMO);
+
+
 
         gv = (GlobalVariables) getApplicationContext();
 
         db = FirebaseFirestore.getInstance();
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         Query query = db.collection("Schedules").whereEqualTo("ClinicName", preferenceManager.getString("ClinicName")).whereEqualTo("Status","Pending Approval");
         FirestoreRecyclerOptions<PendingModel> options = new FirestoreRecyclerOptions.Builder<PendingModel>()
