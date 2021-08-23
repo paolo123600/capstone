@@ -384,6 +384,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Intent intent2 = new Intent(MainActivity.this, medical_records.class);
                 startActivity(intent2);
                 break;
+            case R.id.nav_listHMO:
+                Intent intent5 = new Intent(MainActivity.this, Patient_HMOList.class);
+                startActivity(intent5);
+                break;
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;

@@ -23,6 +23,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity android:name=".secretary.Secretary_schedlist_patsched"></activity>
+        <activity android:name=".Patient_HMOAdd"/>
+        <activity android:name=".Patient_HMOEdit"/>
+        <activity android:name=".Patient_HMOList"/>
         <activity android:name=".secretary.Secretary_schedlist" />
         <activity android:name=".reschedule_date" />
         <activity android:name=".Pending_Appointments" />
