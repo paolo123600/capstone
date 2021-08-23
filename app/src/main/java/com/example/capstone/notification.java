@@ -135,7 +135,9 @@ FirestoreRecyclerAdapter adapter;
 
              @Override
              protected void onBindViewHolder(@NonNull Schedholder holder, int position, @NonNull DocTodaySchedModel model) {
-                 String date= model.getDate();
+                 Date datesched =model.getDate();
+                 SimpleDateFormat format = new SimpleDateFormat("MMMM d ,yyyy");
+                 String date=  format.format(datesched);
                  String status = model.getStatus();
                  Date bookeddate = model.getDnt();
                  db.collection("Patients").document(model.getPatientUId()).get()

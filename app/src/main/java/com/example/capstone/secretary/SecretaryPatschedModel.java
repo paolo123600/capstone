@@ -1,12 +1,15 @@
 package com.example.capstone.secretary;
 
+import java.util.Date;
+
 public class SecretaryPatschedModel {
 
-    private String Date, ClinicName, PatientUId;
+    private String ClinicName, PatientUId;
+    Date Date;
 
     private SecretaryPatschedModel() {}
 
-    private SecretaryPatschedModel(String Date, String ClinicName, String PatientUId) {
+    private SecretaryPatschedModel(Date Date, String ClinicName, String PatientUId) {
         this.ClinicName = ClinicName;
         this.PatientUId = PatientUId;
         this.Date = Date;
@@ -31,11 +34,11 @@ public class SecretaryPatschedModel {
         PatientUId = patientUId;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return Date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         Date = date;
     }
 }

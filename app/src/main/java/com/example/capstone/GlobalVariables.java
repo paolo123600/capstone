@@ -123,6 +123,16 @@ public class GlobalVariables extends Application {
     String SDClinic;
     String SDDocemail;
     String SDDate;
+
+    public Date getDDate() {
+        return DDate;
+    }
+
+    public void setDDate(Date DDate) {
+        this.DDate = DDate;
+    }
+
+    Date DDate;
     String SDtimestart;
     String SDPatUId;
     String SDtimestop;

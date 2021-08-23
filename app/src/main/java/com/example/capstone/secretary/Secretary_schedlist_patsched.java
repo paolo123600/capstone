@@ -22,6 +22,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Secretary_schedlist_patsched extends AppCompatActivity {
 
     FirebaseAuth fAuth;
@@ -61,7 +64,10 @@ public class Secretary_schedlist_patsched extends AppCompatActivity {
 
             @Override
             protected void onBindViewHolder(@NonNull Secretary_schedlist_patsched.SecretaryPatSchedViewHolder holder, int position, @NonNull SecretaryPatschedModel model) {
-                holder.list_datesched.setText(model.getDate());
+                Date datesched =model.getDate();
+                SimpleDateFormat format = new SimpleDateFormat("MMMM d ,yyyy");
+                String date=  format.format(datesched);
+                holder.list_datesched.setText(date);
                 db.collection("Patients").document(model.getPatientUId()).get()
                         .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                             @Override
