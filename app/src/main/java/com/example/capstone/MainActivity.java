@@ -144,6 +144,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         updateNavHeader();
 
 
+
+
         db.collection("Schedules").whereEqualTo("PatientUId", patuid).whereEqualTo("Status","Paid")
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -296,6 +298,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+
     @Override
     public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
         Date nowdate = new Date() , currentdate  = new Date()  , currentdateminus2  = new Date();
@@ -398,7 +401,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (drawer.isDrawerOpen(GravityCompat.START)){
             drawer.closeDrawer(GravityCompat.START);
         }else {
-            super.onBackPressed();
+            finish();
         }
 
     }

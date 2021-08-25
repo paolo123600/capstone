@@ -27,7 +27,7 @@
             <LinearLayout
                 android:id="@id/layout"
                 android:layout_width="match_parent"
-                android:layout_height="135dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="90dp"
                 android:layout_marginRight="20dp"
@@ -35,44 +35,83 @@
                 android:orientation="vertical"
                 android:padding="20dp"
                 android:paddingBottom="20dp"
-
                 app:layout_constraintBottom_toBottomOf="@id/toolbar">
 
-                <Button
-                    android:id="@+id/btn_patient"
-                    android:layout_width="111dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:background="@drawable/pat_rec_button"
-                    android:text="Patient record"
-                    android:textColor="@color/white"
-                    android:visibility="invisible" />
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tvPatname"
-                    android:layout_width="156dp"
-                    android:layout_height="41dp"
-                    android:layout_marginTop="-45dp"
-                    android:text="No Current Appointment"
-                    android:textColor="@color/white"
-                    android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/tvPatname"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="wrap_content"
+                        android:text="No Current Appointment"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tvSched"
-                    android:layout_width="155dp"
-                    android:layout_height="34dp"
-                    android:textColor="@color/white"
-                    android:textSize="15dp" />
+                    <Button
+                        android:id="@+id/btn_patient"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:background="@drawable/pat_rec_button"
+                        android:text="Patient record"
+                        android:textColor="@color/white" />
 
-                <Button
-                    android:id="@+id/btn_call"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_gravity="right"
-                    android:layout_marginTop="-25dp"
-                    android:layout_marginRight="40dp"
-                    android:background="@drawable/ic_doc_phone"
-                    android:visibility="invisible" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/_10sdp">
+
+                    <TextView
+                        android:id="@+id/tvSched"
+                        android:layout_width="0dp"
+                        android:layout_weight="3"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="15dp"
+                        android:text="tvsched"/>
+
+                    <Button
+                        android:id="@+id/btn_call"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:background="@drawable/ic_doc_phone"/>
+
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="right"
+                    android:layout_marginTop="@dimen/_5sdp">
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Complete"/>
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Remove"/>
+
+                </LinearLayout>
+
+
+
 
 
             </LinearLayout>
@@ -138,7 +177,6 @@
 
     </LinearLayout>
 
-
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_viewer_doc"
         android:layout_width="wrap_content"
@@ -146,8 +184,6 @@
         android:layout_gravity="start"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/drawer_menu_doc"/>
-
-
 
 
 

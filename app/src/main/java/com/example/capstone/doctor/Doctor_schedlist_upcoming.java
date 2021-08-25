@@ -1,4 +1,4 @@
-package com.example.capstone.secretary;
+package com.example.capstone.doctor;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +14,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.capstone.R;
+import com.example.capstone.secretary.SecretaryPatschedModel;
+import com.example.capstone.secretary.Secretary_schedlist_patsched;
+import com.example.capstone.secretary.Secretary_schedlist_patsched_past;
 import com.example.capstone.utilities.PreferenceManager;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -26,7 +29,7 @@ import com.google.firebase.firestore.Query;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Secretary_schedlist_patsched extends AppCompatActivity {
+public class Doctor_schedlist_upcoming extends AppCompatActivity {
 
     FirebaseAuth fAuth;
     FirebaseFirestore db;
@@ -39,14 +42,14 @@ public class Secretary_schedlist_patsched extends AppCompatActivity {
 
     PreferenceManager preferenceManager;
 
+    String userId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_secretary_schedlist_patsched);
+        setContentView(R.layout.activity_doctor_schedlist_upcoming);
 
-        pastsched = findViewById(R.id.sec_past_sched);
-
-        mFirestoreList = findViewById(R.id.sec_sched_recview);
+        mFirestoreList = findViewById(R.id.Doc_upcoming_sched_recview);
         fAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         preferenceManager = new PreferenceManager(getApplicationContext());
@@ -54,21 +57,23 @@ public class Secretary_schedlist_patsched extends AppCompatActivity {
         Intent intent = getIntent();
         docuid = intent.getStringExtra("docuid");
 
+        userId = fAuth.getCurrentUser().getUid();
 
-        Query query = db.collection("Schedules").whereEqualTo("DoctorUId", docuid).whereEqualTo("Status", "Paid").orderBy("Date", Query.Direction.ASCENDING).limit(20);
 
-        FirestoreRecyclerOptions<SecretaryPatschedModel> options = new FirestoreRecyclerOptions.Builder<SecretaryPatschedModel>().setQuery(query, SecretaryPatschedModel.class).build();
+        Query query = db.collection("Schedules").whereEqualTo("DoctorUId", userId).whereEqualTo("Status", "Paid").orderBy("Date", Query.Direction.ASCENDING).limit(20);
 
-        adapter = new FirestoreRecyclerAdapter<SecretaryPatschedModel, Secretary_schedlist_patsched.SecretaryPatSchedViewHolder>(options) {
+        FirestoreRecyclerOptions<DoctorUpcomingModel> options = new FirestoreRecyclerOptions.Builder<DoctorUpcomingModel>().setQuery(query, DoctorUpcomingModel.class).build();
+
+        adapter = new FirestoreRecyclerAdapter<DoctorUpcomingModel, Doctor_schedlist_upcoming.DoctorUpcomingViewHolder>(options) {
             @NonNull
             @Override
-            public Secretary_schedlist_patsched.SecretaryPatSchedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.sec_schedlist_patsched_single, parent, false);
-                return new Secretary_schedlist_patsched.SecretaryPatSchedViewHolder(view);
+            public Doctor_schedlist_upcoming.DoctorUpcomingViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.doc_upcoming_schedlist_single, parent, false);
+                return new Doctor_schedlist_upcoming.DoctorUpcomingViewHolder(view);
             }
 
             @Override
-            protected void onBindViewHolder(@NonNull Secretary_schedlist_patsched.SecretaryPatSchedViewHolder holder, int position, @NonNull SecretaryPatschedModel model) {
+            protected void onBindViewHolder(@NonNull Doctor_schedlist_upcoming.DoctorUpcomingViewHolder holder, int position, @NonNull DoctorUpcomingModel model) {
                 Date datesched =model.getDate();
                 SimpleDateFormat format = new SimpleDateFormat("MMMM d ,yyyy");
                 String date=  format.format(datesched);
@@ -83,15 +88,6 @@ public class Secretary_schedlist_patsched extends AppCompatActivity {
                             }
                         });
 
-                pastsched.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getApplicationContext(), Secretary_schedlist_patsched_past.class);
-                        intent.putExtra("docuid", docuid);
-                        startActivity(intent);
-                    }
-                });
-
             }
         };
 
@@ -101,15 +97,15 @@ public class Secretary_schedlist_patsched extends AppCompatActivity {
 
     }
 
-    private class SecretaryPatSchedViewHolder extends RecyclerView.ViewHolder{
+    private class DoctorUpcomingViewHolder extends RecyclerView.ViewHolder{
 
         private TextView list_name, list_datesched;
 
-        public SecretaryPatSchedViewHolder(@NonNull View itemView) {
+        public DoctorUpcomingViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            list_name = itemView.findViewById(R.id.secsched_patname);
-            list_datesched = itemView.findViewById(R.id.secsched_datesched);
+            list_name = itemView.findViewById(R.id.doc_upcomingsched_patname);
+            list_datesched = itemView.findViewById(R.id.doc_upcomingsched_datesched);
         }
     }
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".secretary.Secretary_schedlist_patsched">
+    tools:context=".doctor.Doctor_schedlist_upcoming">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -43,7 +43,7 @@
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/sec_sched_recview"
+            android:id="@+id/Doc_upcoming_sched_recview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:layout_editor_absoluteX="111dp"
@@ -52,13 +52,5 @@
 
 
     </LinearLayout>
-
-    <Button
-        android:id="@+id/sec_past_sched"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:text="Past"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

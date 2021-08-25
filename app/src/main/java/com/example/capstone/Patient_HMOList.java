@@ -137,6 +137,8 @@ public class Patient_HMOList extends AppCompatActivity {
         adapter.startListening();
     }
 
+
+
     private class PatientHMOModelView extends RecyclerView.ViewHolder{
         private TextView nameHMO;
         private Button editHMO;

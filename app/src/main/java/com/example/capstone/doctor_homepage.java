@@ -22,6 +22,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstone.activities.OutgoingInvitationActivity;
+import com.example.capstone.doctor.Doctor_schedlist_pastsched;
+import com.example.capstone.doctor.Doctor_schedlist_upcoming;
 import com.example.capstone.models.User;
 import com.example.capstone.utilities.Constants;
 import com.example.capstone.utilities.PreferenceManager;
@@ -509,9 +511,6 @@ db.collection("DoctorSchedules").whereEqualTo(currentday,true).whereEqualTo("Doc
                             }
                         });
                 break;
-            case R.id.btn_appointment:
-
-                break;
             case R.id.btn_patientrecord:
                 Intent intent = new Intent(getApplicationContext(), patient_record_clinic.class);
                 startActivity(intent);
@@ -522,6 +521,17 @@ db.collection("DoctorSchedules").whereEqualTo(currentday,true).whereEqualTo("Doc
 
                 Intent intent1 = new Intent(getApplicationContext(), doctor_viewporfile.class);
                 startActivity(intent1);
+
+                break;
+
+            case R.id.btn_upcoming:
+                Intent intent2 = new Intent(getApplicationContext(), Doctor_schedlist_upcoming.class);
+                startActivity(intent2);
+
+                break;
+            case R.id.btn_appointment:
+                Intent intent3 = new Intent(getApplicationContext(), Doctor_schedlist_pastsched.class);
+                startActivity(intent3);
 
                 break;
         }

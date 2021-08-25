@@ -10,8 +10,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.capstone.R;
 import com.example.capstone.utilities.PreferenceManager;
@@ -26,12 +26,11 @@ import com.google.firebase.firestore.Query;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Secretary_schedlist_patsched extends AppCompatActivity {
+public class Secretary_schedlist_patsched_past extends AppCompatActivity {
 
     FirebaseAuth fAuth;
     FirebaseFirestore db;
     RecyclerView mFirestoreList;
-    Button pastsched;
 
     String docuid;
 
@@ -42,9 +41,7 @@ public class Secretary_schedlist_patsched extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_secretary_schedlist_patsched);
-
-        pastsched = findViewById(R.id.sec_past_sched);
+        setContentView(R.layout.activity_secretary_schedlist_patsched_past);
 
         mFirestoreList = findViewById(R.id.sec_sched_recview);
         fAuth = FirebaseAuth.getInstance();
@@ -55,20 +52,20 @@ public class Secretary_schedlist_patsched extends AppCompatActivity {
         docuid = intent.getStringExtra("docuid");
 
 
-        Query query = db.collection("Schedules").whereEqualTo("DoctorUId", docuid).whereEqualTo("Status", "Paid").orderBy("Date", Query.Direction.ASCENDING).limit(20);
+        Query query = db.collection("Schedules").whereEqualTo("DoctorUId", docuid).whereEqualTo("Status", "Completed").orderBy("Date", Query.Direction.DESCENDING).limit(20);
 
         FirestoreRecyclerOptions<SecretaryPatschedModel> options = new FirestoreRecyclerOptions.Builder<SecretaryPatschedModel>().setQuery(query, SecretaryPatschedModel.class).build();
 
-        adapter = new FirestoreRecyclerAdapter<SecretaryPatschedModel, Secretary_schedlist_patsched.SecretaryPatSchedViewHolder>(options) {
+        adapter = new FirestoreRecyclerAdapter<SecretaryPatschedModel, Secretary_schedlist_patsched_past.SecretaryPatSchedViewHolder>(options) {
             @NonNull
             @Override
-            public Secretary_schedlist_patsched.SecretaryPatSchedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            public Secretary_schedlist_patsched_past.SecretaryPatSchedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.sec_schedlist_patsched_single, parent, false);
-                return new Secretary_schedlist_patsched.SecretaryPatSchedViewHolder(view);
+                return new Secretary_schedlist_patsched_past.SecretaryPatSchedViewHolder(view);
             }
 
             @Override
-            protected void onBindViewHolder(@NonNull Secretary_schedlist_patsched.SecretaryPatSchedViewHolder holder, int position, @NonNull SecretaryPatschedModel model) {
+            protected void onBindViewHolder(@NonNull Secretary_schedlist_patsched_past.SecretaryPatSchedViewHolder holder, int position, @NonNull SecretaryPatschedModel model) {
                 Date datesched =model.getDate();
                 SimpleDateFormat format = new SimpleDateFormat("MMMM d ,yyyy");
                 String date=  format.format(datesched);
@@ -82,16 +79,6 @@ public class Secretary_schedlist_patsched extends AppCompatActivity {
                                 holder.list_name.setText(patname);
                             }
                         });
-
-                pastsched.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getApplicationContext(), Secretary_schedlist_patsched_past.class);
-                        intent.putExtra("docuid", docuid);
-                        startActivity(intent);
-                    }
-                });
-
             }
         };
 
