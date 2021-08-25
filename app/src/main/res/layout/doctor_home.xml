@@ -99,11 +99,13 @@
                     android:layout_marginTop="@dimen/_5sdp">
 
                     <Button
+                        android:id="@+id/button_complete"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Complete"/>
 
                     <Button
+                        android:id="@+id/button_next"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Remove"/>
