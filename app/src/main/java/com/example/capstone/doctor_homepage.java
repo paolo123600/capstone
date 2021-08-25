@@ -73,6 +73,7 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
     FirestoreRecyclerAdapter adapter;
     FirebaseFirestore fStore;
     String SchedTimeStart;
+    Date DDate ;
     String SchedTimeEnd;
     RecyclerView mFirestorelist;
     String userId;
@@ -133,10 +134,15 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
         btn_dochat = (Button) findViewById(R.id.btn_chat_dochome);
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat format = new SimpleDateFormat("MMMM d ,yyyy");
-        Date DDate = calendar.getTime();
+         DDate = calendar.getTime();
         datenow = format.format(DDate);
+        try {
+            DDate = format.parse(datenow);
+        } catch (ParseException e) {
+            Toast.makeText(this, "error", Toast.LENGTH_SHORT).show();
+        }
 
-    mFirestorelist = (RecyclerView)findViewById(R.id.scheddoc_list);
+        mFirestorelist = (RecyclerView)findViewById(R.id.scheddoc_list);
 
 
         fAuth = FirebaseAuth.getInstance();
@@ -317,7 +323,8 @@ db.collection("DoctorSchedules").whereEqualTo(currentday,true).whereEqualTo("Doc
                 timestop=time2;
 
             }
-        } Query query =  db.collection("Schedules").whereEqualTo("Date", datenow).whereEqualTo("StartTime", timestart).whereEqualTo("DoctorUId", preferenceManager.getString(Constants.KEY_USER_ID)).whereIn("Status", Arrays.asList("Paid", "Completed")).whereNotEqualTo("Position",1).orderBy("Position", Query.Direction.ASCENDING).limit(5);
+
+        } Query query =  db.collection("Schedules").whereEqualTo("Date", DDate).whereEqualTo("StartTime", timestart).whereEqualTo("DoctorUId", preferenceManager.getString(Constants.KEY_USER_ID)).whereIn("Status", Arrays.asList("Paid", "Completed")).whereNotEqualTo("Position",1).orderBy("Position", Query.Direction.ASCENDING).limit(5);
                 FirestoreRecyclerOptions<DocTodaySchedModel> options = new FirestoreRecyclerOptions.Builder<DocTodaySchedModel>()
                         .setQuery(query, DocTodaySchedModel.class)
                         .build();
@@ -369,7 +376,7 @@ db.collection("DoctorSchedules").whereEqualTo(currentday,true).whereEqualTo("Doc
 
                 Toast.makeText(doctor_homepage.this, datenow, Toast.LENGTH_LONG).show();
                 Toast.makeText(doctor_homepage.this, " start: "+timestart+" stop: "+timestop, Toast.LENGTH_LONG).show();
-                db.collection("Schedules").whereEqualTo("Date", datenow).whereEqualTo("StartTime", timestart).whereEqualTo("DoctorUId", preferenceManager.getString(Constants.KEY_USER_ID)).whereEqualTo("EndTime", timestop).whereIn("Status", Arrays.asList("Paid", "Completed")).whereEqualTo("Position",1)
+                db.collection("Schedules").whereEqualTo("Date", DDate).whereEqualTo("StartTime", timestart).whereEqualTo("DoctorUId", preferenceManager.getString(Constants.KEY_USER_ID)).whereEqualTo("EndTime", timestop).whereIn("Status", Arrays.asList("Paid", "Completed")).whereEqualTo("Position",1)
                         .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {

@@ -3,7 +3,7 @@ package com.example.capstone;
 import java.util.Date;
 
 public class DocTodaySchedModel {
-    public DocTodaySchedModel(String doctorUId, String patientUId, String startTime, String endTime, int position, String date, String status, String clinicname, Date dnt) {
+    public DocTodaySchedModel(String doctorUId, String patientUId, String startTime, String endTime, int position, Date date, String status, String clinicname, Date dnt) {
         DoctorUId = doctorUId;
         PatientUId = patientUId;
         StartTime = startTime;
@@ -55,11 +55,11 @@ public class DocTodaySchedModel {
         Position = position;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return Date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         Date = date;
     }
 
@@ -78,7 +78,7 @@ public class DocTodaySchedModel {
     String PatientUId;
     String StartTime;
     String EndTime;
-    String Date;
+    Date Date;
     String Status;
     String Clinicname;
     Date Dnt;

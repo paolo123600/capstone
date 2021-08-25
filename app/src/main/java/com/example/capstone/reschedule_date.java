@@ -40,6 +40,7 @@ import com.wdullaer.materialdatetimepicker.date.MonthAdapter;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import java.lang.reflect.Array;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -196,6 +197,11 @@ public class reschedule_date extends AppCompatActivity implements DatePickerDial
         SimpleDateFormat simpledateformat = new SimpleDateFormat("EEEE");
         Date date1 = new Date(Year, Month, Day-1);
         String datestring = format.format(date2);
+        try {
+            date2 = format.parse(datestring);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         String dow = simpledateformat.format(date1);
         etDate.setText(date);
 
@@ -205,6 +211,7 @@ public class reschedule_date extends AppCompatActivity implements DatePickerDial
                 .setQuery(query,DocSchedModel.class)
                 .build();
 
+        Date finalDate = date2;
         adapter = new FirestoreRecyclerAdapter<DocSchedModel, reschedule_date.DocReSchedViewHolder>(options) {
             @NonNull
             @Override
@@ -241,7 +248,7 @@ public class reschedule_date extends AppCompatActivity implements DatePickerDial
                                         ).addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
-                                                db.collection("Schedules").whereEqualTo("DoctorUId", gv.getSDDocUid()).whereEqualTo("StartTime",gv.getSDtimestart()).whereEqualTo("EndTime",gv.getSDtimestop()).whereEqualTo("Status","Paid").whereEqualTo("Date",gv.getSDDate()).get()
+                                                db.collection("Schedules").whereEqualTo("DoctorUId", gv.getSDDocUid()).whereEqualTo("StartTime",gv.getSDtimestart()).whereEqualTo("EndTime",gv.getSDtimestop()).whereEqualTo("Status","Paid").whereEqualTo("Date",gv.getDDate()).get()
                                                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                                             @Override
                                                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -257,7 +264,6 @@ public class reschedule_date extends AppCompatActivity implements DatePickerDial
                                                                                         public void onSuccess(Void aVoid) {
 
 
-
                                                                                         }
                                                                                     });
                                                                         }
@@ -267,7 +273,7 @@ public class reschedule_date extends AppCompatActivity implements DatePickerDial
                                                                     PatSched.put("StartTime", model.getStartTime());
                                                                     PatSched.put("EndTime", model.getEndTime());
                                                                     PatSched.put("Position", count+1);
-                                                                    PatSched.put ("Date", datestring );
+                                                                    PatSched.put ("Date", finalDate);
                                                                     PatSched.put ("Status", "Paid" );
                                                                     PatSched.put ("PatientUId", patuid );
                                                                     PatSched.put ("Dnt",currentTime);

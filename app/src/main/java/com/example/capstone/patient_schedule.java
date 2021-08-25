@@ -143,8 +143,10 @@ public class patient_schedule extends AppCompatActivity implements DatePickerDia
                     if (task.isSuccessful()){
 
                         for (QueryDocumentSnapshot doc : task.getResult()) {
-                            String scheddate = doc.getString("Date");
-                                Date datesched = new Date();
+                            Date datesched = doc.getDate("Date");
+                            SimpleDateFormat format = new SimpleDateFormat("MMMM d ,yyyy");
+                            String scheddate =format.format(datesched);
+
 
                             try {
                                datesched  = format2.parse(scheddate);
@@ -172,11 +174,15 @@ public class patient_schedule extends AppCompatActivity implements DatePickerDia
                                             }
                                         }
                                     });
+                                    Date datescheds =doc.getDate("Date");
+
+                                    String date1=  format.format(datesched);
                                     clinicnametv.setText(doc.getString("ClinicName"));
                                     statustv.setText("Status: "+doc.getString("Status"));
                                     timetv.setText("Time :"+doc.getString("StartTime")+"-"+doc.getString("EndTime"));
-                                    datetv.setText("Date :"+doc.getString("Date"));
-                                    gv.setSDDate(doc.getString("Date"));
+                                    datetv.setText("Date :"+date1);
+
+                                    gv.setDDate(datesched);
                                     gv.setSDClinic(doc.getString("ClinicName"));
                                     gv.setSDDocUid(doc.getString("DoctorUId"));
                                     gv.setSDtimestart(doc.getString("StartTime"));
@@ -213,7 +219,7 @@ public class patient_schedule extends AppCompatActivity implements DatePickerDia
                                     @Override
                                     public void onSuccess(Void aVoid) {
 
-                                        db.collection("Schedules").whereEqualTo("DoctorUId",gv.getSDDocUid()).whereEqualTo("StartTime",gv.getSDtimestart()).whereEqualTo("EndTime",gv.getSDtimestop()).whereEqualTo("Status","Paid").whereEqualTo("Date",gv.getSDDate()).get()
+                                        db.collection("Schedules").whereEqualTo("DoctorUId",gv.getSDDocUid()).whereEqualTo("StartTime",gv.getSDtimestart()).whereEqualTo("EndTime",gv.getSDtimestop()).whereEqualTo("Status","Paid").whereEqualTo("Date",gv.getDDate()).get()
                                                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                                     @Override
                                                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -306,7 +312,9 @@ public class patient_schedule extends AppCompatActivity implements DatePickerDia
 
                         @Override
                         protected void onBindViewHolder(@NonNull patient_schedule.Schedholder holder, int position, @NonNull DocTodaySchedModel model) {
-                            String date= model.getDate();
+                            Date datesched =model.getDate();
+                            SimpleDateFormat format = new SimpleDateFormat("MMMM d ,yyyy");
+                            String date=  format.format(datesched);
                             String status = model.getStatus();
                             Date bookeddate = model.getDnt();
                             db.collection("Patients").document(model.getPatientUId()).get()

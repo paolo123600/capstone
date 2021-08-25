@@ -40,6 +40,7 @@ import com.wdullaer.materialdatetimepicker.date.MonthAdapter;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import java.lang.reflect.Array;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -180,6 +181,7 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
         calendar.set(Calendar.YEAR, Year);
         calendar.set(Calendar.MONTH, Month);
         calendar.set(Calendar.DAY_OF_MONTH, Day);
+
         Date date2 = calendar.getTime();
         String date = Day+"/"+(Month+1)+"/"+Year;
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -187,6 +189,11 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
         SimpleDateFormat simpledateformat = new SimpleDateFormat("EEEE");
         Date date1 = new Date(Year, Month, Day-1);
         String datestring = format.format(date2);
+        try {
+            date2 = format.parse(datestring);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         String dow = simpledateformat.format(date1);
         etDate.setText(date);
 
@@ -196,6 +203,8 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
                 .setQuery(query,DocSchedModel.class)
                 .build();
 
+        Date finalDate = date2;
+        Date finalDate1 = date2;
         adapter = new FirestoreRecyclerAdapter<DocSchedModel, DocSchedViewHolder>(options) {
             @NonNull
             @Override
@@ -207,7 +216,7 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
             @Override
             protected void onBindViewHolder(@NonNull DocSchedViewHolder holder, int position, @NonNull DocSchedModel model) {
 
-                db.collection("Schedules").whereEqualTo("DoctorUId",gv.getSDDocUid()).whereEqualTo("StartTime",model.getStartTime()).whereEqualTo("EndTime", model.getEndTime()).whereEqualTo("Date", datestring ).whereEqualTo("Status","Paid").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                db.collection("Schedules").whereEqualTo("DoctorUId",gv.getSDDocUid()).whereEqualTo("StartTime",model.getStartTime()).whereEqualTo("EndTime", model.getEndTime()).whereEqualTo("Date", finalDate).whereEqualTo("Status","Paid").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
@@ -229,7 +238,7 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
                                         PatSched.put("StartTime", model.getStartTime());
                                         PatSched.put("EndTime", model.getEndTime());
                                         PatSched.put("Position", count+1);
-                                        PatSched.put ("Date", datestring );
+                                        PatSched.put ("Date", finalDate);
                                         PatSched.put ("Status", "Paid" );
                                         PatSched.put ("PatientUId", patuid );
                                         PatSched.put ("Dnt",currentTime);
