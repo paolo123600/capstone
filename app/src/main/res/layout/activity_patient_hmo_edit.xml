@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
-            android:background="@drawable/ic_backspace" />
+            android:background="@drawable/ic_backspace"/>
 
         <TextView
             android:id="@+id/hmoName"
@@ -64,10 +64,10 @@
                 android:textSize="@dimen/_16sdp"/>
 
             <EditText
+                android:id="@+id/inpCardNumber"
                 android:layout_width="@dimen/_120sdp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_15sdp"
-                android:id="@+id/inpCardNumber"/>
+                android:layout_marginLeft="@dimen/_15sdp" />
 
         </LinearLayout>
 
@@ -81,13 +81,13 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/hmo_confirm"
+                android:id="@+id/edithmo_confirm"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical|center"
                 android:text="Confirm" />
             <Button
-                android:id="@+id/hmo_cancel"
+                android:id="@+id/edithmo_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical|center"

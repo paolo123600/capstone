@@ -498,4 +498,24 @@ public class GlobalVariables extends Application {
 
     String Pending_cardNumber;
 
+    public String getEditHMO_cardNumber() {
+        return EditHMO_cardNumber;
+    }
+
+    public void setEditHMO_cardNumber(String editHMO_cardNumber) {
+        EditHMO_cardNumber = editHMO_cardNumber;
+    }
+
+    String EditHMO_cardNumber;
+
+    public String getEditHMO_hmoName() {
+        return EditHMO_hmoName;
+    }
+
+    public void setEditHMO_hmoName(String editHMO_hmoName) {
+        EditHMO_hmoName = editHMO_hmoName;
+    }
+
+    String EditHMO_hmoName;
+
 }

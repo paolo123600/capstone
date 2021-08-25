@@ -53,7 +53,10 @@ public class PatientModel {
 
     }
 
-    String Email , FirstName, LastName, UserId, Contact;
-
+    String Email;
+    String FirstName;
+    String LastName;
+    String UserId;
+    String Contact;
 
 }
