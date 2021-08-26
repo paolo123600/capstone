@@ -387,6 +387,13 @@ public class patient_schedule extends AppCompatActivity implements DatePickerDia
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), Login.class);
+        startActivity(intent);
+    }
+
     public void createSelectDateDialog(){
         dialogbuilder = new AlertDialog.Builder(this);
         final View selectDateView = getLayoutInflater().inflate(R.layout.popupselecttime,null);

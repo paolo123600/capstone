@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +44,8 @@ public class Patient_HMOList extends AppCompatActivity {
     RecyclerView hmoList;
     PreferenceManager preferenceManager;
 
+    ImageView back;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +58,15 @@ public class Patient_HMOList extends AppCompatActivity {
         userID = firebaseAuth.getCurrentUser().getUid();
         hmoList = (RecyclerView) findViewById(R.id.HMOList);
         Add = (Button) findViewById(R.id.hmo_add);
+        back = findViewById(R.id.backspace);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
         Add.setOnClickListener(new View.OnClickListener() {
             @Override

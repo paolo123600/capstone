@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +39,7 @@ public class patient_record_clinic extends AppCompatActivity {
     private FirestoreRecyclerAdapter adapter;
     private String clinicname;
     private  String clinicid;
+    ImageView back;
 
 
     private PreferenceManager preferenceManager;
@@ -58,6 +60,16 @@ public class patient_record_clinic extends AppCompatActivity {
         materialSearchBar.setCardViewElevation(0);
 
         getpatient();
+
+        back = findViewById(R.id.backspace);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Login.class);
+                startActivity(intent);
+            }
+        });
 
         materialSearchBar.addTextChangeListener(new TextWatcher() {
             @Override

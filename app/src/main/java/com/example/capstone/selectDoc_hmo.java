@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,6 +45,8 @@ public class selectDoc_hmo extends AppCompatActivity {
     String patuid="";
     TextView nonetv;
 
+    ImageView back;
+
     
     List <DocHMO> DoctorHMO;
     List <HMOModel> HMOList;
@@ -58,6 +61,18 @@ public class selectDoc_hmo extends AppCompatActivity {
         doctorlist= (RecyclerView) findViewById(R.id.DoctorRF);
         preferenceManager = new PreferenceManager(getApplicationContext());
         patuid = preferenceManager.getString(Constants.KEY_USER_ID);
+
+        back = findViewById(R.id.backspace);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), PaymentMethod.class);
+                startActivity(intent);
+            }
+        });
+
+
         Toast.makeText(this, "d:"+patuid, Toast.LENGTH_SHORT).show();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference clinicsRef = db.collection("Patients").document(patuid).collection("HMO");
@@ -200,6 +215,12 @@ public class selectDoc_hmo extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), PaymentMethod.class);
+        startActivity(intent);
     }
 
     private class DoctorsViewHolder extends RecyclerView.ViewHolder{

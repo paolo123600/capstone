@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,6 +70,8 @@ public class reschedule_date extends AppCompatActivity implements DatePickerDial
     private PreferenceManager preferenceManager;
     int Position ;
     String scheddocu, schedid;
+
+    ImageView back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,7 +98,15 @@ public class reschedule_date extends AppCompatActivity implements DatePickerDial
         Intent intent = getIntent();
         schedid = intent.getStringExtra("schedid");
 
-        Toast.makeText(this, schedid, Toast.LENGTH_SHORT).show();
+        back = findViewById(R.id.backspace);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), patient_schedule.class);
+                startActivity(intent);
+            }
+        });
 
 
         for (String days : daysofweek){
@@ -181,6 +192,12 @@ public class reschedule_date extends AppCompatActivity implements DatePickerDial
                 datePickerDialog.show(getSupportFragmentManager(), "DatePickerDialog");
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), patient_schedule.class);
+        startActivity(intent);
     }
 
     @Override

@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -66,6 +67,8 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
     String patuid;
     String docid ="";
     private PreferenceManager preferenceManager;
+
+    ImageView back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +90,17 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
         Minute = calendar.get(Calendar.MINUTE);
 
         docid = gv.getSDDocUid();
+
+        back = findViewById(R.id.backspace);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), selectDoc.class);
+                startActivity(intent);
+            }
+        });
+
         //checking of schedule days of week
 
         for (String days : daysofweek){
@@ -172,6 +186,12 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
                 datePickerDialog.show(getSupportFragmentManager(), "DatePickerDialog");
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), selectDoc.class);
+        startActivity(intent);
     }
 
     @Override

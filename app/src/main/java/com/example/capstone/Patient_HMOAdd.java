@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -48,6 +49,7 @@ public class Patient_HMOAdd extends AppCompatActivity {
     Button btnaccept ;
     PreferenceManager preferenceManager;
     String patuid;
+    ImageView back;
 
 
     EditText ET_VCode;
@@ -85,6 +87,16 @@ public class Patient_HMOAdd extends AppCompatActivity {
 
         Spinner spinnertag = new Spinner(this);
         spinnertag.setId(count);
+
+        back = findViewById(R.id.backspace);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Patient_HMOList.class);
+                startActivity(intent);
+            }
+        });
 
         List<String> hmo = new ArrayList<>();
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getApplicationContext(), R.layout.custom_spinner, hmo);

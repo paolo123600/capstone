@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -30,6 +31,8 @@ public class Patient_HMOEdit extends AppCompatActivity {
     Button Cancel, Confirm;
     String hmoname;
 
+    ImageView back;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +49,16 @@ public class Patient_HMOEdit extends AppCompatActivity {
 
         Cnumber.setText(gv.getEditHMO_cardNumber());
         hmoname = gv.getEditHMO_hmoName();
+
+        back = findViewById(R.id.backspace);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Patient_HMOList.class);
+                startActivity(intent);
+            }
+        });
 
         Cancel.setOnClickListener(new View.OnClickListener() {
             @Override
