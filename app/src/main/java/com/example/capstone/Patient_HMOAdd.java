@@ -221,7 +221,7 @@ public class Patient_HMOAdd extends AppCompatActivity {
         Map<String,Object> hmodb = new HashMap<>();
         hmodb.put ("HMOName",hmo);
         db.collection("HMO").document(hmo).set(hmodb);
-
+        ///
         Map<String,Object> uid = new HashMap<>();
         uid.put ("PatientUId",Uid);
         db.collection("HMO").document(hmo).collection("Patients").document(Uid).set(uid);
