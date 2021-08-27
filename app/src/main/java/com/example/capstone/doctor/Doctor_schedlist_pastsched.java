@@ -11,8 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.capstone.Login;
 import com.example.capstone.R;
 import com.example.capstone.utilities.PreferenceManager;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -40,6 +42,8 @@ public class Doctor_schedlist_pastsched extends AppCompatActivity {
 
     String userId;
 
+    ImageView back;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +60,15 @@ public class Doctor_schedlist_pastsched extends AppCompatActivity {
 
         userId = fAuth.getCurrentUser().getUid();
 
+        back = findViewById(R.id.backspace);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Login.class);
+                startActivity(intent);
+            }
+        });
 
         Query query = db.collection("Schedules").whereEqualTo("DoctorUId", userId).whereEqualTo("Status", "Completed").orderBy("Date", Query.Direction.DESCENDING).limit(20);
 

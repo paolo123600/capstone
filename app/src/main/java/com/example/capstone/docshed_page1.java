@@ -13,6 +13,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +44,8 @@ public class docshed_page1 extends AppCompatActivity {
     MaterialSearchBar materialSearchBar;
     String txt;
     private String docn;
+
+    ImageView back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +53,17 @@ public class docshed_page1 extends AppCompatActivity {
         preferenceManager = new PreferenceManager(getApplicationContext());
         docn = preferenceManager.getString("ClinicName");
         getdoc();
+
+        back = findViewById(R.id.backspace);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Login.class);
+                startActivity(intent);
+            }
+        });
+
         materialSearchBar = (MaterialSearchBar) findViewById(R.id.searchBar);
         materialSearchBar.setCardViewElevation(0);
         materialSearchBar.addTextChangeListener(new TextWatcher() {

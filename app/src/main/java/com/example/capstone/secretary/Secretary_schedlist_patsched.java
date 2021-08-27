@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.capstone.R;
@@ -39,6 +40,8 @@ public class Secretary_schedlist_patsched extends AppCompatActivity {
 
     PreferenceManager preferenceManager;
 
+    ImageView back;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,10 +57,29 @@ public class Secretary_schedlist_patsched extends AppCompatActivity {
         Intent intent = getIntent();
         docuid = intent.getStringExtra("docuid");
 
+        back = findViewById(R.id.backspace);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Secretary_schedlist.class);
+                startActivity(intent);
+            }
+        });
+
 
         Query query = db.collection("Schedules").whereEqualTo("DoctorUId", docuid).whereEqualTo("Status", "Paid").orderBy("Date", Query.Direction.ASCENDING).limit(20);
 
         FirestoreRecyclerOptions<SecretaryPatschedModel> options = new FirestoreRecyclerOptions.Builder<SecretaryPatschedModel>().setQuery(query, SecretaryPatschedModel.class).build();
+
+        pastsched.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Secretary_schedlist_patsched_past.class);
+                intent.putExtra("docuid", docuid);
+                startActivity(intent);
+            }
+        });
 
         adapter = new FirestoreRecyclerAdapter<SecretaryPatschedModel, Secretary_schedlist_patsched.SecretaryPatSchedViewHolder>(options) {
             @NonNull
@@ -66,6 +88,7 @@ public class Secretary_schedlist_patsched extends AppCompatActivity {
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.sec_schedlist_patsched_single, parent, false);
                 return new Secretary_schedlist_patsched.SecretaryPatSchedViewHolder(view);
             }
+
 
             @Override
             protected void onBindViewHolder(@NonNull Secretary_schedlist_patsched.SecretaryPatSchedViewHolder holder, int position, @NonNull SecretaryPatschedModel model) {
@@ -82,15 +105,6 @@ public class Secretary_schedlist_patsched extends AppCompatActivity {
                                 holder.list_name.setText(patname);
                             }
                         });
-
-                pastsched.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getApplicationContext(), Secretary_schedlist_patsched_past.class);
-                        intent.putExtra("docuid", docuid);
-                        startActivity(intent);
-                    }
-                });
 
             }
         };
