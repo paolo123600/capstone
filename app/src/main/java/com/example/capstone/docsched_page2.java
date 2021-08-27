@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -46,6 +47,7 @@ public class docsched_page2 extends AppCompatActivity {
     String realDocID;
     Button addbtn;
     int row_index;
+    ImageView back;
 
     boolean asd = true, qwe = false;
 
@@ -72,8 +74,15 @@ public class docsched_page2 extends AppCompatActivity {
         mFirestoreList = findViewById(R.id.docsched_schedule);
 
         Query query = db.collection("DoctorSchedules").whereEqualTo("DocId", docid);
+        back = findViewById(R.id.backspace);
 
-
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), docshed_page1.class);
+                startActivity(intent);
+            }
+        });
 
 
         FirestoreRecyclerOptions<DocSchedModel> options = new FirestoreRecyclerOptions.Builder<DocSchedModel>()

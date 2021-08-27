@@ -78,6 +78,7 @@
                 android:inputType="textPersonName"
                 android:layout_width="0dp"
                 android:layout_weight="2"
+                android:hint="Ex.Juan"
                 android:layout_height="match_parent"
                 android:background="@drawable/roundtbox"
                 android:padding="@dimen/_5sdp"/>
@@ -87,6 +88,7 @@
                 android:inputType="textPersonName"
                 android:layout_width="0dp"
                 android:layout_weight="2"
+                android:hint="Ex.Dela Cruz"
                 android:layout_height="match_parent"
                 android:background="@drawable/roundtbox"
                 android:layout_marginLeft="@dimen/_10sdp"
@@ -96,6 +98,7 @@
                 android:id="@+id/Mi"
                 android:layout_width="0dp"
                 android:layout_weight="1"
+                android:hint="DC"
                 android:layout_height="match_parent"
                 android:background="@drawable/roundtbox"
                 android:inputType="textPersonName"
@@ -161,6 +164,7 @@
                 android:id="@+id/nationality"
                 android:layout_width="0dp"
                 android:layout_weight="2"
+                android:hint="Ex.Filipino"
                 android:layout_height="match_parent"
                 android:background="@drawable/roundtbox"
                 android:layout_marginLeft="@dimen/_10sdp"
@@ -200,6 +204,7 @@
                 android:inputType="number"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:hint="Ex. 09991234567"
                 android:background="@drawable/roundtbox"
                 android:padding="@dimen/_5sdp"/>
 
@@ -213,6 +218,7 @@
                 android:id="@+id/email"
                 android:inputType="textEmailAddress"
                 android:layout_width="match_parent"
+                android:hint="Ex. Juan@gmail.com"
                 android:layout_height="match_parent"
                 android:background="@drawable/roundtbox"
                 android:padding="@dimen/_5sdp"/>
@@ -227,6 +233,7 @@
                 android:id="@+id/password"
                 android:inputType="textPassword"
                 android:layout_width="match_parent"
+                android:hint="6 - Characters/Numbers"
                 android:layout_height="match_parent"
                 android:background="@drawable/roundtbox"
                 android:padding="@dimen/_5sdp"/>
@@ -241,6 +248,7 @@
                 android:id="@+id/confirm_pass"
                 android:inputType="textPassword"
                 android:layout_width="match_parent"
+                android:hint="Ex. Re-type Password"
                 android:layout_height="match_parent"
                 android:background="@drawable/roundtbox"
                 android:padding="@dimen/_5sdp"/>
@@ -255,6 +263,7 @@
                 android:id="@+id/address"
                 android:inputType="textPersonName"
                 android:layout_width="match_parent"
+                android:hint="Ex. 269 Freedom St. "
                 android:layout_height="match_parent"
                 android:background="@drawable/roundtbox"
                 android:padding="@dimen/_5sdp"/>
@@ -299,6 +308,7 @@
                 android:id="@+id/municipality"
                 android:inputType="textPersonName"
                 android:layout_width="@dimen/_160sdp"
+                android:hint="Ex. Malaya"
                 android:layout_height="match_parent"
                 android:background="@drawable/roundtbox"
                 android:padding="@dimen/_5sdp"/>
@@ -308,6 +318,7 @@
                 android:inputType="number"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:hint="Ex. 1000"
                 android:background="@drawable/roundtbox"
                 android:layout_marginLeft="@dimen/_10sdp"/>
 
