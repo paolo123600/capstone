@@ -255,10 +255,12 @@ public class patient_record_clinic extends AppCompatActivity {
         private TextView listFirstname;
         private TextView listemail;
         private Button patientR;
+        private Button patientBP;
 
         public PatientViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            patientBP = itemView.findViewById(R.id.patientrec_BP_btn);
             listFirstname = itemView.findViewById(R.id.patientrec_firstname);
             listemail = itemView.findViewById(R.id.patientrec_email);
             patientR = itemView.findViewById(R.id.patientrec_btn);
