@@ -30,7 +30,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Manage Schedule"
+            android:text="@string/Appointments_label"
             android:layout_marginLeft="@dimen/_20sdp"
             android:textSize="@dimen/_15sdp"
             android:textColor="@color/white"/>
@@ -46,17 +46,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="170dp"
-        android:layout_height="33dp"
-        android:layout_marginTop="62dp"
-        android:text="@string/Upcoming"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.087"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="240dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="62dp"
+            android:text="@string/Upcoming"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.087"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/sched_llayout"
@@ -83,7 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="No schedule"
+                android:text="No Appointment"
                 android:textSize="18sp"
                 android:textColor="@color/white"/>
 

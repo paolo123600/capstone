@@ -29,7 +29,10 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 
@@ -78,7 +81,7 @@ FirestoreRecyclerAdapter adapter;
                 String selectedstat = spinner_status.getSelectedItem().toString();
                 switch (selectedstat) {
                     case "All":
-                        query = db.collection("Schedules").orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
+                        query = db.collection("Schedules").whereIn("Status", Arrays.asList("Paid","Pending Approval","Reschedule","Cancelled")).orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
                         Shownotif(query);
                         break;
                     case "Booked":

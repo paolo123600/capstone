@@ -220,15 +220,17 @@ btnchange.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                     if (task.isSuccessful()){
+
                                         if (!task.getResult().isEmpty()){
                                             for (QueryDocumentSnapshot document : task.getResult()) {
+
                                                 String patuid = document.getString("PatUId");
 
                                                 Patients.add(patuid);
                                             }
                                             Query query ;
         if (searchtype == "Patients") {
-            query = db.collection(searchtype).whereEqualTo(clinicname, "True");
+            query = db.collection("Patients").whereIn("UserId", Patients).orderBy("LastName");
         }else {
             query = db.collection(searchtype).whereEqualTo("ClinicName", clinicname);
         }
