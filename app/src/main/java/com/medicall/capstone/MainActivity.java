@@ -228,7 +228,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                                     }
                                     else if (nowdate.after(datesched)) {  String documentsched =doc.getId();
-                                    db.collection("Schedules").document(documentsched).update("Status","Completed").addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    db.collection("Schedules").document(documentsched).update("Status","Unattended").addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
 

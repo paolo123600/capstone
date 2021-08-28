@@ -70,12 +70,14 @@ public class selectDoc extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
+                    Clinics.add("Please select a Clinic");
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         String subject = document.getString("ClinicName");
 
                         Clinics.add(subject);
                     }
                     for (String clinics  : Clinics ){
+                        if(!clinics.equals("Please select a Clinic")){
                         db.collection("Doctors").whereEqualTo("ClinicName",clinics).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -85,8 +87,9 @@ public class selectDoc extends AppCompatActivity {
                                     }
                                 }
                             }
-                        });
+                        });}
                     }
+
                     adapter1.notifyDataSetChanged();
                 }
             }
