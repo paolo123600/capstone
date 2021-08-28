@@ -388,7 +388,7 @@ public class GlobalVariables extends Application {
     String startTime;
     String endTime;
     int post;
-    String dateconsult;
+    Date dateconsult;
     Date dateandtime;
 
     public String getStartTime() {
@@ -415,11 +415,11 @@ public class GlobalVariables extends Application {
         this.post= position;
     }
 
-    public String getDateconsult() {
+    public Date getDateconsult() {
         return dateconsult;
     }
 
-    public void setDateconsult(String dateconsult) {
+    public void setDateconsult(Date dateconsult) {
         this.dateconsult = dateconsult;
     }
 

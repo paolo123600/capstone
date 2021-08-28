@@ -24,11 +24,7 @@
         tools:targetApi="m">
         <activity android:name="com.medicall.capstone.restriction">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
         <activity android:name="com.medicall.capstone.doctor.Doctor_patient_bp" />
@@ -173,7 +169,11 @@
         <activity
             android:name="com.medicall.capstone.Login"
             android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name="com.medicall.capstone.MainActivity"

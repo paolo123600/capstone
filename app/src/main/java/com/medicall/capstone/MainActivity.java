@@ -73,7 +73,7 @@ import com.google.firebase.iid.InstanceIdResult;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, DatePickerDialog.OnDateSetListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private LinearLayout buttonbook;
     private LinearLayout buttonsched;
     LinearLayout chat;
@@ -86,11 +86,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     FirebaseFirestore db;
     FirebaseAuth fAuth;
     private String doclastname;
+    Date DDate ;
     String datenow;
     String userId;
     Boolean schedalready = false;
-    String[] time = {"8:00AM","8:30AM","9:00AM","9:30AM","10:00AM","10:30AM","11:00AM","11:30AM","12:00PM","12:30PM","1:00PM","1:30PM","2:00PM","2:30PM","3:00PM","3:30PM","4:00PM","4:30PM","5:00PM","5:30PM","6:00PM","6:30PM","7:00PM","7:30PM","8:00PM","8:30PM"};
-    String[] btntext = {"8:00-8:30AM","8:30-9:00AM","9:00-9:30AM","9:30-10:00AM","10:00-10:30AM","10:30-11:00AM","11:00-11:30AM","11:30-12:00PM","12:00-12:30PM","12:30-1:00PM","1:00-1:30PM","1:30-2:00PM","2:00-2:30PM","2:30-3:00PM","3:00-3:30PM","3:30-4:00PM","4:00-4:30PM","4:30-5:00PM","5:00-5:30PM","5:30-6:00PM","6:00-6:30PM","6:30-7:00PM","7:00-7:30PM","7:30-8:00PM"};
    private String start = "";
     private String lstart = "";
     private  String lend = "";
@@ -133,52 +132,44 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         updateNavHeader();
 
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat format = new SimpleDateFormat("MMMM d ,yyyy");
+        DDate = calendar.getTime();
+        datenow = format.format(DDate);
+        try {
+            DDate = format.parse(datenow);
+        } catch (ParseException e) {
+            Toast.makeText(this, "error", Toast.LENGTH_SHORT).show();
+        }
 
 
-
-        db.collection("Schedules").whereEqualTo("PatientUId", patuid).whereEqualTo("Status","Paid")
-                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("Schedules").whereEqualTo("PatientUId", patuid).whereEqualTo("Status","Paid").whereEqualTo("Date", DDate).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()){
-                    QuerySnapshot querySnapshot = task.getResult();
-                    if(!querySnapshot.isEmpty()){
-                        logo.setVisibility(LinearLayout.GONE);
-                        schedstats.setVisibility(LinearLayout.VISIBLE);
-
-                        for (QueryDocumentSnapshot patient : task.getResult()){
-                            document_id_reference = patient.getId();
-                                    db.collection("Doctors").document(patient.getString("DoctorUId"))
-                                            .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                            if(task.isSuccessful()){
-                                                DocumentSnapshot document = task.getResult();
-                                                docname.setText(document.getString("LastName"));
-                                            }
-                                        }
-                                    });
-                                    patienttime.setText(patient.getString("StartTime") + " - " +patient.getString("EndTime"));
-                                    position.setText(patient.get("Position") + "");
-
-                            DocumentReference docRef = db.collection("Schedules").document(document_id_reference);
-                            docRef.addSnapshotListener(MetadataChanges.INCLUDE, new EventListener<DocumentSnapshot>() {
-                                @Override
-                                public void onEvent(@Nullable DocumentSnapshot snapshot,
-                                                    @Nullable FirebaseFirestoreException e) {
-                                    if(!snapshot.getString("Status").equals("Paid")){
-                                        schedstats.setVisibility(LinearLayout.GONE);
-                                        logo.setVisibility(LinearLayout.VISIBLE);
-                                    }
-                                    else{
-                                        position.setText(snapshot.get("Position") + "");
-                                    }
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (error != null) {
+                    Toast.makeText(MainActivity.this, "error listening", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (value.isEmpty()) {
+                    schedstats.setVisibility(LinearLayout.GONE);
+                    logo.setVisibility(LinearLayout.VISIBLE);
+                }
+                else {
+                    schedstats.setVisibility(LinearLayout.VISIBLE);
+                    logo.setVisibility(LinearLayout.GONE);
+                    for (QueryDocumentSnapshot doc : value) {
+                        db.collection("Doctors").document(doc.getString("DoctorUId"))
+                                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if(task.isSuccessful()){
+                                    DocumentSnapshot document = task.getResult();
+                                    docname.setText(document.getString("LastName"));
                                 }
-                            });
-
-                        }
-                    }
-                    else{
+                            }
+                        });
+                        patienttime.setText(doc.getString("StartTime") + " - " +doc.getString("EndTime"));
+                        position.setText(doc.get("Position") + "");
 
                     }
                 }
@@ -237,7 +228,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                                     }
                                     else if (nowdate.after(datesched)) {  String documentsched =doc.getId();
-                                    db.collection("Schedules").document(documentsched).update("Status","Completed").addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    db.collection("Schedules").document(documentsched).update("Status","Unattended").addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
 
@@ -285,49 +276,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-    @Override
-    public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
-        Date nowdate = new Date() , currentdate  = new Date()  , currentdateminus2  = new Date();
-        Calendar c = Calendar.getInstance();
-        c.set(Calendar.YEAR, year);
-        c.set(Calendar.MONTH, month);
-        c.set(Calendar.DAY_OF_MONTH,dayOfMonth);
 
-        String currentDateString = DateFormat.getDateInstance().format(c.getTime());
-        c.add(Calendar.DAY_OF_MONTH,-2);
-        String currentDateminus2String = DateFormat.getDateInstance().format(c.getTime());
-        GlobalVariables gv = (GlobalVariables) getApplicationContext();
-        SimpleDateFormat format = new SimpleDateFormat("MMM d,yyyy");
-        format.setLenient(false);
-        try {
-             nowdate = format.parse(datenow);
-        } catch (ParseException e) {
-            Toast.makeText(MainActivity.this, "error5", Toast.LENGTH_SHORT).show();
-        }
-        try {
-
-            currentdate = format.parse(currentDateString);
-        } catch (ParseException e) {
-            Toast.makeText(MainActivity.this, "error", Toast.LENGTH_SHORT).show();
-        }
-        try {
-            currentdateminus2 = format.parse(currentDateminus2String);
-        } catch (ParseException e) {
-            Toast.makeText(MainActivity.this, "error", Toast.LENGTH_SHORT).show();
-        }
-
-
-        if (currentdateminus2.before(nowdate)){
-
-            Toast.makeText(MainActivity.this, "please select a valid date", Toast.LENGTH_SHORT).show();
-        }
-        else {
-            gv.setSDDate(currentDateString);
-            createSelectDateDialog();
-
-        }
-
-    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -395,341 +344,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-    public void createSelectDateDialog(){
-        dialogbuilder = new AlertDialog.Builder(this);
-        final View selectDateView = getLayoutInflater().inflate(R.layout.popupselecttime,null);
-        TextView doctv, clinictv , datetv;
-        GlobalVariables gv = (GlobalVariables) getApplicationContext();
-        LinearLayout right , left;
 
 
-        doctv= (TextView)selectDateView.findViewById(R.id.Doctnametv);
-        clinictv= (TextView)selectDateView.findViewById(R.id.Clinicnametv);
-        datetv= (TextView)selectDateView.findViewById(R.id.textView11);
-        right=(LinearLayout)selectDateView.findViewById(R.id.LLright);
-        left=(LinearLayout)selectDateView.findViewById(R.id.LLleft);
 
-        //initialize textview
 
-        doctv.setText("Doc. "+doclastname);
-        clinictv.setText(gv.getSDClinic());
-        datetv.setText(gv.getSDDate());
-    String clinicnaame =  gv.getSDClinic();
-        Query clinicsRef = db.collection("Clinics").whereEqualTo("ClinicName",clinicnaame);
-        clinicsRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
 
-                        int a=1;
-                        start =document.getString("WorkStart");
-                        end =document.getString("WorkEnd");
-                        lstart =document.getString("LunchStart");
-                        lend =document.getString("LunchEnd");
 
-                        int pos = new ArrayList<String>(Arrays.asList(time)).indexOf(start);
-                        int posend = new ArrayList<String>(Arrays.asList(time)).indexOf(end);
-                        int lpos = new ArrayList<String>(Arrays.asList(time)).indexOf(lstart);
-                        int lposend = new ArrayList<String>(Arrays.asList(time)).indexOf(lend);
-                        ArrayList<String> Existing = new ArrayList<String>();
 
-
-                        db.collection("Schedule").whereEqualTo("SchedDate",gv.getSDDate()).whereEqualTo("DoctorUId",gv.getSDDocUid()).get()
-                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                        if(task.isSuccessful()){
-                                            ArrayList<String> arrayList=new ArrayList<String>();
-                                            for (QueryDocumentSnapshot documentSnapshot : task.getResult()){
-
-                                                arrayList.add(documentSnapshot.getString("TimeStart"));
-                                            }
-                                            int abcd=1;
-                                            for (int j = pos; j < lpos; j++) {
-                                                String Timestart = time[j];
-                                                String Timestop = time[j + 1];
-                                                if (arrayList.contains(time[j])){
-                                                } else {
-                                                    Button btnTag = new Button(MainActivity.this);
-                                                    btnTag.setLayoutParams(new ActionBar.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT));
-                                                    btnTag.setText(btntext[j]);
-                                                    btnTag.setWidth(440);
-                                                    btnTag.setId(j);
-                                                    btnTag.setOnClickListener(new View.OnClickListener() {
-                                                        @Override
-                                                        public void onClick(View view) {
-                                                            gv.setSDtimestart(Timestart);
-                                                            gv.setSDtimestop(Timestop);
-                                                            dialog.dismiss();
-                                                            createconfirmDialog();
-                                                        }
-                                                    });
-
-                                                    if (abcd <= 10) {
-                                                        left.addView(btnTag);
-                                                    } else {
-                                                        right.addView(btnTag);
-                                                    }
-                                                    abcd++;
-
-                                                }
-                                            }
-                                            for (int j = lposend; j < posend; j++) {
-                                                String Timestart = time[j];
-                                                String Timestop = time[j + 1];
-                                                if (arrayList.contains(time[j])){
-                                                } else {
-                                                    Button btnTag = new Button(MainActivity.this);
-                                                    btnTag.setLayoutParams(new ActionBar.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT));
-                                                    btnTag.setText(btntext[j]);
-                                                    btnTag.setWidth(440);
-                                                
-                                                    btnTag.setId(j);
-                                                    btnTag.setOnClickListener(new View.OnClickListener() {
-                                                        @Override
-                                                        public void onClick(View view) {
-                                                            gv.setSDtimestart(Timestart);
-                                                            gv.setSDtimestop(Timestop);
-                                                            dialog.dismiss();
-                                                            createconfirmDialog();
-                                                        }
-                                                    });
-
-                                                    if (abcd <= 10) {
-                                                        left.addView(btnTag);
-                                                    } else {
-                                                        right.addView(btnTag);
-                                                    }
-                                                    abcd++;
-
-                                                }
-                                            }
-                                        }
-                                        else{
-                                            Toast.makeText(MainActivity.this, "nagloloko", Toast.LENGTH_SHORT).show();
-                                        }
-                                    }});
-
-                    }
-                }
-            }
-        });
-
-
-
-
-
-
-        dialogbuilder.setView(selectDateView);
-        dialog= dialogbuilder.create();
-        Window window = dialog.getWindow();
-        window.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
-        window.setGravity(Gravity.CENTER);
-        dialog.show();
-
-
-    }
-    public void createconfirmDialog(){
-        dialogbuilder = new AlertDialog.Builder(this);
-        final View confirmView = getLayoutInflater().inflate(R.layout.popupconfirm,null);
-        GlobalVariables gv = (GlobalVariables) getApplicationContext();
-        TextView docnametv , clinicnmtv , datetv, timetv;
-        Button cancelbtn , confirmbtn;
-        docnametv=(TextView) confirmView.findViewById(R.id.doctornametv);
-        clinicnmtv=(TextView) confirmView.findViewById(R.id.clinicnametv);
-        datetv=(TextView) confirmView.findViewById(R.id.datetimetv);
-        timetv=(TextView) confirmView.findViewById(R.id.timetv);
-
-        cancelbtn= (Button) confirmView.findViewById(R.id.button);
-        confirmbtn= (Button) confirmView.findViewById(R.id.button2);
-
-        docnametv.setText("Doctor: Doc."+doclastname);
-        clinicnmtv.setText("Clinic Name: "+gv.getSDClinic());
-        datetv.setText("Date: "+gv.getSDDate());
-        timetv.setText("Time: "+gv.getSDtimestart()+"-"+gv.getSDtimestop());
-
-
-        cancelbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-          dialog.dismiss();
-
-            }
-        });
-
-        confirmbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                preferenceManager = new PreferenceManager(getApplicationContext());
-                String patuid = preferenceManager.getString(Constants.KEY_USER_ID);
-                GlobalVariables gv =(GlobalVariables) getApplicationContext ();
-                Date currentTime = Calendar.getInstance().getTime();
-
-
-                Map<String,Object> Schedule= new HashMap<>();
-               Schedule.put("PatientUId",patuid);
-                Schedule.put("DoctorUId",gv.getSDDocUid());
-                Schedule.put("ClinicName",gv.getSDClinic());
-                Schedule.put("SchedDate",gv.getSDDate());
-                Schedule.put("TimeStart",gv.getSDtimestart());
-                Schedule.put("TimeStop",gv.getSDtimestop());
-                Schedule.put("Note","");
-                Schedule.put("Status","Paid");
-                Schedule.put("DnT",currentTime);
-
-
-
-                db.collection("Schedule").document()
-                        .set(Schedule)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-
-                                db.collection("Patients").document(patuid).update(gv.getSDClinic(),"True").addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        new android.app.AlertDialog.Builder(MainActivity.this)
-                                                .setTitle("Successfully Booked an appointment")
-                                                .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                                        dialog.dismiss();
-                                                    }
-                                                }).show();
-                                    }
-                                });
-
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        dialog.dismiss();
-                        Toast.makeText(gv, "Fail addingdata", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-            }
-        });
-
-        dialogbuilder.setView(confirmView);
-        dialog= dialogbuilder.create();
-
-        dialog.show();
-
-
-    }
-
-    public void createSelectDoctorDialog(){
-        dialogbuilder = new AlertDialog.Builder(this);
-        final View selectDoctorView = getLayoutInflater().inflate(R.layout.popupselectdoctor,null);
-        // Start
-        doctorlist= (RecyclerView) selectDoctorView.findViewById(R.id.DoctorRF);
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference clinicsRef = db.collection("Clinics");
-        Spinner spinner = (Spinner) selectDoctorView.findViewById(R.id.spinnerclinic);
-        List<String> Clinics = new ArrayList<>();
-        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, Clinics);
-        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter1);
-        clinicsRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        String subject = document.getString("ClinicName");
-
-                        Clinics.add(subject);
-                    }
-                    adapter1.notifyDataSetChanged();
-                }
-            }
-        });
-
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                String Clinicname = spinner.getSelectedItem().toString();
-                //query
-                Query query = db.collection("Doctors").whereEqualTo("ClinicName",Clinicname);
-                FirestoreRecyclerOptions<DoctorModel> options = new FirestoreRecyclerOptions.Builder<DoctorModel>()
-                        .setQuery(query,DoctorModel.class)
-                        .build();
-                //adapter
-                 adapter = new FirestoreRecyclerAdapter<DoctorModel, DoctorsViewHolder>(options) {
-                    @NonNull
-                    @Override
-                    public DoctorsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.doctor_list_single,parent,false);
-                        return new DoctorsViewHolder(view);
-                    }
-
-                    @Override
-                    protected void onBindViewHolder(@NonNull DoctorsViewHolder holder, int position, @NonNull DoctorModel model) {
-                        holder.list_docname.setText("Doc "+model.getLastName());
-                        holder.list_docemail.setText(model.getEmail());
-                        holder.list_docclinic.setText(model.getClinic());
-                        holder.itemView.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                GlobalVariables gv =(GlobalVariables) getApplicationContext ();
-                                gv.setSDDocemail(model.getEmail());
-                                gv.setSDDocUid(model.getUserId());
-                                doclastname=model.getLastName();
-                                gv.setSDClinic(Clinicname);
-                                dialog.dismiss();
-                                DialogFragment datepicker = new DatePickerFragment();
-                                datepicker.show(getSupportFragmentManager(),"date picker");
-
-
-
-                            }
-                        });
-
-                    }
-                };
-
-                doctorlist.setHasFixedSize(true);
-                doctorlist.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-                doctorlist.setAdapter(adapter);
-                adapter.startListening();
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        dialogbuilder.setView(selectDoctorView);
-        dialog= dialogbuilder.create();
-        dialog.show();
-
-
-
-
-
-    }
-
-    private class DoctorsViewHolder extends RecyclerView.ViewHolder{
-       private TextView list_docname;
-        private TextView list_docemail;
-        private TextView list_docclinic;
-
-
-        public DoctorsViewHolder(@NonNull View itemView) {
-            super(itemView);
-                list_docname = itemView.findViewById(R.id.list_patientname);
-            list_docemail = itemView.findViewById(R.id.list_patemail);
-            list_docclinic= itemView.findViewById(R.id.list_docclinic);
-
-        }
-
-    }
 
     private void sendFCMTokenToDatabase (String token) {
         FirebaseFirestore database = FirebaseFirestore.getInstance();

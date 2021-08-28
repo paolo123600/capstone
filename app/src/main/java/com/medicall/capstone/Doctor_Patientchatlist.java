@@ -15,6 +15,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.medicall.capstone.R;
 
 import com.medicall.capstone.utilities.PreferenceManager;
@@ -23,6 +27,9 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.mancj.materialsearchbar.MaterialSearchBar;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Doctor_Patientchatlist extends AppCompatActivity {
     private   String clinicname;
@@ -33,6 +40,7 @@ MaterialSearchBar materialSearchBar;
 private PreferenceManager preferenceManager;
 FirebaseFirestore db;
 String txt;
+String clinicid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,46 +92,74 @@ String txt;
     }
 
     private void startsearchpatient(String text) {
+
         adapter.stopListening();
-        patientlist = (RecyclerView) findViewById(R.id.recyclerViewpat);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        Query query = db.collection("Patients").whereEqualTo(clinicname, "True").orderBy("LastName").startAt(text).endAt(text+'\uf8ff');
-        FirestoreRecyclerOptions<PatientModel> options = new FirestoreRecyclerOptions.Builder<PatientModel>()
-                .setQuery(query,PatientModel.class)
-                .build();
-
-        adapter = new FirestoreRecyclerAdapter<PatientModel, PatientsViewHolder>(options) {
-
-            @NonNull
+        patientlist = (RecyclerView) findViewById(R.id.recyclerViewpat);
+        List<String> Patients = new ArrayList<>();
+        db.collection("Clinics").whereEqualTo("ClinicName",clinicname).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
-            public PatientsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.patient_list_single,parent,false);
-                return new PatientsViewHolder(view);
-            }
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    if (!task.getResult().isEmpty()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            clinicid = document.getId();
+                            db.collection("Clinics").document(clinicid).collection("Patients").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        if (!task.getResult().isEmpty()) {
+                                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                                String patuid = document.getString("PatUId");
 
-            @Override
-            protected void onBindViewHolder(@NonNull PatientsViewHolder holder, int position, @NonNull PatientModel model) {
-                holder.list_patname.setText(model.getLastName()+", "+model.getFirstName());
-                holder.list_patemail.setText(model.getEmail());
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(getApplicationContext(), MessageActivity.class);
-                        intent.putExtra("friendid", model.getUserId());
-                        intent.putExtra("name", model.getLastName()+", "+model.getFirstName());
-                        intent.putExtra("usertype", "Patients");
-                        intent.putExtra("type", "Doctors");
-                        startActivity(intent);
+                                                Patients.add(patuid);
+                                            }
+
+                                            Query query = db.collection("Patients").whereIn("UserId", Patients).orderBy("LastName").startAt(text).endAt(text + '\uf8ff');
+                                            FirestoreRecyclerOptions<PatientModel> options = new FirestoreRecyclerOptions.Builder<PatientModel>()
+                                                    .setQuery(query, PatientModel.class)
+                                                    .build();
+
+                                            adapter = new FirestoreRecyclerAdapter<PatientModel, PatientsViewHolder>(options) {
+
+                                                @NonNull
+                                                @Override
+                                                public PatientsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                                                    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.patient_list_single, parent, false);
+                                                    return new PatientsViewHolder(view);
+                                                }
+
+                                                @Override
+                                                protected void onBindViewHolder(@NonNull PatientsViewHolder holder, int position, @NonNull PatientModel model) {
+                                                    holder.list_patname.setText(model.getLastName() + ", " + model.getFirstName());
+                                                    holder.list_patemail.setText(model.getEmail());
+                                                    holder.itemView.setOnClickListener(new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View view) {
+                                                            Intent intent = new Intent(getApplicationContext(), MessageActivity.class);
+                                                            intent.putExtra("friendid", model.getUserId());
+                                                            intent.putExtra("name", model.getLastName() + ", " + model.getFirstName());
+                                                            intent.putExtra("usertype", "Patients");
+                                                            intent.putExtra("type", "Doctors");
+                                                            startActivity(intent);
+                                                        }
+                                                    });
+                                                }
+                                            };
+
+                                            patientlist.setHasFixedSize(true);
+                                            patientlist.setLayoutManager(new LinearLayoutManager(Doctor_Patientchatlist.this));
+                                            patientlist.setAdapter(adapter);
+                                            adapter.startListening();
+                                        }
+                                    }
+                                }
+                            });
+                        }
                     }
-                });
+                }
             }
-        };
-
-        patientlist.setHasFixedSize(true);
-        patientlist.setLayoutManager(new LinearLayoutManager(Doctor_Patientchatlist.this));
-        patientlist.setAdapter(adapter);
-        adapter.startListening();
-
+        });
 
 
 
@@ -133,42 +169,70 @@ String txt;
 
         patientlist = (RecyclerView) findViewById(R.id.recyclerViewpat);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        Query query = db.collection("Patients").whereEqualTo(clinicname, "True");
-        FirestoreRecyclerOptions<PatientModel> options = new FirestoreRecyclerOptions.Builder<PatientModel>()
-                .setQuery(query,PatientModel.class)
-                .build();
-
-        adapter = new FirestoreRecyclerAdapter<PatientModel, PatientsViewHolder>(options) {
-
-            @NonNull
+        List<String> Patients = new ArrayList<>();
+        db.collection("Clinics").whereEqualTo("ClinicName",clinicname).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
-            public PatientsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.patient_list_single,parent,false);
-                return new PatientsViewHolder(view);
-            }
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    if (!task.getResult().isEmpty()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            clinicid = document.getId();
+                            db.collection("Clinics").document(clinicid).collection("Patients").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        if (!task.getResult().isEmpty()) {
+                                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                                String patuid = document.getString("PatUId");
 
-            @Override
-            protected void onBindViewHolder(@NonNull PatientsViewHolder holder, int position, @NonNull PatientModel model) {
-                holder.list_patname.setText(model.getLastName()+", "+model.getFirstName());
-                holder.list_patemail.setText(model.getEmail());
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(getApplicationContext(), MessageActivity.class);
-                        intent.putExtra("friendid", model.getUserId());
-                        intent.putExtra("name", model.getLastName()+", "+model.getFirstName());
-                        intent.putExtra("usertype", "Patients");
-                        intent.putExtra("type", "Doctors");
-                        startActivity(intent);
+                                                Patients.add(patuid);
+                                            }
+                                            Query query = db.collection("Patients").whereIn("UserId", Patients).orderBy("LastName");
+                                            FirestoreRecyclerOptions<PatientModel> options = new FirestoreRecyclerOptions.Builder<PatientModel>()
+                                                    .setQuery(query, PatientModel.class)
+                                                    .build();
+
+                                            adapter = new FirestoreRecyclerAdapter<PatientModel, PatientsViewHolder>(options) {
+
+                                                @NonNull
+                                                @Override
+                                                public PatientsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                                                    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.patient_list_single, parent, false);
+                                                    return new PatientsViewHolder(view);
+                                                }
+
+                                                @Override
+                                                protected void onBindViewHolder(@NonNull PatientsViewHolder holder, int position, @NonNull PatientModel model) {
+                                                    holder.list_patname.setText(model.getLastName() + ", " + model.getFirstName());
+                                                    holder.list_patemail.setText(model.getEmail());
+                                                    holder.itemView.setOnClickListener(new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View view) {
+                                                            Intent intent = new Intent(getApplicationContext(), MessageActivity.class);
+                                                            intent.putExtra("friendid", model.getUserId());
+                                                            intent.putExtra("name", model.getLastName() + ", " + model.getFirstName());
+                                                            intent.putExtra("usertype", "Patients");
+                                                            intent.putExtra("type", "Doctors");
+                                                            startActivity(intent);
+                                                        }
+                                                    });
+                                                }
+                                            };
+
+                                            patientlist.setHasFixedSize(true);
+                                            patientlist.setLayoutManager(new LinearLayoutManager(Doctor_Patientchatlist.this));
+                                            patientlist.setAdapter(adapter);
+                                            adapter.startListening();
+                                        }
+                                    }
+                                }
+                            });
+                        }
                     }
-                });
+                }
             }
-        };
+        });
 
-        patientlist.setHasFixedSize(true);
-        patientlist.setLayoutManager(new LinearLayoutManager(Doctor_Patientchatlist.this));
-        patientlist.setAdapter(adapter);
-        adapter.startListening();
 
     }
 

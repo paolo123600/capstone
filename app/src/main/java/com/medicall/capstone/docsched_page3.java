@@ -236,7 +236,10 @@ if (monday){
 
                 if (monstat == false && tuestat == false && wedstat == false && thustat == false && fristat == false && satstat == false && sunstat == false) {
                     Toast.makeText(docsched_page3.this, "Please select day/s of week", Toast.LENGTH_SHORT).show();
-                } else {
+                } else if(maxbookingtv.getText().toString().equals("") || pricetv.getText().toString().equals("") || stringnewend.equals("")|| stringnewend.equals("")){
+                    Toast.makeText(docsched_page3.this, "Please fill all necessary fields", Toast.LENGTH_SHORT).show();
+                }
+                    else {
 
 
                     SimpleDateFormat f24hours = new SimpleDateFormat("hh:mm aa");

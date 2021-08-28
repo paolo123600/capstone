@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -223,7 +224,7 @@ public class Pending_Confirmation extends AppCompatActivity {
         progressDialog.setMessage("Retrieving image..");
         progressDialog.show();
 
-        db.collection("Schedules").whereEqualTo("ClinicName", preferenceManager.getString("ClinicName")).whereEqualTo("PatientUId", gv.getPending_patUid())
+        db.collection("Schedules").whereEqualTo("ClinicName", preferenceManager.getString("ClinicName")).whereEqualTo("PatientUId", gv.getPending_patUid()).whereEqualTo("Status","Pending Approval")
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -232,9 +233,8 @@ public class Pending_Confirmation extends AppCompatActivity {
                     if(!querySnapshot.isEmpty()){
                         for(QueryDocumentSnapshot sched : task.getResult()){
                             storageid = sched.getString("StorageId");
-                            storageReference = FirebaseStorage.getInstance().getReference("PatientHMO/" + storageid);
 
-                            if(storageid==""){
+                            if(storageid.equals("NoPic")){
                                 if(progressDialog.isShowing()){
                                     final int sdk = Build.VERSION.SDK_INT;
                                     if(sdk < Build.VERSION_CODES.R){
@@ -246,7 +246,7 @@ public class Pending_Confirmation extends AppCompatActivity {
                                     progressDialog.dismiss();
                                 }
                             }
-                            else{
+                            else{storageReference = FirebaseStorage.getInstance().getReference("PatientHMO/" + storageid);
                                 try{
                                     File localfile = File.createTempFile("myHMO", ".jpg");
                                     storageReference.getFile(localfile)
