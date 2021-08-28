@@ -45,13 +45,12 @@
         android:layout_marginTop="@dimen/_50sdp">
 
 
-
         <LinearLayout
             android:id="@+id/edittxtll"
-            android:layout_width="380dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_width="382dp"
+            android:layout_height="77dp"
             android:layout_marginLeft="15dp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@+id/selectdatell">
 
@@ -59,59 +58,67 @@
                 android:id="@+id/bp_upper"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:gravity="center" />
+                android:layout_weight="1"
+                android:background="@drawable/edittext_bg"
+                android:gravity="center"
+                android:paddingBottom="20dp" />
+
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="/"
                 android:textSize="@dimen/_20sdp" />
 
-
             <EditText
                 android:id="@+id/bp_lower"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:gravity="center" />
 
-            <Button
-                android:id="@+id/submit_bp"
-                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_50sdp"
-                android:layout_marginLeft="@dimen/_50sdp"
-                android:layout_weight="3"
-                android:text="Add New" />
+                android:layout_weight="1"
+                android:background="@drawable/edittext_bg"
+                android:gravity="center"
+                android:paddingBottom="20dp" />
 
 
         </LinearLayout>
 
         <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintTop_toBottomOf="@+id/edittxtll"
-        android:gravity="center"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toBottomOf="@+id/edittxtll"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_height="wrap_content"
-                 android:layout_width="wrap_content"
+                android:layout_width="wrap_content"
                 android:textStyle="bold"
                 android:textSize="20dp"
                 android:text="Blood Pressure List"/>
 
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recview_bp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recview_bp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
 
-    </LinearLayout>
+            <Button
+                android:id="@+id/submit_bp"
+                android:layout_width="51dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-100dp"
+                android:background="@drawable/darkround"
+                android:text="+"
+
+                android:textColor="@color/white" />
+
+
+        </LinearLayout>
 
     </LinearLayout>
 

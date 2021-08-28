@@ -177,7 +177,10 @@
         </activity>
         <activity
             android:name="com.medicall.capstone.MainActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" >
+
+
+        </activity>
 
         <service
             android:name="com.medicall.capstone.firebase.MessagingService"

@@ -333,7 +333,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.nav_about:
-                Intent intent1 = new Intent(MainActivity.this, add_patient_HMO.class);
+                Intent intent1 = new Intent(MainActivity.this, about.class);
                 startActivity(intent1);
                 break;
             case R.id.blood_p:

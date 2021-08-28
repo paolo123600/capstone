@@ -41,7 +41,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/_43sdp"
-        app:layout_constraintTop_toBottomOf="@id/toolbar">
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        tools:layout_editor_absoluteX="62dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -51,17 +52,17 @@
                 android:id="@+id/profilelabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                android:orientation="vertical"
                 android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_10sdp">
+                android:orientation="vertical"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Profile"
-                    android:textSize="@dimen/_20sdp"/>
+                    android:textSize="@dimen/_20sdp" />
 
 
             </LinearLayout>
@@ -70,10 +71,10 @@
                 android:id="@+id/namelabeledittxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/profilelabel"
-                android:orientation="vertical"
                 android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginEnd="@dimen/_10sdp">
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@+id/profilelabel">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -84,21 +85,30 @@
                     android:id="@+id/first_name_profile"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Name"
-                    android:padding="@dimen/_10sdp"/>
+                    android:padding="@dimen/_10sdp"
+                    android:text="Name" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Address"
-                    android:layout_marginTop="@dimen/_10sdp"/>
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="Address" />
 
-                <EditText
-                    android:id="@+id/address_profile"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/edittext_bg"
-                    android:padding="@dimen/_10sdp"/>
+                    android:layout_height="wrap_content"
+                    app:counterEnabled="true">
+
+                    <EditText
+                        android:id="@+id/address_profile"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+
+                        android:padding="@dimen/_10sdp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
 
             </LinearLayout>
 
@@ -106,52 +116,73 @@
                 android:id="@+id/municipalitylabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/namelabeledittxt"
-                android:orientation="horizontal"
                 android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_10sdp">
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/namelabeledittxt">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Municipality"/>
+                    android:text="Municipality" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Postal code"
-                    android:layout_marginLeft="@dimen/_143sdp"/>
+                    android:layout_marginLeft="@dimen/_143sdp"
+                    android:text="Postal code" />
 
 
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/municipalityedittxt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/municipalitylabel"
+                android:layout_width="381dp"
+                android:layout_height="90dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
                 android:orientation="horizontal"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginEnd="@dimen/_10sdp">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/municipalitylabel">
 
-                <EditText
-                    android:id="@+id/municipality_profile"
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="150dp"
                     android:layout_height="match_parent"
-                    android:background="@drawable/edittext_bg"
-                    android:padding="@dimen/_10sdp"/>
+                    app:counterEnabled="true">
 
-                <EditText
-                    android:id="@+id/postal_profile"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+
+                    <EditText
+                        android:id="@+id/municipality_profile"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginBottom="-20dp"
+                        android:layout_weight="2"
+                        android:inputType="textImeMultiLine"
+                        android:padding="@dimen/_10sdp"
+                        android:paddingTop="20dp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="142dp"
                     android:layout_height="match_parent"
-                    android:background="@drawable/edittext_bg"
-                    android:layout_marginLeft="@dimen/_10sdp"
-                    android:padding="@dimen/_10sdp"/>
+                    android:layout_marginLeft="90dp"
+                    app:counterEnabled="true">
 
+                    <EditText
+                        android:id="@+id/postal_profile"
+                        android:layout_width="93dp"
+                        android:layout_height="51dp"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_marginBottom="-20dp"
+                        android:layout_weight="1"
+                        android:inputType="textImeMultiLine"
+                        android:padding="@dimen/_10sdp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
 
             </LinearLayout>
@@ -160,22 +191,22 @@
                 android:id="@+id/emaillabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/municipalityedittxt"
-                android:orientation="horizontal"
                 android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_10sdp">
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/municipalityedittxt">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Email Address"/>
+                    android:text="Email Address" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sex"
-                    android:layout_marginLeft="@dimen/_132sdp"/>
+                    android:layout_marginLeft="@dimen/_132sdp"
+                    android:text="Sex" />
 
 
             </LinearLayout>
@@ -184,28 +215,28 @@
                 android:id="@+id/emaileditxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/emaillabel"
-                android:orientation="horizontal"
                 android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginEnd="@dimen/_10sdp">
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/emaillabel">
 
                 <TextView
                     android:id="@+id/email_profile"
                     android:layout_width="0dp"
-                    android:layout_weight="2"
                     android:layout_height="match_parent"
-                    android:text="Email"
+                    android:layout_weight="2"
+                    android:inputType="textImeMultiLine"
                     android:padding="@dimen/_10sdp"
-                    android:inputType="textImeMultiLine"/>
+                    android:text="Email" />
 
                 <TextView
                     android:id="@+id/gender_profile"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="match_parent"
-                    android:text="Sex"
                     android:layout_marginLeft="@dimen/_10sdp"
-                    android:padding="@dimen/_10sdp"/>
+                    android:layout_weight="1"
+                    android:padding="@dimen/_10sdp"
+                    android:text="Sex" />
 
             </LinearLayout>
 
@@ -213,56 +244,70 @@
                 android:id="@+id/contactlabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/emaileditxt"
-                android:orientation="horizontal"
                 android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_10sdp">
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/emaileditxt">
 
                 <TextView
-                    android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Contact Number"/>
+                    android:layout_weight="1"
+                    android:text="Contact Number" />
 
                 <TextView
-                    android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Birthday"
-                    android:layout_marginLeft="@dimen/_75sdp"/>
+                    android:layout_marginLeft="@dimen/_75sdp"
+                    android:layout_weight="1"
+                    android:text="Birthday" />
 
 
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/contactedittxt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/contactlabel"
+                android:layout_width="385dp"
+                android:layout_height="78dp"
+                android:layout_marginStart="16dp"
+
+                android:layout_marginLeft="16dp"
+
                 android:orientation="horizontal"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginEnd="@dimen/_10sdp">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/contactlabel">
 
 
-                <EditText
-                    android:id="@+id/number_profile"
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="190dp"
                     android:layout_height="match_parent"
-                    android:background="@drawable/edittext_bg"
-                    android:padding="@dimen/_10sdp"
-                    android:hint="09*********"
-                    android:maxLength="11"/>
+                    android:layout_marginLeft="-8dp"
+                    app:counterEnabled="true">
+
+
+                    <EditText
+                        android:id="@+id/number_profile"
+                        android:layout_width="153dp"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginBottom="-10dp"
+                        android:layout_weight="2"
+                        android:inputType="textImeMultiLine"
+                        android:maxLength="11"
+                        android:padding="@dimen/_10sdp" />
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
                     android:id="@+id/birthday_profile"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:text="Birthday"
-                    android:layout_marginLeft="@dimen/_10sdp"
-                    android:padding="@dimen/_10sdp"/>
+                    android:layout_width="129dp"
+
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_40sdp"
+
+                    android:padding="@dimen/_10sdp"
+                    android:text="Birthday" />
 
 
             </LinearLayout>
@@ -270,19 +315,19 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/contactedittxt"
                 android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginEnd="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:gravity="center">
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:gravity="center"
+                app:layout_constraintTop_toBottomOf="@id/contactedittxt">
 
                 <Button
                     android:id="@+id/update_profile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Update"
                     android:background="@drawable/darkround"
-                    android:textColor="@color/white"/>
+                    android:text="Update"
+                    android:textColor="@color/white" />
 
             </LinearLayout>
 
