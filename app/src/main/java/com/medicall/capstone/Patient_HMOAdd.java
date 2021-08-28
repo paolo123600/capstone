@@ -220,26 +220,33 @@ public class Patient_HMOAdd extends AppCompatActivity {
         spinnervalue = spinner.getSelectedItem().toString();
 
         if (spinnervalue.equals("Others")){
+
             hmo = editText.getText().toString();
         }
         else {
             hmo = spinnervalue;
         }
 
-        Map<String,Object> hmodb = new HashMap<>();
-        hmodb.put ("HMOName",hmo);
-        db.collection("HMO").document(hmo).set(hmodb);
-        ///
-        Map<String,Object> uid = new HashMap<>();
-        uid.put ("PatientUId",Uid);
-        db.collection("HMO").document(hmo).collection("Patients").document(Uid).set(uid);
+        if (!hmo.equals("") ) {
+            Map<String, Object> hmodb = new HashMap<>();
+            hmodb.put("HMOName", hmo);
+            db.collection("HMO").document(hmo).set(hmodb);
+            ///
+            Map<String, Object> uid = new HashMap<>();
+            uid.put("PatientUId", Uid);
+            db.collection("HMO").document(hmo).collection("Patients").document(Uid).set(uid);
 
-        Map<String,Object> pathmo = new HashMap<>();
-        pathmo.put ("HMOName",hmo);
-        db.collection("Patients").document(Uid).collection("HMO").document(hmo).set(pathmo);
+            Map<String, Object> pathmo = new HashMap<>();
+            pathmo.put("HMOName", hmo);
+            db.collection("Patients").document(Uid).collection("HMO").document(hmo).set(pathmo);
 
 
-        Toast.makeText(Patient_HMOAdd.this, hmo, Toast.LENGTH_SHORT).show();
-
+            Toast.makeText(Patient_HMOAdd.this, "Successfully added "+hmo, Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getApplicationContext(),Patient_HMOList.class);
+            startActivity(intent);
+        }
+        else {
+            Toast.makeText(Patient_HMOAdd.this, "Please enter the HMO name", Toast.LENGTH_SHORT).show();
+        }
     }
 }

@@ -300,6 +300,7 @@ public class upload_hmo extends AppCompatActivity {
                                 patienthmo.put("Position", gv.getPost()+1);
                                 patienthmo.put("Status", "Pending Approval");
                                 patienthmo.put("DoctorUId", gv.getSDDocUid());
+                                patienthmo.put("StorageId","None");
 
                                 db.collection("Schedules").document().set(patienthmo)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {

@@ -102,18 +102,7 @@ public class selectDoc_hmo extends AppCompatActivity {
 
                         hmo.add(subject);
                     }
-//                    for (String hmos : hmo){
-//                        db.collection("HMO").document(hmos).collection("Doctors").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                            @Override
-//                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                                if (task.isSuccessful()){
-//                                    if (task.getResult().isEmpty()){
-//                                        hmo.remove(hmos);
-//                                    }
-//                                }
-//                            }
-//                        });
-//                    }
+//
 
                     adapter1.notifyDataSetChanged();
                 }
@@ -138,9 +127,10 @@ public class selectDoc_hmo extends AppCompatActivity {
                                 doctorlist.setVisibility(View.VISIBLE);
                                 nonetv.setVisibility(View.GONE );
                                 for (QueryDocumentSnapshot document : task.getResult()) {
-                                    String subject = document.getString("DocUId");
+                                    String subject = document.getString("DoctorUId");
 
                                     doctors.add(subject);
+
                                 }
 
 

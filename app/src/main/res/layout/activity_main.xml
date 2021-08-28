@@ -100,7 +100,7 @@
                     android:layout_width="0dp"
                     android:layout_height="30dp"
                     android:gravity="center_vertical|start"
-                    android:text="Estimated Time"
+                    android:text="Appointment Time"
                     android:textAllCaps="true"
                     android:textSize="15dp"
                     android:textStyle="bold"

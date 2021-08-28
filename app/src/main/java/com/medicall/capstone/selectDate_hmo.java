@@ -219,7 +219,7 @@ public class selectDate_hmo extends AppCompatActivity implements DatePickerDialo
             @Override
             protected void onBindViewHolder(@NonNull DocSchedViewHolder holder, int position, @NonNull DocSchedModel model) {
 
-                db.collection("Schedules").whereEqualTo("DoctorUId",gv.getSDDocUid()).whereEqualTo("StartTime",model.getStartTime()).whereEqualTo("EndTime", model.getEndTime()).whereEqualTo("Date", datestring ).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                db.collection("Schedules").whereEqualTo("DoctorUId",gv.getSDDocUid()).whereEqualTo("StartTime",model.getStartTime()).whereEqualTo("EndTime", model.getEndTime()).whereEqualTo("Date", date2 ).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
@@ -242,7 +242,7 @@ public class selectDate_hmo extends AppCompatActivity implements DatePickerDialo
                                         gv.setStartTime(model.getStartTime());
                                         gv.setEndTime(model.getEndTime());
                                         gv.setPost(count);
-                                        gv.setDateconsult(datestring);
+                                        gv.setDateconsult(date2);
                                         gv.setDateandtime(currentTime);
 
                                         AlertDialog.Builder builder = new AlertDialog.Builder(selectDate_hmo.this);
