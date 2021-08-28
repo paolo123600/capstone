@@ -68,6 +68,7 @@
             <Button
                 android:id="@+id/hmo_add"
                 android:layout_width="@dimen/_40sdp"
+                android:background="@drawable/shapes"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical|center"
                 android:text="+" />
