@@ -4,7 +4,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.telephony.PhoneNumberUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +22,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class profile_edit extends AppCompatActivity {
@@ -70,6 +73,8 @@ public class profile_edit extends AppCompatActivity {
         bdayProfile.setKeyListener(null);
         emailProfile.setKeyListener(null);
 
+
+
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,24 +101,37 @@ public class profile_edit extends AppCompatActivity {
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String municipality = municiplatyProfile.getText().toString();
-                String number = numberProfile.getText().toString();
-                String email = emailProfile.getText().toString();
-                String address = addressProfile.getText().toString();
-                String postal = postalPorfile.getText().toString();
 
-                Map<String, Object> Patients = new HashMap<>();
-                Patients.put("Municipality", municipality);
-                Patients.put("Contact", number);
-                Patients.put("Email", email);
-                Patients.put("Address", address);
-                Patients.put("Postal", postal);
+                if (addressProfile.getText().toString().isEmpty()) {
+                    Toast.makeText(profile_edit.this, "Enter your Address", Toast.LENGTH_SHORT).show();
+                }else if (municiplatyProfile.getText().toString().isEmpty()) {
+                    Toast.makeText(profile_edit.this, "Enter your Municipality", Toast.LENGTH_SHORT).show();
+                }else if (postalPorfile.getText().toString().isEmpty()) {
+                    Toast.makeText(profile_edit.this, "Enter your Postal Code", Toast.LENGTH_SHORT).show();
+                }else if (numberProfile.getText().toString().isEmpty()) {
+                    Toast.makeText(profile_edit.this, "Enter your Contact Number", Toast.LENGTH_SHORT).show();
+                }else {
+
+                    String municipality = municiplatyProfile.getText().toString();
+                    String number = numberProfile.getText().toString();
+                    String email = emailProfile.getText().toString();
+                    String address = addressProfile.getText().toString();
+                    String postal = postalPorfile.getText().toString();
 
 
-                documentReference.update(Patients);
-                Toast.makeText(profile_edit.this, "Updated Successfully", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getApplicationContext(), Login.class);
-                startActivity(intent);
+                    Map<String, Object> Patients = new HashMap<>();
+                    Patients.put("Municipality", municipality);
+                    Patients.put("Contact", number);
+                    Patients.put("Address", address);
+                    Patients.put("Postal", postal);
+
+
+                    documentReference.update(Patients);
+                    Toast.makeText(profile_edit.this, "Updated Successfully", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), Login.class);
+                    startActivity(intent);
+
+                }
 
             }
         });

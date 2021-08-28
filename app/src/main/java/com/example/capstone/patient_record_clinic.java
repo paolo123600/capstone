@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.capstone.doctor.Doctor_patient_bp;
 import com.example.capstone.utilities.PreferenceManager;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -225,6 +226,15 @@ public class patient_record_clinic extends AppCompatActivity {
                                                         @Override
                                                         public void onClick(View v) {
                                                             Intent intent = new Intent(getApplicationContext(), patientrec_sec.class);
+                                                            intent.putExtra("patid", patientID);
+                                                            startActivity(intent);
+                                                        }
+                                                    });
+
+                                                    holder.patientBP.setOnClickListener(new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View v) {
+                                                            Intent intent = new Intent(getApplicationContext(), Doctor_patient_bp.class);
                                                             intent.putExtra("patid", patientID);
                                                             startActivity(intent);
                                                         }

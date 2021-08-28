@@ -103,8 +103,8 @@
                 android:background="@drawable/roundtbox"
                 android:inputType="textPersonName"
                 android:layout_marginLeft="@dimen/_10sdp"
-                android:paddingLeft="@dimen/_10sdp"
-                android:maxLength="1"/>
+                android:maxLength="1"
+                android:gravity="center"/>
 
         </LinearLayout>
 

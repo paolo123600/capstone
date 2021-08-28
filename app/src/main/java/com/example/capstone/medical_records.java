@@ -46,7 +46,6 @@ public class medical_records extends AppCompatActivity {
         contactnum = findViewById(R.id.Econtact_number);
         medicheight = findViewById(R.id.medicalrec_height);
         medicweight = findViewById(R.id.medicalrec_weight);
-        medicBP = findViewById(R.id.medicalrec_bloodpressure);
         medicBT = findViewById(R.id.medicalrec_bloodtype);
         medicallergies = findViewById(R.id.medicalrec_allergies);
         medicillness = findViewById(R.id.medicalrec_illness);
