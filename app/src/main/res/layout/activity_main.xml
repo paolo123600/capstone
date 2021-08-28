@@ -251,7 +251,7 @@
                     android:layout_height="48dp"
                     android:layout_marginLeft="90dp"
                     android:layout_marginTop="-50dp"
-                    android:text="Schedule"
+                    android:text="Appointments"
                     android:textSize="28dp"
                     android:textStyle="bold"
 

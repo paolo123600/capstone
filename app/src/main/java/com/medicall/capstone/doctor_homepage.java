@@ -392,7 +392,7 @@ db.collection("DoctorSchedules").whereEqualTo(currentday,true).whereEqualTo("Doc
 
                                 List<String> pats = new ArrayList<>();
                                 if (value.isEmpty()){
-                                    patnametv.setText("Nogfsadgsd");
+                                    patnametv.setText("You have no current appointments");
                                     schedtimetv.setText("");
                                     callbtn.setVisibility(View.INVISIBLE);
                                     pat_record.setVisibility(View.INVISIBLE);
@@ -552,6 +552,16 @@ db.collection("DoctorSchedules").whereEqualTo(currentday,true).whereEqualTo("Doc
 
 
                 }
+            else {
+
+                patnametv.setText("You don't have a schedule.");
+                schedtimetv.setText("");
+                callbtn.setVisibility(View.INVISIBLE);
+                pat_record.setVisibility(View.INVISIBLE);
+                btncomplete.setVisibility(View.INVISIBLE);
+                btnnext.setVisibility(View.INVISIBLE);
+
+            }
 
             }
 

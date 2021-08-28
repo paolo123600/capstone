@@ -1,9 +1,11 @@
 package com.medicall.capstone;
 
+import java.util.Date;
+
 public class PendingModel {
 
     private String ClinicName;
-    private String Date;
+    private java.util.Date Date;
     private String DoctorUId;
     private String PatientUId;
     private String Hmo;
@@ -23,11 +25,11 @@ public class PendingModel {
         ClinicName = clinicName;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return Date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         Date = date;
     }
 
@@ -79,7 +81,7 @@ public class PendingModel {
         CardNumber = cardNumber;
     }
 
-    public PendingModel(String clinicName, String date, String doctorUId, String patientUId, String hmo, String startTime, String endTime, String cardNumber){
+    public PendingModel(String clinicName, Date date, String doctorUId, String patientUId, String hmo, String startTime, String endTime, String cardNumber){
         ClinicName = clinicName;
         Date = date;
         DoctorUId = doctorUId;

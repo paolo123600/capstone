@@ -29,7 +29,7 @@
     <string name="thisweek_number">20</string>
     <string name="Date">Date</string>
     <string name="time">time</string>
-    <string name="Upcoming">Upcoming Schedule:</string>
+    <string name="Upcoming">Upcoming Appointment:</string>
     <string name="areyousure">Are you sure about the schedule?</string>
     <string name="norefund">There will be no refund once confirmed.</string>
     <string name="confirm">Confirm</string>

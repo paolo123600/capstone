@@ -222,13 +222,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                 }
                                 for (QueryDocumentSnapshot doc : task.getResult()) {
 
-                                    String scheddate = doc.getString("Date");
-                                    Date datesched = new Date();
-                                    try {
-                                        datesched  = format2.parse(scheddate);
-                                    } catch (ParseException e) {
-                                        Toast.makeText(MainActivity.this, "error4", Toast.LENGTH_SHORT).show();
-                                    }
+
+                                    Date datesched = doc.getDate("Date");
+
                                     if(nowdate.before(datesched)||nowdate.equals(datesched)){
 
                                         if(doc.getString("Status").equals("Paid")){
