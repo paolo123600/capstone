@@ -43,6 +43,8 @@
                 android:id="@+id/hmo_edit"
                 android:layout_width="0dp"
                 android:layout_weight="1"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/shapes"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical|center"
                 android:text="Edit" />
@@ -50,6 +52,8 @@
                 android:id="@+id/hmo_delete"
                 android:layout_width="0dp"
                 android:layout_weight="1"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/shapes"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical|center"
                 android:text="X" />

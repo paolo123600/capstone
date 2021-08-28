@@ -17,6 +17,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -124,25 +125,33 @@ public class pat_blood_pressure extends AppCompatActivity {
 
 
 
+
+
         submitbp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                edittxtupper = bpupper.getText().toString();
-                edittxtlower = bplower.getText().toString();
+                if (bpupper.getText().toString().trim().isEmpty()){
+                    Toast.makeText(pat_blood_pressure.this, "Enter your Blood Pressure", Toast.LENGTH_SHORT).show();
+                }else if (bplower.getText().toString().trim().isEmpty()) {
+                    Toast.makeText(pat_blood_pressure.this, "Enter your Blood Pressure", Toast.LENGTH_SHORT).show();
+                }else {
+                    edittxtupper = bpupper.getText().toString();
+                    edittxtlower = bplower.getText().toString();
 
-                Date currentTime = Calendar.getInstance().getTime();
-                Map<String, Object> patbp = new HashMap<>();
-                patbp.put("Date", collectionBpDate);
-                patbp.put("Upper", edittxtupper);
-                patbp.put("Lower", edittxtlower);
-                patbp.put("Dnt", currentTime);
+                    Date currentTime = Calendar.getInstance().getTime();
+                    Map<String, Object> patbp = new HashMap<>();
+                    patbp.put("Date", collectionBpDate);
+                    patbp.put("Upper", edittxtupper);
+                    patbp.put("Lower", edittxtlower);
+                    patbp.put("Dnt", currentTime);
 
-                String ctime;
-                ctime = currentTime.toString();
+                    String ctime;
+                    ctime = currentTime.toString();
 
-                db.collection("Patients").document(userId).collection("BP").document(ctime).set(patbp);
+                    db.collection("Patients").document(userId).collection("BP").document(ctime).set(patbp);
 
+                }
             }
         });
     }

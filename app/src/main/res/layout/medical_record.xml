@@ -44,6 +44,7 @@
                 android:id="@+id/EcontanctP"
                 android:inputType="textPersonName"
                 android:layout_width="match_parent"
+                android:hint="Ex. Pedro Dela Cruz"
                 android:layout_height="match_parent"
                 android:background="@drawable/roundtbox"
                 android:padding="@dimen/_10sdp"/>
@@ -58,6 +59,7 @@
                 android:id="@+id/EcontanctN"
                 android:inputType="number"
                 android:layout_width="match_parent"
+                android:hint="Ex. 09991234567"
                 android:layout_height="match_parent"
                 android:background="@drawable/roundtbox"
                 android:padding="@dimen/_10sdp"/>
@@ -97,6 +99,7 @@
                 android:inputType="numberDecimal"
                 android:layout_width="@dimen/_120sdp"
                 android:layout_height="match_parent"
+                android:hint="Ex. 174"
                 android:background="@drawable/roundtbox"
                 android:padding="@dimen/_10sdp"/>
 
@@ -144,6 +147,7 @@
                 android:inputType="numberDecimal"
                 android:layout_width="@dimen/_120sdp"
                 android:layout_height="match_parent"
+                android:hint="Ex. 65"
                 android:padding="@dimen/_10sdp"
                 android:background="@drawable/roundtbox"/>
 
@@ -176,6 +180,7 @@
                 android:id="@+id/Allergies"
                 android:inputType="textMultiLine"
                 android:layout_width="match_parent"
+                android:hint="Ex. Peanuts"
                 android:layout_height="@dimen/_80sdp"
                 android:background="@drawable/roundtbox"
                 android:padding="@dimen/_10sdp" />
@@ -190,6 +195,7 @@
                 android:id="@+id/illness"
                 android:inputType="textMultiLine"
                 android:layout_width="match_parent"
+                android:hint="Ex. Asthma"
                 android:layout_height="@dimen/_80sdp"
                 android:background="@drawable/roundtbox"
                 android:padding="@dimen/_10sdp"/>
@@ -207,7 +213,7 @@
                 android:id="@+id/btn_continue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Continue"
+                android:text="Submit"
                 android:textColor="@color/white"
                 android:background="@drawable/darkround"/>
 

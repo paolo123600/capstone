@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.capstone.doctor.Doctor_patient_bp;
 import com.example.capstone.utilities.PreferenceManager;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -229,6 +230,15 @@ public class patient_record_clinic extends AppCompatActivity {
                                                             startActivity(intent);
                                                         }
                                                     });
+
+                                                    holder.patientBP.setOnClickListener(new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View v) {
+                                                            Intent intent = new Intent(getApplicationContext(), Doctor_patient_bp.class);
+                                                            intent.putExtra("patid", patientID);
+                                                            startActivity(intent);
+                                                        }
+                                                    });
                                                 }
                                             };
 
@@ -255,10 +265,12 @@ public class patient_record_clinic extends AppCompatActivity {
         private TextView listFirstname;
         private TextView listemail;
         private Button patientR;
+        private Button patientBP;
 
         public PatientViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            patientBP = itemView.findViewById(R.id.patientrec_BP_btn);
             listFirstname = itemView.findViewById(R.id.patientrec_firstname);
             listemail = itemView.findViewById(R.id.patientrec_email);
             patientR = itemView.findViewById(R.id.patientrec_btn);

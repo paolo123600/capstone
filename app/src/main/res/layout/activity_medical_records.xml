@@ -110,13 +110,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Height"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:text="Blood Type"
-                android:layout_marginLeft="@dimen/_99sdp"/>
+                />
 
         </LinearLayout>
 
@@ -130,13 +125,7 @@
             android:layout_marginLeft="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_10sdp">
 
-            <TextView
-                android:id="@+id/medicalrec_height"
-                android:inputType="numberDecimal"
-                android:layout_width="@dimen/_120sdp"
-                android:layout_height="match_parent"
-                android:text="Height"
-                android:padding="@dimen/_10sdp"/>
+
 
             <TextView
                 android:id="@+id/medicalrec_bloodtype"
@@ -161,15 +150,16 @@
             android:layout_marginEnd="@dimen/_10sdp">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="Weight"/>
+                android:text="Height"/>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="Blood Pressure"
-                android:layout_marginLeft="@dimen/_97sdp"/>
+                android:text="Weight"/>
 
 
         </LinearLayout>
@@ -185,21 +175,23 @@
             android:layout_marginEnd="@dimen/_10sdp">
 
             <TextView
+                android:id="@+id/medicalrec_height"
+                android:inputType="numberDecimal"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="Height"
+                android:padding="@dimen/_10sdp"/>
+
+            <TextView
                 android:id="@+id/medicalrec_weight"
                 android:inputType="numberDecimal"
-                android:layout_width="@dimen/_120sdp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:padding="@dimen/_10sdp"
                 android:text="weight"/>
 
-            <TextView
-                android:id="@+id/medicalrec_bloodpressure"
-                android:inputType="number"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Blood Pressure"
-                android:padding="@dimen/_10sdp"
-                android:layout_marginLeft="@dimen/_10sdp"/>
 
         </LinearLayout>
 

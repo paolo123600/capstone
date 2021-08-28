@@ -244,13 +244,16 @@
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_10sdp">
 
+
                 <EditText
                     android:id="@+id/number_profile"
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="match_parent"
                     android:background="@drawable/edittext_bg"
-                    android:padding="@dimen/_10sdp"/>
+                    android:padding="@dimen/_10sdp"
+                    android:hint="09*********"
+                    android:maxLength="11"/>
 
                 <TextView
                     android:id="@+id/birthday_profile"
@@ -260,6 +263,7 @@
                     android:text="Birthday"
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:padding="@dimen/_10sdp"/>
+
 
             </LinearLayout>
 

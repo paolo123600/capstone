@@ -1,5 +1,6 @@
 package com.example.capstone;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,8 +20,15 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.example.capstone.utilities.PreferenceManager;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -37,6 +45,17 @@ public class Medical_RecordActivity extends AppCompatActivity implements Adapter
     Spinner ET_BloodType;
     FirebaseFirestore db;
 
+    //from Sign_Up_VerifyActivity
+
+    EditText ET_VCode;
+    Button emailreg;
+    String VEmail= "";
+    String Vcode="";
+    String email ="";
+    FirebaseAuth mAuth;
+    PreferenceManager preferenceManager;
+    DatabaseReference reference;
+
     private ProgressBar signInProgressBar;
     RelativeLayout progressbg;
     ConstraintLayout bg_remove;
@@ -45,6 +64,9 @@ public class Medical_RecordActivity extends AppCompatActivity implements Adapter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.medical_record);
         GlobalVariables gv =(GlobalVariables) getApplicationContext ();
+
+        preferenceManager = new PreferenceManager(getApplicationContext());
+        mAuth = FirebaseAuth.getInstance();
 
         db= FirebaseFirestore.getInstance();
         ET_ContactP=(EditText) findViewById(R.id.EcontanctP);
@@ -73,18 +95,8 @@ public class Medical_RecordActivity extends AppCompatActivity implements Adapter
             @Override
             public void onClick(View view) {
 
-                progressbg.setVisibility(View.VISIBLE);
-                signInProgressBar.setVisibility(View.VISIBLE);
-                bg_remove.setVisibility(View.INVISIBLE);
 
-                gv.setEContactP(ET_ContactP.getText().toString());
-                gv.setEContactN(ET_ContactN.getText().toString());
-                gv.setHeight(ET_Height.getText().toString());
-                gv.setWeight(ET_Weight.getText().toString());
-                gv.setBloodP(ET_BloodP.getText().toString());
-                gv.setBloodType(ET_BloodType.getSelectedItem().toString());
-                gv.setAllergies(ET_Allergies.getText().toString());
-                gv.setIllness(ET_Illness.getText().toString());
+
 
                 if(ET_ContactP.getText().toString().trim().isEmpty()){
                     Toast.makeText(Medical_RecordActivity.this, "Enter Contact Person",Toast.LENGTH_SHORT).show();
@@ -102,25 +114,114 @@ public class Medical_RecordActivity extends AppCompatActivity implements Adapter
                     Toast.makeText(Medical_RecordActivity.this, "Enter Allergies",Toast.LENGTH_SHORT).show();
                 }else{
 
-                    new AlertDialog.Builder(Medical_RecordActivity.this).setMessage("Do you have HMO?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    new AlertDialog.Builder(Medical_RecordActivity.this).setMessage("Finish registration?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(getApplicationContext(), add_patient_HMO.class);
-                            startActivity(intent);
+                            email = gv.getEmail();
+                            registerUser();
+
                         }
-                    }).setNegativeButton("None", new DialogInterface.OnClickListener() {
+                    }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(getApplicationContext(), Sign_Up_VerifyActivity.class);
-                            startActivity(intent);
+                            dialog.cancel();
                         }
                     }).show();
 
                 }
             }
         });
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+    }
+
+    private void registerUser() {
+        GlobalVariables gv =(GlobalVariables) getApplicationContext ();
+        String Pass =  gv.getPassword();
+        String Fname =gv.getFname();
+        String Lname =gv.getLname();
+        String Mname =gv.getMname();
+        String Contact = gv.getContact();
+        String Sex =gv.getSex();
+        String Address =gv.getAddress();
+        String Postal =gv.getPostal();
+        String Municipality =gv.getMunicipality();
+        String Bday = gv.getBday();
+
+
+        mAuth.createUserWithEmailAndPassword(email, Pass)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()){
+                            FirebaseUser user = mAuth.getCurrentUser();
+
+                            String EE_ContactP = ET_ContactP.getText().toString();
+                            String EE_ContactN = ET_ContactN.getText().toString();
+                            String EE_Height = ET_Height.getText().toString();
+                            String EE_Weight = ET_Weight.getText().toString();
+                            String EE_BloodP = ET_BloodP.getText().toString();
+                            String EE_BloodType = ET_BloodType.getSelectedItem().toString();
+                            String EE_Allergies = ET_Allergies.getText().toString();
+                            String EE_Illness = ET_Illness.getText().toString();
+
+
+                            String Uid=FirebaseAuth.getInstance().getCurrentUser().getUid();
+                            Map<String,Object> Patients = new HashMap<>();
+                            Patients.put("FirstName",Fname);
+                            Patients.put("LastName",Lname);
+                            Patients.put("MiddleInitial",Mname);
+                            Patients.put("Sex",Sex);
+                            Patients.put("Contact",Contact);
+                            Patients.put("Address",Address);
+                            Patients.put("Email",email);
+                            Patients.put("Municipality",Municipality);
+                            Patients.put("Postal",Postal);
+                            Patients.put("Birthday",Bday);
+
+
+                            Patients.put("EContactPerson",EE_ContactP);
+                            Patients.put("EContactNumber",EE_ContactN);
+                            Patients.put("Height",EE_Height);
+                            Patients.put("Weight",EE_Weight);
+                            Patients.put("BloodP",EE_BloodP);
+                            Patients.put("BloodType",EE_BloodType);
+                            Patients.put("Allergies",EE_Allergies);
+                            Patients.put("Illness",EE_Illness);
+                            Patients.put("UserId",Uid);
+
+
+                            db.collection("Patients").document(Uid)
+                                    .set(Patients)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+
+                                            new android.app.AlertDialog.Builder(Medical_RecordActivity.this)
+                                                    .setTitle("Account Successfully Created")
+                                                    .setMessage("You have successfully created an account!! Please confirm your email before logging in.")
+                                                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                                            user.sendEmailVerification();
+
+                                                            Intent intent = new Intent(Medical_RecordActivity.this,Login.class);
+                                                            startActivity(intent);
+                                                        }
+                                                    }).show();
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(gv, "Fail addingdata", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+
+
+
+                    }
+
+                });
     }
 
     @Override

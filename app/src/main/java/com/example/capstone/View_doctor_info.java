@@ -3,8 +3,11 @@ package com.example.capstone;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.firestore.DocumentReference;
@@ -27,6 +30,7 @@ public class View_doctor_info extends AppCompatActivity {
     GlobalVariables gv;
     String docid;
     FirebaseFirestore db;
+    ImageView back;
 
     String name;
     String bold;
@@ -50,6 +54,16 @@ public class View_doctor_info extends AppCompatActivity {
         gv = (GlobalVariables) getApplicationContext();
         db = FirebaseFirestore.getInstance();
         docid = gv.getSDDocUid();
+
+        back = findViewById(R.id.backspace);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), selectDoc.class);
+                startActivity(intent);
+            }
+        });
 
 
 

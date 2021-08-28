@@ -4,14 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".secretary.Secretary_schedlist">
-
-
+    tools:context=".doctor.Doctor_patient_bp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:id="@+id/toolbar"
@@ -37,38 +36,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Schedule List"
+                android:text="Patient Blood Pressure"
                 android:layout_marginLeft="@dimen/_20sdp"
                 android:textSize="@dimen/_15sdp"
                 android:textColor="@color/white"/>
 
         </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/toolbar">
-
-        <com.mancj.materialsearchbar.MaterialSearchBar
-            android:id="@+id/searchBar"
-            android:layout_width="match_parent"
-            android:layout_height="57dp"
-            android:layout_marginTop="4dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.4"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:mt_hint="Search by Surname" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/sec_sched_recview"
+            android:id="@+id/Doctor_patBP"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:layout_editor_absoluteX="111dp"
-            tools:layout_editor_absoluteY="52dp" />
-
-    </LinearLayout>
-
+            tools:layout_editor_absoluteX="115dp"
+            tools:layout_editor_absoluteY="165dp" />
 
 
 

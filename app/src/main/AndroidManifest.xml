@@ -22,7 +22,8 @@
         android:theme="@style/Theme.Capstone"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".doctor.Doctor_schedlist_pastsched"></activity>
+        <activity android:name=".doctor.Doctor_patient_bp"></activity>
+        <activity android:name=".doctor.Doctor_schedlist_pastsched" />
         <activity android:name=".doctor.Doctor_schedlist_upcoming" />
         <activity android:name=".secretary.Secretary_schedlist_patsched_past" />
         <activity android:name=".secretary.Secretary_schedlist_patsched" />
