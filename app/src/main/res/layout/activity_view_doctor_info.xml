@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/mainbg"
-    tools:context=".View_doctor_info">
+    tools:context="com.medicall.capstone.View_doctor_info">
 
     <LinearLayout
         android:id="@+id/toolbar"

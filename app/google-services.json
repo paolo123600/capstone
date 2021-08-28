@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "309284950094",
+    "firebase_url": "https://medicall-6effc-default-rtdb.firebaseio.com",
     "project_id": "medicall-6effc",
     "storage_bucket": "medicall-6effc.appspot.com"
   },
@@ -10,6 +11,64 @@
         "mobilesdk_app_id": "1:309284950094:android:9b7957a6141b20fc2f331f",
         "android_client_info": {
           "package_name": "com.example.capstone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "309284950094-gfahcc6vc946st4ckku92bnocjrkm6rm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyqIjKHUKwiKKfsDBrOeLVeliOkFplaP0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "309284950094-gfahcc6vc946st4ckku92bnocjrkm6rm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:309284950094:android:020933a7374a24e82f331f",
+        "android_client_info": {
+          "package_name": "com.example.uploadimage"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "309284950094-gfahcc6vc946st4ckku92bnocjrkm6rm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyqIjKHUKwiKKfsDBrOeLVeliOkFplaP0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "309284950094-gfahcc6vc946st4ckku92bnocjrkm6rm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:309284950094:android:c61e6c2e9709b75f2f331f",
+        "android_client_info": {
+          "package_name": "com.medicall.capstone"
         }
       },
       "oauth_client": [

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/mainbg"
-    tools:context=".NewPass">
+    tools:context="com.medicall.capstone.NewPass">
 
     <TextView
         android:layout_width="325dp"

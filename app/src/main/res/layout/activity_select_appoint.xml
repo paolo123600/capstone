@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".select_Appoint">
+    tools:context="com.medicall.capstone.select_Appoint">
 
     <LinearLayout
         android:id="@+id/lineartaas"

@@ -10,7 +10,7 @@
     tools:openDrawer="start"
 
     android:background="@color/mainbg"
-    tools:context=".doctor_homepage">
+    tools:context="com.medicall.capstone.doctor_homepage">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".burger_test"
+    tools:context="com.medicall.capstone.burger_test"
     tools:openDrawer="start">
 
 

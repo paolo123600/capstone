@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/mainbg"
-    tools:context=".activities.VideoCall_Main">
+    tools:context="com.medicall.capstone.activities.VideoCall_Main">
 
     <LinearLayout
         android:id="@+id/layoutHeader"

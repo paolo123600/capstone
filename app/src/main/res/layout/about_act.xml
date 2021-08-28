@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/mainbg"
-    tools:context=".about">
+    tools:context="com.medicall.capstone.about">
 
 
     <TextView
