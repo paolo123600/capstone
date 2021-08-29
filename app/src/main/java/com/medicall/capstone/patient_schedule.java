@@ -349,7 +349,6 @@ public class patient_schedule extends AppCompatActivity implements DatePickerDia
                                                             }
                                                             SimpleDateFormat simpleDate =  new SimpleDateFormat("MMM d ,yyyy h:ma");
                                                             String bookeddatestring = simpleDate.format(bookeddate);
-                                                            holder.tvdate.setText(bookeddatestring);
                                                         }
                                                     }).addOnFailureListener(new OnFailureListener() {
                                                 @Override
@@ -681,7 +680,6 @@ public class patient_schedule extends AppCompatActivity implements DatePickerDia
             tvdocname = itemView.findViewById(R.id.notif_docname);
             tvstatus = itemView.findViewById(R.id.notif_patStatus);
             tvdatesched = itemView.findViewById(R.id.notif_datesched);
-            tvdate = itemView.findViewById(R.id.notif_date);
 
         }
     }

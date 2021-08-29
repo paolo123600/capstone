@@ -97,8 +97,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:counterEnabled="true">
+                    android:layout_height="wrap_content">
 
                     <EditText
                         android:id="@+id/address_profile"
@@ -149,8 +148,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="150dp"
-                    android:layout_height="match_parent"
-                    app:counterEnabled="true">
+                    android:layout_height="match_parent">
 
 
                     <EditText
@@ -169,8 +167,7 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="142dp"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="90dp"
-                    app:counterEnabled="true">
+                    android:layout_marginLeft="90dp">
 
                     <EditText
                         android:id="@+id/postal_profile"

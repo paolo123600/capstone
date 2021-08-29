@@ -142,7 +142,10 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.medicall.capstone.Medical_RecordActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+
+
+        </activity>
         <activity
             android:name="com.medicall.capstone.secretary_homepage"
             android:screenOrientation="portrait" />
@@ -178,6 +181,13 @@
         <activity
             android:name="com.medicall.capstone.MainActivity"
             android:screenOrientation="portrait" >
+
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
 
         </activity>

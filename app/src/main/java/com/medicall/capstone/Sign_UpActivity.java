@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -35,26 +36,26 @@ public class Sign_UpActivity extends AppCompatActivity implements AdapterView.On
 Button btnContinue;
 EditText ET_FName, ET_LName, ET_MI, ET_Email, ET_Pass, ET_ConPass , ET_Address, ET_Municipality,ET_Postal, ET_Contact, ET_Nationality;
 FirebaseFirestore db;
-Spinner ET_Sex;
+AutoCompleteTextView ET_Sex;
 Toolbar toolbar;
 boolean check;
 FirebaseAuth mAuth;
 DatabaseReference reference;
 private DatePickerDialog datePickerDialog;
-private Button dateButton;
+private EditText dateButton;
     @Override
 protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.sign_up);
     GlobalVariables gv =(GlobalVariables) getApplicationContext ();
         initDatePicker();
-        dateButton = (Button) findViewById(R.id.btn_bday);
+        dateButton = (EditText) findViewById(R.id.btn_bday);
         dateButton.setText(getTodaysDate());
         btnContinue = (Button) findViewById(R.id.signup);
     ET_FName=(EditText) findViewById(R.id.Fname);
     ET_LName=(EditText)findViewById(R.id.Lname);
     ET_MI= (EditText)findViewById(R.id.Mi);
-   ET_Sex = (Spinner) findViewById(R.id.gender);
+   ET_Sex = (AutoCompleteTextView) findViewById(R.id.gender);
     ET_Contact=(EditText) findViewById(R.id.contact2);
     ET_Nationality=(EditText) findViewById(R.id.nationality);
     ET_Email=(EditText) findViewById(R.id.email);
@@ -85,7 +86,7 @@ protected void onCreate(Bundle savedInstanceState) {
             gv.setLname(String.valueOf(ET_LName.getText()));
             gv.setMname(String.valueOf(ET_MI.getText()));
             gv.setContact(String.valueOf(ET_Contact.getText()));
-            gv.setSex(String.valueOf(ET_Sex.getSelectedItem()));
+            gv.setSex(String.valueOf(ET_Sex.getText()));
             gv.setNationality(String.valueOf(ET_Nationality.getText()));
             gv.setEmail(String.valueOf(ET_Email.getText()));
             gv.setPassword(String.valueOf(ET_Pass.getText()));

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -46,6 +47,7 @@ public class Patient_HMOAdd extends AppCompatActivity {
     PreferenceManager preferenceManager;
     String patuid;
     ImageView back;
+    String hmospinner;
 
 
     EditText ET_VCode;
@@ -56,6 +58,8 @@ public class Patient_HMOAdd extends AppCompatActivity {
     String email ="";
     FirebaseAuth mAuth;
     DatabaseReference reference;
+
+    AutoCompleteTextView autospinner;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +74,7 @@ public class Patient_HMOAdd extends AppCompatActivity {
         preferenceManager = new PreferenceManager(getApplicationContext());
 //        patuid =  preferenceManager.getString(Constants.KEY_USER_ID);
         patuid = "5ceSztZP39QQ7sCUJSKwaNmM7NC3";
+        autospinner = findViewById(R.id.autocomplete_hmo);
         llspinner= (LinearLayout) findViewById(R.id.LLspinner);
         lltextbox= (LinearLayout) findViewById(R.id.LLtextbox);
         llbtnadd= (LinearLayout) findViewById(R.id.LLbtnadd);
@@ -97,7 +102,7 @@ public class Patient_HMOAdd extends AppCompatActivity {
         List<String> hmo = new ArrayList<>();
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getApplicationContext(), R.layout.custom_spinner, hmo);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnertag.setAdapter(adapter1);
+        autospinner.setAdapter(adapter1);
         clinicsRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -107,90 +112,10 @@ public class Patient_HMOAdd extends AppCompatActivity {
 
                         hmo.add(subject);
                     }
-                    hmo.add("Others");
-                    adapter1.notifyDataSetChanged();
                 }
             }
         });
-        spinnertag.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                int number = spinnertag.getId();
-                number = number+100;
-                if (spinnertag.getSelectedItem().toString().equals("Others")){
 
-                    EditText editText= (EditText)findViewById(number);
-                    editText.setVisibility(View.VISIBLE);
-                }
-                else {
-                    EditText editText= (EditText)findViewById(number);
-                    editText.setVisibility(View.INVISIBLE);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.setMargins(5, 30, 0, 0);
-        spinnertag.setLayoutParams(params);
-
-
-
-
-
-        llspinner.addView(spinnertag);
-
-        EditText textViewtag = new EditText(this);
-        textViewtag.setId(tvcount);
-        textViewtag.setVisibility(View.INVISIBLE);
-        textViewtag.setHeight(200);
-        textViewtag.setInputType(InputType.TYPE_TEXT_FLAG_IME_MULTI_LINE);
-        textViewtag.setBackgroundResource(R.drawable.edittext_bg);
-        textViewtag.setHint("Enter HMO");
-        LinearLayout.LayoutParams edittxtparams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 120);
-        edittxtparams.setMargins(0, 10, 0, 0);
-        textViewtag.setLayoutParams(edittxtparams);
-        textViewtag.setPadding(10, 0, 10, 0);
-        lltextbox.addView(textViewtag);
-
-
-
-        Button btnaddtag = new Button(this);
-        btnaddtag.setId(btnaddcount);
-        LinearLayout.LayoutParams btnaddparams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 120);
-        btnaddparams.setMargins(9, 10, 0, 0);
-        btnaddtag.setLayoutParams(btnaddparams);
-        btnaddtag.setBackgroundResource(R.drawable.ic_add);
-
-
-
-        btnaddtag.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //add
-                btnaddtag.setVisibility(View.INVISIBLE);
-                findViewById(btnminuscount).setVisibility(View.INVISIBLE);
-
-            }
-        });
-
-
-        Button btnminustag = new Button(this);
-        btnminustag.setId(btnminuscount);
-        LinearLayout.LayoutParams btnminusparams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 120);
-        btnminusparams.setMargins(9, 10, 0, 0);
-        btnminustag.setLayoutParams(btnminusparams);
-        btnminustag.setBackgroundResource(R.drawable.ic_remove);
-        btnminustag.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-            }
-        });
 
 
         btnaccept.setOnClickListener(new View.OnClickListener() {
@@ -206,47 +131,24 @@ public class Patient_HMOAdd extends AppCompatActivity {
 
     private  void addhmo(){
         String Uid=FirebaseAuth.getInstance().getCurrentUser().getUid();
-        Map<String,Object> Patients = new HashMap<>();
-        int gcount = count;
-        int gtvcount = tvcount;
-
-        String hmo = "";
-        String spinnervalue = "";
 
 
-        EditText editText= (EditText)findViewById(gtvcount);
-        Spinner spinner = (Spinner)findViewById(gcount);
+       hmospinner = autospinner.getText().toString();
 
-        spinnervalue = spinner.getSelectedItem().toString();
+        Map<String,Object> hmodb = new HashMap<>();
+        hmodb.put ("HMOName",hmospinner);
+        db.collection("HMO").document(hmospinner).set(hmodb);
+        ///
+        Map<String,Object> uid = new HashMap<>();
+        uid.put ("PatientUId",Uid);
+        db.collection("HMO").document(hmospinner).collection("Patients").document(Uid).set(uid);
 
-        if (spinnervalue.equals("Others")){
-
-            hmo = editText.getText().toString();
-        }
-        else {
-            hmo = spinnervalue;
-        }
-
-        if (!hmo.equals("") ) {
-            Map<String, Object> hmodb = new HashMap<>();
-            hmodb.put("HMOName", hmo);
-            db.collection("HMO").document(hmo).set(hmodb);
-            ///
-            Map<String, Object> uid = new HashMap<>();
-            uid.put("PatientUId", Uid);
-            db.collection("HMO").document(hmo).collection("Patients").document(Uid).set(uid);
-
-            Map<String, Object> pathmo = new HashMap<>();
-            pathmo.put("HMOName", hmo);
-            db.collection("Patients").document(Uid).collection("HMO").document(hmo).set(pathmo);
+        Map<String,Object> pathmo = new HashMap<>();
+        pathmo.put ("HMOName",hmospinner);
+        db.collection("Patients").document(Uid).collection("HMO").document(hmospinner).set(pathmo);
 
 
-            Toast.makeText(Patient_HMOAdd.this, "Successfully added "+hmo, Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(getApplicationContext(),Patient_HMOList.class);
-            startActivity(intent);
-        }
-        else {
-            Toast.makeText(Patient_HMOAdd.this, "Please enter the HMO name", Toast.LENGTH_SHORT).show();
-        }
+        Toast.makeText(Patient_HMOAdd.this, hmospinner, Toast.LENGTH_SHORT).show();
+
     }
 }

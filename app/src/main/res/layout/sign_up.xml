@@ -34,110 +34,107 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/nameline"
+            android:id="@+id/contactedittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/signuplabel"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_10sdp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="First name" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Last name"
-                android:layout_marginLeft="@dimen/_70sdp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="M.I"
-                android:layout_marginLeft="@dimen/_70sdp"/>
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp">
 
 
-        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/nameeditbox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/nameline"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_10sdp"
+            app:layout_constraintTop_toBottomOf="@+id/signuplabel"
             android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="match_parent"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <EditText
                 android:id="@+id/Fname"
-                android:inputType="textPersonName"
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:hint="Ex.Juan"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/roundtbox"
-                android:padding="@dimen/_5sdp"/>
-
-            <EditText
-                android:id="@+id/Lname"
+                android:hint="First name"
                 android:inputType="textPersonName"
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:hint="Ex.Dela Cruz"
-                android:layout_height="match_parent"
-                android:background="@drawable/roundtbox"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:padding="@dimen/_5sdp"/>
+                />
 
-            <EditText
-                android:id="@+id/Mi"
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:hint="DC"
                 android:layout_height="match_parent"
-                android:background="@drawable/roundtbox"
-                android:inputType="textPersonName"
                 android:layout_marginLeft="@dimen/_10sdp"
-                android:maxLength="1"
-                android:gravity="center"/>
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <EditText
+                    android:id="@+id/Mi"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="M.I"
+                    android:inputType="textPersonName"
+                    android:maxLength="1"
+                    android:gravity="center"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/bdaylabel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/nameeditbox"
-            android:orientation="horizontal"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_10sdp"
-            android:paddingTop="@dimen/_10sdp">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Date of Birth"/>
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/_5sdp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Nationality"
-                android:layout_marginLeft="@dimen/_60sdp"/>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_height="match_parent"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sex"
-                android:layout_marginLeft="@dimen/_69sdp"/>
+                    <EditText
+                        android:id="@+id/Lname"
+                        android:inputType="textPersonName"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="Last name"
+                        android:padding="@dimen/_12sdp"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <EditText
+                        android:id="@+id/nationality"
+                        android:layout_width="match_parent"
+                        android:hint="Nationality"
+                        android:layout_height="match_parent"
+                        android:padding="@dimen/_12sdp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
 
-        </LinearLayout>
+
+            </LinearLayout>
+
+
+
+
 
         <LinearLayout
             android:id="@+id/dateedittext"
@@ -145,196 +142,177 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/bdaylabel"
             android:orientation="horizontal"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_10sdp">
+            android:layout_marginTop="@dimen/_5sdp">
 
-            <Button
-                android:id="@+id/btn_bday"
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="match_parent"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <EditText
+                    android:id="@+id/btn_bday"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:onClick="openDatePickerView"
+                    android:hint="Date of Birth"
+                    android:inputType="date"
+                    style="spinner"
+                    android:focusableInTouchMode="false"/>
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="match_parent"
-                android:onClick="openDatePickerView"
-                android:hint="January 1 2021"
-                android:inputType="date"
-                style="spinner"
-                android:background="@drawable/roundtbox" />
-
-            <EditText
-                android:id="@+id/nationality"
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:hint="Ex.Filipino"
-                android:layout_height="match_parent"
-                android:background="@drawable/roundtbox"
                 android:layout_marginLeft="@dimen/_10sdp"
-                android:padding="@dimen/_5sdp"/>
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 
-            <Spinner
-                android:id="@+id/gender"
-                android:visibility="visible"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:background="@drawable/roundtbox"
-                android:layout_marginLeft="@dimen/_10sdp"/>
+                <AutoCompleteTextView
+                    android:id="@+id/gender"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Gender"
+                    android:editable="false"/>
 
 
-        </LinearLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
 
-        <LinearLayout
-            android:id="@+id/contactedittext"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/dateedittext"
-            android:orientation="vertical"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_10sdp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Contact number"/>
-
-            <EditText
-                android:id="@+id/contact2"
-                android:inputType="number"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="Ex. 09991234567"
-                android:background="@drawable/roundtbox"
-                android:padding="@dimen/_5sdp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/Email"
-                android:paddingTop="@dimen/_10sdp"/>
-
-            <EditText
-                android:id="@+id/email"
-                android:inputType="textEmailAddress"
-                android:layout_width="match_parent"
-                android:hint="Ex. Juan@gmail.com"
-                android:layout_height="match_parent"
-                android:background="@drawable/roundtbox"
-                android:padding="@dimen/_5sdp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Password"
-                android:paddingTop="@dimen/_10sdp"/>
-
-            <EditText
-                android:id="@+id/password"
-                android:inputType="textPassword"
-                android:layout_width="match_parent"
-                android:hint="6 - Characters/Numbers"
-                android:layout_height="match_parent"
-                android:background="@drawable/roundtbox"
-                android:padding="@dimen/_5sdp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Verify Password"
-                android:paddingTop="@dimen/_10sdp"/>
-
-            <EditText
-                android:id="@+id/confirm_pass"
-                android:inputType="textPassword"
-                android:layout_width="match_parent"
-                android:hint="Ex. Re-type Password"
-                android:layout_height="match_parent"
-                android:background="@drawable/roundtbox"
-                android:padding="@dimen/_5sdp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Address"
-                android:paddingTop="@dimen/_5sdp"/>
-
-            <EditText
-                android:id="@+id/address"
-                android:inputType="textPersonName"
-                android:layout_width="match_parent"
-                android:hint="Ex. 269 Freedom St. "
-                android:layout_height="match_parent"
-                android:background="@drawable/roundtbox"
-                android:padding="@dimen/_5sdp"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/municipallabel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/contactedittext"
-            android:orientation="horizontal"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_10sdp"
-            android:paddingTop="@dimen/_10sdp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Municipality"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Postal Code"
-                android:layout_marginLeft="@dimen/_112sdp"/>
 
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/municipaledittext"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/municipallabel"
-            android:orientation="horizontal"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_10sdp">
 
-            <EditText
-                android:id="@+id/municipality"
-                android:inputType="textPersonName"
-                android:layout_width="@dimen/_160sdp"
-                android:hint="Ex. Malaya"
-                android:layout_height="match_parent"
-                android:background="@drawable/roundtbox"
-                android:padding="@dimen/_5sdp"/>
-
-            <EditText
-                android:id="@+id/postalcode"
-                android:inputType="number"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="Ex. 1000"
-                android:background="@drawable/roundtbox"
-                android:layout_marginLeft="@dimen/_10sdp"/>
+                android:layout_marginTop="@dimen/_5sdp"
+                app:prefixText="+63"
+                app:counterEnabled="true"
+                app:counterMaxLength="10"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <EditText
+                    android:id="@+id/contact2"
+                    android:inputType="number"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Contact number"
+                    android:maxLength="10"
+                    android:padding="@dimen/_12sdp"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_5sdp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <EditText
+                    android:id="@+id/email"
+                    android:inputType="textEmailAddress"
+                    android:layout_width="match_parent"
+                    android:hint="Email"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/_12sdp"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_5sdp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <EditText
+                    android:id="@+id/password"
+                    android:inputType="textPassword"
+                    android:layout_width="match_parent"
+                    android:hint="Password"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/_12sdp"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_5sdp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <EditText
+                    android:id="@+id/confirm_pass"
+                    android:inputType="textPassword"
+                    android:layout_width="match_parent"
+                    android:hint="Verify Password"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/_12sdp"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_5sdp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <EditText
+                    android:id="@+id/address"
+                    android:inputType="textPersonName"
+                    android:layout_width="match_parent"
+                    android:hint="Address"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/_12sdp"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:id="@+id/municipaledittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/_5sdp">
 
 
-        </LinearLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/municipaledittext"
-            android:orientation="vertical"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:gravity="center">
+                <EditText
+                    android:id="@+id/municipality"
+                    android:inputType="textPersonName"
+                    android:layout_width="match_parent"
+                    android:hint="Municipality"
+                    android:layout_height="match_parent" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <EditText
+                    android:id="@+id/postalcode"
+                    android:inputType="number"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Postal Code"
+                    android:maxLength="4"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+            </LinearLayout>
 
             <Button
                 android:id="@+id/signup"
@@ -342,10 +320,16 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/darkround"
                 android:text="Continue"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:textColor="@color/white"/>
 
 
         </LinearLayout>
+
+
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

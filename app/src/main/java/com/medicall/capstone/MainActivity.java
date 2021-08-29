@@ -17,6 +17,8 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -29,6 +31,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -38,6 +41,9 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.medicall.capstone.R;
 
 import com.medicall.capstone.utilities.Constants;
@@ -56,6 +62,8 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -72,6 +80,8 @@ import com.google.firebase.iid.InstanceIdResult;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private LinearLayout buttonbook;
@@ -98,10 +108,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     LinearLayout logo, schedstats;
     private String document_id_reference;
 
+    private StorageReference storageReference;
+    private FirebaseStorage storage;
+    StorageReference ref;
+    String image;
+    Bitmap getpic;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
 
         docname = findViewById(R.id.doctor_name);
         patienttime = findViewById(R.id.est_time);
@@ -336,7 +355,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (drawer.isDrawerOpen(GravityCompat.START)){
             drawer.closeDrawer(GravityCompat.START);
         }else {
-           finish();
+            Intent startMain = new Intent(Intent.ACTION_MAIN);
+            startMain.addCategory(Intent.CATEGORY_HOME);
+            startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(startMain);
         }
 
     }
@@ -375,8 +397,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void updateNavHeader () {
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_viewer_pat);
         View headerView = navigationView.getHeaderView(0);
+
+
+
         TextView navUsernamePat = headerView.findViewById(R.id.nav_header_name);
         TextView navEmail = headerView.findViewById(R.id.nav_header_email);
+        CircleImageView profpicture = headerView.findViewById(R.id.profile_picture);
+
+
 
         DocumentReference documentReference = db.collection("Patients").document(userId);
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
@@ -384,6 +412,39 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                 navUsernamePat.setText(documentSnapshot.getString("FirstName") + " " + documentSnapshot.getString("LastName"));
                 navEmail.setText(documentSnapshot.getString("Email"));
+            }
+
+        }
+
+
+
+
+        );
+
+        db.collection("Patients").whereEqualTo("UserId", "5ceSztZP39QQ7sCUJSKwaNmM7NC3").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    QuerySnapshot querySnapshot = task.getResult();
+                    if (!querySnapshot.isEmpty()) {
+                        for (QueryDocumentSnapshot profile : task.getResult()) {
+                            image = profile.getString("StorageId");
+                            storageReference = FirebaseStorage.getInstance().getReference("PatientPicture/" + image);
+                            try {
+                                File local = File.createTempFile("myProfilePicture","");
+                                storageReference.getFile(local).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                        getpic = BitmapFactory.decodeFile(local.getAbsolutePath());
+                                        profpicture.setImageBitmap(getpic);
+                                    }
+                                });
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
             }
         });
 

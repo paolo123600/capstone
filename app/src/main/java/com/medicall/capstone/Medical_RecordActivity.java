@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -52,6 +53,8 @@ public class Medical_RecordActivity extends AppCompatActivity implements Adapter
     PreferenceManager preferenceManager;
     DatabaseReference reference;
 
+    AutoCompleteTextView autobloodtype;
+
     private ProgressBar signInProgressBar;
     RelativeLayout progressbg;
     ConstraintLayout bg_remove;
@@ -69,8 +72,6 @@ public class Medical_RecordActivity extends AppCompatActivity implements Adapter
         ET_ContactN=(EditText) findViewById(R.id.EcontanctN);
         ET_Height=(EditText) findViewById(R.id.Height);
         ET_Weight=(EditText) findViewById(R.id.Weight);
-        ET_BloodP=(EditText) findViewById(R.id.Bloodp);
-        ET_BloodType=(Spinner) findViewById(R.id.Bloodtype);
         ET_Allergies=(EditText) findViewById(R.id.Allergies);
         ET_Illness=(EditText) findViewById(R.id.illness);
         btn_Continue = (Button) findViewById(R.id.btn_continue);
@@ -79,13 +80,15 @@ public class Medical_RecordActivity extends AppCompatActivity implements Adapter
         progressbg = findViewById(R.id.progress_bg);
         bg_remove = findViewById(R.id.bgremove);
 
+        autobloodtype = findViewById(R.id.autocomplete_bloodtype);
+
 
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.blood, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        ET_BloodType.setAdapter(adapter);
+        autobloodtype.setAdapter(adapter);
 
-        ET_BloodType.setOnItemSelectedListener(this);
+        autobloodtype.setOnItemSelectedListener(this);
 
         btn_Continue.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,7 +105,7 @@ public class Medical_RecordActivity extends AppCompatActivity implements Adapter
                     Toast.makeText(Medical_RecordActivity.this, "Enter Height",Toast.LENGTH_SHORT).show();
                 }else if(ET_Weight.getText().toString().trim().isEmpty()){
                     Toast.makeText(Medical_RecordActivity.this, "Enter Weight",Toast.LENGTH_SHORT).show();
-                }else if (ET_BloodP.getText().toString().trim().isEmpty()){
+                }else if (autobloodtype.getText().toString().trim().isEmpty()){
                     Toast.makeText(Medical_RecordActivity.this, "Enter Blood Pressure",Toast.LENGTH_SHORT).show();
                 }else if (ET_Allergies.getText().toString().trim().isEmpty()){
                     Toast.makeText(Medical_RecordActivity.this, "Enter Allergies",Toast.LENGTH_SHORT).show();
@@ -154,8 +157,7 @@ public class Medical_RecordActivity extends AppCompatActivity implements Adapter
                             String EE_ContactN = ET_ContactN.getText().toString();
                             String EE_Height = ET_Height.getText().toString();
                             String EE_Weight = ET_Weight.getText().toString();
-                            String EE_BloodP = ET_BloodP.getText().toString();
-                            String EE_BloodType = ET_BloodType.getSelectedItem().toString();
+                            String EE_BloodType = autobloodtype.getText().toString();
                             String EE_Allergies = ET_Allergies.getText().toString();
                             String EE_Illness = ET_Illness.getText().toString();
 
@@ -178,7 +180,6 @@ public class Medical_RecordActivity extends AppCompatActivity implements Adapter
                             Patients.put("EContactNumber",EE_ContactN);
                             Patients.put("Height",EE_Height);
                             Patients.put("Weight",EE_Weight);
-                            Patients.put("BloodP",EE_BloodP);
                             Patients.put("BloodType",EE_BloodType);
                             Patients.put("Allergies",EE_Allergies);
                             Patients.put("Illness",EE_Illness);
