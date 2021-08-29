@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,7 +13,7 @@ import com.medicall.capstone.R;
 
 public class PaymentMethod extends AppCompatActivity {
 
-    Button hmo, googlepay;
+    LinearLayout hmo, googlepay;
     ImageView back;
 
     @Override

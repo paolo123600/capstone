@@ -71,15 +71,15 @@ public class View_doctor_info extends AppCompatActivity {
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                docname.setText("Doctor Name: " + documentSnapshot.getString("FirstName") + " " + documentSnapshot.getString("LastName"));
-                clinicname.setText("Clinic Name: " + documentSnapshot.getString("ClinicName"));
-                PRC.setText("PRC: " + documentSnapshot.getString("PRC"));
-                PTR.setText("PTR: " + documentSnapshot.getString("PTR"));
-                docgender.setText("Gender: " + documentSnapshot.getString("Gender"));
-                docbday.setText("Birthday: " + documentSnapshot.getString("Birthday"));
-                docschoolgrad.setText("Graduate School: " + documentSnapshot.getString("SchoolGrad"));
-                docyeargrad.setText("Year Graduated: " + documentSnapshot.getString("YearGrad"));
-                docspecialty.setText("Specialty: " + documentSnapshot.getString("DocType"));
+                docname.setText(documentSnapshot.getString("FirstName") + " " + documentSnapshot.getString("LastName"));
+                clinicname.setText(documentSnapshot.getString("ClinicName"));
+                PRC.setText(documentSnapshot.getString("PRC"));
+                PTR.setText(documentSnapshot.getString("PTR"));
+                docgender.setText(documentSnapshot.getString("Gender"));
+                docbday.setText(documentSnapshot.getString("Birthday"));
+                docschoolgrad.setText(documentSnapshot.getString("SchoolGrad"));
+                docyeargrad.setText(documentSnapshot.getString("YearGrad"));
+                docspecialty.setText(documentSnapshot.getString("DocType"));
 
             }
         });

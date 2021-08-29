@@ -74,8 +74,6 @@ public class selectDoc_hmo extends AppCompatActivity {
             }
         });
 
-
-        Toast.makeText(this, "d:"+patuid, Toast.LENGTH_SHORT).show();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference clinicsRef = db.collection("Patients").document(patuid).collection("HMO");
         Spinner spinner = (Spinner) findViewById(R.id.spinnerhmo);

@@ -49,91 +49,235 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
-        android:layout_gravity="center"
-        android:background="@drawable/daybg3"
+        android:background="@color/mainbg"
+        android:layout_marginTop="@dimen/_50sdp"
         android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginLeft="@dimen/_10sdp"
         android:layout_marginEnd="@dimen/_10sdp"
         android:padding="@dimen/_10sdp">
+
+
+        <ImageView
+            android:id="@+id/view_doc_profilepic"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_100sdp"
+            android:background="@drawable/circlebackground"/>
 
         <TextView
             android:id="@+id/View_docname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Doctor Name"
-            android:textSize="@dimen/_15sdp"/>
+            android:textStyle="bold"
+            android:paddingTop="@dimen/_10sdp"
+            android:textSize="@dimen/_20sdp"/>
+
+        <TextView
+            android:id="@+id/View_docspecialty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DocType"
+            android:textSize="@dimen/_13sdp"/>
 
         <TextView
             android:id="@+id/View_docclinic_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Clinic name"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:textSize="@dimen/_15sdp"/>
-
-        <TextView
-            android:id="@+id/View_docgender"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Gender"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:textSize="@dimen/_15sdp"/>
-
-        <TextView
-            android:id="@+id/View_docbday"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="bday"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:textSize="@dimen/_15sdp"/>
-
-
-        <TextView
-            android:id="@+id/View_docschool"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="School graduated"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:textSize="@dimen/_15sdp"/>
-
-        <TextView
-            android:id="@+id/View_docyeargrad"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Year grad"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:textSize="@dimen/_15sdp"/>
-
-        <TextView
-            android:id="@+id/View_docspecialty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Specialty"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:textSize="@dimen/_15sdp"/>
-
-        <TextView
-            android:id="@+id/View_PRC"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="PRC"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:textSize="@dimen/_15sdp"/>
-
-        <TextView
-            android:id="@+id/View_PTR"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="PTR"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:textSize="@dimen/_15sdp"/>
-
-
-
-
+            android:layout_marginTop="@dimen/_15sdp"
+            android:textSize="@dimen/_16sdp"/>
 
     </LinearLayout>
 
+
     </ScrollView>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/daybg3"
+            android:layout_marginTop="@dimen/_260sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:padding="@dimen/_10sdp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Gender"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/_12sdp"/>
+                    <TextView
+                        android:id="@+id/View_docgender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="M"
+                        android:paddingLeft="@dimen/_10sdp"
+                        android:textSize="@dimen/_15sdp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Birthday"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/_12sdp"/>
+                    <TextView
+                        android:id="@+id/View_docbday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="bday"
+                        android:paddingLeft="@dimen/_10sdp"
+                        android:textSize="@dimen/_15sdp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/_20sdp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="School Graduated"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/_12sdp"/>
+                    <TextView
+                        android:id="@+id/View_docschool"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="School graduated"
+                        android:paddingLeft="@dimen/_10sdp"
+                        android:textSize="@dimen/_15sdp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/_20sdp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Year Graduated"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/_12sdp"/>
+                    <TextView
+                        android:id="@+id/View_docyeargrad"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Year grad"
+                        android:paddingLeft="@dimen/_10sdp"
+                        android:textSize="@dimen/_15sdp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/_20sdp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PRC Number"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/_12sdp"/>
+                    <TextView
+                        android:id="@+id/View_PRC"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PRC"
+                        android:paddingLeft="@dimen/_10sdp"
+                        android:textSize="@dimen/_15sdp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PTR Number"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/_12sdp"/>
+
+                    <TextView
+                        android:id="@+id/View_PTR"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PTR"
+                        android:paddingLeft="@dimen/_10sdp"
+                        android:textSize="@dimen/_15sdp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

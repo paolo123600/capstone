@@ -1,18 +1,28 @@
 package com.medicall.capstone;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -20,7 +30,15 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.medicall.capstone.R;
+
+import java.io.File;
+import java.io.IOException;
 
 public class ProfileFragment extends AppCompatActivity {
 
@@ -38,11 +56,32 @@ public class ProfileFragment extends AppCompatActivity {
     Dialog dialog;
     Dialog dialog1;
 
-
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     String userId;
     FirebaseAuth mAuth;
+
+    // Profile Picture
+    Bitmap profilepic;
+    StorageReference ref;
+    String image;
+    ImageView dpicture;
+    private StorageReference storageReference;
+    private FirebaseStorage storage;
+    FirebaseFirestore db;
+
+    Button changeDP;
+    ProgressDialog progressDialog;
+    private static final int IMAGE_PICK_CODE = 1000;
+    private static final int PERMISSION_CODE = 1001;
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(getApplicationContext(),Login.class);
+        startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +104,51 @@ public class ProfileFragment extends AppCompatActivity {
         fStore = FirebaseFirestore.getInstance();
 
         userId = fAuth.getCurrentUser().getUid();
+
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
+        dpicture = findViewById(R.id.patient_dp);
+        db = FirebaseFirestore.getInstance();
+
+        changeDP = findViewById(R.id.changePicture);
+
+        changeDP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProfileFragment.this, Patient_ChangePicture.class);
+                startActivity(intent);
+            }
+        });
+
+        db.collection("Patients").whereEqualTo("UserId",userId)
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    QuerySnapshot querySnapshot = task.getResult();
+                    if(!querySnapshot.isEmpty()){
+                        for(QueryDocumentSnapshot profile : task.getResult()){
+                            image = profile.getString("UserId");
+                            storageReference = FirebaseStorage.getInstance().getReference("PatientPicture/" + image);
+                            try{
+                                File local = File.createTempFile("myProfilePicture",".jpg");
+                                storageReference.getFile(local)
+                                        .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                            @Override
+                                            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                                profilepic = BitmapFactory.decodeFile(local.getAbsolutePath());
+                                                dpicture.setImageBitmap(profilepic);
+                                            }
+                                        });
+                            }
+                            catch (IOException e){
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+        });
 
         firstname.setKeyListener(null);
         gender.setKeyListener(null);
@@ -141,10 +225,13 @@ public class ProfileFragment extends AppCompatActivity {
             }
         });
 
+
+
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                Intent intent = new Intent(getApplicationContext(),Login.class);
+                startActivity(intent);
             }
         });
 
@@ -156,4 +243,5 @@ public class ProfileFragment extends AppCompatActivity {
             }
         });
     }
+
 }
