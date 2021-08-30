@@ -215,12 +215,11 @@ public class Patient_ChangePicture extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                            bmp.compress(Bitmap.CompressFormat.JPEG, 25, baos);
+                            bmp.compress(Bitmap.CompressFormat.JPEG, 10, baos);
                             byte[] fileinbytes = baos.toByteArray();
                             UploadTask uploadTask = storageReference.putBytes(fileinbytes);
 
-                            uploadTask
-                                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                         @Override
                                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                             if(progressDialog.isShowing()){

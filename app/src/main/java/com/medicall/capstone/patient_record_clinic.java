@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -17,6 +19,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.medicall.capstone.R;
 
 import com.medicall.capstone.doctor.Doctor_patient_bp;
@@ -31,8 +37,12 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.mancj.materialsearchbar.MaterialSearchBar;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class patient_record_clinic extends AppCompatActivity {
 
@@ -50,10 +60,22 @@ public class patient_record_clinic extends AppCompatActivity {
     MaterialSearchBar materialSearchBar;
     String txt;
 
+    String image;
+    Bitmap getpic;
+    private StorageReference storageReference;
+    private FirebaseStorage storage;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_record_clinic);
+
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
+
+
+
         preferenceManager = new PreferenceManager(getApplicationContext());
         clinicname = preferenceManager.getString("ClinicName");
 
@@ -61,6 +83,8 @@ public class patient_record_clinic extends AppCompatActivity {
 
         materialSearchBar = (MaterialSearchBar) findViewById(R.id.searchBar);
         materialSearchBar.setCardViewElevation(0);
+
+
 
         getpatient();
 
@@ -158,6 +182,36 @@ public class patient_record_clinic extends AppCompatActivity {
                                                                 intent.putExtra("patid", patientID);
                                                                 startActivity(intent);
                                                             }
+                                                        }
+
+
+                                                        );
+
+                                                        firebaseFirestore.collection("Patients").whereEqualTo("StorageId", patientID).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                            @Override
+                                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                                if (task.isSuccessful()) {
+                                                                    QuerySnapshot querySnapshot = task.getResult();
+                                                                    if (!querySnapshot.isEmpty()) {
+                                                                        for (QueryDocumentSnapshot profile : task.getResult()) {
+                                                                            image = profile.getString("StorageId");
+                                                                            storageReference = FirebaseStorage.getInstance().getReference("PatientPicture/" + image);
+                                                                            try {
+                                                                                File local = File.createTempFile("myProfilePicture","");
+                                                                                storageReference.getFile(local).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                                                                    @Override
+                                                                                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                                                                        getpic = BitmapFactory.decodeFile(local.getAbsolutePath());
+                                                                                        holder.pat_dp.setImageBitmap(getpic);
+                                                                                    }
+                                                                                });
+                                                                            } catch (IOException e) {
+                                                                                e.printStackTrace();
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
                                                         });
                                                     }
                                                 };
@@ -240,6 +294,35 @@ public class patient_record_clinic extends AppCompatActivity {
                                                             intent.putExtra("patid", patientID);
                                                             startActivity(intent);
                                                         }
+                                                    }
+
+                                                    );
+
+                                                    firebaseFirestore.collection("Patients").whereEqualTo("StorageId", patientID).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                            if (task.isSuccessful()) {
+                                                                QuerySnapshot querySnapshot = task.getResult();
+                                                                if (!querySnapshot.isEmpty()) {
+                                                                    for (QueryDocumentSnapshot profile : task.getResult()) {
+                                                                        image = profile.getString("StorageId");
+                                                                        storageReference = FirebaseStorage.getInstance().getReference("PatientPicture/" + image);
+                                                                        try {
+                                                                            File local = File.createTempFile("myProfilePicture","");
+                                                                            storageReference.getFile(local).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                                                                @Override
+                                                                                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                                                                    getpic = BitmapFactory.decodeFile(local.getAbsolutePath());
+                                                                                    holder.pat_dp.setImageBitmap(getpic);
+                                                                                }
+                                                                            });
+                                                                        } catch (IOException e) {
+                                                                            e.printStackTrace();
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
                                                     });
                                                 }
                                             };
@@ -268,6 +351,7 @@ public class patient_record_clinic extends AppCompatActivity {
         private TextView listemail;
         private Button patientR;
         private Button patientBP;
+        CircleImageView pat_dp;
 
         public PatientViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -276,6 +360,7 @@ public class patient_record_clinic extends AppCompatActivity {
             listFirstname = itemView.findViewById(R.id.patientrec_firstname);
             listemail = itemView.findViewById(R.id.patientrec_email);
             patientR = itemView.findViewById(R.id.patientrec_btn);
+            pat_dp = itemView.findViewById(R.id.patient_dp);
 
         }
     }
