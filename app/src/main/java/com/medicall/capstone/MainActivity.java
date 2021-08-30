@@ -421,7 +421,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         );
 
-        db.collection("Patients").whereEqualTo("UserId", "5ceSztZP39QQ7sCUJSKwaNmM7NC3").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("Patients").whereEqualTo("StorageId", userId).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {

@@ -110,7 +110,7 @@ public class patient_schedule extends AppCompatActivity implements DatePickerDia
 
 
         ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(this,
-                R.array.StatusPat, android.R.layout.simple_spinner_item);
+                R.array.StatusPat, R.layout.custom_spinner);
 
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 

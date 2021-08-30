@@ -39,63 +39,71 @@
 
     </LinearLayout>
 
+
     <LinearLayout
+        android:id="@+id/linearbaba"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/_40sdp"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:background="@drawable/daybg3"
+        android:orientation="vertical"
+        android:padding="@dimen/_10sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        tools:layout_editor_absoluteX="13dp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:layout_marginLeft="@dimen/_10sdp">
 
-
-        <LinearLayout
-            android:id="@+id/linearbaba"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_300sdp"
-            app:layout_constraintTop_toBottomOf="@id/lineartaas"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:layout_marginLeft="@dimen/_20sdp"
-            android:layout_marginRight="@dimen/_10sdp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Card Number"
-                android:textSize="@dimen/_16sdp"/>
+            android:layout_height="wrap_content"
+            app:counterEnabled="true">
 
             <EditText
                 android:id="@+id/inpCardNumber"
-                android:layout_width="@dimen/_120sdp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_15sdp" />
+                android:hint="Card Number"
+                android:inputType="number"/>
 
-        </LinearLayout>
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <LinearLayout
             android:id="@+id/linearButton"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/linearbaba"
-            android:layout_marginLeft="@dimen/_200sdp"
-            android:layout_marginRight="@dimen/_10sdp"
-            android:orientation="vertical">
+            android:layout_marginTop="@dimen/_10sdp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/linearbaba">
 
             <Button
                 android:id="@+id/edithmo_confirm"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:gravity="center_vertical|center"
-                android:text="Confirm" />
+                android:text="Confirm"
+                android:background="@drawable/darkround"
+                android:textColor="@color/white"/>
+
             <Button
                 android:id="@+id/edithmo_cancel"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:gravity="center_vertical|center"
-                android:text="Cancel" />
+                android:text="Cancel"
+                android:background="@drawable/darkround"
+                android:textColor="@color/white"
+                android:layout_marginLeft="@dimen/_20sdp"/>
 
         </LinearLayout>
 
     </LinearLayout>
+
+
+
 
 
 

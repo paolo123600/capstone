@@ -37,7 +37,6 @@ public class Patient_HMOEdit extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_patient_hmo_edit);
         Cancel = (Button) findViewById(R.id.edithmo_cancel);
         Confirm = (Button) findViewById(R.id.edithmo_confirm);

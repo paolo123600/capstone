@@ -70,8 +70,23 @@
                 android:id="@+id/autocomplete_hmo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:editable="false"
-                android:hint="HMO" />
+                android:hint="HMO"
+                android:inputType="none"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginTop="@dimen/_5sdp">
+
+            <EditText
+                android:id="@+id/hmocardnumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Card Number"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 

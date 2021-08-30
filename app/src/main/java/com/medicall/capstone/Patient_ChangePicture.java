@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -36,6 +37,9 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.medicall.capstone.utilities.Constants;
 import com.medicall.capstone.utilities.PreferenceManager;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 public class Patient_ChangePicture extends AppCompatActivity {
     ImageView back, retrieve, newprofile;
@@ -203,7 +207,19 @@ public class Patient_ChangePicture extends AppCompatActivity {
                         for(QueryDocumentSnapshot profile : task.getResult()){
                             String fileName = profile.getString("UserId");
                             storageReference = FirebaseStorage.getInstance().getReference("PatientPicture/" + fileName);
-                            storageReference.putFile(imageUri)
+                            storageReference.child("PatientPicture/" + fileName);
+                            Bitmap bmp = null;
+                            try {
+                                bmp = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                            bmp.compress(Bitmap.CompressFormat.JPEG, 25, baos);
+                            byte[] fileinbytes = baos.toByteArray();
+                            UploadTask uploadTask = storageReference.putBytes(fileinbytes);
+
+                            uploadTask
                                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                         @Override
                                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {

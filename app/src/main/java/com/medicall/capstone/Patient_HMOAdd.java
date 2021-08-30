@@ -18,6 +18,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.medicall.capstone.R;
 
 import com.medicall.capstone.utilities.PreferenceManager;
@@ -48,6 +49,7 @@ public class Patient_HMOAdd extends AppCompatActivity {
     String patuid;
     ImageView back;
     String hmospinner;
+    EditText HMOnumber;
 
 
     EditText ET_VCode;
@@ -58,6 +60,10 @@ public class Patient_HMOAdd extends AppCompatActivity {
     String email ="";
     FirebaseAuth mAuth;
     DatabaseReference reference;
+
+    String searchablespinner;
+
+    String subjecthmo;
 
     AutoCompleteTextView autospinner;
     @Override
@@ -80,8 +86,11 @@ public class Patient_HMOAdd extends AppCompatActivity {
         llbtnadd= (LinearLayout) findViewById(R.id.LLbtnadd);
         llbtnminus= (LinearLayout) findViewById(R.id.LLbtnminus);
         btnaccept = (Button) findViewById(R.id.btnhmocontinue);
+        HMOnumber = findViewById(R.id.hmocardnumber);
 
         CollectionReference clinicsRef = db.collection("HMO");
+
+
 
 
 
@@ -111,6 +120,8 @@ public class Patient_HMOAdd extends AppCompatActivity {
                         String subject = document.getString("HMOName");
 
                         hmo.add(subject);
+
+
                     }
                 }
             }
@@ -121,19 +132,27 @@ public class Patient_HMOAdd extends AppCompatActivity {
         btnaccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                email = gv.getEmail();
-                addhmo();
+
+                if (hmo.contains(autospinner.getText().toString())) {
+                    addhmo();
+                }else {
+                    Toast.makeText(Patient_HMOAdd.this, "Please select an HMO in the list", Toast.LENGTH_SHORT).show();
+                }
+
 
 
             }
         });
     }
 
+
     private  void addhmo(){
         String Uid=FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-
        hmospinner = autospinner.getText().toString();
+       String addhmonum = HMOnumber.getText().toString();
+
+
 
         Map<String,Object> hmodb = new HashMap<>();
         hmodb.put ("HMOName",hmospinner);
@@ -145,6 +164,7 @@ public class Patient_HMOAdd extends AppCompatActivity {
 
         Map<String,Object> pathmo = new HashMap<>();
         pathmo.put ("HMOName",hmospinner);
+        pathmo.put("CardNumber", addhmonum);
         db.collection("Patients").document(Uid).collection("HMO").document(hmospinner).set(pathmo);
 
 
