@@ -80,16 +80,6 @@ public class Patient_ChangePicture extends AppCompatActivity {
         preferenceManager = new PreferenceManager(getApplicationContext());
         userID = preferenceManager.getString(Constants.KEY_USER_ID);
 
-        if(newprofile.getDrawable() == null){
-            newprofile.setBackgroundResource(R.drawable.circlebackground);
-            upload.setEnabled(false);
-            upload.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.upload_disabled));
-        }
-        else if(newprofile.getDrawable() != null){
-            upload.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.darkround));
-            upload.setEnabled(true);
-        }
-
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
