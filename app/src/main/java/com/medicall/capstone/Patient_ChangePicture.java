@@ -80,7 +80,6 @@ public class Patient_ChangePicture extends AppCompatActivity {
         preferenceManager = new PreferenceManager(getApplicationContext());
         userID = preferenceManager.getString(Constants.KEY_USER_ID);
 
-
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -150,19 +149,25 @@ public class Patient_ChangePicture extends AppCompatActivity {
                                                     QuerySnapshot querySnapshot = task.getResult();
                                                     if(!querySnapshot.isEmpty()){
                                                         for(QueryDocumentSnapshot delete : task.getResult()){
-                                                            String storageID = delete.getString("UserId");
-                                                            photoref = storage2.getReferenceFromUrl("gs://medicall-6effc.appspot.com/PatientPicture").child(storageID);
-                                                            photoref.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                                @Override
-                                                                public void onSuccess(Void aVoid) {
-                                                                    updateProfile();
-                                                                }
-                                                            }).addOnFailureListener(new OnFailureListener() {
-                                                                @Override
-                                                                public void onFailure(@NonNull Exception e) {
+                                                            String storageID = delete.getString("StorageId");
+                                                            if(storageID.equals("None")){
+                                                                updateProfile();
+                                                            }
+                                                            else{
+                                                                photoref = storage2.getReferenceFromUrl("gs://medicall-6effc.appspot.com/PatientPicture").child(storageID);
+                                                                photoref.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                    @Override
+                                                                    public void onSuccess(Void aVoid) {
+                                                                        updateProfile();
+                                                                    }
+                                                                }).addOnFailureListener(new OnFailureListener() {
+                                                                    @Override
+                                                                    public void onFailure(@NonNull Exception e) {
 
-                                                                }
-                                                            });
+                                                                    }
+                                                                });
+                                                            }
+
                                                         }
                                                     }
                                                 }
