@@ -300,8 +300,10 @@ public class Patient_ChangePicture extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == IMAGE_PICK_CODE && resultCode == RESULT_OK && data != null && data.getData() != null){
             imageUri = data.getData();
+            retrieve.setVisibility(View.INVISIBLE);
             newprofile.setImageURI(imageUri);
             upload.setVisibility(View.VISIBLE);
+
         }
     }
 
