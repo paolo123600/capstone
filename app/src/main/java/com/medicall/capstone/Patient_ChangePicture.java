@@ -137,6 +137,8 @@ public class Patient_ChangePicture extends AppCompatActivity {
             }
         });
 
+
+
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -297,6 +299,7 @@ public class Patient_ChangePicture extends AppCompatActivity {
         if(requestCode == IMAGE_PICK_CODE && resultCode == RESULT_OK && data != null && data.getData() != null){
             imageUri = data.getData();
             newprofile.setImageURI(imageUri);
+            upload.setVisibility(View.VISIBLE);
         }
     }
 

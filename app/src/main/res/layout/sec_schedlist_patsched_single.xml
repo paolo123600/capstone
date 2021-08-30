@@ -10,39 +10,53 @@
     android:background="@color/mainbg">
 
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="10dp">
 
         <LinearLayout
-            android:id="@+id/docnameid"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginLeft="@dimen/_10sdp">
+            android:orientation="horizontal">
 
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/patient_profilepic"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"/>
 
-            <TextView
-                android:id="@+id/secsched_patname"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/docnameid"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Patient Name"
-                android:textAllCaps="true"
-                android:textSize="18sp"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/secsched_datesched"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Doc type"
-                android:textAllCaps="true"
-                android:textSize="18sp"
-                android:textStyle="bold"/>
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginLeft="@dimen/_10sdp">
 
 
+                <TextView
+                    android:id="@+id/secsched_patname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Patient Name"
+                    android:textAllCaps="true"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/secsched_datesched"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Doc type"
+                    android:textAllCaps="true"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+
+
+
+            </LinearLayout>
 
         </LinearLayout>
 
