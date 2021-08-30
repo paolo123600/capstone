@@ -41,6 +41,9 @@ import com.medicall.capstone.utilities.PreferenceManager;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Patient_ChangePicture extends AppCompatActivity {
     ImageView back, retrieve, newprofile;
     Button upload, cancel;
@@ -155,7 +158,19 @@ public class Patient_ChangePicture extends AppCompatActivity {
                                                         for(QueryDocumentSnapshot delete : task.getResult()){
                                                             String storageID = delete.getString("StorageId");
                                                             if(storageID.equals("None")){
-                                                                updateProfile();
+                                                                Map<String, Object> profile = new HashMap<>();
+                                                                profile.put("StorageId", userID);
+                                                                db.collection("Patients").document(userID).update(profile).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                    @Override
+                                                                    public void onSuccess(Void aVoid) {
+                                                                        updateProfile();
+                                                                    }
+                                                                }).addOnFailureListener(new OnFailureListener() {
+                                                                    @Override
+                                                                    public void onFailure(@NonNull Exception e) {
+                                                                        Toast.makeText(Patient_ChangePicture.this, "Upload image failed!", Toast.LENGTH_SHORT).show();
+                                                                    }
+                                                                });
                                                             }
                                                             else{
                                                                 photoref = storage2.getReferenceFromUrl("gs://medicall-6effc.appspot.com/PatientPicture").child(storageID);
@@ -205,7 +220,7 @@ public class Patient_ChangePicture extends AppCompatActivity {
                     QuerySnapshot querySnapshot = task.getResult();
                     if(!querySnapshot.isEmpty()){
                         for(QueryDocumentSnapshot profile : task.getResult()){
-                            String fileName = profile.getString("UserId");
+                            String fileName = profile.getString("StorageId");
                             storageReference = FirebaseStorage.getInstance().getReference("PatientPicture/" + fileName);
                             storageReference.child("PatientPicture/" + fileName);
                             Bitmap bmp = null;
