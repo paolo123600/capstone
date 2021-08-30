@@ -87,6 +87,8 @@ public class Patient_ChangePicture extends AppCompatActivity {
         preferenceManager = new PreferenceManager(getApplicationContext());
         userID = preferenceManager.getString(Constants.KEY_USER_ID);
 
+        newprofile.setBackgroundResource(R.drawable.circlebackground);
+
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
