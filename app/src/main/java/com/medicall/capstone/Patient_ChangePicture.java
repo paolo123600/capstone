@@ -87,6 +87,8 @@ public class Patient_ChangePicture extends AppCompatActivity {
         preferenceManager = new PreferenceManager(getApplicationContext());
         userID = preferenceManager.getString(Constants.KEY_USER_ID);
 
+        newprofile.setBackgroundResource(R.drawable.circlebackground);
+
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -298,8 +300,10 @@ public class Patient_ChangePicture extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == IMAGE_PICK_CODE && resultCode == RESULT_OK && data != null && data.getData() != null){
             imageUri = data.getData();
+            retrieve.setVisibility(View.INVISIBLE);
             newprofile.setImageURI(imageUri);
             upload.setVisibility(View.VISIBLE);
+
         }
     }
 
