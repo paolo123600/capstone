@@ -184,6 +184,7 @@ public class Medical_RecordActivity extends AppCompatActivity implements Adapter
                             Patients.put("Allergies",EE_Allergies);
                             Patients.put("Illness",EE_Illness);
                             Patients.put("UserId",Uid);
+                            Patients.put("StorageId", "None");
 
 
                             db.collection("Patients").document(Uid)

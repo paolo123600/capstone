@@ -65,7 +65,7 @@ public class pat_payment extends AppCompatActivity implements PurchasesUpdatedLi
                 if (billingClient.isReady())
                 {
                     SkuDetailsParams params = SkuDetailsParams.newBuilder()
-                            .setSkusList(Arrays.asList("money_capstone","capstone_payment10"))
+                            .setSkusList(Arrays.asList("appointment_90","appointment_150"))
                             .setType(BillingClient.SkuType.INAPP)
                             .build();
                     billingClient.querySkuDetailsAsync(params, new SkuDetailsResponseListener() {
