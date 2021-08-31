@@ -77,8 +77,8 @@
             android:text="Update Image"
             android:textSize="@dimen/_15sdp"
             android:textColor="@color/white"
-            android:background="@drawable/darkround"
-            android:visibility="gone"/>
+            android:background="@drawable/upload_disabled"
+            android:enabled="false"/>
 
         <Button
             android:id="@+id/cancelButton"

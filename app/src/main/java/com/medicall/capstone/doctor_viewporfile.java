@@ -1,9 +1,13 @@
 package com.medicall.capstone;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -19,7 +24,15 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.medicall.capstone.R;
+
+import java.io.File;
+import java.io.IOException;
 
 public class doctor_viewporfile extends AppCompatActivity {
 
@@ -46,10 +59,34 @@ public class doctor_viewporfile extends AppCompatActivity {
     String userId;
     FirebaseAuth mAuth;
 
+    // Profile Picture
+    Bitmap profilepic;
+    StorageReference ref;
+    String image;
+    ImageView dpicture;
+    private StorageReference storageReference;
+    private FirebaseStorage storage;
+    FirebaseFirestore db;
+
+    ImageView changeDP;
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(getApplicationContext(),Login.class);
+        startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_viewporfile);
+
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
+        dpicture = findViewById(R.id.doctor_dp);
+        db = FirebaseFirestore.getInstance();
+        changeDP = findViewById(R.id.editImage);
 
         firstname = findViewById(R.id.first_name_profile);
         gender = findViewById(R.id.gender_profile);
@@ -85,6 +122,53 @@ public class doctor_viewporfile extends AppCompatActivity {
         changepass = (Button) findViewById(R.id.changepass);
         editbutton = findViewById(R.id.editbtn);
         mAuth = FirebaseAuth.getInstance();
+
+
+        //Change Picture
+        changeDP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(doctor_viewporfile.this, doc_changepic.class);
+                startActivity(intent);
+            }
+        });
+
+        //Get Profile Picture
+        db.collection("Doctors").whereEqualTo("UserId", userId)
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    QuerySnapshot querySnapshot = task.getResult();
+                    if(!querySnapshot.isEmpty()){
+                        for(QueryDocumentSnapshot doctor : task.getResult()){
+                            image = doctor.getString("StorageId");
+                            if(image.equals("None")){
+                                dpicture.setBackgroundResource(R.drawable.circlebackground);
+                            }
+                            else{
+                                storageReference = FirebaseStorage.getInstance().getReference("DoctorPicture/" + image);
+                                try{
+                                    File local = File.createTempFile("myDP","");
+                                    storageReference.getFile(local)
+                                            .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                                @Override
+                                                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                                    profilepic = BitmapFactory.decodeFile(local.getAbsolutePath());
+                                                    dpicture.setImageBitmap(profilepic);
+                                                }
+                                            });
+                                }
+                                catch (IOException e){
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
         //changepass
         changepass.setOnClickListener(new View.OnClickListener() {
             @Override

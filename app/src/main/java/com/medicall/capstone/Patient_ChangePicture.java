@@ -52,10 +52,6 @@ public class Patient_ChangePicture extends AppCompatActivity {
     private PreferenceManager preferenceManager;
     String userID;
 
-    Bitmap profilepic;
-    StorageReference ref;
-    String image;
-    ImageView dpicture;
     private StorageReference storageReference;
     private FirebaseStorage storage;
     FirebaseFirestore db;
@@ -302,7 +298,8 @@ public class Patient_ChangePicture extends AppCompatActivity {
             imageUri = data.getData();
             retrieve.setVisibility(View.INVISIBLE);
             newprofile.setImageURI(imageUri);
-            upload.setVisibility(View.VISIBLE);
+            upload.setBackgroundResource(R.drawable.darkround);
+            upload.setEnabled(true);
 
         }
     }

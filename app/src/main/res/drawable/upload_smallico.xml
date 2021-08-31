@@ -2,7 +2,6 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item android:drawable="@drawable/upload_smallicon_bg"/>
-    <item android:drawable="@drawable/circle"/>
-    <item android:drawable="@drawable/upload_image"/>
+    <item android:drawable="@drawable/upload_image" android:gravity="center"/>
 
 </layer-list>

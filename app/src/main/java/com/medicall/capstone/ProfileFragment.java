@@ -70,10 +70,7 @@ public class ProfileFragment extends AppCompatActivity {
     private FirebaseStorage storage;
     FirebaseFirestore db;
 
-    Button changeDP;
-    ProgressDialog progressDialog;
-    private static final int IMAGE_PICK_CODE = 1000;
-    private static final int PERMISSION_CODE = 1001;
+    ImageView changeDP;
 
     @Override
     public void onBackPressed() {
@@ -110,7 +107,7 @@ public class ProfileFragment extends AppCompatActivity {
         dpicture = findViewById(R.id.patient_dp);
         db = FirebaseFirestore.getInstance();
 
-        changeDP = findViewById(R.id.changePicture);
+        changeDP = findViewById(R.id.editImage);
 
         changeDP.setOnClickListener(new View.OnClickListener() {
             @Override

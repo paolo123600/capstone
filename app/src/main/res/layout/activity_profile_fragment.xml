@@ -76,10 +76,27 @@
             android:layout_marginEnd="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_10sdp">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:id="@+id/patient_dp"/>
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:id="@+id/patient_dp"/>
+
+                <ImageView
+                    android:id="@+id/editImage"
+                    android:layout_width="@dimen/_35sdp"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:layout_marginLeft="@dimen/_30sdp"
+                    android:scaleType="fitXY"
+                    android:background="@drawable/edit_smallicon"/>
+
+            </FrameLayout>
+
+
 
             <LinearLayout
                 android:layout_marginLeft="@dimen/_10sdp"
@@ -99,16 +116,6 @@
                     android:text="Name"
                     android:textColor="@color/black"
                     android:padding="@dimen/_10sdp"/>
-
-                <Button
-                    android:id="@+id/changePicture"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:background="@drawable/darkround"
-                    android:textSize="@dimen/_10sdp"
-                    android:padding="@dimen/_10sdp"
-                    android:text="Change Profile Picture"/>
 
             </LinearLayout>
 

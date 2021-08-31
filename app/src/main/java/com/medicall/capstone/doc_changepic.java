@@ -1,12 +1,9 @@
 package com.medicall.capstone;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -18,7 +15,13 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -37,6 +40,7 @@ import com.medicall.capstone.utilities.PreferenceManager;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,10 +52,6 @@ public class doc_changepic extends AppCompatActivity {
     private PreferenceManager preferenceManager;
     String userID;
 
-    Bitmap profilepic;
-    StorageReference ref;
-    String image;
-    ImageView dpicture;
     private StorageReference storageReference;
     private FirebaseStorage storage;
     FirebaseFirestore db;
@@ -62,11 +62,11 @@ public class doc_changepic extends AppCompatActivity {
     public Uri imageUri;
     FirebaseStorage storage2;
     StorageReference photoref;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doc_changepic);
-
         back = findViewById(R.id.backspace);
         retrieve = findViewById(R.id.retrieveImage);
         upload = findViewById(R.id.upload_Image);
@@ -135,6 +135,8 @@ public class doc_changepic extends AppCompatActivity {
             }
         });
 
+
+
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -146,7 +148,7 @@ public class doc_changepic extends AppCompatActivity {
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                db.collection("Patients").whereEqualTo("UserId",userID).get()
+                                db.collection("Doctors").whereEqualTo("UserId",userID).get()
                                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                             @Override
                                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -158,7 +160,7 @@ public class doc_changepic extends AppCompatActivity {
                                                             if(storageID.equals("None")){
                                                                 Map<String, Object> profile = new HashMap<>();
                                                                 profile.put("StorageId", userID);
-                                                                db.collection("Patients").document(userID).update(profile).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                db.collection("Doctors").document(userID).update(profile).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                     @Override
                                                                     public void onSuccess(Void aVoid) {
                                                                         updateProfile();
@@ -171,7 +173,7 @@ public class doc_changepic extends AppCompatActivity {
                                                                 });
                                                             }
                                                             else{
-                                                                photoref = storage2.getReferenceFromUrl("gs://medicall-6effc.appspot.com/PatientPicture").child(storageID);
+                                                                photoref = storage2.getReferenceFromUrl("gs://medicall-6effc.appspot.com/DoctorPicture").child(storageID);
                                                                 photoref.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                     @Override
                                                                     public void onSuccess(Void aVoid) {
@@ -210,7 +212,7 @@ public class doc_changepic extends AppCompatActivity {
         progressDialog.setTitle("Updating image..");
         progressDialog.show();
 
-        db.collection("Patients").whereEqualTo("UserId",userID)
+        db.collection("Doctors").whereEqualTo("UserId",userID)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -219,8 +221,8 @@ public class doc_changepic extends AppCompatActivity {
                     if(!querySnapshot.isEmpty()){
                         for(QueryDocumentSnapshot profile : task.getResult()){
                             String fileName = profile.getString("StorageId");
-                            storageReference = FirebaseStorage.getInstance().getReference("PatientPicture/" + fileName);
-                            storageReference.child("PatientPicture/" + fileName);
+                            storageReference = FirebaseStorage.getInstance().getReference("DoctorPicture/" + fileName);
+                            storageReference.child("DoctorPicture/" + fileName);
                             Bitmap bmp = null;
                             try {
                                 bmp = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
@@ -239,7 +241,7 @@ public class doc_changepic extends AppCompatActivity {
                                         progressDialog.dismiss();
                                     }
                                     Toast.makeText(doc_changepic.this, "Profile Picture Updated", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(doc_changepic.this, ProfileFragment.class);
+                                    Intent intent = new Intent(doc_changepic.this, doctor_viewporfile.class);
                                     finish();
                                     startActivity(intent);
                                 }
@@ -273,7 +275,6 @@ public class doc_changepic extends AppCompatActivity {
         startActivityForResult(intent, IMAGE_PICK_CODE);
     }
 
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -284,7 +285,7 @@ public class doc_changepic extends AppCompatActivity {
                     selectImage();
                 }
                 else{
-                    Toast.makeText(this, "Permission Denied!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(doc_changepic.this, "Permission Denied!", Toast.LENGTH_SHORT).show();
                 }
             }
         }
@@ -297,8 +298,9 @@ public class doc_changepic extends AppCompatActivity {
             imageUri = data.getData();
             retrieve.setVisibility(View.INVISIBLE);
             newprofile.setImageURI(imageUri);
-            upload.setVisibility(View.VISIBLE);
-
+            upload.setBackgroundResource(R.drawable.darkround);
+            upload.setEnabled(true);
         }
     }
+
 }
