@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.medicall.capstone.Login;
 import com.medicall.capstone.R;
 import com.medicall.capstone.utilities.PreferenceManager;
@@ -25,6 +34,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -38,11 +49,11 @@ public class Doctor_schedlist_upcoming extends AppCompatActivity {
     String docuid;
 
     private FirestoreRecyclerAdapter adapter;
-
+    private StorageReference storageReference;
     PreferenceManager preferenceManager;
 
     String userId;
-
+    Bitmap getpic;
     ImageView back;
 
     @Override
@@ -86,6 +97,7 @@ public class Doctor_schedlist_upcoming extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(@NonNull Doctor_schedlist_upcoming.DoctorUpcomingViewHolder holder, int position, @NonNull DoctorUpcomingModel model) {
                 Date datesched =model.getDate();
+                String patientid = model.getPatientUId();
                 SimpleDateFormat format = new SimpleDateFormat("MMMM d ,yyyy");
                 String date=  format.format(datesched);
                 holder.list_datesched.setText(date);
@@ -98,6 +110,38 @@ public class Doctor_schedlist_upcoming extends AppCompatActivity {
                                 holder.list_name.setText(patname);
                             }
                         });
+                db.collection("Patients").whereEqualTo("StorageId", patientid).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            QuerySnapshot querySnapshot = task.getResult();
+                            if(!querySnapshot.isEmpty()){
+                                for(QueryDocumentSnapshot pat : task.getResult()){
+                                    String storageid = pat.getString("StorageId");
+                                    if(storageid.equals("None")){
+                                        holder.profilepic.setBackgroundResource(R.drawable.circlebackground);
+                                    }
+                                    else{
+                                        storageReference = FirebaseStorage.getInstance().getReference("PatientPicture/" + storageid);
+                                        try{
+                                            File local = File.createTempFile("patDP", "");
+                                            storageReference.getFile(local).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                                @Override
+                                                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                                    getpic = BitmapFactory.decodeFile(local.getAbsolutePath());
+                                                    holder.profilepic.setImageBitmap(getpic);
+                                                }
+                                            });
+                                        }
+                                        catch(IOException e){
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
 
             }
         };
@@ -111,12 +155,14 @@ public class Doctor_schedlist_upcoming extends AppCompatActivity {
     private class DoctorUpcomingViewHolder extends RecyclerView.ViewHolder{
 
         private TextView list_name, list_datesched;
+        private ImageView profilepic;
 
         public DoctorUpcomingViewHolder(@NonNull View itemView) {
             super(itemView);
 
             list_name = itemView.findViewById(R.id.doc_upcomingsched_patname);
             list_datesched = itemView.findViewById(R.id.doc_upcomingsched_datesched);
+            profilepic = itemView.findViewById(R.id.patient_profilepic);
         }
     }
 

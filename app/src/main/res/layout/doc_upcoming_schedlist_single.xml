@@ -15,6 +15,17 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/patient_profilepic"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"/>
+
         <LinearLayout
             android:id="@+id/docnameid"
             android:layout_width="match_parent"
@@ -22,6 +33,10 @@
             android:orientation="vertical"
             android:layout_marginTop="@dimen/_5sdp"
             android:layout_marginLeft="@dimen/_10sdp">
+
+
+
+
 
 
             <TextView
@@ -42,6 +57,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold"/>
 
+            </LinearLayout>
 
 
         </LinearLayout>
