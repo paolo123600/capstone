@@ -128,22 +128,28 @@ public class ProfileFragment extends AppCompatActivity {
                     QuerySnapshot querySnapshot = task.getResult();
                     if(!querySnapshot.isEmpty()){
                         for(QueryDocumentSnapshot profile : task.getResult()){
-                            image = profile.getString("UserId");
-                            storageReference = FirebaseStorage.getInstance().getReference("PatientPicture/" + image);
-                            try{
-                                File local = File.createTempFile("myProfilePicture",".jpg");
-                                storageReference.getFile(local)
-                                        .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                                            @Override
-                                            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                                                profilepic = BitmapFactory.decodeFile(local.getAbsolutePath());
-                                                dpicture.setImageBitmap(profilepic);
-                                            }
-                                        });
+                            image = profile.getString("StorageId");
+                            if(image.equals("None")){
+                                dpicture.setBackgroundResource(R.drawable.circlebackground);
                             }
-                            catch (IOException e){
-                                e.printStackTrace();
+                            else{
+                                storageReference = FirebaseStorage.getInstance().getReference("PatientPicture/" + image);
+                                try{
+                                    File local = File.createTempFile("myProfilePicture",".jpg");
+                                    storageReference.getFile(local)
+                                            .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                                @Override
+                                                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                                    profilepic = BitmapFactory.decodeFile(local.getAbsolutePath());
+                                                    dpicture.setImageBitmap(profilepic);
+                                                }
+                                            });
+                                }
+                                catch (IOException e){
+                                    e.printStackTrace();
+                                }
                             }
+
                         }
                     }
                 }
