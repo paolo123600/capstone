@@ -14,9 +14,11 @@ import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -38,7 +40,8 @@ import java.util.Map;
 
 public class docsched_page3 extends AppCompatActivity {
     TextView starttime, endtime  ;
-    EditText maxbookingtv, pricetv;
+    EditText maxbookingtv;
+    Spinner pricetv;
     int t1Hour, t1Minute, t2Hour, t2Minute;
     Button monbtn, tuebtn, wedbtn, thubtn , fribtn, satbtn, sunbtn , cancelbtn, savebtn;
     boolean monstat = false, tuestat = false, wedstat = false, thustat = false, fristat = false, satstat = false, sunstat = false;
@@ -58,7 +61,7 @@ public class docsched_page3 extends AppCompatActivity {
         starttime = findViewById(R.id.docsched_starttime);
         endtime = findViewById(R.id.docsched_endtime);
         maxbookingtv = (EditText) findViewById(R.id.docsched_maxbooking);
-        pricetv = (EditText) findViewById(R.id.docsched_price);
+        pricetv = (Spinner) findViewById(R.id.docsched_price);
         monbtn = (Button) findViewById(R.id.docsched_monday);
         tuebtn = (Button) findViewById(R.id.docsched_tuesday);
         wedbtn = (Button) findViewById(R.id.docsched_wednesday);
@@ -70,6 +73,13 @@ public class docsched_page3 extends AppCompatActivity {
         savebtn = (Button) findViewById(R.id.docsched_save);
 
         back = findViewById(R.id.backspace);
+
+        ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(this,
+                R.array.Price, android.R.layout.simple_spinner_item);
+
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        pricetv.setAdapter(arrayAdapter);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,7 +97,7 @@ public class docsched_page3 extends AppCompatActivity {
         starttime.setText(intent.getStringExtra("StartTime"));
         endtime.setText(intent.getStringExtra("EndTime"));
         maxbookingtv.setText(intent.getStringExtra("MaximumBooking"));
-        pricetv.setText(intent.getStringExtra("Price"));
+
 
 
         if (type.equals("Update")) {
@@ -236,7 +246,7 @@ if (monday){
 
                 if (monstat == false && tuestat == false && wedstat == false && thustat == false && fristat == false && satstat == false && sunstat == false) {
                     Toast.makeText(docsched_page3.this, "Please select day/s of week", Toast.LENGTH_SHORT).show();
-                } else if(maxbookingtv.getText().toString().equals("") || pricetv.getText().toString().equals("") || stringnewend.equals("")|| stringnewend.equals("")){
+                } else if(maxbookingtv.getText().toString().equals("") || pricetv.getSelectedItem().toString().equals("") || stringnewend.equals("")|| stringnewend.equals("")){
                     Toast.makeText(docsched_page3.this, "Please fill all necessary fields", Toast.LENGTH_SHORT).show();
                 }
                     else {
@@ -501,7 +511,7 @@ if (monday){
             Toast.makeText(this, "There has been a conflict between schedules. Please check and try again.", Toast.LENGTH_SHORT).show();
         }else {
             String maxbooking = maxbookingtv.getText().toString();
-            String price = pricetv.getText().toString();
+            String price = pricetv.getSelectedItem().toString();
             Intent intent = getIntent();
 
             Map<String, Object> DocSched = new HashMap<>();
@@ -565,7 +575,7 @@ if (monday){
             Toast.makeText(this, "There has been a conflict between schedules. Please check and try again.", Toast.LENGTH_SHORT).show();
         }else {
             String maxbooking = maxbookingtv.getText().toString();
-            String price = pricetv.getText().toString();
+            String price = pricetv.getSelectedItem().toString();
 
             Map<String, Object> DocSched = new HashMap<>();
             DocSched.put("DocId", docid);

@@ -114,6 +114,13 @@
 
     </string-array>
 
+    <string-array name="Price">
+        <item>appointment_90</item>
+        <item>appointment_150</item>
+
+
+    </string-array>
+
 
     <!-- BOLD-->
     <string name="bold"><b><i>FirstName</i></b></string>

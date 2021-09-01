@@ -129,13 +129,12 @@ public class pat_payment extends AppCompatActivity implements PurchasesUpdatedLi
         StringBuilder purchasedItem = new StringBuilder(txtPremium.getText()); // empty
         for (Purchase purchase : purchases)
         {
-            if (purchase.getSku().equals("money_capstone")) // Consume item
-            {
+
                 ConsumeParams consumeParams = ConsumeParams.newBuilder()
                         .setPurchaseToken(purchase.getPurchaseToken())
                         .build();
                 billingClient.consumeAsync(consumeParams,listener);
-            }
+
             purchasedItem.append("\n"+purchase.getSku())
                     .append("\n");
         }

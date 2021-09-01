@@ -301,7 +301,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.nav_about:
-                Intent intent1 = new Intent(MainActivity.this, pat_payment.class);
+                Intent intent1 = new Intent(MainActivity.this, Testpayment.class);
                 startActivity(intent1);
                 break;
             case R.id.blood_p:

@@ -1,6 +1,7 @@
 package com.medicall.capstone;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,9 +19,19 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.billingclient.api.BillingClient;
+import com.android.billingclient.api.BillingClientStateListener;
+import com.android.billingclient.api.BillingFlowParams;
+import com.android.billingclient.api.BillingResult;
+import com.android.billingclient.api.ConsumeParams;
+import com.android.billingclient.api.ConsumeResponseListener;
+import com.android.billingclient.api.Purchase;
+import com.android.billingclient.api.PurchasesUpdatedListener;
+import com.android.billingclient.api.SkuDetailsParams;
 import com.medicall.capstone.R;
 
 import com.medicall.capstone.utilities.Constants;
@@ -37,15 +49,19 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class selectDate extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class selectDate extends AppCompatActivity implements DatePickerDialog.OnDateSetListener , PurchasesUpdatedListener  {
+    private static final String PREF_FILE = "MyPref" ;
+    String PRODUCT_ID = "";
     TextView tvDate;
     EditText etDate;
     private RecyclerView docschedlist;
@@ -60,8 +76,11 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
     ArrayList<Integer> validdaysofweek = new ArrayList<Integer>();
     String patuid;
     String docid ="";
+    Date finaldateee;
+    String finalend , finalstart ;
+    int finalcount;
     private PreferenceManager preferenceManager;
-
+    BillingClient billingClient;
     ImageView back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +94,25 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
 
         calendar = Calendar.getInstance();
         preferenceManager = new PreferenceManager(getApplicationContext());
+        billingClient = BillingClient.newBuilder(this)
+                .enablePendingPurchases().setListener(this).build();
+        billingClient.startConnection(new BillingClientStateListener() {
+            @Override
+            public void onBillingSetupFinished(@NonNull BillingResult billingResult) {
+                if(billingResult.getResponseCode()==BillingClient.BillingResponseCode.OK){
+                    Purchase.PurchasesResult queryPurchase = billingClient.queryPurchases(BillingClient.SkuType.INAPP);
+                    List <Purchase> queryPurchases = queryPurchase.getPurchasesList();
+                    if (queryPurchases!=null && queryPurchases.size()>0){
+                        handlePurchases(queryPurchases);
+                    }
+                }
+            }
 
+            @Override
+            public void onBillingServiceDisconnected() {
+
+            }
+        });
         patuid = preferenceManager.getString(Constants.KEY_USER_ID);
         Year = calendar.get(Calendar.YEAR) ;
         Month = calendar.get(Calendar.MONTH);
@@ -180,6 +217,8 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
                 datePickerDialog.show(getSupportFragmentManager(), "DatePickerDialog");
             }
         });
+
+
     }
 
     @Override
@@ -246,17 +285,9 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
                                     @Override
                                     public void onClick(View view) {
 
-                                        Date currentTime = Calendar.getInstance().getTime();
-                                        Map<String, Object> PatSched = new HashMap<>();
-                                        PatSched.put("DoctorUId", docid);
-                                        PatSched.put("StartTime", model.getStartTime());
-                                        PatSched.put("EndTime", model.getEndTime());
-                                        PatSched.put("Position", count+1);
-                                        PatSched.put ("Date", finalDate);
-                                        PatSched.put ("Status", "Paid" );
-                                        PatSched.put ("PatientUId", patuid );
-                                        PatSched.put ("Dnt",currentTime);
-                                        PatSched.put("ClinicName",gv.getSDClinic());
+
+
+
 
                                         AlertDialog.Builder builder = new AlertDialog.Builder(selectDate.this);
                                         builder.setCancelable(true);
@@ -267,41 +298,47 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
                                                     @Override
                                                     public void onClick(DialogInterface dialog, int which) {
 
-                                                        db.collection("Schedules").document().set(PatSched)
-                                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                                    @Override
-                                                                    public void onSuccess(Void aVoid) {
-                                                                       db.collection("Clinics").whereEqualTo("ClinicName",gv.getSDClinic()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                                                           @Override
-                                                                           public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                                                               if ( task.isSuccessful()){
-                                                                                   if (!task.getResult().isEmpty()){
-                                                                                       for (QueryDocumentSnapshot doc : task.getResult()) {
-                                                                                           String docuid =doc.getId();
-                                                                                           Map<String, Object> Pat = new HashMap<>();
-                                                                                           Pat.put("PatUId",patuid);
-                                                                                           db.collection("Clinics").document(docuid).collection("Patients").document(patuid).set(Pat).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                                                               @Override
-                                                                                               public void onSuccess(Void aVoid) {
-                                                                                                   Log.d("TAG", "DocumentSnapshot successfully written!");
-                                                                                                   Intent intent = new Intent(selectDate.this , MainActivity.class);
-                                                                                                   startActivity(intent);
-                                                                                               }
-                                                                                           });
-                                                                                       }
-                                                                                   }
-                                                                               }
-                                                                           }
-                                                                       });
+                                                        switch (model.getPrice()){
+                                                            case "appointment_90":
+                                                                PRODUCT_ID = "appointment_90";
+                                                                break;
 
+                                                            case "appointment_150":
+                                                                PRODUCT_ID = "appointment_150";
+                                                                break;
+                                                            default: break;
+
+                                                        }
+
+                                                        finalstart= model.getStartTime();
+                                                        finalend = model.getEndTime();
+                                                        finalcount= count+1;
+                                                        finaldateee= finalDate;
+                                                        if(billingClient.isReady()){
+                                                            initiatePurchase();
+                                                        }
+                                                        else {
+                                                            billingClient = BillingClient.newBuilder(selectDate.this)
+                                                                    .enablePendingPurchases().setListener(selectDate.this).build();
+                                                            billingClient.startConnection(new BillingClientStateListener() {
+                                                                @Override
+                                                                public void onBillingSetupFinished(@NonNull BillingResult billingResult) {
+                                                                    if(billingResult.getResponseCode()==BillingClient.BillingResponseCode.OK){
+                                                                        Purchase.PurchasesResult queryPurchase = billingClient.queryPurchases(BillingClient.SkuType.INAPP);
+                                                                        List <Purchase> queryPurchases = queryPurchase.getPurchasesList();
+                                                                        if (queryPurchases!=null && queryPurchases.size()>0){
+                                                                            handlePurchases(queryPurchases);
+                                                                        }
                                                                     }
-                                                                })
-                                                                .addOnFailureListener(new OnFailureListener() {
-                                                                    @Override
-                                                                    public void onFailure(@NonNull Exception e) {
-                                                                        Log.w("TAG", "Error writing document", e);
-                                                                    }
-                                                                });
+                                                                }
+
+                                                                @Override
+                                                                public void onBillingServiceDisconnected() {
+
+                                                                }
+                                                            });
+                                                        }
+
                                                     }
                                                 });
                                         builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
@@ -339,6 +376,8 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
     }
 
 
+
+
     private class DocSchedViewHolder extends RecyclerView.ViewHolder {
         private TextView list_time;
         private TextView list_price;
@@ -354,4 +393,167 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
             list_numberbook = itemView.findViewById(R.id.rec_numbooking);
         }
     }
+    private boolean verifyValidSignature(String signedData, String signature) {
+        try{
+            String base64Key = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzOFUr4mee/QUtMgNn+9KfBp9PKkoleQBaqLoxcvMJYve58Z+fCxWkypXRAz/DRM28SEbfq38sb/wC9At+3Mn61B0hfBtGnQ1z7FRldON57ewgFP2opt3uy8N7GOPTETBw/kiqvgP6kCkfpdeHUYc6FQJ76WQvL04ygWw23UzbIZsAKgjGZ1sNVST7sw0uFXKFUxV9Xd4BC4hLHjf8nhaISHQoyJH+C2znPNjOeJBov8Zc2f6ecTnd3e33O7/SBtqqtlwn/VrF4wzIy08IrWM127PRzzOrwYKAEV79fRvt979CkrUvnITza33hBk6nxYCqjBwo9eWXrav3AlRnlxHtwIDAQAB";
+            return Security.verifyPurchase(base64Key, signedData, signature);
+        }
+        catch (IOException e){
+            return false;
+        }
+    }  private SharedPreferences getPreferenceObject() {
+        return getApplicationContext().getSharedPreferences(PREF_FILE, 0);
+    }
+    private SharedPreferences.Editor getPreferenceEditObject() {
+        SharedPreferences pref = getApplicationContext().getSharedPreferences(PREF_FILE, 0);
+        return pref.edit();
+    }
+    private void savePurchaseCountValueToPref(int value) {
+        getPreferenceEditObject().putInt(PRODUCT_ID,value).commit();
+    }
+
+
+
+    private int getPurchaseCountValueFromPref() {
+        return getPreferenceObject().getInt( PRODUCT_ID,0);
+    }
+    private void initiatePurchase() {
+        List <String> skulist = new ArrayList<>();
+        skulist.add(PRODUCT_ID);
+        SkuDetailsParams.Builder params = SkuDetailsParams.newBuilder();
+        params.setSkusList(skulist).setType(BillingClient.SkuType.INAPP);
+        billingClient.querySkuDetailsAsync(params.build(),((billingResult, skuDetailsList) -> {
+            if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK){
+                if (skuDetailsList != null && skuDetailsList.size() >0){
+                    BillingFlowParams flowParams = BillingFlowParams.newBuilder()
+                            .setSkuDetails(skuDetailsList.get(0))
+                            .build();
+                    billingClient.launchBillingFlow(selectDate.this,flowParams);
+                }
+                else {
+                    Toast.makeText(this, "Cant find the price", Toast.LENGTH_SHORT).show();
+                }
+            }
+            else {
+                Toast.makeText(this, "Error: "+billingResult.getDebugMessage(), Toast.LENGTH_SHORT).show();
+            }
+
+        }));
+    }
+    @Override
+    public void onPurchasesUpdated(@NonNull BillingResult billingResult, @Nullable List<Purchase> purchases) {
+        if(billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK && purchases !=null){
+            handlePurchases(purchases);
+        }
+
+        else if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED){
+            Purchase.PurchasesResult queryAlreadyPurchasesResult = billingClient.queryPurchases(BillingClient.SkuType.INAPP);
+            List <Purchase> alreadyPurchases = queryAlreadyPurchasesResult.getPurchasesList();
+            if (alreadyPurchases!=null){
+                handlePurchases(alreadyPurchases);
+            }
+        }
+        else if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.USER_CANCELED){
+            Toast.makeText(this, "Purchase Canceled", Toast.LENGTH_SHORT).show();
+        }
+
+        else {
+            Toast.makeText(this, "Error: "+ billingResult.getDebugMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+    void handlePurchases(List<Purchase>  purchases){
+
+        for(Purchase purchase:purchases) {
+            //if item is purchased
+            if (PRODUCT_ID.equals(purchase.getSku()) && purchase.getPurchaseState() == Purchase.PurchaseState.PURCHASED)
+            {
+                if (!verifyValidSignature(purchase.getOriginalJson(), purchase.getSignature())) {
+                    // Invalid purchase
+                    // show error to user
+                    Toast.makeText(getApplicationContext(), "Error : Invalid Purchase", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                // else purchase is valid
+                else {
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                    Date currentTime = Calendar.getInstance().getTime();
+                    Map<String, Object> PatSched = new HashMap<>();
+                    PatSched.put("DoctorUId", docid);
+                    PatSched.put("StartTime", finalstart);
+                    PatSched.put("EndTime", finalend);
+                    PatSched.put("Position", finalcount);
+                    PatSched.put ("Date", finaldateee);
+                    PatSched.put ("Status", "Paid" );
+                    PatSched.put ("PatientUId", patuid );
+                    PatSched.put ("Dnt",currentTime);
+                    PatSched.put("ClinicName",gv.getSDClinic());
+                    db.collection("Schedules").document().set(PatSched)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    db.collection("Clinics").whereEqualTo("ClinicName",gv.getSDClinic()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if ( task.isSuccessful()){
+                                                if (!task.getResult().isEmpty()){
+                                                    for (QueryDocumentSnapshot doc : task.getResult()) {
+                                                        String docuid =doc.getId();
+                                                        Map<String, Object> Pat = new HashMap<>();
+                                                        Pat.put("PatUId",patuid);
+                                                        db.collection("Clinics").document(docuid).collection("Patients").document(patuid).set(Pat).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                            @Override
+                                                            public void onSuccess(Void aVoid) {
+                                                                Log.d("TAG", "DocumentSnapshot successfully written!");
+                                                                Intent intent = new Intent(selectDate.this , MainActivity.class);
+                                                                startActivity(intent);
+                                                            }
+                                                        });
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    });
+
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("TAG", "Error writing document", e);
+                                }
+                            });
+                }
+                //if item is purchased and not consumed
+                if (!purchase.isAcknowledged()) {
+                    ConsumeParams consumeParams = ConsumeParams.newBuilder()
+                            .setPurchaseToken(purchase.getPurchaseToken())
+                            .build();
+
+                    billingClient.consumeAsync(consumeParams, consumeListener);
+                }
+            }
+            //if purchase is pending
+            else if( PRODUCT_ID.equals(purchase.getSku()) && purchase.getPurchaseState() == Purchase.PurchaseState.PENDING)
+            {
+                Toast.makeText(getApplicationContext(),
+                        "Purchase is Pending. Please complete Transaction", Toast.LENGTH_SHORT).show();
+            }
+            //if purchase is refunded or unknown
+            else if(PRODUCT_ID.equals(purchase.getSku()) && purchase.getPurchaseState() == Purchase.PurchaseState.UNSPECIFIED_STATE)
+            {
+                Toast.makeText(getApplicationContext(), "Purchase Status Unknown", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    ConsumeResponseListener consumeListener = new ConsumeResponseListener() {
+        @Override
+        public void onConsumeResponse(BillingResult billingResult, String purchaseToken) {
+            if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+                int consumeCountValue=getPurchaseCountValueFromPref()+1;
+                savePurchaseCountValueToPref(consumeCountValue);
+                Toast.makeText(getApplicationContext(), "Item Consumed", Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
 }

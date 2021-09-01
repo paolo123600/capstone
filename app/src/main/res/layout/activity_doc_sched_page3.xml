@@ -178,7 +178,7 @@
                     android:layout_height="wrap_content"
                     android:hint="Maximum Booking"/>
 
-                <EditText
+                <Spinner
                     android:id="@+id/docsched_price"
                     android:layout_weight="1"
                     android:layout_width="wrap_content"
