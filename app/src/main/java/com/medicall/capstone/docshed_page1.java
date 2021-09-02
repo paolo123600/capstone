@@ -42,6 +42,7 @@ public class docshed_page1 extends AppCompatActivity {
     private PreferenceManager preferenceManager;
     MaterialSearchBar materialSearchBar;
     String txt;
+
     private String docn;
 
     ImageView back;
