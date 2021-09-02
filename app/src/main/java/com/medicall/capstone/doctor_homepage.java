@@ -2,6 +2,8 @@ package com.medicall.capstone;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -22,6 +24,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.medicall.capstone.R;
 
 import com.medicall.capstone.activities.OutgoingInvitationActivity;
@@ -50,6 +55,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -58,6 +65,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class  doctor_homepage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     Button btn_dochat;
@@ -83,6 +92,12 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
     RecyclerView mFirestorelist;
     String userId;
     Button btncomplete , btnnext;
+
+    private StorageReference storageReference;
+    private FirebaseStorage storage;
+    StorageReference ref;
+    String image;
+    Bitmap getpic;
     private Runnable runnable = new Runnable() {     public void run() {   SimpleDateFormat dateFormat = new SimpleDateFormat("h:mmaa");
 
         try {
@@ -134,6 +149,10 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.doctor_home);
+
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
+
         db = FirebaseFirestore.getInstance();
         preferenceManager = new PreferenceManager(getApplicationContext());
         btn_dochat = (Button) findViewById(R.id.btn_chat_dochome);
@@ -656,6 +675,7 @@ db.collection("DoctorSchedules").whereEqualTo(currentday,true).whereEqualTo("Doc
         View headerView = navigationView.getHeaderView(0);
         TextView navUsername = headerView.findViewById(R.id.nav_header_name);
         TextView navEmail = headerView.findViewById(R.id.nav_header_email);
+        CircleImageView profpicturedoc = headerView.findViewById(R.id.profile_picture);
 
         DocumentReference documentReference = fStore.collection("Doctors").document(userId);
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
@@ -663,6 +683,33 @@ db.collection("DoctorSchedules").whereEqualTo(currentday,true).whereEqualTo("Doc
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                 navUsername.setText(documentSnapshot.getString("FirstName") + " " + documentSnapshot.getString("LastName"));
                 navEmail.setText(documentSnapshot.getString("Email"));
+            }
+        });
+
+        db.collection("Doctors").whereEqualTo("StorageId", userId).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    QuerySnapshot querySnapshot = task.getResult();
+                    if (!querySnapshot.isEmpty()) {
+                        for (QueryDocumentSnapshot profile : task.getResult()) {
+                            image = profile.getString("StorageId");
+                            storageReference = FirebaseStorage.getInstance().getReference("DoctorPicture/" + image);
+                            try {
+                                File local = File.createTempFile("myProfilePicture","");
+                                storageReference.getFile(local).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                        getpic = BitmapFactory.decodeFile(local.getAbsolutePath());
+                                        profpicturedoc.setImageBitmap(getpic);
+                                    }
+                                });
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
             }
         });
 

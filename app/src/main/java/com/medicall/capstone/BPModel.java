@@ -4,20 +4,23 @@ import java.util.Date;
 
 public class BPModel {
 
+    private String item_id;
+
     private String LastName;
     private String Date;
     private String Upper;
     private String Lower;
     private Date Dnt;
 
-    private BPModel() {}
+    public BPModel() {}
 
-    private BPModel(String Date, String Upper, String Lower, String LastName, Date Dnt){
+    public BPModel(String Date, String Upper, String Lower, String LastName, Date Dnt, String item_id){
         this.LastName = LastName;
         this.Date = Date;
         this.Upper = Upper;
         this.Lower = Lower;
         this.Dnt = Dnt;
+        this.item_id = item_id;
 
     }
 
@@ -45,4 +48,11 @@ public class BPModel {
 
     public void setLower(String lower) { Lower = lower; }
 
+    public String getItem_id() {
+        return item_id;
+    }
+
+    public void setItem_id(String item_id) {
+        this.item_id = item_id;
+    }
 }

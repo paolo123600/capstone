@@ -2,18 +2,23 @@ package com.medicall.capstone.doctor;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.paging.PagedList;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.firebase.ui.firestore.paging.FirestorePagingAdapter;
+import com.firebase.ui.firestore.paging.FirestorePagingOptions;
+import com.firebase.ui.firestore.paging.LoadingState;
 import com.medicall.capstone.BPModel;
 import com.medicall.capstone.R;
 import com.medicall.capstone.patient_record_clinic;
@@ -64,12 +69,13 @@ public class Doctor_patient_bp extends AppCompatActivity {
 
 
 
-        Query query = db.collection("Patients").document(userId).collection("BP").orderBy("Dnt", Query.Direction.DESCENDING).limit(20);;
+        Query query = db.collection("Patients").document(userId).collection("BP").orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
+
 
         FirestoreRecyclerOptions<BPModel> options = new FirestoreRecyclerOptions.Builder<BPModel>().setQuery(query, BPModel.class).build();
 
 
-        adapter = new FirestoreRecyclerAdapter<BPModel, Doctor_patient_bp.BPViewHolder>(options) {
+        adapter = new FirestoreRecyclerAdapter<BPModel, BPViewHolder>(options) {
             @NonNull
             @Override
             public Doctor_patient_bp.BPViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
