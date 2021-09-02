@@ -514,6 +514,16 @@ if (monday){
             String price = pricetv.getSelectedItem().toString();
             Intent intent = getIntent();
 
+            if (price.equals("₱150")) {
+               price = "appointment_150";
+            } else if (price.equals("₱200")) {
+                price = "appointment_200";
+            } else if (price.equals("₱250")) {
+                price = "appointment_250";
+            } else if (price.equals("₱300")) {
+                price = "appointment_300";
+            }
+
             Map<String, Object> DocSched = new HashMap<>();
             DocSched.put("DocId", docid);
             DocSched.put("StartTime", starttime.getText());

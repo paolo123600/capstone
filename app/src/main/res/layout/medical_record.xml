@@ -57,6 +57,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/_5sdp"
+                app:prefixText="+63"
+                app:counterMaxLength="10"
+                app:counterEnabled="true"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <EditText
@@ -65,6 +68,7 @@
                     android:layout_width="match_parent"
                     android:hint="Contact Number"
                     android:layout_height="match_parent"
+                    android:maxLength="10"
                     android:padding="@dimen/_10sdp"/>
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -81,6 +85,7 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/_5sdp"
+                app:suffixText="cm"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <EditText
@@ -99,6 +104,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginLeft="@dimen/_5sdp"
+                app:suffixText="kg"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <EditText

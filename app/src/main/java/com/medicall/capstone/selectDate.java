@@ -82,6 +82,7 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
     private PreferenceManager preferenceManager;
     BillingClient billingClient;
     ImageView back;
+    String finalprice;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -306,6 +307,18 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
                                                             case "appointment_150":
                                                                 PRODUCT_ID = "appointment_150";
                                                                 break;
+
+                                                            case "appointment_200":
+                                                                PRODUCT_ID = "appointment_200";
+                                                                break;
+
+                                                            case "appointment_250":
+                                                                PRODUCT_ID = "appointment_250";
+                                                                break;
+
+                                                            case "appointment_300":
+                                                                PRODUCT_ID = "appointment_300";
+                                                                break;
                                                             default: break;
 
                                                         }
@@ -314,6 +327,7 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
                                                         finalend = model.getEndTime();
                                                         finalcount= count+1;
                                                         finaldateee= finalDate;
+                                                        finalprice = model.getPrice();
                                                         if(billingClient.isReady()){
                                                             initiatePurchase();
                                                         }
@@ -362,7 +376,27 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
                 });
                 holder.list_time.setText("Time:"+model.getStartTime()+" - "+model.getEndTime());
                 holder.list_maxbook.setText("Max Booking:"+model.getMaximumBooking());
-                holder.list_price.setText("Price:"+model.getPrice());
+
+                switch (model.getPrice()){
+                    case "appointment_150":
+                        holder.list_price.setText("Price: 150");
+                        break;
+
+                    case "appointment_200":
+                        holder.list_price.setText("Price: 200");
+                        break;
+
+                    case "appointment_250":
+                        holder.list_price.setText("Price: 250");
+                        break;
+
+                    case "appointment_300":
+                        holder.list_price.setText("Price: 300");
+                        break;
+                    default: break;
+
+
+                }
 
 
             }
@@ -483,6 +517,7 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
                     PatSched.put("EndTime", finalend);
                     PatSched.put("Position", finalcount);
                     PatSched.put ("Date", finaldateee);
+                    PatSched.put("Price", finalprice);
                     PatSched.put ("Status", "Paid" );
                     PatSched.put ("PatientUId", patuid );
                     PatSched.put ("Dnt",currentTime);

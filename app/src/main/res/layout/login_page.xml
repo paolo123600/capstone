@@ -225,13 +225,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="If you want to register your clinic contact us at"
+                    android:text="If you have concerns, contact us at"
                     android:paddingLeft="@dimen/_10sdp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Medi-Call@gmail.com"
+                    android:text="medicall.capstone@gmail.com"
                     android:paddingLeft="@dimen/_10sdp" />
 
             </LinearLayout>

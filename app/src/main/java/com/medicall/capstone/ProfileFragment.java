@@ -5,8 +5,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -163,53 +165,30 @@ public class ProfileFragment extends AppCompatActivity {
         postal.setKeyListener(null);
 
         //change pass
-        changepass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog = new Dialog(ProfileFragment.this);
-                dialog.setContentView(R.layout.changepasspop);
-                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-                dialog.show();
+       changepass.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               new AlertDialog.Builder(ProfileFragment.this).setTitle("Change Password").setMessage("Are you sure you want to change your password?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                   @Override
+                   public void onClick(DialogInterface dialog, int which) {
+                       new AlertDialog.Builder(ProfileFragment.this).setTitle("Change Password").setMessage("Please check your email").setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                           @Override
+                           public void onClick(DialogInterface dialog, int which) {
+                               Intent intent = new Intent(getApplicationContext(), Login.class);
+                               startActivity(intent);
+                           }
+                       }).show();
+                       mAuth.sendPasswordResetEmail(String.valueOf(email.getText()));
+                   }
+               }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                   @Override
+                   public void onClick(DialogInterface dialog, int which) {
+                       dialog.dismiss();
 
-                Button cancel = dialog.findViewById(R.id.cancel);
-                Button conf = dialog.findViewById(R.id.confchangepass);
-                cancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v)
-                    {
-
-                        onBackPressed();
-                    }
-                });
-                mAuth.sendPasswordResetEmail(String.valueOf(email.getText())).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete( Task<Void> task) {
-                        conf.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                dialog.dismiss();
-                                dialog1 = new Dialog(ProfileFragment.this);
-                                dialog1.setContentView(R.layout.confirmpop);
-                                dialog1.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-                                dialog1.show();
-                                Button conf1 = dialog1.findViewById(R.id.conf);
-                                conf1.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v)
-                                    {
-                                        dialog1.dismiss();
-                                        onBackPressed();
-
-                                    }
-                                });
-                            }
-                        });
-                    }
-                });
-
-            }
-        });
-
+                   }
+               }).show();
+           }
+       });
 
 
 

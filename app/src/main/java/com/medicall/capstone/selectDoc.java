@@ -119,7 +119,7 @@ public class selectDoc extends AppCompatActivity {
                     @Override
                     protected void onBindViewHolder(@NonNull DoctorsViewHolder holder, int position, @NonNull DoctorModel model) {
                         holder.list_docname.setText("Doc "+model.getLastName());
-                        holder.list_docemail.setText(model.getEmail());
+                        holder.list_docemail.setText(model.getDocType());
                         holder.list_docclinic.setText(model.getClinic());
                         holder.itemView.setOnClickListener(new View.OnClickListener() {
                             @Override

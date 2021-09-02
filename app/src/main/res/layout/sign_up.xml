@@ -82,6 +82,7 @@
                     android:layout_height="match_parent"
                     android:hint="M.I"
                     android:inputType="textPersonName"
+                    android:textAllCaps="true"
                     android:maxLength="1"
                     android:gravity="center"/>
 
