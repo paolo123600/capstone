@@ -524,6 +524,8 @@ if (monday){
                 price = "appointment_300";
             }
 
+
+
             Map<String, Object> DocSched = new HashMap<>();
             DocSched.put("DocId", docid);
             DocSched.put("StartTime", starttime.getText());
