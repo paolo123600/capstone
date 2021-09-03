@@ -146,6 +146,15 @@ public class docsched_page2 extends AppCompatActivity {
                 holder.timeTV.setText(model.getStartTime()+" to "+model.getEndTime());
                 holder.maxBook.setText("Max Booking: " + model.getMaximumBooking());
                 holder.Pricedocshed.setText("Price: " + model.getPrice());
+                if (model.getPrice().equals("appointment_150")) {
+                    holder.Pricedocshed.setText("Price: 150");
+                } else if (model.getPrice().equals("appointment_200")) {
+                    holder.Pricedocshed.setText("Price: 200");
+                } else if (model.getPrice().equals("appointment_250")) {
+                    holder.Pricedocshed.setText("Price: 250");
+                } else if (model.getPrice().equals("appointment_300")) {
+                    holder.Pricedocshed.setText("Price: 300");
+                }
                 holder.editbtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -250,6 +259,12 @@ public class docsched_page2 extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), docshed_page1.class);
+        startActivity(intent);
     }
 
     private class DocSchedViewHolder extends RecyclerView.ViewHolder {

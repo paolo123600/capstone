@@ -15,21 +15,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="@dimen/_10sdp">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/patient_profilepic"
-                android:layout_width="@dimen/_50sdp"
-                android:layout_height="@dimen/_50sdp"/>
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_50sdp"
+                android:background="@drawable/circlebackground"/>
 
             <LinearLayout
                 android:id="@+id/docnameid"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="4"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginTop="@dimen/_5sdp"
@@ -43,15 +46,16 @@
                     android:text="Patient Name"
                     android:textAllCaps="true"
                     android:textSize="18sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:textColor="@color/black"/>
 
                 <TextView
                     android:id="@+id/secsched_datesched"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Doc type"
+                    android:text="Date"
                     android:textAllCaps="true"
-                    android:textSize="18sp"
+                    android:textSize="14sp"
                     android:textStyle="bold"/>
 
 

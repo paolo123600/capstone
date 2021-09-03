@@ -30,7 +30,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Manage Schedule"
+            android:text="Blood Pressure"
             android:layout_marginLeft="@dimen/_20sdp"
             android:textSize="@dimen/_15sdp"
             android:textColor="@color/white"/>
@@ -54,14 +54,23 @@
             android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@+id/selectdatell">
 
-            <EditText
-                android:id="@+id/bp_upper"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/edittext_bg"
-                android:gravity="center"
-                android:paddingBottom="20dp" />
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <EditText
+                    android:id="@+id/bp_upper"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:hint="Systolic"
+                    android:inputType="number"
+                    android:paddingBottom="20dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
 
             <TextView
@@ -73,15 +82,23 @@
                 android:text="/"
                 android:textSize="@dimen/_20sdp" />
 
-            <EditText
-                android:id="@+id/bp_lower"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="120dp"
-
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/edittext_bg"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <EditText
+                android:id="@+id/bp_lower"
+                android:layout_width="match_parent"
+                android:inputType="number"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:hint="Diastolic"
                 android:gravity="center"
                 android:paddingBottom="20dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
 
         </LinearLayout>
@@ -113,6 +130,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="-100dp"
                 android:background="@drawable/darkround"
+                android:textSize="@dimen/_20sdp"
                 android:text="+"
 
                 android:textColor="@color/white" />

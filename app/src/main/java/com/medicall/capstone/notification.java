@@ -50,7 +50,7 @@ FirestoreRecyclerAdapter adapter;
         back = findViewById(R.id.backspace);
 
         ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(this,
-                R.array.Status, android.R.layout.simple_spinner_item);
+                R.array.Status, R.layout.custom_spinner);
 
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 

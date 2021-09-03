@@ -84,8 +84,7 @@ public class docsched_page3 extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), docshed_page1.class);
-                startActivity(intent);
+                onBackPressed();
             }
         });
 
@@ -505,6 +504,7 @@ if (monday){
 
     }
 
+
     public void addsched (Boolean conflict){
 
         if (conflict ){
@@ -588,6 +588,16 @@ if (monday){
         }else {
             String maxbooking = maxbookingtv.getText().toString();
             String price = pricetv.getSelectedItem().toString();
+
+            if (price.equals("₱150")) {
+                price = "appointment_150";
+            } else if (price.equals("₱200")) {
+                price = "appointment_200";
+            } else if (price.equals("₱250")) {
+                price = "appointment_250";
+            } else if (price.equals("₱300")) {
+                price = "appointment_300";
+            }
 
             Map<String, Object> DocSched = new HashMap<>();
             DocSched.put("DocId", docid);

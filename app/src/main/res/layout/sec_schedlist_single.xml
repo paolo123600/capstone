@@ -13,14 +13,28 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="@dimen/_10sdp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/doc_dp_schedlist"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/_50sdp"
+            android:background="@drawable/circlebackground"/>
 
         <LinearLayout
             android:id="@+id/docnameid"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="4"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/_10sdp">
 
 
@@ -31,6 +45,7 @@
                 android:text="Doctor Name"
                 android:textAllCaps="true"
                 android:textSize="18sp"
+                android:textColor="@color/black"
                 android:textStyle="bold"/>
 
             <TextView
@@ -39,22 +54,18 @@
                 android:layout_height="wrap_content"
                 android:text="Doc type"
                 android:textAllCaps="true"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/secsched_clinicname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="clinic"
-                android:textAllCaps="true"
-                android:textSize="18sp"
-                android:textStyle="bold"/>
-
 
 
 
         </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
 
 
 

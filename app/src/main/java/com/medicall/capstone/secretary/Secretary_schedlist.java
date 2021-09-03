@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -17,6 +19,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.medicall.capstone.Login;
 import com.medicall.capstone.R;
 import com.medicall.capstone.secretary_homepage;
 import com.medicall.capstone.utilities.PreferenceManager;
@@ -31,8 +38,12 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.mancj.materialsearchbar.MaterialSearchBar;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Secretary_schedlist extends AppCompatActivity {
 
@@ -49,10 +60,19 @@ public class Secretary_schedlist extends AppCompatActivity {
     String txt;
     private String docn;
 
+    private StorageReference storageReference;
+    private FirebaseStorage storage;
+    String image;
+    Bitmap getpic;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_secretary_schedlist);
+
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
+
 
 
         mFirestoreList = findViewById(R.id.sec_sched_recview);
@@ -121,7 +141,6 @@ public class Secretary_schedlist extends AppCompatActivity {
             protected void onBindViewHolder(@NonNull SecretarySchedViewHolder holder, int position, @NonNull SecretaryListModel model) {
                 holder.list_name.setText(model.getLastName() + ", " +  model.getFirstName());
                 holder.list_doc.setText(model.getDocType());
-                holder.list_clinicname.setText(model.getClinicName());
                 String docuid = model.getUserId();
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -141,16 +160,23 @@ public class Secretary_schedlist extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), Login.class);
+        startActivity(intent);
+    }
+
     private class SecretarySchedViewHolder extends RecyclerView.ViewHolder{
 
         private TextView list_name, list_doc, list_clinicname;
+        CircleImageView profpicturedoc;
 
         public SecretarySchedViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            profpicturedoc = itemView.findViewById(R.id.doc_dp_schedlist);
             list_name = itemView.findViewById(R.id.secsched_docname);
             list_doc = itemView.findViewById(R.id.secsched_doctype);
-            list_clinicname = itemView.findViewById(R.id.secsched_clinicname);
         }
     }
 
@@ -210,7 +236,6 @@ public class Secretary_schedlist extends AppCompatActivity {
                             protected void onBindViewHolder(@NonNull  Secretary_schedlist.SecretarySchedViewHolder holder, int position, SecretaryListModel model) {
                                 holder.list_name.setText(model.getLastName() + ", " +  model.getFirstName());
                                 holder.list_doc.setText(model.getDocType());
-                                holder.list_clinicname.setText(model.getClinicName());
                                 String docuid = model.getUserId();
                                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                                     @Override
@@ -218,6 +243,33 @@ public class Secretary_schedlist extends AppCompatActivity {
                                         Intent intent = new Intent(getApplicationContext(), Secretary_schedlist_patsched.class);
                                         intent.putExtra("docuid", docuid);
                                         startActivity(intent);
+                                    }
+                                });
+
+                                db.collection("Doctors").whereEqualTo("StorageId", docuid).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                        if (task.isSuccessful()) {
+                                            QuerySnapshot querySnapshot = task.getResult();
+                                            if (!querySnapshot.isEmpty()) {
+                                                for (QueryDocumentSnapshot profile : task.getResult()) {
+                                                    image = profile.getString("StorageId");
+                                                    storageReference = FirebaseStorage.getInstance().getReference("DoctorPicture/" + image);
+                                                    try {
+                                                        File local = File.createTempFile("myProfilePicture","");
+                                                        storageReference.getFile(local).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                                            @Override
+                                                            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                                                getpic = BitmapFactory.decodeFile(local.getAbsolutePath());
+                                                                holder.profpicturedoc.setImageBitmap(getpic);
+                                                            }
+                                                        });
+                                                    } catch (IOException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                }
+                                            }
+                                        }
                                     }
                                 });
                             }
@@ -275,7 +327,6 @@ public class Secretary_schedlist extends AppCompatActivity {
                             protected void onBindViewHolder(@NonNull  Secretary_schedlist.SecretarySchedViewHolder holder, int position,  SecretaryListModel model) {
                                 holder.list_name.setText(model.getLastName() + ", " +  model.getFirstName());
                                 holder.list_doc.setText(model.getDocType());
-                                holder.list_clinicname.setText(model.getClinicName());
                                 String docuid = model.getUserId();
                                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                                     @Override
@@ -283,6 +334,33 @@ public class Secretary_schedlist extends AppCompatActivity {
                                         Intent intent = new Intent(getApplicationContext(), Secretary_schedlist_patsched.class);
                                         intent.putExtra("docuid", docuid);
                                         startActivity(intent);
+                                    }
+                                });
+
+                                db.collection("Doctors").whereEqualTo("StorageId", docuid).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                        if (task.isSuccessful()) {
+                                            QuerySnapshot querySnapshot = task.getResult();
+                                            if (!querySnapshot.isEmpty()) {
+                                                for (QueryDocumentSnapshot profile : task.getResult()) {
+                                                    image = profile.getString("StorageId");
+                                                    storageReference = FirebaseStorage.getInstance().getReference("DoctorPicture/" + image);
+                                                    try {
+                                                        File local = File.createTempFile("myProfilePicture","");
+                                                        storageReference.getFile(local).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                                            @Override
+                                                            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                                                getpic = BitmapFactory.decodeFile(local.getAbsolutePath());
+                                                                holder.profpicturedoc.setImageBitmap(getpic);
+                                                            }
+                                                        });
+                                                    } catch (IOException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                }
+                                            }
+                                        }
                                     }
                                 });
                             }

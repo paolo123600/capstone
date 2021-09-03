@@ -76,7 +76,6 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:counterEnabled="true"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <EditText
@@ -84,7 +83,6 @@
                 android:inputType="textPersonName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
                 android:padding="@dimen/_10sdp"/>
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -98,6 +96,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:counterEnabled="true"
+                app:prefixText="+63"
+                app:counterMaxLength="10"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
 
@@ -106,8 +106,8 @@
                 android:inputType="number"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
-                android:padding="@dimen/_10sdp"/>
+                android:padding="@dimen/_10sdp"
+                android:maxLength="10"/>
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
@@ -196,7 +196,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="183dp"
                 android:layout_height="wrap_content"
-                app:counterEnabled="true">
+                app:suffixText="cm">
 
                 <EditText
                     android:id="@+id/medicalrec_height"
@@ -212,7 +212,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="182dp"
                 android:layout_height="wrap_content"
-                app:counterEnabled="true">
+                app:suffixText="kg">
 
                 <EditText
                     android:id="@+id/medicalrec_weight"
@@ -244,7 +244,6 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:counterEnabled="true"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <EditText
@@ -265,7 +264,6 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:counterEnabled="true"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <EditText

@@ -114,7 +114,6 @@ public class Secretary_schedlist_patsched extends AppCompatActivity {
             protected void onBindViewHolder(@NonNull Secretary_schedlist_patsched.SecretaryPatSchedViewHolder holder, int position, @NonNull SecretaryPatschedModel model) {
                 Date datesched =model.getDate();
                 String patientid = model.getPatientUId();
-                Toast.makeText(Secretary_schedlist_patsched.this, patientid, Toast.LENGTH_SHORT).show();
                 SimpleDateFormat format = new SimpleDateFormat("MMMM d ,yyyy");
                 String date=  format.format(datesched);
                 holder.list_datesched.setText(date);
@@ -168,6 +167,12 @@ public class Secretary_schedlist_patsched extends AppCompatActivity {
         mFirestoreList.setLayoutManager(new LinearLayoutManager(this));
         mFirestoreList.setAdapter(adapter);
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), Secretary_schedlist.class);
+        startActivity(intent);
     }
 
     private class SecretaryPatSchedViewHolder extends RecyclerView.ViewHolder{

@@ -278,10 +278,10 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
                             int count = task.getResult().size();
                             int maxbook = Integer.parseInt(model.getMaximumBooking());
                             if (maxbook == count){
-                                holder.list_numberbook.setText("No of Books:"+"Full");
+                                holder.list_numberbook.setText("No of Books: "+"Full");
                                 holder.list_bookbtn.setVisibility(View.GONE);
                             }else {
-                                holder.list_numberbook.setText("No of Books:"+count);
+                                holder.list_numberbook.setText("No of Books: "+count);
                                 holder.list_bookbtn.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
@@ -300,10 +300,6 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
                                                     public void onClick(DialogInterface dialog, int which) {
 
                                                         switch (model.getPrice()){
-                                                            case "appointment_90":
-                                                                PRODUCT_ID = "appointment_90";
-                                                                break;
-
                                                             case "appointment_150":
                                                                 PRODUCT_ID = "appointment_150";
                                                                 break;
@@ -374,8 +370,8 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
 
                     }
                 });
-                holder.list_time.setText("Time:"+model.getStartTime()+" - "+model.getEndTime());
-                holder.list_maxbook.setText("Max Booking:"+model.getMaximumBooking());
+                holder.list_time.setText("Time: "+model.getStartTime()+" - "+model.getEndTime());
+                holder.list_maxbook.setText("Max Booking: "+model.getMaximumBooking());
 
                 switch (model.getPrice()){
                     case "appointment_150":
