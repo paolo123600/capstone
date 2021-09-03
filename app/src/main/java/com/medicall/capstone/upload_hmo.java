@@ -49,6 +49,7 @@ public class upload_hmo extends AppCompatActivity {
     ImageView upload;
     public Uri imageUri;
     Button uploadbtn;
+    ImageView back;
     Switch switchhmo;
     TextView hmoinfo;
     private FirebaseStorage storage;
@@ -76,6 +77,7 @@ public class upload_hmo extends AppCompatActivity {
         cardnum = (EditText) findViewById(R.id.cardNumber);
         switchhmo = findViewById(R.id.switch_hmo);
         preferenceManager = new PreferenceManager(getApplicationContext());
+        back = findViewById(R.id.backspace);
 
         gv = (GlobalVariables) getApplicationContext();
         fAuth = FirebaseAuth.getInstance();
@@ -88,6 +90,12 @@ public class upload_hmo extends AppCompatActivity {
 
         patuid = preferenceManager.getString(Constants.KEY_USER_ID);
 
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -188,6 +196,8 @@ public class upload_hmo extends AppCompatActivity {
         if(requestCode == IMAGE_PICK_CODE && resultCode == RESULT_OK && data != null && data.getData() != null){
             imageUri = data.getData();
             upload.setImageURI(imageUri);
+            uploadbtn.setBackgroundResource(R.drawable.darkround);
+            uploadbtn.setEnabled(true);
         }
     }
 
