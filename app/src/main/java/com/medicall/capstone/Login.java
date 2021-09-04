@@ -157,17 +157,24 @@ public class Login extends AppCompatActivity {
 
 
 //
-                                if (document.exists()){
-                                    preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN, true);
-                                    preferenceManager.putString(Constants.USERTYPE, "Patient");
-                                    preferenceManager.putString(Constants.KEY_USER_ID, Uid);
-                                    preferenceManager.putString(Constants.KEY_FIRST_NAME, document.getString(Constants.KEY_FIRST_NAME));
-                                    preferenceManager.putString(Constants.KEY_LAST_NAME, document.getString(Constants.KEY_LAST_NAME));
-                                    preferenceManager.putString(Constants.KEY_EMAIL, document.getString(Constants.KEY_EMAIL));
+                                if (user.isEmailVerified()) {
+//
+                                    if (document.exists()){
+                                        preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN, true);
+                                        preferenceManager.putString(Constants.USERTYPE, "Patient");
+                                        preferenceManager.putString(Constants.KEY_USER_ID, Uid);
+                                        preferenceManager.putString(Constants.KEY_FIRST_NAME, document.getString(Constants.KEY_FIRST_NAME));
+                                        preferenceManager.putString(Constants.KEY_LAST_NAME, document.getString(Constants.KEY_LAST_NAME));
+                                        preferenceManager.putString(Constants.KEY_EMAIL, document.getString(Constants.KEY_EMAIL));
 
-                                    Intent intent = new Intent (Login.this, MainActivity.class);
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                    startActivity(intent);
+                                        Intent intent = new Intent (Login.this, MainActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        startActivity(intent);
+                                    }
+                                }else if (!user.isEmailVerified()){
+                                    Toast.makeText(Login.this, "Email is not Verfified", Toast.LENGTH_SHORT).show();
+                                    signInProgressBar.setVisibility(View.INVISIBLE);
+                                    bg_remove.setVisibility(View.VISIBLE);
                                 }
                                 else {
 
