@@ -293,7 +293,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_weight="2"
-                        android:inputType="textImeMultiLine"
+                        android:inputType="number"
                         android:maxLength="11" />
                 </com.google.android.material.textfield.TextInputLayout>
 

@@ -183,7 +183,7 @@
         <LinearLayout
             android:id="@+id/addededittext"
             android:layout_width="384dp"
-            android:layout_height="104dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
 
@@ -271,7 +271,6 @@
                 android:inputType="textMultiLine"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/edittext_bg"
                 android:padding="@dimen/_10sdp"/>
 
             </com.google.android.material.textfield.TextInputLayout>

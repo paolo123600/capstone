@@ -88,7 +88,7 @@ public class Secretary_schedlist_patsched extends AppCompatActivity {
         });
 
 
-        Query query = db.collection("Schedules").whereEqualTo("DoctorUId", docuid).whereEqualTo("Status", "Paid").orderBy("Date", Query.Direction.ASCENDING).limit(20);
+        Query query = db.collection("Schedules").whereEqualTo("DoctorUId", docuid).whereEqualTo("ClinicName", preferenceManager.getString("ClinicName")).whereEqualTo("Status", "Paid").orderBy("Date", Query.Direction.ASCENDING).limit(20);
 
         FirestoreRecyclerOptions<SecretaryPatschedModel> options = new FirestoreRecyclerOptions.Builder<SecretaryPatschedModel>().setQuery(query, SecretaryPatschedModel.class).build();
 

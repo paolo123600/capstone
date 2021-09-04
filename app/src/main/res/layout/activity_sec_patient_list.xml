@@ -7,34 +7,57 @@
     android:background="@color/mainbg"
     tools:context="com.medicall.capstone.Sec_patient_list">
 
-  <com.mancj.materialsearchbar.MaterialSearchBar
-      android:id="@+id/searchBar"
-      android:layout_width="410dp"
-      android:layout_height="57dp"
-      android:layout_marginTop="4dp"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0.4"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      app:mt_hint="Search by Surname" />
-
-  <ScrollView
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_marginTop="@dimen/_43sdp"
-      app:layout_constraintTop_toBottomOf="@id/searchBar">
-
   <LinearLayout
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:orientation="vertical"
-      app:layout_constraintTop_toBottomOf="@+id/searchBar">
+      android:layout_height="match_parent"
+      android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/blue2"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+
+      <ImageView
+          android:id="@+id/backspace"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="16dp"
+          android:layout_marginLeft="16dp"
+          android:background="@drawable/ic_backspace" />
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Chat List"
+          android:layout_marginLeft="@dimen/_20sdp"
+          android:textSize="@dimen/_15sdp"
+          android:textColor="@color/white"/>
+
+    </LinearLayout>
+
+    <com.mancj.materialsearchbar.MaterialSearchBar
+        android:id="@+id/searchBar"
+        android:layout_width="410dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:mt_hint="Search by Surname" />
 
     <TextView
         android:id="@+id/changeTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
         android:layout_marginBottom="16dp"
         android:text="Patients:"
         android:textSize="24sp"
@@ -45,22 +68,26 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewpat"
         android:layout_width="match_parent"
-        android:layout_height="414dp" />
+        android:layout_height="match_parent" />
 
-
-
-    <Button
-        android:id="@+id/button_doctor_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/darkround"
-        android:layout_gravity="right"
-        android:text="Doctor"
-        android:textColor="@color/white" />
 
   </LinearLayout>
 
-  </ScrollView>
+
+  <Button
+      android:id="@+id/button_doctor_view"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="right"
+      android:background="@drawable/darkround"
+      android:text="Doctor"
+      android:textColor="@color/white"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      android:layout_marginRight="@dimen/_10sdp"
+      android:layout_marginBottom="@dimen/_10sdp"/>
+
+
 
 
 

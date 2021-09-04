@@ -32,7 +32,8 @@ public class patientrec_sec extends AppCompatActivity {
     TextView emcontact_patrec;
     TextView preillness_patrec;
     TextView allergies_patrec;
-    TextView bloodp_patrec;
+    TextView email_patrec;
+
 
     Button history;
     ImageView back;
@@ -56,7 +57,8 @@ public class patientrec_sec extends AppCompatActivity {
         emcontact_patrec = findViewById(R.id.emergency_contact_patientrec);
         preillness_patrec = findViewById(R.id.prexisting_patientrec);
         allergies_patrec = findViewById(R.id.allergies_patientrec);
-        bloodp_patrec = findViewById(R.id.bloodppatientrec);
+        email_patrec = findViewById(R.id.patientrec_email);
+
 
         back = findViewById(R.id.backspace);
 
@@ -80,7 +82,7 @@ public class patientrec_sec extends AppCompatActivity {
         emcontact_patrec.setKeyListener(null);
         preillness_patrec.setKeyListener(null);
         allergies_patrec.setKeyListener(null);
-        bloodp_patrec.setKeyListener(null);
+
 
 
         back.setOnClickListener(new View.OnClickListener() {
@@ -98,14 +100,14 @@ public class patientrec_sec extends AppCompatActivity {
                 name_patrec.setText(documentSnapshot.getString("LastName") + ", " + documentSnapshot.getString("FirstName") + " " + documentSnapshot.getString("MiddleInitial"));
                 gender_patrec.setText(documentSnapshot.getString("Sex"));
                 bday_patrec.setText(documentSnapshot.getString("Birthday"));
-                number_patrec.setText(documentSnapshot.getString("Contact"));
+                number_patrec.setText("0" + documentSnapshot.getString("Contact"));
                 height_patrec.setText(documentSnapshot.getString("Height") + "cm");
                 bt_patrec.setText(documentSnapshot.getString("BloodType"));
-                bloodp_patrec.setText(documentSnapshot.getString("BloodP"));
                 weight_patrec.setText(documentSnapshot.getString("Weight") + "kg");
-                emcontact_patrec.setText(documentSnapshot.getString("EContactNumber"));
+                emcontact_patrec.setText("0" + documentSnapshot.getString("EContactNumber"));
                 preillness_patrec.setText(documentSnapshot.getString("Illness"));
                 allergies_patrec.setText(documentSnapshot.getString("Allergies"));
+                email_patrec.setText(documentSnapshot.getString("Email"));
             }
         });
 
@@ -113,6 +115,7 @@ public class patientrec_sec extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), PastAppointments.class);
+                intent.putExtra("patuid", patid);
                 startActivity(intent);
             }
         });
