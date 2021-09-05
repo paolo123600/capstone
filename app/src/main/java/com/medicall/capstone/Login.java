@@ -49,12 +49,12 @@ public class Login extends AppCompatActivity {
 
         gv = (GlobalVariables) getApplicationContext();
 
-            preferenceManager = new PreferenceManager(getApplicationContext());
-            if (preferenceManager.getBoolean(Constants.KEY_IS_SIGNED_IN)) {
+        preferenceManager = new PreferenceManager(getApplicationContext());
+        if (preferenceManager.getBoolean(Constants.KEY_IS_SIGNED_IN)) {
             if (preferenceManager.getString(Constants.USERTYPE).equals("Patient")){
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
-            finish();
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
             }
             else if (preferenceManager.getString(Constants.USERTYPE).equals("Doctor")){
                 Intent intent = new Intent(getApplicationContext(), doctor_homepage.class);
@@ -88,8 +88,8 @@ public class Login extends AppCompatActivity {
         terms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            Intent intent = new Intent(Login.this, Terms.class);
-            startActivity(intent);
+                Intent intent = new Intent(Login.this, Terms.class);
+                startActivity(intent);
             }
         });
 
@@ -146,19 +146,16 @@ public class Login extends AppCompatActivity {
                     GlobalVariables gv= (GlobalVariables) getApplicationContext();
                     gv.setMainUser(email);
                     gv.setMainuserID(Uid);
-                    DocumentReference docIdref = db.collection("Patients").document(Uid);
-                    docIdref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                            if (task.isSuccessful()){
-                                DocumentSnapshot document = task.getResult();
 
-                                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    if (user.isEmailVerified()) {
+                        DocumentReference docIdref = db.collection("Patients").document(Uid);
+                        docIdref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()){
+                                    DocumentSnapshot document = task.getResult();
 
-
-//
-                                if (user.isEmailVerified()) {
-//
                                     if (document.exists()){
                                         preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN, true);
                                         preferenceManager.putString(Constants.USERTYPE, "Patient");
@@ -171,92 +168,90 @@ public class Login extends AppCompatActivity {
                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         startActivity(intent);
                                     }
-                                }else if (!user.isEmailVerified()){
-                                    Toast.makeText(Login.this, "Email is not Verfified", Toast.LENGTH_SHORT).show();
-                                    signInProgressBar.setVisibility(View.INVISIBLE);
-                                    bg_remove.setVisibility(View.VISIBLE);
+
+                                    else {
+
+                                        String Uid=FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                        DocumentReference docIdref = db.collection("Doctors").document(Uid);
+                                        docIdref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                if (task.isSuccessful()){
+                                                    DocumentSnapshot document = task.getResult();
+                                                    if (document.exists()){
+                                                        preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN, true);
+                                                        preferenceManager.putString(Constants.USERTYPE, "Doctor");
+                                                        preferenceManager.putString(Constants.KEY_USER_ID, Uid);
+                                                        preferenceManager.putString(Constants.KEY_FIRST_NAME, document.getString(Constants.KEY_FIRST_NAME));
+                                                        preferenceManager.putString(Constants.KEY_LAST_NAME, document.getString(Constants.KEY_LAST_NAME));
+                                                        preferenceManager.putString(Constants.KEY_EMAIL, document.getString(Constants.KEY_EMAIL));
+                                                        preferenceManager.putString("ClinicName",document.getString("ClinicName"));
+
+                                                        Intent intent = new Intent (Login.this, Ra_doc.class);
+                                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                        startActivity(intent);
+                                                    }
+                                                    else {
+                                                        String Uid=FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                                        DocumentReference docIdref = db.collection("Secretary").document(Uid);
+                                                        docIdref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                            @Override
+                                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                                if (task.isSuccessful()){
+                                                                    DocumentSnapshot document = task.getResult();
+                                                                    if (document.exists()){
+
+                                                                        preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN, true);
+                                                                        preferenceManager.putString(Constants.USERTYPE, "Secretary");
+                                                                        preferenceManager.putString(Constants.KEY_USER_ID, Uid);
+                                                                        preferenceManager.putString(Constants.KEY_FIRST_NAME, document.getString(Constants.KEY_FIRST_NAME));
+                                                                        preferenceManager.putString(Constants.KEY_LAST_NAME, document.getString(Constants.KEY_LAST_NAME));
+                                                                        preferenceManager.putString(Constants.KEY_EMAIL, document.getString(Constants.KEY_EMAIL));
+                                                                        preferenceManager.putString("ClinicName",document.getString("ClinicName"));
+
+                                                                        Intent intent = new Intent (Login.this, Ra_sec.class);
+                                                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                                        startActivity(intent);
+                                                                    }
+                                                                    else {
+                                                                        progressbg.setVisibility(View.INVISIBLE);
+                                                                        signInProgressBar.setVisibility(View.INVISIBLE);
+                                                                        bg_remove.setVisibility(View.VISIBLE);
+                                                                        Toast.makeText(Login.this, "Invalid login details", Toast.LENGTH_SHORT).show();
+                                                                    }
+                                                                }
+                                                                else {
+
+
+                                                                }
+                                                            }
+                                                        });
+                                                    }
+//                                                Intent forgotPW = new Intent (Login.this, MainActivity.class);
+//                                                startActivity(forgotPW);
+                                                }
+                                                else {
+
+
+                                                }
+                                            }
+                                        });
+
+                                    }
                                 }
                                 else {
 
 
-
-
-                                    String Uid=FirebaseAuth.getInstance().getCurrentUser().getUid();
-                                    DocumentReference docIdref = db.collection("Doctors").document(Uid);
-                                    docIdref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                            if (task.isSuccessful()){
-                                                DocumentSnapshot document = task.getResult();
-                                                if (document.exists()){
-                                                    preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN, true);
-                                                    preferenceManager.putString(Constants.USERTYPE, "Doctor");
-                                                    preferenceManager.putString(Constants.KEY_USER_ID, Uid);
-                                                    preferenceManager.putString(Constants.KEY_FIRST_NAME, document.getString(Constants.KEY_FIRST_NAME));
-                                                    preferenceManager.putString(Constants.KEY_LAST_NAME, document.getString(Constants.KEY_LAST_NAME));
-                                                    preferenceManager.putString(Constants.KEY_EMAIL, document.getString(Constants.KEY_EMAIL));
-                                                    preferenceManager.putString("ClinicName",document.getString("ClinicName"));
-
-                                                    Intent intent = new Intent (Login.this, Ra_doc.class);
-                                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                                    startActivity(intent);
-                                                }
-                                                else {
-                                                    String Uid=FirebaseAuth.getInstance().getCurrentUser().getUid();
-                                                    DocumentReference docIdref = db.collection("Secretary").document(Uid);
-                                                    docIdref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                                        @Override
-                                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                                            if (task.isSuccessful()){
-                                                                DocumentSnapshot document = task.getResult();
-                                                                if (document.exists()){
-
-                                                                    preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN, true);
-                                                                    preferenceManager.putString(Constants.USERTYPE, "Secretary");
-                                                                    preferenceManager.putString(Constants.KEY_USER_ID, Uid);
-                                                                    preferenceManager.putString(Constants.KEY_FIRST_NAME, document.getString(Constants.KEY_FIRST_NAME));
-                                                                    preferenceManager.putString(Constants.KEY_LAST_NAME, document.getString(Constants.KEY_LAST_NAME));
-                                                                    preferenceManager.putString(Constants.KEY_EMAIL, document.getString(Constants.KEY_EMAIL));
-                                                                    preferenceManager.putString("ClinicName",document.getString("ClinicName"));
-
-                                                                    Intent intent = new Intent (Login.this, Ra_sec.class);
-                                                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                                                    startActivity(intent);
-                                                                }
-                                                                else {
-                                                                    progressbg.setVisibility(View.INVISIBLE);
-                                                                    signInProgressBar.setVisibility(View.INVISIBLE);
-                                                                    bg_remove.setVisibility(View.VISIBLE);
-                                                                    Toast.makeText(Login.this, "Invalid login details", Toast.LENGTH_SHORT).show();
-                                                                }
-                                                            }
-                                                            else {
-
-
-                                                            }
-                                                        }
-                                                    });
-                                                }
-//                                                Intent forgotPW = new Intent (Login.this, MainActivity.class);
-//                                                startActivity(forgotPW);
-                                            }
-                                            else {
-
-
-                                            }
-                                        }
-                                    });
-
                                 }
                             }
-                            else {
 
+                        });
 
-                            }
-                        }
-                    });
-
-
+                    }else if (!user.isEmailVerified()){
+                        Toast.makeText(Login.this, "Email is not Verfified", Toast.LENGTH_SHORT).show();
+                        signInProgressBar.setVisibility(View.INVISIBLE);
+                        bg_remove.setVisibility(View.VISIBLE);
+                    }
 
                 }
                 else{
