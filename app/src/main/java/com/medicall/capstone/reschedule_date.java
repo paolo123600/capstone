@@ -230,6 +230,7 @@ public class reschedule_date extends AppCompatActivity implements DatePickerDial
                 return new reschedule_date.DocReSchedViewHolder(view);
             }
 
+
             @Override
             protected void onBindViewHolder(@NonNull reschedule_date.DocReSchedViewHolder holder, int position, @NonNull DocSchedModel model) {
 
