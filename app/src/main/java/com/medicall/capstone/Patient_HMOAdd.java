@@ -1,5 +1,6 @@
 package com.medicall.capstone;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
@@ -16,6 +17,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -64,6 +66,8 @@ public class Patient_HMOAdd extends AppCompatActivity {
     String searchablespinner;
 
     String subjecthmo;
+
+    String addhmonum;
 
     AutoCompleteTextView autospinner;
     @Override
@@ -129,15 +133,31 @@ public class Patient_HMOAdd extends AppCompatActivity {
 
 
 
+
         btnaccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if (hmo.contains(autospinner.getText().toString())) {
-                    addhmo();
-                }else {
-                    Toast.makeText(Patient_HMOAdd.this, "Please select an HMO in the list", Toast.LENGTH_SHORT).show();
+                addhmonum = HMOnumber.getText().toString();
+                if (addhmonum.isEmpty()) {
+                    Toast.makeText(Patient_HMOAdd.this, "Please Enter a Card Number", Toast.LENGTH_SHORT).show();
                 }
+                else if (hmo.contains(autospinner.getText().toString())) {
+                        new AlertDialog.Builder(Patient_HMOAdd.this).setTitle("Add HMO").setMessage("Are you sure you want to add this HMO?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                addhmo();
+                            }
+                        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        }).show();
+
+                    } else {
+                        Toast.makeText(Patient_HMOAdd.this, "Please select an HMO in the list", Toast.LENGTH_SHORT).show();
+                    }
 
 
 
@@ -150,25 +170,26 @@ public class Patient_HMOAdd extends AppCompatActivity {
         String Uid=FirebaseAuth.getInstance().getCurrentUser().getUid();
 
        hmospinner = autospinner.getText().toString();
-       String addhmonum = HMOnumber.getText().toString();
+       addhmonum = HMOnumber.getText().toString();
 
 
 
-        Map<String,Object> hmodb = new HashMap<>();
-        hmodb.put ("HMOName",hmospinner);
-        db.collection("HMO").document(hmospinner).set(hmodb);
-        ///
-        Map<String,Object> uid = new HashMap<>();
-        uid.put ("PatientUId",Uid);
-        db.collection("HMO").document(hmospinner).collection("Patients").document(Uid).set(uid);
 
-        Map<String,Object> pathmo = new HashMap<>();
-        pathmo.put ("HMOName",hmospinner);
-        pathmo.put("CardNumber", addhmonum);
-        db.collection("Patients").document(Uid).collection("HMO").document(hmospinner).set(pathmo);
+           Map<String,Object> hmodb = new HashMap<>();
+           hmodb.put ("HMOName",hmospinner);
+           db.collection("HMO").document(hmospinner).set(hmodb);
+           ///
+           Map<String,Object> uid = new HashMap<>();
+           uid.put ("PatientUId",Uid);
+           db.collection("HMO").document(hmospinner).collection("Patients").document(Uid).set(uid);
 
+           Map<String,Object> pathmo = new HashMap<>();
+           pathmo.put ("HMOName",hmospinner);
+           pathmo.put("CardNumber", addhmonum);
+           db.collection("Patients").document(Uid).collection("HMO").document(hmospinner).set(pathmo);
 
-        Toast.makeText(Patient_HMOAdd.this, hmospinner, Toast.LENGTH_SHORT).show();
+           Toast.makeText(Patient_HMOAdd.this, hmospinner, Toast.LENGTH_SHORT).show();
+
 
     }
 }

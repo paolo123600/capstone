@@ -13,10 +13,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.medicall.capstone.Model.PatientHMOModel;
 
 import com.medicall.capstone.R;
@@ -42,6 +46,7 @@ public class Patient_HMOList extends AppCompatActivity {
     PreferenceManager preferenceManager;
 
     ImageView back;
+    TextView None;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +61,7 @@ public class Patient_HMOList extends AppCompatActivity {
         hmoList = (RecyclerView) findViewById(R.id.HMOList);
         Add = (Button) findViewById(R.id.hmo_add);
         back = findViewById(R.id.backspace);
+        None = findViewById(R.id.list_none);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,13 +84,23 @@ public class Patient_HMOList extends AppCompatActivity {
                 .setQuery(query, PatientHMOModel.class)
                 .build();
 
+
+
+
+
         adapter = new FirestoreRecyclerAdapter<PatientHMOModel, PatientHMOModelView>(options) {
             @NonNull
             @Override
             public PatientHMOModelView onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.hmo_list_recyclerview, parent, false);
                 return new Patient_HMOList.PatientHMOModelView(view);
+
+
+
             }
+
+
+
             @Override
             protected void onBindViewHolder(@NonNull PatientHMOModelView holder, int position, @NonNull PatientHMOModel model){
 
@@ -144,6 +160,27 @@ public class Patient_HMOList extends AppCompatActivity {
         hmoList.setLayoutManager(new LinearLayoutManager(this));
         hmoList.setAdapter(adapter);
         adapter.startListening();
+
+
+        db.collection("Patients").document(userID).collection("HMO").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (error != null) {
+                    Toast.makeText(Patient_HMOList.this, "Error listening", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (value.isEmpty()) {
+                    None.setVisibility(View.VISIBLE);
+                    hmoList.setVisibility(View.GONE);
+                } else {
+                    None.setVisibility(View.GONE);
+                    hmoList.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+
     }
 
 

@@ -1,6 +1,7 @@
 package com.medicall.capstone.secretary;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,6 +21,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -64,6 +67,7 @@ public class Secretary_schedlist extends AppCompatActivity {
     private FirebaseStorage storage;
     String image;
     Bitmap getpic;
+    TextView None;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +77,7 @@ public class Secretary_schedlist extends AppCompatActivity {
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
 
+        None = findViewById(R.id.schedlist_none);
 
 
         mFirestoreList = findViewById(R.id.sec_sched_recview);
@@ -111,7 +116,6 @@ public class Secretary_schedlist extends AppCompatActivity {
                     adapter.stopListening();
                     txt = txt.substring(0, 1).toUpperCase() + txt.substring(1).toLowerCase();
                     searchDoc(txt.toString());
-                    Toast.makeText(Secretary_schedlist.this, txt.toString(), Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -157,6 +161,24 @@ public class Secretary_schedlist extends AppCompatActivity {
         mFirestoreList.setLayoutManager(new LinearLayoutManager(this));
         mFirestoreList.setAdapter(adapter);
         adapter.startListening();
+
+        db.collection("Doctors").whereEqualTo("ClinicName", preferenceManager.getString("ClinicName")).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (error != null) {
+                    Toast.makeText(Secretary_schedlist.this, "Error listening", Toast.LENGTH_SHORT).show();
+                }
+
+                if (value.isEmpty()) {
+                    None.setVisibility(View.VISIBLE);
+                    mFirestoreList.setVisibility(View.GONE);
+
+                } else {
+                    None.setVisibility(View.GONE);
+                    mFirestoreList.setVisibility(View.VISIBLE);
+                }
+            }
+        });
 
     }
 
@@ -284,7 +306,6 @@ public class Secretary_schedlist extends AppCompatActivity {
                         mFirestoreList.setAdapter(adapter);
                         adapter.startListening();
 
-
                     }
                 }
             }
@@ -370,6 +391,7 @@ public class Secretary_schedlist extends AppCompatActivity {
                         mFirestoreList.setLayoutManager(new LinearLayoutManager(Secretary_schedlist.this));
                         mFirestoreList.setAdapter(adapter);
                         adapter.startListening();
+
 
                     }
                 }
