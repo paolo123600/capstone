@@ -40,7 +40,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center"
         android:layout_marginTop="@dimen/_10sdp">
@@ -49,46 +49,51 @@
             android:id="@+id/tv_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:text="Select Date of Appointement"
             android:textSize="20dp"
             android:layout_marginTop="-2dp"
             android:paddingBottom="20dp"/>
 
         <LinearLayout
-            android:layout_width="340dp"
-            android:layout_height="68dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_40sdp"
+            android:layout_marginRight="@dimen/_40sdp"
             android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/et_date"
-                android:layout_width="200dp"
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="80dp"
-                android:gravity="center_horizontal"
-                android:hint="Select Date"
-                android:textAlignment="center"
-                android:textSize="20dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-                />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="-260dp"
-                android:text="Date"
+                <EditText
+                    android:id="@+id/et_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    android:hint="Select Date"
+                    android:textAlignment="center"
+                    android:textSize="20dp"
 
-                android:textSize="20dp" />
+                    android:focusableInTouchMode="false" />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
         </LinearLayout>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycleviewdocsched"
-            android:layout_width="370dp"
-            android:layout_height="370dp"
-            android:layout_marginTop="50dp"
-            android:paddingTop="20dp" />
-
-
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_10sdp"/>
 
 
     </LinearLayout>

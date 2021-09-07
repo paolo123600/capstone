@@ -109,6 +109,12 @@ protected void onCreate(Bundle savedInstanceState) {
                 Toast.makeText(Sign_UpActivity.this, "Enter Password",Toast.LENGTH_SHORT).show();
             } else if (ET_Pass.getText().toString().length()<6){
                 Toast.makeText(Sign_UpActivity.this, "Password must be more than 6 characters",Toast.LENGTH_SHORT).show();
+            }else if (!ET_Pass.getText().toString().matches(".*[A-Z].*")) {
+                Toast.makeText(Sign_UpActivity.this, "Password must contain an upper case letter",Toast.LENGTH_SHORT).show();
+            }else  if (!ET_Pass.getText().toString().matches(".*[0-9].*")) {
+                Toast.makeText(Sign_UpActivity.this, "Password must contain a number",Toast.LENGTH_SHORT).show();
+            }else if (!ET_Pass.getText().toString().matches("^(?=.*[_.,()?!@#$%^&*]).*$")) {
+                Toast.makeText(Sign_UpActivity.this, "Password must contain a symbol",Toast.LENGTH_SHORT).show();
             }else if (ET_Address.getText().toString().trim().isEmpty()){
                 Toast.makeText(Sign_UpActivity.this, "Enter Enter Address",Toast.LENGTH_SHORT).show();
             }else if (ET_Municipality.getText().toString().trim().isEmpty()){
