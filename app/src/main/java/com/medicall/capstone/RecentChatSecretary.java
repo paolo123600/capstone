@@ -66,6 +66,7 @@ public class RecentChatSecretary extends AppCompatActivity {
     String mainuserid;
     ImageView back;
     TextView none;
+    TextView none1;
     private PreferenceManager preferenceManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +84,7 @@ public class RecentChatSecretary extends AppCompatActivity {
         String User = preferenceManager.getString(Constants.KEY_USER_ID);
         back = findViewById(R.id.backspace);
         none = findViewById(R.id.None);
+        none1 = findViewById(R.id.None1);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -196,23 +198,22 @@ public class RecentChatSecretary extends AppCompatActivity {
         docAdapter.startListening();
 
 
-        db.collection("Secretary").document(mainuserid).collection("ChatList").addSnapshotListener(new EventListener<QuerySnapshot>() {
+        db.collection("Secretary").document(mainuserid).collection("ChatList").whereEqualTo("UserType","Doctors").orderBy("DateAndTime", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
-            public void onEvent(@Nullable  QuerySnapshot value, @Nullable  FirebaseFirestoreException error) {
+            public void onEvent(@Nullable  QuerySnapshot value,  FirebaseFirestoreException error) {
                 if(error != null){
                     Toast.makeText(RecentChatSecretary.this, "Error Loading",Toast.LENGTH_SHORT).show();
                 }
                 if(value.isEmpty()){
-                    none.setVisibility(View.VISIBLE);
+                    none1.setVisibility(View.VISIBLE);
                     recyclerView1.setVisibility(View.GONE);
                 } else {
-                    none.setVisibility(View.GONE);
+                    none1.setVisibility(View.GONE);
                     recyclerView1.setVisibility(View.VISIBLE);
                 }
-
-               }
-
+            }
         });
+
 
 
     }
