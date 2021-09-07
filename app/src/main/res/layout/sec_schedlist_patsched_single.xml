@@ -57,6 +57,14 @@
                     android:textAllCaps="true"
                     android:textSize="14sp"
                     android:textStyle="bold"/>
+                <TextView
+                    android:id="@+id/secsched_timesched"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Date"
+                    android:textAllCaps="true"
+                    android:textSize="14sp"
+                    android:textStyle="bold"/>
 
 
 

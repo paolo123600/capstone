@@ -188,12 +188,10 @@ public class docsched_page2 extends AppCompatActivity {
                         if (holder.switchbtn.isChecked()) {
                             Map<String, Object> DocSched = new HashMap<>();
                             DocSched.put("InActive", true);
-                            Toast.makeText(docsched_page2.this, "ON", Toast.LENGTH_SHORT).show();
                             db.collection("DoctorSchedules").document(documentid).update(DocSched);
                         } else {
                             Map<String, Object> DocSched = new HashMap<>();
                             DocSched.put("InActive", false);
-                            Toast.makeText(docsched_page2.this, "OFF", Toast.LENGTH_SHORT).show();
                             db.collection("DoctorSchedules").document(documentid).update(DocSched);
 
                         }

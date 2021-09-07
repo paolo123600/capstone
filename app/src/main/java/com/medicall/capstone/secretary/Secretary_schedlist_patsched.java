@@ -117,6 +117,7 @@ public class Secretary_schedlist_patsched extends AppCompatActivity {
                 SimpleDateFormat format = new SimpleDateFormat("MMMM d ,yyyy");
                 String date=  format.format(datesched);
                 holder.list_datesched.setText(date);
+                holder.list_timesched.setText(model.getStartTime()+" - "+model.getEndTime());
                 db.collection("Patients").document(model.getPatientUId()).get()
                         .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                             @Override
@@ -177,7 +178,7 @@ public class Secretary_schedlist_patsched extends AppCompatActivity {
 
     private class SecretaryPatSchedViewHolder extends RecyclerView.ViewHolder{
 
-        private TextView list_name, list_datesched;
+        private TextView list_name, list_datesched ,list_timesched;
         private ImageView profilepic;
 
         public SecretaryPatSchedViewHolder(@NonNull View itemView) {
@@ -186,6 +187,7 @@ public class Secretary_schedlist_patsched extends AppCompatActivity {
             list_name = itemView.findViewById(R.id.secsched_patname);
             list_datesched = itemView.findViewById(R.id.secsched_datesched);
             profilepic = itemView.findViewById(R.id.patient_profilepic);
+            list_timesched=itemView.findViewById(R.id.secsched_timesched);
 
         }
     }

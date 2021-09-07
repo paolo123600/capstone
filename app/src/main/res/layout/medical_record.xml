@@ -24,186 +24,162 @@
             android:id="@+id/emergencyedittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Medical Records"
-                android:paddingTop="@dimen/_10sdp"
-                android:paddingBottom="@dimen/_10sdp"
-                android:textSize="@dimen/_20sdp"/>
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/_5sdp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                android:layout_marginTop="@dimen/_5sdp">
 
                 <EditText
                     android:id="@+id/EcontanctP"
-                    android:inputType="textPersonName"
                     android:layout_width="match_parent"
-                    android:hint="Emergency Contact Person"
                     android:layout_height="match_parent"
-                    android:padding="@dimen/_10sdp"/>
-
+                    android:hint="Emergency Contact Person"
+                    android:inputType="textPersonName"
+                    android:padding="@dimen/_10sdp" />
 
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/_5sdp"
-                app:prefixText="+63"
-                app:counterMaxLength="10"
                 app:counterEnabled="true"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                app:counterMaxLength="10"
+                app:prefixText="+63">
 
                 <EditText
                     android:id="@+id/EcontanctN"
-                    android:inputType="number"
                     android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:hint="Contact Number"
-                    android:layout_height="match_parent"
+                    android:inputType="number"
                     android:maxLength="10"
-                    android:padding="@dimen/_10sdp"/>
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-
-        <LinearLayout
-            android:id="@+id/heightedittext"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/_5sdp"
-                app:suffixText="cm"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-                <EditText
-                    android:id="@+id/Height"
-                    android:inputType="numberDecimal"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="Height"
-                    android:padding="@dimen/_10sdp"/>
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginLeft="@dimen/_5sdp"
-                app:suffixText="kg"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-                <EditText
-                    android:id="@+id/Weight"
-                    android:inputType="numberDecimal"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="Weight"
                     android:padding="@dimen/_10sdp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
 
+            <LinearLayout
+                android:id="@+id/heightedittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    app:suffixText="cm">
+
+                    <EditText
+                        android:id="@+id/Height"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="Height"
+                        android:inputType="numberDecimal"
+                        android:padding="@dimen/_10sdp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    app:suffixText="kg">
+
+                    <EditText
+                        android:id="@+id/Weight"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="Weight"
+                        android:inputType="numberDecimal"
+                        android:padding="@dimen/_10sdp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
 
-
-        </LinearLayout>
-
-
-
+            </LinearLayout>
 
 
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/_5sdp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+                android:layout_marginTop="@dimen/_5sdp">
 
                 <AutoCompleteTextView
                     android:id="@+id/autocomplete_bloodtype"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="none"
                     android:hint="Blood Type"
-                    />
+                    android:inputType="none" />
 
 
             </com.google.android.material.textfield.TextInputLayout>
 
 
-
-
-
-
-
-
-
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/_5sdp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                android:layout_marginTop="@dimen/_5sdp">
 
                 <EditText
                     android:id="@+id/Allergies"
-                    android:inputType="textMultiLine"
                     android:layout_width="match_parent"
-                    android:hint="Allergies"
                     android:layout_height="@dimen/_80sdp"
+                    android:hint="Allergies"
+                    android:inputType="textMultiLine"
                     android:padding="@dimen/_10sdp" />
 
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/_5sdp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                android:layout_marginTop="@dimen/_5sdp">
 
                 <EditText
                     android:id="@+id/illness"
-                    android:inputType="textMultiLine"
                     android:layout_width="match_parent"
-                    android:hint="Pre Existing Illness"
                     android:layout_height="@dimen/_80sdp"
-                    android:padding="@dimen/_10sdp"/>
+                    android:hint="Pre Existing Illness"
+                    android:inputType="textMultiLine"
+                    android:padding="@dimen/_10sdp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
 
-
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:gravity="center">
-
-            <Button
-                android:id="@+id/btn_continue"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Submit"
-                android:textColor="@color/white"
-                android:background="@drawable/darkround"/>
+                android:layout_marginTop="@dimen/_5sdp"
+                android:gravity="center">
 
-        </LinearLayout>
+                <Button
+                    android:id="@+id/btn_continue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/darkround"
+                    android:text="Submit"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
 
         </LinearLayout>
 

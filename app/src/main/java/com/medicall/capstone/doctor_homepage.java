@@ -1,7 +1,10 @@
 package com.medicall.capstone;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -92,58 +95,15 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
     RecyclerView mFirestorelist;
     String userId;
     Button btncomplete , btnnext;
+    private BroadcastReceiver minuteUpdateReceiver;
 
     private StorageReference storageReference;
     private FirebaseStorage storage;
     StorageReference ref;
     String image;
     Bitmap getpic;
-    private Runnable runnable = new Runnable() {     public void run() {   SimpleDateFormat dateFormat = new SimpleDateFormat("h:mmaa");
-
-        try {
-
-            Calendar calendar2 = Calendar.getInstance();
-            int day = calendar2.get(Calendar.DAY_OF_WEEK);
-
-            switch (day) {
-                case Calendar.SUNDAY:
-                    currentday = "Sunday";
-                    break;
-                case Calendar.MONDAY:
-                    currentday = "Monday";
-                    break;
-                case Calendar.TUESDAY:
-                    currentday = "Tuesday";
-                    break;
-                case Calendar.WEDNESDAY:
-                    currentday = "Wednesday";
-                    break;
-                case Calendar.THURSDAY:
-                    currentday = "Thursday";
-                    break;
-                case Calendar.FRIDAY:
-                    currentday = "Friday";
-                    break;
-                case Calendar.SATURDAY:
-                    currentday = "Saturday";
-                    break;
-            }
-
-            Date currentTime = Calendar.getInstance().getTime();
-
-//            String timenow1 =dateFormat.format(currentTime);
 
 
-            String timenow1 ="4:40PM";
-            timenow = dateFormat.parse(timenow1);
-
-        } catch (ParseException e) {
-            Toast.makeText(doctor_homepage.this, "error getting time", Toast.LENGTH_SHORT).show();
-        }
-        checkschedcurrent();
-
-    }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -225,10 +185,10 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
 
             Date currentTime = Calendar.getInstance().getTime();
 
-//            String timenow1 =dateFormat.format(currentTime);
+            String timenow1 =dateFormat.format(currentTime);
 
 
-            String timenow1 ="4:40PM";
+//            String timenow1 ="4:40PM";
             timenow = dateFormat.parse(timenow1);
 
         } catch (ParseException e) {
@@ -316,9 +276,61 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
 
 
     }
-    public void stophandler()
-    {
-        condition=true;
+    public void startMinuteUpdater(){
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(Intent.ACTION_TIME_TICK);
+        minuteUpdateReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("h:mmaa");
+
+                try {
+
+                    Calendar calendar2 = Calendar.getInstance();
+                    int day = calendar2.get(Calendar.DAY_OF_WEEK);
+
+                    switch (day) {
+                        case Calendar.SUNDAY:
+                            currentday = "Sunday";
+                            break;
+                        case Calendar.MONDAY:
+                            currentday = "Monday";
+                            break;
+                        case Calendar.TUESDAY:
+                            currentday = "Tuesday";
+                            break;
+                        case Calendar.WEDNESDAY:
+                            currentday = "Wednesday";
+                            break;
+                        case Calendar.THURSDAY:
+                            currentday = "Thursday";
+                            break;
+                        case Calendar.FRIDAY:
+                            currentday = "Friday";
+                            break;
+                        case Calendar.SATURDAY:
+                            currentday = "Saturday";
+                            break;
+                    }
+
+                    Date currentTime = Calendar.getInstance().getTime();
+
+                    String timenow1 =dateFormat.format(currentTime);
+
+
+//            String timenow1 ="4:40PM";
+                    timenow = dateFormat.parse(timenow1);
+
+                } catch (ParseException e) {
+                    Toast.makeText(doctor_homepage.this, "error getting time", Toast.LENGTH_SHORT).show();
+                }
+
+
+                checkschedcurrent();
+            }
+        };
+        registerReceiver(minuteUpdateReceiver, intentFilter);
+
     }
     private void checkschedcurrent() {
 
@@ -729,5 +741,17 @@ db.collection("DoctorSchedules").whereEqualTo(currentday,true).whereEqualTo("Doc
 
 
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        startMinuteUpdater();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(minuteUpdateReceiver);
     }
 }
