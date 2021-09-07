@@ -44,9 +44,10 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
 
         <LinearLayout
@@ -63,7 +64,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:text="Emergency Contact Person"/>
+                android:text="Emergency Contact Person:"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/Econtact_person"
@@ -71,14 +73,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Name"
-                android:textStyle="bold"
-                android:padding="@dimen/_10sdp"/>
+                android:textSize="@dimen/_15sdp"
+                android:textColor="@color/black"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/roundtbox"
+                android:layout_marginTop="@dimen/_10sdp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Emergency Contact Number"
-                android:layout_marginTop="@dimen/_10sdp"/>
+                android:text="Emergency Contact Number:"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/Econtact_number"
@@ -86,41 +95,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Number"
-                android:textStyle="bold"
-                android:padding="@dimen/_10sdp"/>
+                android:textSize="@dimen/_15sdp"
+                android:textColor="@color/black"/>
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/heightlabel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/emergencyedittext"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:orientation="horizontal"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_10sdp">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/roundtbox"
+                android:layout_marginTop="@dimen/_10sdp"/>
 
             <TextView
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Blood Type"
-                />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/heightedittext"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/heightlabel"
-            android:orientation="horizontal"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_10sdp">
-
-
+                android:text="Blood Type:"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/medicalrec_bloodtype"
@@ -128,35 +117,103 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="bood type"
-                android:padding="@dimen/_10sdp"
+                android:textSize="@dimen/_15sdp"
+                android:textColor="@color/black"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/roundtbox"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
+            <TextView
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Height:"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/medicalrec_height"
+                android:inputType="numberDecimal"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="Height"
+                android:textSize="@dimen/_15sdp"
+                android:textColor="@color/black"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/roundtbox"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
+            <TextView
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Weight:"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/medicalrec_weight"
+                android:inputType="numberDecimal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="weight"
+                android:textSize="@dimen/_15sdp"
+                android:textColor="@color/black"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/roundtbox"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
+            <TextView
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Allergies:"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/medicalrec_allergies"
+                android:inputType="textMultiLine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Allergies"
+                android:textSize="@dimen/_15sdp"
+                android:textColor="@color/black"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/roundtbox"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pre-existing Illness:"
                 android:textStyle="bold"
-                />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/addedlabel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/heightedittext"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_10sdp">
+                android:layout_marginTop="@dimen/_10sdp"/>
 
             <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
+                android:id="@+id/medicalrec_illness"
+                android:inputType="textMultiLine"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Height"/>
+                android:text="Pre-existing illness"
+                android:textSize="@dimen/_15sdp"
+                android:textColor="@color/black"/>
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="Weight"/>
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/roundtbox"
+                android:layout_marginTop="@dimen/_10sdp"/>
 
         </LinearLayout>
 
@@ -170,25 +227,7 @@
             android:layout_marginLeft="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_10sdp">
 
-            <TextView
-                android:id="@+id/medicalrec_height"
-                android:inputType="numberDecimal"
-                android:layout_width="0dp"
-                android:textStyle="bold"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:text="Height"
-                android:padding="@dimen/_10sdp"/>
 
-            <TextView
-                android:id="@+id/medicalrec_weight"
-                android:inputType="numberDecimal"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:textStyle="bold"
-                android:layout_height="match_parent"
-                android:padding="@dimen/_10sdp"
-                android:text="weight"/>
 
 
         </LinearLayout>
@@ -204,34 +243,7 @@
             android:layout_marginLeft="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_10sdp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Allergies"/>
 
-            <TextView
-                android:id="@+id/medicalrec_allergies"
-                android:inputType="textMultiLine"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:text="Allergies"
-                android:padding="@dimen/_10sdp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Pre-existing Illness"
-                android:layout_marginTop="@dimen/_10sdp"/>
-
-            <TextView
-                android:id="@+id/medicalrec_illness"
-                android:inputType="textMultiLine"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:text="Pre-existing illness"
-                android:padding="@dimen/_10sdp"/>
 
         </LinearLayout>
 
@@ -256,7 +268,7 @@
 
         </LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 </ScrollView>
 
