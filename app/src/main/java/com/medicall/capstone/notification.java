@@ -28,6 +28,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.medicall.capstone.R;
+import com.medicall.capstone.utilities.PreferenceManager;
 
 import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
@@ -41,9 +42,10 @@ Spinner spinner_status;
 RecyclerView mFirestorelist;
 FirebaseFirestore db;
 FirestoreRecyclerAdapter adapter;
+PreferenceManager preferenceManager;
 TextView none;
     ImageView back;
-
+String clinicname;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +58,8 @@ TextView none;
         none = findViewById(R.id.None);
         ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(this,
                 R.array.Status, R.layout.custom_spinner);
-
+        preferenceManager = new PreferenceManager(getApplicationContext());
+        clinicname = preferenceManager.getString("ClinicName");
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinner_status.setAdapter(arrayAdapter);
@@ -69,7 +72,7 @@ TextView none;
         });
 
 
-        Query query = db.collection("Schedules").orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
+        Query query = db.collection("Schedules").whereEqualTo("ClinicName",clinicname).orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
 
         Shownotif(query);
 
@@ -111,7 +114,7 @@ TextView none;
             }
         });
 
-        db.collection("Schedules").orderBy("Dnt", Query.Direction.DESCENDING).limit(20).addSnapshotListener(new EventListener<QuerySnapshot>() {
+        db.collection("Schedules").whereEqualTo("ClinicName",clinicname).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable  FirebaseFirestoreException error) {
                 if(error != null){
@@ -121,8 +124,8 @@ TextView none;
                     none.setVisibility(View.VISIBLE);
                     mFirestorelist.setVisibility(View.GONE);
                 }else{
-                    none.setVisibility(View.VISIBLE);
-                    mFirestorelist.setVisibility(View.GONE);
+                    none.setVisibility(View.GONE);
+                    mFirestorelist.setVisibility(View.VISIBLE);
                 }
             }
         });
