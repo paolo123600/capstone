@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -94,7 +95,7 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
     String SchedTimeEnd;
     RecyclerView mFirestorelist;
     String userId;
-    Button btncomplete , btnnext;
+    ImageView btncomplete , btnnext;
     private BroadcastReceiver minuteUpdateReceiver;
 
     private StorageReference storageReference;
@@ -128,8 +129,8 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
 
         mFirestorelist = (RecyclerView)findViewById(R.id.scheddoc_list);
 
-    btncomplete= (Button) findViewById(R.id.button_complete);
-    btnnext = (Button) findViewById(R.id.button_next);
+    btncomplete= (ImageView) findViewById(R.id.button_complete);
+    btnnext = (ImageView) findViewById(R.id.button_next);
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         userId = fAuth.getCurrentUser().getUid();
@@ -185,10 +186,10 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
 
             Date currentTime = Calendar.getInstance().getTime();
 
-            String timenow1 =dateFormat.format(currentTime);
+          //  String timenow1 =dateFormat.format(currentTime);
 
 
-//            String timenow1 ="4:40PM";
+          String timenow1 ="4:40PM";
             timenow = dateFormat.parse(timenow1);
 
         } catch (ParseException e) {
@@ -315,10 +316,10 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
 
                     Date currentTime = Calendar.getInstance().getTime();
 
-                    String timenow1 =dateFormat.format(currentTime);
+              //      String timenow1 =dateFormat.format(currentTime);
 
 
-//            String timenow1 ="4:40PM";
+         String timenow1 ="4:40PM";
                     timenow = dateFormat.parse(timenow1);
 
                 } catch (ParseException e) {

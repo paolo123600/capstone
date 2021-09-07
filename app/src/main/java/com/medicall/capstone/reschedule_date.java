@@ -311,7 +311,28 @@ public class reschedule_date extends AppCompatActivity implements DatePickerDial
                 });
                 holder.list_time.setText("Time:"+model.getStartTime()+" - "+model.getEndTime());
                 holder.list_maxbook.setText("Max Booking:"+model.getMaximumBooking());
-                holder.list_price.setText("Price:"+model.getPrice());
+
+
+                switch (model.getPrice()){
+                    case "appointment_150":
+                        holder.list_price.setText("Price: ₱150");
+                        break;
+
+                    case "appointment_200":
+                        holder.list_price.setText("Price: ₱200");
+                        break;
+
+                    case "appointment_250":
+                        holder.list_price.setText("Price: ₱250");
+                        break;
+
+                    case "appointment_300":
+                        holder.list_price.setText("Price: ₱300");
+                        break;
+                    default: break;
+
+
+                }
 
 
             }
