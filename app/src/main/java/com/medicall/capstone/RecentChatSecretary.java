@@ -196,7 +196,7 @@ public class RecentChatSecretary extends AppCompatActivity {
         docAdapter.startListening();
 
 
-        db.collection("Secretary").document(mainuserid).collection("ChatList").whereEqualTo("UserType","Doctors").orderBy("DateAndTime", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
+        db.collection("Secretary").document(mainuserid).collection("ChatList").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable  QuerySnapshot value, @Nullable  FirebaseFirestoreException error) {
                 if(error != null){
@@ -276,7 +276,7 @@ public class RecentChatSecretary extends AppCompatActivity {
         recyclerView.setAdapter(mAdapter);
         mAdapter.startListening();
 
-        db.collection("Secretary").document(mainuserid).collection("ChatList").whereEqualTo("UserType","Patients").orderBy("DateAndTime", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
+        db.collection("Secretary").document(mainuserid).collection("ChatList").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable  QuerySnapshot value,  FirebaseFirestoreException error) {
                 if(error != null){
