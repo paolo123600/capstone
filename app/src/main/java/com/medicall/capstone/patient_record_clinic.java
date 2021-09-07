@@ -1,6 +1,7 @@
 package com.medicall.capstone;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,6 +21,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -53,7 +56,7 @@ public class patient_record_clinic extends AppCompatActivity {
     private String clinicname;
     private  String clinicid;
     ImageView back;
-
+    TextView PatientNone;
 
     private PreferenceManager preferenceManager;
 
@@ -73,22 +76,35 @@ public class patient_record_clinic extends AppCompatActivity {
 
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
-
-
-
+        patientrecList = (RecyclerView) findViewById(R.id.patientrec_sec);
         preferenceManager = new PreferenceManager(getApplicationContext());
         clinicname = preferenceManager.getString("ClinicName");
-
+        PatientNone = findViewById(R.id.noPatient);
         firebaseFirestore = FirebaseFirestore.getInstance();
 
         materialSearchBar = (MaterialSearchBar) findViewById(R.id.searchBar);
         materialSearchBar.setCardViewElevation(0);
 
+        back = findViewById(R.id.backspace);
 
+        firebaseFirestore.collection("Schedules").whereEqualTo("ClinicName",clinicname)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if(error != null){
+                            Toast.makeText(patient_record_clinic.this, "error listening", Toast.LENGTH_SHORT).show();
+                        }
+                        if(value.isEmpty()){
+                            PatientNone.setVisibility(View.VISIBLE);
+                            patientrecList.setVisibility(View.GONE);
+                        }
+                        else{
+                            patientrecList.setVisibility(View.VISIBLE);
+                        }
+                    }
+                });
 
         getpatient();
-
-        back = findViewById(R.id.backspace);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,9 +145,16 @@ public class patient_record_clinic extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(getApplicationContext(),Login.class);
+        startActivity(intent);
+    }
+
     private void startsearchpatient(String text) {
 
-        patientrecList = (RecyclerView) findViewById(R.id.patientrec_sec);
+
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
 
         List<String> Patients = new ArrayList<>();
@@ -237,7 +260,7 @@ public class patient_record_clinic extends AppCompatActivity {
 
     private void getpatient() {
 
-        patientrecList = (RecyclerView) findViewById(R.id.patientrec_sec);
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         List<String> Patients = new ArrayList<>();
         db.collection("Clinics").whereEqualTo("ClinicName",clinicname).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

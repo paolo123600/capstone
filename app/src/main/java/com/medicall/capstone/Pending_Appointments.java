@@ -8,12 +8,17 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.medicall.capstone.R;
 
 import com.medicall.capstone.utilities.PreferenceManager;
@@ -33,6 +38,7 @@ public class Pending_Appointments extends AppCompatActivity {
     GlobalVariables gv;
     FirebaseFirestore db;
     ImageView back;
+    TextView noList;
 
     String patientname, schedule, docname, hmoname;
 
@@ -43,8 +49,7 @@ public class Pending_Appointments extends AppCompatActivity {
         back = findViewById(R.id.backspace);
         preferenceManager = new PreferenceManager(getApplicationContext());
         pendinglist = (RecyclerView) findViewById(R.id.PendingHMO);
-
-
+        noList = findViewById(R.id.noPatient);
 
         gv = (GlobalVariables) getApplicationContext();
 
@@ -57,74 +62,89 @@ public class Pending_Appointments extends AppCompatActivity {
             }
         });
 
-        Query query = db.collection("Schedules").whereEqualTo("ClinicName", preferenceManager.getString("ClinicName")).whereEqualTo("Status","Pending Approval");
-        FirestoreRecyclerOptions<PendingModel> options = new FirestoreRecyclerOptions.Builder<PendingModel>()
-                .setQuery(query, PendingModel.class)
-                .build();
-
-        adapter = new FirestoreRecyclerAdapter<PendingModel, PendingViewHolder>(options){
-            @NonNull
-            @Override
-            public PendingViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pending_appointment_recyclerview, parent, false);
-                return new Pending_Appointments.PendingViewHolder(view);
-            }
-
-            @Override
-            protected void onBindViewHolder(@NonNull PendingViewHolder holder, int position, @NonNull PendingModel model) {
-
-                db.collection("Doctors").document(model.getDoctorUId())
-                        .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        db.collection("Schedules").whereEqualTo("ClinicName",preferenceManager.getString("ClinicName")).whereEqualTo("Status","Pending Approval")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if(task.isSuccessful()){
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if(error != null){
+                            Toast.makeText(Pending_Appointments.this, "error listening", Toast.LENGTH_SHORT).show();
+                        }
+                        if(value.isEmpty()){
+                            noList.setVisibility(View.VISIBLE);
+                            pendinglist.setVisibility(View.GONE);
+                        }
+                        else{
+                            Query query = db.collection("Schedules").whereEqualTo("ClinicName", preferenceManager.getString("ClinicName")).whereEqualTo("Status","Pending Approval");
+                            FirestoreRecyclerOptions<PendingModel> options = new FirestoreRecyclerOptions.Builder<PendingModel>()
+                                    .setQuery(query, PendingModel.class)
+                                    .build();
 
-                            DocumentSnapshot doctor = task.getResult();
-                            docname = doctor.getString("FirstName") + " " + doctor.getString("LastName");
-                            holder.docName.setText("Doctor Name: " + docname);
-
-                            db.collection("Patients").document(model.getPatientUId())
-                                    .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            adapter = new FirestoreRecyclerAdapter<PendingModel, PendingViewHolder>(options){
+                                @NonNull
                                 @Override
-                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                    if(task.isSuccessful()){
-                                        DocumentSnapshot patient = task.getResult();
-                                        patientname = patient.getString("FirstName") + " " + patient.getString("LastName");
-                                        holder.patName.setText("Patient Name: " + patientname);
-                                    }
+                                public PendingViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                                    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pending_appointment_recyclerview, parent, false);
+                                    return new Pending_Appointments.PendingViewHolder(view);
                                 }
-                            });
+
+                                @Override
+                                protected void onBindViewHolder(@NonNull PendingViewHolder holder, int position, @NonNull PendingModel model) {
+
+                                    db.collection("Doctors").document(model.getDoctorUId())
+                                            .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                            if(task.isSuccessful()){
+
+                                                DocumentSnapshot doctor = task.getResult();
+                                                docname = doctor.getString("FirstName") + " " + doctor.getString("LastName");
+                                                holder.docName.setText("Doctor Name: " + docname);
+
+                                                db.collection("Patients").document(model.getPatientUId())
+                                                        .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                        if(task.isSuccessful()){
+                                                            DocumentSnapshot patient = task.getResult();
+                                                            patientname = patient.getString("FirstName") + " " + patient.getString("LastName");
+                                                            holder.patName.setText("Patient Name: " + patientname);
+                                                        }
+                                                    }
+                                                });
+                                            }
+                                        }
+                                    });
+
+                                    holder.schedtime.setText("Schedule: " + model.getDate());
+                                    holder.itemView.setOnClickListener(new View.OnClickListener(){
+                                        @Override
+                                        public void onClick(View v) {
+
+                                        }
+                                    });
+
+                                    holder.view_confirm.setOnClickListener(new View.OnClickListener(){
+                                        @Override
+                                        public void onClick(View v) {
+                                            Intent intent = new Intent(Pending_Appointments.this, Pending_Confirmation.class);
+                                            gv.setPending_docUid(model.getDoctorUId());
+                                            gv.setPending_patUid(model.getPatientUId());
+                                            gv.setPending_hmo(model.getHmo());
+                                            gv.setPending_sched(model.getDate() + " (" + model.getStartTime() + " - " + model.getEndTime() + ")" );
+                                            gv.setPending_cardNumber(model.getCardNumber());
+                                            startActivity(intent);
+                                        }
+                                    });
+
+                                }
+                            };
+                            pendinglist.setHasFixedSize(true);
+                            pendinglist.setLayoutManager(new LinearLayoutManager(Pending_Appointments.this));
+                            pendinglist.setAdapter(adapter);
+                            adapter.startListening();
                         }
                     }
                 });
-
-                holder.schedtime.setText("Schedule: " + model.getDate());
-                holder.itemView.setOnClickListener(new View.OnClickListener(){
-                    @Override
-                    public void onClick(View v) {
-
-                    }
-                });
-
-                holder.view_confirm.setOnClickListener(new View.OnClickListener(){
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(Pending_Appointments.this, Pending_Confirmation.class);
-                        gv.setPending_docUid(model.getDoctorUId());
-                        gv.setPending_patUid(model.getPatientUId());
-                        gv.setPending_hmo(model.getHmo());
-                        gv.setPending_sched(model.getDate() + " (" + model.getStartTime() + " - " + model.getEndTime() + ")" );
-                        gv.setPending_cardNumber(model.getCardNumber());
-                        startActivity(intent);
-                    }
-                });
-
-            }
-        };
-        pendinglist.setHasFixedSize(true);
-        pendinglist.setLayoutManager(new LinearLayoutManager(Pending_Appointments.this));
-        pendinglist.setAdapter(adapter);
-        adapter.startListening();
 
     }
 

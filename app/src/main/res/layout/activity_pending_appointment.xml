@@ -37,11 +37,30 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pending Appointments"
+        android:textSize="20dp"
+        android:layout_marginTop="-2dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="30dp"/>
+
+    <TextView
+        android:id="@+id/noPatient"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="There is currently no appointment."
+        android:visibility="gone"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/PendingHMO"
         android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="550dp"
-        android:paddingTop="20dp" />
+        android:paddingTop="20dp"
+        android:visibility="gone"/>
 
 </LinearLayout>

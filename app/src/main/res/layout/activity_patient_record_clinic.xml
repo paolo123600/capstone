@@ -55,12 +55,20 @@
         app:layout_constraintTop_toTopOf="parent"
         app:mt_hint="Search by Surname" />
 
+        <TextView
+            android:id="@+id/noPatient"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="There is no patients currently registered in this clinic."
+            android:visibility="gone"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/patientrec_sec"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:layout_editor_absoluteX="187dp"
-            tools:layout_editor_absoluteY="278dp" />
+            tools:layout_editor_absoluteY="278dp"/>
 
     </LinearLayout>
 
