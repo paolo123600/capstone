@@ -185,10 +185,10 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
 
             Date currentTime = Calendar.getInstance().getTime();
 
-            String timenow1 =dateFormat.format(currentTime);
+//            String timenow1 =dateFormat.format(currentTime);
 
 
-//            String timenow1 ="4:40PM";
+            String timenow1 ="4:40PM";
             timenow = dateFormat.parse(timenow1);
 
         } catch (ParseException e) {
@@ -314,11 +314,11 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
                     }
 
                     Date currentTime = Calendar.getInstance().getTime();
+//
+//                    String timenow1 =dateFormat.format(currentTime);
 
-                    String timenow1 =dateFormat.format(currentTime);
 
-
-//            String timenow1 ="4:40PM";
+            String timenow1 ="4:40PM";
                     timenow = dateFormat.parse(timenow1);
 
                 } catch (ParseException e) {
