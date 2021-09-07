@@ -112,11 +112,19 @@
             android:orientation="vertical">
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Blood Pressure List"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/None"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:textStyle="bold"
                 android:textSize="20dp"
-                android:text="Blood Pressure List"/>
+                android:text="There is no recorded blood pressure"/>
 
 
             <androidx.recyclerview.widget.RecyclerView
@@ -124,20 +132,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
 
-            <Button
-                android:id="@+id/submit_bp"
-                android:layout_width="51dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="-100dp"
-                android:background="@drawable/darkround"
-                android:textSize="@dimen/_20sdp"
-                android:text="+"
 
-                android:textColor="@color/white" />
 
 
         </LinearLayout>
+        <Button
+            android:id="@+id/submit_bp"
+            android:layout_width="51dp"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-100dp"
+            android:background="@drawable/darkround"
+            android:textSize="@dimen/_20sdp"
+            android:text="+"
 
+            android:textColor="@color/white" />
     </LinearLayout>
 
 

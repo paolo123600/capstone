@@ -1,6 +1,7 @@
 package com.medicall.capstone;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,8 +21,11 @@ import android.widget.Toast;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.medicall.capstone.R;
 
 import java.util.Calendar;
@@ -43,6 +47,7 @@ public class pat_blood_pressure extends AppCompatActivity {
     String collectionBpDate, edittxtupper, edittxtlower;
     RecyclerView mFirestoreList;
     ImageView back;
+    TextView none;
 
     private FirestoreRecyclerAdapter adapter;
 
@@ -50,7 +55,7 @@ public class pat_blood_pressure extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pat_blood_pressure);
-
+        none = findViewById(R.id.None);
 
         bpupper = findViewById(R.id.bp_upper);
         bplower = findViewById(R.id.bp_lower);
@@ -153,6 +158,25 @@ public class pat_blood_pressure extends AppCompatActivity {
                 }
             }
         });
+
+        db.collection("Patients").document(userId).collection("BP").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable  QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if(error != null){
+                    Toast.makeText(pat_blood_pressure.this, "Error Loading",Toast.LENGTH_SHORT).show();
+                }
+                if(value.isEmpty()){
+                    none.setVisibility(View.VISIBLE);
+                    mFirestoreList.setVisibility(View.GONE);
+                } else {
+                    none.setVisibility(View.GONE);
+                    mFirestoreList.setVisibility(View.VISIBLE);
+                }
+
+            }
+        });
+
+
     }
 
     private String makeDateString(int day, int month, int year){

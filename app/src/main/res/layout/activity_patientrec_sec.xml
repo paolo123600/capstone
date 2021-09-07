@@ -71,6 +71,7 @@
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="@dimen/_100sdp"
                     android:layout_height="@dimen/_100sdp"
+                    android:id="@+id/patient_dp"
                     android:background="@drawable/circlebackground"/>
 
                 <LinearLayout

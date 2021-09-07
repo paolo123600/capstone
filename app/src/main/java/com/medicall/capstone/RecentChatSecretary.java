@@ -1,6 +1,7 @@
 package com.medicall.capstone;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,7 +14,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.medicall.capstone.Model.ChatlistModel;
 import com.medicall.capstone.Model.Chats;
 import com.medicall.capstone.Model.Chatslist;
@@ -60,6 +65,7 @@ public class RecentChatSecretary extends AppCompatActivity {
     FirebaseUser firebaseUser;
     String mainuserid;
     ImageView back;
+    TextView none;
     private PreferenceManager preferenceManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +82,7 @@ public class RecentChatSecretary extends AppCompatActivity {
         layoutManager1 = new LinearLayoutManager(this);
         String User = preferenceManager.getString(Constants.KEY_USER_ID);
         back = findViewById(R.id.backspace);
-
+        none = findViewById(R.id.None);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,6 +130,8 @@ public class RecentChatSecretary extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
 
     }
 
@@ -179,12 +187,32 @@ public class RecentChatSecretary extends AppCompatActivity {
                 holder.tvtime.setText(datentime);
 
             }
+
         };
 
         recyclerView1.setHasFixedSize(true);
         recyclerView1.setLayoutManager(new LinearLayoutManager(this));
         recyclerView1.setAdapter(docAdapter);
         docAdapter.startListening();
+
+
+        db.collection("Secretary").document(mainuserid).collection("ChatList").whereEqualTo("UserType","Doctors").orderBy("DateAndTime", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable  QuerySnapshot value, @Nullable  FirebaseFirestoreException error) {
+                if(error != null){
+                    Toast.makeText(RecentChatSecretary.this, "Error Loading",Toast.LENGTH_SHORT).show();
+                }
+                if(value.isEmpty()){
+                    none.setVisibility(View.VISIBLE);
+                    recyclerView1.setVisibility(View.GONE);
+                } else {
+                    none.setVisibility(View.GONE);
+                    recyclerView1.setVisibility(View.VISIBLE);
+                }
+
+               }
+
+        });
 
 
     }
@@ -247,6 +275,23 @@ public class RecentChatSecretary extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(mAdapter);
         mAdapter.startListening();
+
+        db.collection("Secretary").document(mainuserid).collection("ChatList").whereEqualTo("UserType","Patients").orderBy("DateAndTime", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable  QuerySnapshot value,  FirebaseFirestoreException error) {
+                if(error != null){
+                    Toast.makeText(RecentChatSecretary.this, "Error Loading",Toast.LENGTH_SHORT).show();
+                }
+                if(value.isEmpty()){
+                    none.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
+                } else {
+                    none.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
 
     }
 
@@ -319,6 +364,7 @@ public class RecentChatSecretary extends AppCompatActivity {
 
             }
         });
+
 
 
     }

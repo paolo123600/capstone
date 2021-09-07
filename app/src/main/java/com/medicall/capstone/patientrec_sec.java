@@ -1,15 +1,26 @@
 package com.medicall.capstone;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.medicall.capstone.R;
 
 import com.medicall.capstone.activities.PastAppointments;
@@ -19,6 +30,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+
+import java.io.File;
+import java.io.IOException;
 
 public class patientrec_sec extends AppCompatActivity {
 
@@ -33,6 +47,14 @@ public class patientrec_sec extends AppCompatActivity {
     TextView preillness_patrec;
     TextView allergies_patrec;
     TextView email_patrec;
+
+    //img
+    FirebaseFirestore db;
+    String image;
+    ImageView dpicture;
+    private StorageReference storageReference;
+    private FirebaseStorage storage;
+    Bitmap profilepic;
 
 
     Button history;
@@ -59,6 +81,12 @@ public class patientrec_sec extends AppCompatActivity {
         allergies_patrec = findViewById(R.id.allergies_patientrec);
         email_patrec = findViewById(R.id.patientrec_email);
 
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
+        dpicture = findViewById(R.id.patient_dp);
+        db = FirebaseFirestore.getInstance();
+
+
 
         back = findViewById(R.id.backspace);
 
@@ -71,6 +99,42 @@ public class patientrec_sec extends AppCompatActivity {
 
         Intent intent = getIntent();
         String patid = intent.getStringExtra("patid");
+
+        db.collection("Patients").whereEqualTo("StorageId",patid)
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    QuerySnapshot querySnapshot = task.getResult();
+                    if(!querySnapshot.isEmpty()){
+                        for(QueryDocumentSnapshot profile : task.getResult()){
+                            image = profile.getString("StorageId");
+                            if(image.equals("None")){
+                                dpicture.setBackgroundResource(R.drawable.circlebackground);
+                            }
+                            else{
+                                storageReference = FirebaseStorage.getInstance().getReference("PatientPicture/" + image);
+                                try{
+                                    File local = File.createTempFile("myProfilePicture",".jpg");
+                                    storageReference.getFile(local)
+                                            .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                                @Override
+                                                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                                    profilepic = BitmapFactory.decodeFile(local.getAbsolutePath());
+                                                    dpicture.setImageBitmap(profilepic);
+                                                }
+                                            });
+                                }
+                                catch (IOException e){
+                                    e.printStackTrace();
+                                }
+                            }
+
+                        }
+                    }
+                }
+            }
+        });
 
         name_patrec.setKeyListener(null);
         bday_patrec.setKeyListener(null);
@@ -93,6 +157,8 @@ public class patientrec_sec extends AppCompatActivity {
         });
 
 
+
+
         DocumentReference documentReference = fStore.collection("Patients").document(patid);
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
@@ -109,6 +175,8 @@ public class patientrec_sec extends AppCompatActivity {
                 allergies_patrec.setText(documentSnapshot.getString("Allergies"));
                 email_patrec.setText(documentSnapshot.getString("Email"));
             }
+
+
         });
 
         history.setOnClickListener(new View.OnClickListener() {
@@ -119,5 +187,11 @@ public class patientrec_sec extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+
     }
+
+
+
 }
