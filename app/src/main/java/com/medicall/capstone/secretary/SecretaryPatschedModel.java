@@ -5,6 +5,24 @@ import java.util.Date;
 public class SecretaryPatschedModel {
 
     private String ClinicName, PatientUId;
+
+    public String getEndTime() {
+        return EndTime;
+    }
+
+    public void setEndTime(String endTime) {
+        EndTime = endTime;
+    }
+
+    public String getStartTime() {
+        return StartTime;
+    }
+
+    public void setStartTime(String startTime) {
+        StartTime = startTime;
+    }
+
+    String EndTime , StartTime;
     Date Date;
 
     private SecretaryPatschedModel() {}

@@ -57,7 +57,7 @@ public class MessageActivity extends AppCompatActivity {
     EditText et_message;
     Button send;
 
-    String FromCall = "";
+    String FromCall = "false";
     private PreferenceManager preferenceManager;
 
 
@@ -89,7 +89,6 @@ public class MessageActivity extends AppCompatActivity {
 
         FromCall = getIntent().getStringExtra("FromCall");
 
-
         if (usertype.equals("Doctors") && type.equals("Patients")) {
             chat_act.setVisibility(View.INVISIBLE);
         }else {
@@ -112,11 +111,12 @@ public class MessageActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (FromCall.equals("true")) {
+                if (FromCall== null) {
+                    onBackPressed();
+                }else {
+
                     Intent intent = new Intent(getApplicationContext(), Login.class);
                     startActivity(intent);
-                }else {
-                    onBackPressed();
                 }
             }
         });

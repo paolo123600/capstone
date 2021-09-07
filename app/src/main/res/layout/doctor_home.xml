@@ -73,7 +73,7 @@
                     <TextView
                         android:id="@+id/tvSched"
                         android:layout_width="0dp"
-                        android:layout_weight="3"
+                        android:layout_weight="4"
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"
                         android:textSize="15dp"
@@ -102,13 +102,18 @@
                         android:id="@+id/button_complete"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Complete"/>
+                        android:text="Complete"
+                        android:background="@drawable/darkround_green"
+                        android:layout_marginTop="@dimen/_5sdp"/>
 
                     <Button
                         android:id="@+id/button_next"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Remove"/>
+                        android:text="Move"
+                        android:background="@drawable/darkround_remove"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_5sdp"/>
 
                 </LinearLayout>
 
@@ -186,6 +191,7 @@
         android:layout_gravity="start"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/drawer_menu_doc"/>
+
 
 
 

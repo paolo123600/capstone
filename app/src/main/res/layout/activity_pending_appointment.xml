@@ -37,16 +37,6 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Pending Appointments"
-        android:textSize="20dp"
-        android:layout_marginTop="-2dp"
-        android:paddingLeft="10dp"
-        android:paddingTop="30dp"/>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/PendingHMO"
         android:layout_gravity="center"
