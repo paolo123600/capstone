@@ -5,37 +5,57 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/daybg2">
+    android:background="@color/grey">
+
 
     <LinearLayout
-        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/blue2"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/backspace"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:background="@drawable/ic_backspace" />
+        <LinearLayout
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/blue2"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:layout_constraintTop_toTopOf="parent"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Upload HMO"
-            android:layout_marginLeft="@dimen/_20sdp"
-            android:textSize="@dimen/_15sdp"
-            android:textColor="@color/white"/>
+            <ImageView
+                android:id="@+id/backspace"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:background="@drawable/ic_backspace" />
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Upload HMO"
+                android:layout_marginLeft="@dimen/_20sdp"
+                android:textSize="@dimen/_15sdp"
+                android:textColor="@color/white"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@drawable/daybg3"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:padding="@dimen/_10sdp">
+
+
+
 
     <LinearLayout
         android:id="@+id/cardNum"
@@ -93,19 +113,20 @@
 
             <ImageView
                 android:id="@+id/imgUpload"
-                android:layout_width="163dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="145dp"
                 android:src="@drawable/image_icon"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
                 android:id="@+id/txtview_hmopreview"
-                android:layout_width="161dp"
-                android:layout_height="69dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:text="Press the image icon to upload photo"
                 android:textSize="18sp"
-                android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_30sdp"/>
 
         </LinearLayout>
@@ -128,6 +149,10 @@
             android:enabled="false"
             android:textColor="@color/white"
             android:background="@drawable/upload_disabled"/>
+
+    </LinearLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 
