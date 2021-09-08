@@ -1,6 +1,7 @@
 package com.medicall.capstone;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,7 +14,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.medicall.capstone.Model.ChatlistModel;
 import com.medicall.capstone.Model.Chats;
 import com.medicall.capstone.Model.Chatslist;
@@ -59,6 +64,8 @@ public class RecentChats extends AppCompatActivity   {
     String thelastmessage;
     String mainuserid;
     FirebaseUser firebaseUser;
+    TextView none;
+    TextView none1;
 FirebaseFirestore db;
     private PreferenceManager preferenceManager;
     Button newchat;
@@ -73,6 +80,8 @@ FirebaseFirestore db;
         mainuserid = preferenceManager.getString(Constants.KEY_USER_ID);
         userlist = new ArrayList<>();
         back = findViewById(R.id.backspace);
+        none = findViewById(R.id.None);
+        none1 = findViewById(R.id.None1);
       recyclerView = (RecyclerView) findViewById(R.id.chat_recyclerview_recentchat4) ;
         recyclerView1=(RecyclerView) findViewById(R.id.chat_recyclerview_recentchat3) ;
 
@@ -185,6 +194,23 @@ FirebaseFirestore db;
         recyclerView.setAdapter(mAdapter);
         mAdapter.startListening();
 
+        db.collection("Patients").document(mainuserid).collection("ChatList").whereEqualTo("UserType","Doctors").orderBy("DateAndTime", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable  QuerySnapshot value, @Nullable  FirebaseFirestoreException error) {
+                if(error != null){
+                    Toast.makeText(RecentChats.this, "Error Loading",Toast.LENGTH_SHORT).show();
+                }
+                if(value.isEmpty()){
+                    none.setVisibility(View.VISIBLE);
+                    recyclerView1.setVisibility(View.GONE);
+                } else {
+                    none.setVisibility(View.GONE);
+                    recyclerView1.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+
 
 
     }
@@ -241,12 +267,30 @@ FirebaseFirestore db;
                 holder.tvtime.setText(datentime);
 
             }
+
         };
 
         recyclerView1.setHasFixedSize(true);
         recyclerView1.setLayoutManager(new LinearLayoutManager(this));
         recyclerView1.setAdapter(secAdapter);
         secAdapter.startListening();
+
+        db.collection("Patients").document(mainuserid).collection("ChatList").whereEqualTo("UserType","Secretary").orderBy("DateAndTime", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable  QuerySnapshot value, FirebaseFirestoreException error) {
+                if(error != null){
+                    Toast.makeText(RecentChats.this, "Error Loading",Toast.LENGTH_SHORT).show();
+                }
+                if(value.isEmpty()){
+                    none1.setVisibility(View.VISIBLE);
+                    recyclerView1.setVisibility(View.GONE);
+                } else {
+                    none1.setVisibility(View.GONE);
+                    recyclerView1.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
 
 
 

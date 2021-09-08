@@ -78,13 +78,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
-
                 android:paddingTop="20dp"
-
                 android:text="Recent Chats"
                 android:textSize="20dp"
                 app:layout_constraintBottom_toTopOf="@+id/chat_recyclerview_recentchatDoc"
                 app:layout_constraintStart_toStartOf="parent" />
+            <TextView
+                android:id="@+id/None"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:textSize="20dp"
+                android:text="There are no current chats"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/chat_recyclerview_recentchatDoc"
