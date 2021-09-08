@@ -41,7 +41,9 @@ import com.google.firebase.firestore.Query;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class Secretary_schedlist_patsched extends AppCompatActivity {
@@ -93,8 +95,8 @@ public class Secretary_schedlist_patsched extends AppCompatActivity {
             }
         });
 
-
-        Query query = db.collection("Schedules").whereEqualTo("DoctorUId", docuid).whereEqualTo("ClinicName", preferenceManager.getString("ClinicName")).whereEqualTo("Status", "Paid").orderBy("Date", Query.Direction.ASCENDING).limit(20);
+        Date currentTime = Calendar.getInstance().getTime();
+        Query query = db.collection("Schedules").whereEqualTo("DoctorUId", docuid).whereEqualTo("ClinicName", preferenceManager.getString("ClinicName")).whereEqualTo("Status", "Paid").whereGreaterThanOrEqualTo("Date",currentTime).orderBy("Date", Query.Direction.ASCENDING).limit(20);
 
         FirestoreRecyclerOptions<SecretaryPatschedModel> options = new FirestoreRecyclerOptions.Builder<SecretaryPatschedModel>().setQuery(query, SecretaryPatschedModel.class).build();
 
@@ -173,8 +175,8 @@ public class Secretary_schedlist_patsched extends AppCompatActivity {
         mFirestoreList.setHasFixedSize(true);
         mFirestoreList.setLayoutManager(new LinearLayoutManager(this));
         mFirestoreList.setAdapter(adapter);
-
-        db.collection("Schedules").whereEqualTo("DoctorUId", docuid).whereEqualTo("ClinicName", preferenceManager.getString("ClinicName")).whereEqualTo("Status", "Paid").addSnapshotListener(new EventListener<QuerySnapshot>() {
+        Date currentTime1 = Calendar.getInstance().getTime();
+        db.collection("Schedules").whereEqualTo("DoctorUId", docuid).whereEqualTo("ClinicName", preferenceManager.getString("ClinicName")).whereEqualTo("Status", "Paid").whereGreaterThanOrEqualTo("Date",currentTime1).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 if (error != null) {

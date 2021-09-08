@@ -39,6 +39,9 @@ import com.google.firebase.firestore.Query;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 
 public class Secretary_schedlist_patsched_past extends AppCompatActivity {
@@ -84,8 +87,8 @@ public class Secretary_schedlist_patsched_past extends AppCompatActivity {
             }
         });
 
-
-        Query query = db.collection("Schedules").whereEqualTo("DoctorUId", docuid).whereEqualTo("Status", "Completed").orderBy("Date", Query.Direction.DESCENDING).limit(20);
+        Date currentTime = Calendar.getInstance().getTime();
+        Query query = db.collection("Schedules").whereEqualTo("DoctorUId", docuid).whereIn("Status", Arrays.asList("Unattended","Completed")).whereLessThanOrEqualTo("Date",currentTime).orderBy("Date", Query.Direction.DESCENDING).limit(20);
 
         FirestoreRecyclerOptions<SecretaryPatschedModel> options = new FirestoreRecyclerOptions.Builder<SecretaryPatschedModel>().setQuery(query, SecretaryPatschedModel.class).build();
 
@@ -104,6 +107,7 @@ public class Secretary_schedlist_patsched_past extends AppCompatActivity {
                 SimpleDateFormat format = new SimpleDateFormat("MMMM d ,yyyy");
                 String date=  format.format(datesched);
                 holder.list_datesched.setText(date);
+                holder.list_timesched.setText(model.getStartTime()+" - "+model.getEndTime());
                 db.collection("Patients").document(model.getPatientUId()).get()
                         .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                             @Override
@@ -152,8 +156,8 @@ public class Secretary_schedlist_patsched_past extends AppCompatActivity {
         mFirestoreList.setHasFixedSize(true);
         mFirestoreList.setLayoutManager(new LinearLayoutManager(this));
         mFirestoreList.setAdapter(adapter);
-
-        db.collection("Schedules").whereEqualTo("DoctorUId", docuid).whereEqualTo("Status", "Completed").addSnapshotListener(new EventListener<QuerySnapshot>() {
+        Date currentTime1 = Calendar.getInstance().getTime();
+        db.collection("Schedules").whereEqualTo("DoctorUId", docuid).whereIn("Status", Arrays.asList("Unattended","Completed")).whereLessThanOrEqualTo("Date",currentTime1).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 if (error != null) {
@@ -173,7 +177,7 @@ public class Secretary_schedlist_patsched_past extends AppCompatActivity {
 
     private class SecretaryPatSchedViewHolder extends RecyclerView.ViewHolder{
 
-        private TextView list_name, list_datesched;
+        private TextView list_name, list_datesched ,list_timesched;
         private ImageView profilepic;
 
         public SecretaryPatSchedViewHolder(@NonNull View itemView) {
@@ -182,6 +186,7 @@ public class Secretary_schedlist_patsched_past extends AppCompatActivity {
             list_name = itemView.findViewById(R.id.secsched_patname);
             list_datesched = itemView.findViewById(R.id.secsched_datesched);
             profilepic = itemView.findViewById(R.id.patient_profilepic);
+            list_timesched=itemView.findViewById(R.id.secsched_timesched);
         }
     }
 

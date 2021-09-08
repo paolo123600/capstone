@@ -41,6 +41,7 @@ import com.google.firebase.firestore.Query;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class Doctor_schedlist_pastsched extends AppCompatActivity {
@@ -88,8 +89,8 @@ public class Doctor_schedlist_pastsched extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        Query query = db.collection("Schedules").whereEqualTo("DoctorUId", userId).whereEqualTo("Status", "Completed").orderBy("Date", Query.Direction.DESCENDING).limit(20);
+        Date currentTime = Calendar.getInstance().getTime();
+        Query query = db.collection("Schedules").whereEqualTo("DoctorUId", userId).whereEqualTo("Status", "Completed").whereLessThanOrEqualTo("Date",currentTime).orderBy("Date", Query.Direction.DESCENDING).limit(20);
 
         FirestoreRecyclerOptions<DoctorUpcomingModel> options = new FirestoreRecyclerOptions.Builder<DoctorUpcomingModel>().setQuery(query, DoctorUpcomingModel.class).build();
 
@@ -156,8 +157,8 @@ public class Doctor_schedlist_pastsched extends AppCompatActivity {
         mFirestoreList.setHasFixedSize(true);
         mFirestoreList.setLayoutManager(new LinearLayoutManager(this));
         mFirestoreList.setAdapter(adapter);
-
-        db.collection("Schedules").whereEqualTo("DoctorUId", userId).whereEqualTo("Status", "Completed").addSnapshotListener(new EventListener<QuerySnapshot>() {
+        Date currentTime1 = Calendar.getInstance().getTime();
+        db.collection("Schedules").whereEqualTo("DoctorUId", userId).whereEqualTo("Status", "Completed").whereLessThanOrEqualTo("Date",currentTime1).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 if (error != null) {
