@@ -48,34 +48,33 @@
             android:layout_height="match_parent">
 
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/daybg3"
+                android:orientation="vertical"
+                android:padding="@dimen/_10sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_editor_absoluteX="0dp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_marginLeft="@dimen/_10sdp">
 
-    <LinearLayout
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginRight="@dimen/_20sdp"
-        android:layout_marginLeft="@dimen/_20sdp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/daybg3"
-        android:orientation="vertical"
-        android:padding="@dimen/_10sdp"
-        tools:layout_editor_absoluteX="0dp">
+                <TextView
+                    android:id="@+id/conf_patientname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Patient Name"
+                    android:textSize="@dimen/_15sdp" />
 
-        <TextView
-            android:id="@+id/conf_patientname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Patient Name"
-            android:textSize="@dimen/_15sdp" />
-
-        <TextView
-            android:id="@+id/conf_schedule"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:text="Schedule"
-            android:textSize="@dimen/_15sdp" />
+                <TextView
+                    android:id="@+id/conf_schedule"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="Schedule"
+                    android:textSize="@dimen/_15sdp" />
 
         <TextView
             android:id="@+id/conf_time"
@@ -85,73 +84,77 @@
             android:text="Time"
             android:textSize="@dimen/_15sdp" />
 
-        <TextView
-            android:id="@+id/conf_doctorname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_30sdp"
-            android:text="Doctor Name"
-            android:textSize="@dimen/_15sdp" />
 
-        <TextView
-            android:id="@+id/conf_hmoname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginLeft="@dimen/_15sdp"
-            android:text="HMO"
-            android:textSize="@dimen/_15sdp" />
-        <TextView
-            android:id="@+id/conf_hmocardnum"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginLeft="@dimen/_15sdp"
-            android:text="CardNumber"
-            android:textSize="@dimen/_15sdp" />
+                <TextView
+                    android:id="@+id/conf_doctorname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_30sdp"
+                    android:text="Doctor Name"
+                    android:textSize="@dimen/_15sdp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_180sdp"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/conf_hmoname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="HMO"
+                    android:textSize="@dimen/_15sdp" />
 
-            <ImageView
-                android:id="@+id/conf_hmoimage"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:adjustViewBounds="true"
-                android:layout_weight="1"
-                tools:srcCompat="@tools:sample/avatars"
-                />
+                <TextView
+                    android:id="@+id/conf_hmocardnum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="CardNumber"
+                    android:textSize="@dimen/_15sdp" />
 
-        </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_180sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/conf_hmoimage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:adjustViewBounds="true"
+                        tools:srcCompat="@tools:sample/avatars" />
 
-            <Button
-                android:id="@+id/conf_btnaccept"
-                android:layout_width="@dimen/_100sdp"
-                android:layout_height="@dimen/_45sdp"
-                android:layout_weight="1"
-                android:text="Accept"
-                android:textStyle="bold" />
+                </LinearLayout>
 
-            <Button
-                android:id="@+id/conf_btndecline"
-                android:layout_width="@dimen/_100sdp"
-                android:layout_height="@dimen/_45sdp"
-                android:layout_weight="1"
-                android:text="Decline"
-                android:textStyle="bold" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:orientation="horizontal">
 
-        </LinearLayout>
+                    <Button
+                        android:id="@+id/conf_btnaccept"
+                        android:layout_width="@dimen/_100sdp"
+                        android:layout_height="@dimen/_45sdp"
+                        android:layout_weight="1"
+                        android:text="Accept"
+                        android:textStyle="bold"
+                        android:background="@drawable/darkround"
+                        android:textColor="@color/white"/>
 
-    </LinearLayout>
+                    <Button
+                        android:id="@+id/conf_btndecline"
+                        android:layout_width="@dimen/_100sdp"
+                        android:layout_height="@dimen/_45sdp"
+                        android:layout_weight="1"
+                        android:text="Decline"
+                        android:textStyle="bold"
+                        android:background="@drawable/darkround"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:textColor="@color/white"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
