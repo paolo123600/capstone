@@ -196,8 +196,6 @@ public class upload_hmo extends AppCompatActivity {
         if(requestCode == IMAGE_PICK_CODE && resultCode == RESULT_OK && data != null && data.getData() != null){
             imageUri = data.getData();
             upload.setImageURI(imageUri);
-            uploadbtn.setBackgroundResource(R.drawable.darkround);
-            uploadbtn.setEnabled(true);
         }
     }
 

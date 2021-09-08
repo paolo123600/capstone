@@ -93,8 +93,7 @@
             android:name="com.medicall.capstone.medicalrec_update"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.medicall.capstone.ImageFullscreen"
-            android:screenOrientation="portrait" />
+            android:name="com.medicall.capstone.ImageFullscreen"/>
         <activity
             android:name="com.medicall.capstone.medical_records"
             android:screenOrientation="portrait" />

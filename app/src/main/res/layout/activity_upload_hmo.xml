@@ -146,9 +146,9 @@
             android:layout_width="170dp"
             android:layout_height="47dp"
             android:text="Upload"
-            android:enabled="false"
+            android:enabled="true"
             android:textColor="@color/white"
-            android:background="@drawable/upload_disabled"/>
+            android:background="@drawable/darkround"/>
 
     </LinearLayout>
 
