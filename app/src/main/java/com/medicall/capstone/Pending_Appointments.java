@@ -117,7 +117,7 @@ public class Pending_Appointments extends AppCompatActivity {
                                                         if(task.isSuccessful()){
                                                             DocumentSnapshot patient = task.getResult();
                                                             patientname = patient.getString("FirstName") + " " + patient.getString("LastName");
-                                                            holder.patName.setText("Patient Name: " + patientname);
+                                                            holder.patName.setText(patientname);
                                                         }
                                                     }
                                                 });

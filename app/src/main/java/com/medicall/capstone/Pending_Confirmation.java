@@ -90,7 +90,7 @@ public class Pending_Confirmation extends AppCompatActivity {
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if(task.isSuccessful()){
                                 DocumentSnapshot patient = task.getResult();
-                                PatientName.setText("Patient: " + patient.getString("FirstName") + " " + patient.getString("LastName"));
+                                PatientName.setText(patient.getString("FirstName") + " " + patient.getString("LastName"));
                             }
                         }
                     });

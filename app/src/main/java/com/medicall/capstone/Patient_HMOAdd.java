@@ -147,6 +147,8 @@ public class Patient_HMOAdd extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 addhmo();
+                                Intent intent = new Intent(getApplicationContext(), Patient_HMOList.class);
+                                startActivity(intent);
                             }
                         }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                             @Override
@@ -188,7 +190,7 @@ public class Patient_HMOAdd extends AppCompatActivity {
            pathmo.put("CardNumber", addhmonum);
            db.collection("Patients").document(Uid).collection("HMO").document(hmospinner).set(pathmo);
 
-           Toast.makeText(Patient_HMOAdd.this, hmospinner, Toast.LENGTH_SHORT).show();
+
 
 
     }
