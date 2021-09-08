@@ -1,6 +1,7 @@
 package com.medicall.capstone.secretary;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,9 +15,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FileDownloadTask;
@@ -55,11 +59,14 @@ public class Secretary_schedlist_patsched_past extends AppCompatActivity {
     private FirebaseStorage storage;
     Bitmap getpic;
 
+    TextView None;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_secretary_schedlist_patsched_past);
 
+        None = findViewById(R.id.sec_patsched_past_none);
         mFirestoreList = findViewById(R.id.sec_sched_recview);
         fAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
@@ -146,6 +153,22 @@ public class Secretary_schedlist_patsched_past extends AppCompatActivity {
         mFirestoreList.setLayoutManager(new LinearLayoutManager(this));
         mFirestoreList.setAdapter(adapter);
 
+        db.collection("Schedules").whereEqualTo("DoctorUId", docuid).whereEqualTo("Status", "Completed").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (error != null) {
+                    Toast.makeText(Secretary_schedlist_patsched_past.this, "Error listening", Toast.LENGTH_SHORT).show();
+                }
+
+                if (value.isEmpty()) {
+                    None.setVisibility(View.VISIBLE);
+                    mFirestoreList.setVisibility(View.GONE);
+                } else {
+                    None.setVisibility(View.GONE);
+                    mFirestoreList.setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 
     private class SecretaryPatSchedViewHolder extends RecyclerView.ViewHolder{

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/grey"
     tools:context="com.medicall.capstone.doctor.Doctor_schedlist_pastsched">
 
     <LinearLayout
@@ -41,6 +42,15 @@
                 android:textColor="@color/white"/>
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/doc_past_sched_none"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Theres no Schedule"
+            android:textSize="@dimen/_20sdp"
+            android:gravity="center"
+            android:visibility="gone"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/Doc_past_sched_recview"

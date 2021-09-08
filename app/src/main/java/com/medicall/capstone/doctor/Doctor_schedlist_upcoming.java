@@ -1,6 +1,7 @@
 package com.medicall.capstone.doctor;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,9 +16,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FileDownloadTask;
@@ -25,6 +29,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.medicall.capstone.Login;
 import com.medicall.capstone.R;
+import com.medicall.capstone.secretary.Secretary_schedlist_patsched;
 import com.medicall.capstone.utilities.PreferenceManager;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -55,6 +60,7 @@ public class Doctor_schedlist_upcoming extends AppCompatActivity {
     String userId;
     Bitmap getpic;
     ImageView back;
+    TextView None;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +78,7 @@ public class Doctor_schedlist_upcoming extends AppCompatActivity {
         userId = fAuth.getCurrentUser().getUid();
 
         back = findViewById(R.id.backspace);
+        None = findViewById(R.id.doc_upcoming_sched_none);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,6 +157,22 @@ public class Doctor_schedlist_upcoming extends AppCompatActivity {
         mFirestoreList.setLayoutManager(new LinearLayoutManager(this));
         mFirestoreList.setAdapter(adapter);
 
+        db.collection("Schedules").whereEqualTo("DoctorUId", userId).whereEqualTo("Status", "Paid").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (error != null) {
+                    Toast.makeText(Doctor_schedlist_upcoming.this, "Error listening", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (value.isEmpty()) {
+                    None.setVisibility(View.VISIBLE);
+                    mFirestoreList.setVisibility(View.GONE);
+                } else {
+                    None.setVisibility(View.GONE);
+                    mFirestoreList.setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 
     private class DoctorUpcomingViewHolder extends RecyclerView.ViewHolder{

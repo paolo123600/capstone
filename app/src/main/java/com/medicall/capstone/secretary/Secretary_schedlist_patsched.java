@@ -1,6 +1,7 @@
 package com.medicall.capstone.secretary;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,11 +21,14 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.medicall.capstone.Patient_HMOList;
 import com.medicall.capstone.R;
 import com.medicall.capstone.utilities.PreferenceManager;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -54,6 +58,7 @@ public class Secretary_schedlist_patsched extends AppCompatActivity {
     PreferenceManager preferenceManager;
 
     ImageView back;
+    TextView None;
 
     private StorageReference storageReference;
     private FirebaseStorage storage;
@@ -65,6 +70,7 @@ public class Secretary_schedlist_patsched extends AppCompatActivity {
         setContentView(R.layout.activity_secretary_schedlist_patsched);
 
         pastsched = findViewById(R.id.sec_past_sched);
+        None = findViewById(R.id.sec_patsched_none);
 
         mFirestoreList = findViewById(R.id.sec_sched_recview);
         fAuth = FirebaseAuth.getInstance();
@@ -167,6 +173,23 @@ public class Secretary_schedlist_patsched extends AppCompatActivity {
         mFirestoreList.setHasFixedSize(true);
         mFirestoreList.setLayoutManager(new LinearLayoutManager(this));
         mFirestoreList.setAdapter(adapter);
+
+        db.collection("Schedules").whereEqualTo("DoctorUId", docuid).whereEqualTo("ClinicName", preferenceManager.getString("ClinicName")).whereEqualTo("Status", "Paid").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (error != null) {
+                    Toast.makeText(Secretary_schedlist_patsched.this, "Error listening", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (value.isEmpty()) {
+                    None.setVisibility(View.VISIBLE);
+                    mFirestoreList.setVisibility(View.GONE);
+                } else {
+                    None.setVisibility(View.GONE);
+                    mFirestoreList.setVisibility(View.VISIBLE);
+                }
+            }
+        });
 
     }
 

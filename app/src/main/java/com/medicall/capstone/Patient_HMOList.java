@@ -105,6 +105,7 @@ public class Patient_HMOList extends AppCompatActivity {
             protected void onBindViewHolder(@NonNull PatientHMOModelView holder, int position, @NonNull PatientHMOModel model){
 
                 holder.nameHMO.setText(model.getHMOName());
+                holder.cardHMO.setText(model.getCardNumber());
                 holder.editHMO.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -189,8 +190,10 @@ public class Patient_HMOList extends AppCompatActivity {
         private TextView nameHMO;
         private Button editHMO;
         private Button deleteHMO;
+        private TextView cardHMO;
         public PatientHMOModelView(@NonNull View itemView){
             super(itemView);
+            cardHMO = itemView.findViewById(R.id.card_number);
             nameHMO = itemView.findViewById(R.id.hmo_name);
             editHMO = itemView.findViewById(R.id.hmo_edit);
             deleteHMO = itemView.findViewById(R.id.hmo_delete);
