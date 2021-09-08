@@ -141,7 +141,7 @@ public class Pending_Appointments extends AppCompatActivity {
                                             gv.setPending_patUid(model.getPatientUId());
                                             gv.setPending_sched(datestring + " (" + model.getStartTime() + " - " + model.getEndTime() + ")" );
                                             gv.setPending_hmo(model.getHMOName());
-                                            gv.setPending_sched(model.getDate() + " (" + model.getStartTime() + " - " + model.getEndTime() + ")" );
+                                            gv.setPending_sched(datestring + " (" + model.getStartTime() + " - " + model.getEndTime() + ")" );
                                             gv.setPending_cardNumber(model.getCardNumber());
                                             startActivity(intent);
                                         }
