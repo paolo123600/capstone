@@ -235,6 +235,7 @@ public class upload_hmo extends AppCompatActivity {
                                             patienthmo.put("EndTime", gv.getEndTime());
                                             patienthmo.put("Date", gv.getDateconsult());
                                             patienthmo.put("Dnt", gv.getDateandtime());
+                                            patienthmo.put("HMOName", gv.getHMOName());
                                             patienthmo.put("Position", gv.getPost()+1);
                                             patienthmo.put("Status", "Pending Approval");
                                             patienthmo.put("DoctorUId", gv.getSDDocUid());
@@ -307,6 +308,7 @@ public class upload_hmo extends AppCompatActivity {
                                 patienthmo.put("EndTime", gv.getEndTime());
                                 patienthmo.put("Date", gv.getDateconsult());
                                 patienthmo.put("Dnt", gv.getDateandtime());
+                                patienthmo.put("HMOName", gv.getHMOName());
                                 patienthmo.put("Position", gv.getPost()+1);
                                 patienthmo.put("Status", "Pending Approval");
                                 patienthmo.put("DoctorUId", gv.getSDDocUid());

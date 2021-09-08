@@ -156,6 +156,7 @@ public class selectDoc_hmo extends AppCompatActivity {
                                             public void onClick(View view) {
                                                 Intent intent = new Intent(selectDoc_hmo.this, selectDate_hmo.class);
                                                 GlobalVariables gv =(GlobalVariables) getApplicationContext ();
+                                                gv.setHMOName(hmoname);
                                                 gv.setSDDocemail(model.getEmail());
                                                 gv.setSDDocUid(model.getUserId());
                                                 gv.setSDDocLastName(model.getLastName());

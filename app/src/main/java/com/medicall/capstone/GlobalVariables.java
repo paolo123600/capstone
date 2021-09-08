@@ -518,4 +518,14 @@ public class GlobalVariables extends Application {
 
     String EditHMO_hmoName;
 
+    public String getHMOName() {
+        return HMOName;
+    }
+
+    public void setHMOName(String HMOName) {
+        this.HMOName = HMOName;
+    }
+
+    String HMOName;
+
 }

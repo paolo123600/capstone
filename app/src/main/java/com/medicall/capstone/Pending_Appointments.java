@@ -139,8 +139,9 @@ public class Pending_Appointments extends AppCompatActivity {
                                             Intent intent = new Intent(Pending_Appointments.this, Pending_Confirmation.class);
                                             gv.setPending_docUid(model.getDoctorUId());
                                             gv.setPending_patUid(model.getPatientUId());
-                                            gv.setPending_hmo(model.getHmo());
                                             gv.setPending_sched(datestring + " (" + model.getStartTime() + " - " + model.getEndTime() + ")" );
+                                            gv.setPending_hmo(model.getHMOName());
+                                            gv.setPending_sched(model.getDate() + " (" + model.getStartTime() + " - " + model.getEndTime() + ")" );
                                             gv.setPending_cardNumber(model.getCardNumber());
                                             startActivity(intent);
                                         }

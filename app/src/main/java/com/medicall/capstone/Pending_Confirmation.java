@@ -53,6 +53,7 @@ public class Pending_Confirmation extends AppCompatActivity {
     private StorageReference storageReference;
     Bitmap getpic;
     String image;
+    ImageView back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +73,7 @@ public class Pending_Confirmation extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
+        back = findViewById(R.id.backspace);
 
         retrieveHMO();
 
@@ -99,6 +101,13 @@ public class Pending_Confirmation extends AppCompatActivity {
         Schedule.setText("Schedule: " + gv.getPending_sched());
         HMO_Name.setText("HMO: " + gv.getPending_hmo());
         CardNumber.setText("Card Number: " + gv.getPending_cardNumber());
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         Accept.setOnClickListener(new View.OnClickListener() {
             @Override

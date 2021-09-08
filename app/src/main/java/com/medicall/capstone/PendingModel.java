@@ -8,7 +8,7 @@ public class PendingModel {
     private java.util.Date Date;
     private String DoctorUId;
     private String PatientUId;
-    private String Hmo;
+    private String HMOName;
     private String StartTime;
     private String EndTime;
     private String CardNumber;
@@ -49,12 +49,12 @@ public class PendingModel {
         PatientUId = patientUId;
     }
 
-    public String getHmo() {
-        return Hmo;
+    public String getHMOName() {
+        return HMOName;
     }
 
-    public void setHmo(String hmo) {
-        Hmo = hmo;
+    public void setHMOName(String hmoName) {
+        HMOName = hmoName;
     }
 
     public String getStartTime() {
@@ -81,12 +81,12 @@ public class PendingModel {
         CardNumber = cardNumber;
     }
 
-    public PendingModel(String clinicName, Date date, String doctorUId, String patientUId, String hmo, String startTime, String endTime, String cardNumber){
+    public PendingModel(String clinicName, Date date, String doctorUId, String patientUId, String hmoName, String startTime, String endTime, String cardNumber){
         ClinicName = clinicName;
         Date = date;
         DoctorUId = doctorUId;
         PatientUId = patientUId;
-        Hmo = hmo;
+        HMOName = hmoName;
         StartTime = startTime;
         EndTime = endTime;
         CardNumber = cardNumber;
