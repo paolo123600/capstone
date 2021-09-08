@@ -30,6 +30,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Pending_Appointments extends AppCompatActivity {
 
     private RecyclerView pendinglist;
@@ -39,6 +42,8 @@ public class Pending_Appointments extends AppCompatActivity {
     FirebaseFirestore db;
     ImageView back;
     TextView noList;
+
+
 
     String patientname, schedule, docname, hmoname;
 
@@ -52,7 +57,7 @@ public class Pending_Appointments extends AppCompatActivity {
         noList = findViewById(R.id.noPatient);
 
         gv = (GlobalVariables) getApplicationContext();
-
+        SimpleDateFormat format = new SimpleDateFormat("MMMM d ,yyyy");
         db = FirebaseFirestore.getInstance();
 
         back.setOnClickListener(new View.OnClickListener() {
@@ -74,6 +79,8 @@ public class Pending_Appointments extends AppCompatActivity {
                             pendinglist.setVisibility(View.GONE);
                         }
                         else{
+                            noList.setVisibility(View.GONE);
+                            pendinglist.setVisibility(View.VISIBLE);
                             Query query = db.collection("Schedules").whereEqualTo("ClinicName", preferenceManager.getString("ClinicName")).whereEqualTo("Status","Pending Approval");
                             FirestoreRecyclerOptions<PendingModel> options = new FirestoreRecyclerOptions.Builder<PendingModel>()
                                     .setQuery(query, PendingModel.class)
@@ -89,7 +96,10 @@ public class Pending_Appointments extends AppCompatActivity {
 
                                 @Override
                                 protected void onBindViewHolder(@NonNull PendingViewHolder holder, int position, @NonNull PendingModel model) {
-
+                                    String datestring ;
+                                    Date date = new Date();
+                                    date = model.getDate();
+                                    datestring= format.format(date);
                                     db.collection("Doctors").document(model.getDoctorUId())
                                             .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                         @Override
@@ -115,7 +125,7 @@ public class Pending_Appointments extends AppCompatActivity {
                                         }
                                     });
 
-                                    holder.schedtime.setText("Schedule: " + model.getDate());
+                                    holder.schedtime.setText("Schedule: " + datestring);
                                     holder.itemView.setOnClickListener(new View.OnClickListener(){
                                         @Override
                                         public void onClick(View v) {
@@ -130,7 +140,7 @@ public class Pending_Appointments extends AppCompatActivity {
                                             gv.setPending_docUid(model.getDoctorUId());
                                             gv.setPending_patUid(model.getPatientUId());
                                             gv.setPending_hmo(model.getHmo());
-                                            gv.setPending_sched(model.getDate() + " (" + model.getStartTime() + " - " + model.getEndTime() + ")" );
+                                            gv.setPending_sched(datestring + " (" + model.getStartTime() + " - " + model.getEndTime() + ")" );
                                             gv.setPending_cardNumber(model.getCardNumber());
                                             startActivity(intent);
                                         }
