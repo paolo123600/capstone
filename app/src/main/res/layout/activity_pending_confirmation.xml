@@ -78,6 +78,14 @@
             android:textSize="@dimen/_15sdp" />
 
         <TextView
+            android:id="@+id/conf_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="Time"
+            android:textSize="@dimen/_15sdp" />
+
+        <TextView
             android:id="@+id/conf_doctorname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -39,6 +39,7 @@ public class Pending_Confirmation extends AppCompatActivity {
     private TextView PatientName;
     private TextView DoctorName;
     private TextView Schedule;
+    private TextView Time;
     private TextView HMO_Name;
     private Button Accept;
     private Button Decline;
@@ -66,6 +67,7 @@ public class Pending_Confirmation extends AppCompatActivity {
         Schedule = (TextView) findViewById(R.id.conf_schedule);
         HMO_Name = (TextView) findViewById(R.id.conf_hmoname);
         HMO_Image = (ImageView) findViewById(R.id.conf_hmoimage);
+        Time= (TextView) findViewById(R.id.conf_time);
         Accept = (Button) findViewById(R.id.conf_btnaccept);
         Decline = (Button) findViewById(R.id.conf_btndecline);
         CardNumber = (TextView) findViewById(R.id.conf_hmocardnum);
@@ -99,6 +101,7 @@ public class Pending_Confirmation extends AppCompatActivity {
         });
 
         Schedule.setText("Schedule: " + gv.getPending_sched());
+        Time.setText(gv.getStartTime()+" - "+gv.getEndTime());
         HMO_Name.setText("HMO: " + gv.getPending_hmo());
         CardNumber.setText("Card Number: " + gv.getPending_cardNumber());
 
