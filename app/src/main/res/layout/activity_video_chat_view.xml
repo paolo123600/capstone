@@ -80,7 +80,8 @@
                     android:layout_marginEnd="102dp"
                     android:layout_marginRight="102dp"
                     android:background="@drawable/addnote_videocall"
-                    android:src="@drawable/ic_addnote" />
+                    android:src="@drawable/ic_addnote"
+                    android:visibility="gone"/>
 
 
             </RelativeLayout>
