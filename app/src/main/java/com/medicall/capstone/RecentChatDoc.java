@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.medicall.capstone.Model.ChatlistModel;
 import com.medicall.capstone.Model.Chats;
@@ -68,6 +69,7 @@ public class RecentChatDoc extends AppCompatActivity {
     FirebaseUser firebaseUser;
     String secid;
     private PreferenceManager preferenceManager;
+    TextView none;
 
     TextView clinicname;
     @Override
@@ -89,6 +91,7 @@ public class RecentChatDoc extends AppCompatActivity {
         fAuth = FirebaseAuth.getInstance();
         userId = fAuth.getCurrentUser().getUid();
         secbtn= (LinearLayout) findViewById(R.id.doc_chat_sec);
+        none = findViewById(R.id.None);
 
         DocumentReference documentReference = db.collection("Doctors").document(userId);
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
@@ -224,10 +227,25 @@ public class RecentChatDoc extends AppCompatActivity {
         recyclerView.setAdapter(mAdapter);
         mAdapter.startListening();
 
+        db.collection("Doctors").document(mainuserid).collection("ChatList").whereEqualTo("UserType","Patients").orderBy("DateAndTime", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable  QuerySnapshot value, @Nullable  FirebaseFirestoreException error) {
+                if(error != null){
+                    Toast.makeText(RecentChatDoc.this, "Error Loading",Toast.LENGTH_SHORT).show();
+                }
+                if(value.isEmpty()){
+                    none.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
+                } else {
+                    none.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.VISIBLE);
+                }
+            }
+        });
 
 
 
-        }
+    }
     private void LastMessage(String friendid, final TextView last_msg) {
 
         thelastmessage = "default";
