@@ -203,13 +203,79 @@ private  boolean inpip = false;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_chat_view);
+         mChatButton=(ImageButton) findViewById(R.id.videochathome_chat);
+        mAddNote= (ImageButton) findViewById(R.id.videochathome_addnote);
         preferenceManager = new PreferenceManager(getApplicationContext());
         usertype=preferenceManager.getString(Constants.USERTYPE);
         smalllayout = findViewById(R.id.smallvclayout);
+        GlobalVariables gv = (GlobalVariables) getApplicationContext();
         chtlayout = findViewById(R.id.chatlayout);
         db= FirebaseFirestore.getInstance();
+        mChatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    if(usertype.equals("Patient")){
+                        Rational rational = new Rational(2,
+                                3);
+                        PictureInPictureParams params3 =
+                                new PictureInPictureParams.Builder()
+                                        .setAspectRatio(rational)
+                                        .build();
+                        setPictureInPictureParams(params3);
+                        enterPictureInPictureMode(params3);
+                        Intent intent = new Intent(VideoChatViewActivity.this, MessageActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.putExtra("friendid", friendid);
+                        intent.putExtra("name", name);
+                        intent.putExtra("usertype", "Doctors");
+                        intent.putExtra("type", "Patients");
+                        intent.putExtra("FromCall", "true");
+                        startActivity(intent);
+                    }
+                    else{
+                        Rational rational = new Rational(2,
+                                3);
+                        PictureInPictureParams params3 =
+                                new PictureInPictureParams.Builder()
+                                        .setAspectRatio(rational)
+                                        .build();
+                        setPictureInPictureParams(params3);
+                        enterPictureInPictureMode(params3);
+
+                        Intent intent = new Intent(VideoChatViewActivity.this, MessageActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.putExtra("friendid", gv.getSDPatUId());
+                        intent.putExtra("name", name);
+                        intent.putExtra("usertype", "Patients");
+                        intent.putExtra("type", "Doctors");
+                        intent.putExtra("FromCall", "true");
+                        startActivity(intent);
+
+
+                    }
+
+
+
+
+                } else {
+
+                }
+
+
+            }
+        });
+
+        mAddNote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(VideoChatViewActivity.this, NoteActivity.class);
+                startActivity(intent);
+            }
+        });
         initUI();
-        GlobalVariables gv = (GlobalVariables) getApplicationContext();
+
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             pictureInPictureParams = new PictureInPictureParams.Builder();
@@ -218,8 +284,7 @@ private  boolean inpip = false;
 
 
        Channel1 = gv.getChannel_Name().toString();
-        mChatButton=(ImageButton) findViewById(R.id.videochathome_chat);
-        mAddNote= (ImageButton) findViewById(R.id.videochathome_addnote);
+
         String usertype = preferenceManager.getString(Constants.USERTYPE);
         if(usertype.equals("Patient")){
             mAddNote.setVisibility(View.INVISIBLE);
@@ -234,68 +299,7 @@ private  boolean inpip = false;
                 checkSelfPermission(REQUESTED_PERMISSIONS[2], PERMISSION_REQ_ID)) {
             initEngineAndJoinChannel();
 
-            mChatButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        if(usertype.equals("Patient")){
-                            Rational rational = new Rational(2,
-                                    3);
-                            PictureInPictureParams params3 =
-                                    new PictureInPictureParams.Builder()
-                                            .setAspectRatio(rational)
-                                            .build();
-                            setPictureInPictureParams(params3);
-                            enterPictureInPictureMode(params3);
-                            Intent intent = new Intent(VideoChatViewActivity.this, MessageActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            intent.putExtra("friendid", friendid);
-                            intent.putExtra("name", name);
-                            intent.putExtra("usertype", "Doctors");
-                            intent.putExtra("type", "Patients");
-                            intent.putExtra("FromCall", "true");
-                            startActivity(intent);
-                        }
-                        else{
-                            Rational rational = new Rational(2,
-                                    3);
-                            PictureInPictureParams params3 =
-                                    new PictureInPictureParams.Builder()
-                                            .setAspectRatio(rational)
-                                            .build();
-                            setPictureInPictureParams(params3);
-                            enterPictureInPictureMode(params3);
 
-                            Intent intent = new Intent(VideoChatViewActivity.this, MessageActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            intent.putExtra("friendid", gv.getSDPatUId());
-                            intent.putExtra("name", name);
-                            intent.putExtra("usertype", "Patients");
-                            intent.putExtra("type", "Doctors");
-                            intent.putExtra("FromCall", "true");
-                            startActivity(intent);
-
-
-                        }
-
-
-
-
-                    } else {
-
-                    }
-
-
-                }
-            });
-
-            mAddNote.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(VideoChatViewActivity.this, NoteActivity.class);
-                    startActivity(intent);
-                }
-            });
         }
     }
 
