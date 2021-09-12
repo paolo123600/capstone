@@ -123,7 +123,7 @@ public class Pending_Confirmation extends AppCompatActivity {
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                db.collection("Schedules").whereEqualTo("PatientUId", gv.getPending_patUid())
+                                db.collection("Schedules").whereEqualTo("PatientUId", gv.getPending_patUid()).whereEqualTo("Status","Pending Approval")
                                         .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                     @Override
                                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -178,7 +178,7 @@ public class Pending_Confirmation extends AppCompatActivity {
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                db.collection("Schedules").whereEqualTo("PatientUId", gv.getPending_patUid())
+                                db.collection("Schedules").whereEqualTo("PatientUId", gv.getPending_patUid()).whereEqualTo("Status","Pending Approval")
                                         .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                     @Override
                                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -187,7 +187,7 @@ public class Pending_Confirmation extends AppCompatActivity {
                                             if(!querySnapshot.isEmpty()){
                                                 for(QueryDocumentSnapshot scheds : task.getResult()){
                                                     db.collection("Schedules").document(scheds.getString("SchedId"))
-                                                            .update("Status", "Cancelled");
+                                                            .update("Status", "Declined");
                                                     AlertDialog.Builder status1 = new AlertDialog.Builder(Pending_Confirmation.this);
                                                     status1.setTitle("Schedule cancelled");
                                                     status1.setMessage("Appointment successfully declined!");

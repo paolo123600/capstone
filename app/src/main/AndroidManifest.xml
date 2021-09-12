@@ -23,7 +23,6 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity android:name=".doc_changepic"></activity>
-        <activity android:name=".restriction"></activity>
         <activity android:name=".Patient_ChangePicture" />
         <activity android:name=".doctor.Doctor_patient_bp" />
         <activity android:name=".doctor.Doctor_schedlist_pastsched" />
@@ -43,21 +42,16 @@
         <activity android:name=".upload_hmo" />
         <activity android:name=".pat_blood_pressure" />
         <activity android:name=".add_patient_HMO" />
-        <activity android:name=".pat_payment" />
         <activity android:name=".View_doctor_info" />
-        <activity android:name=".select_Appoint" />
         <activity android:name=".selectDate" />
         <activity android:name=".selectDoc" />
-        <activity android:name=".datepicker" />
         <activity android:name=".docsched_page3" />
         <activity android:name=".docsched_page2" />
         <activity android:name=".docshed_page1" />
         <activity android:name=".NoteActivity" />
         <activity android:name=".doctor_editprofile" />
         <activity android:name=".doctor_viewporfile" />
-        <activity android:name=".paymentform" />
         <activity android:name=".activities.PastAppointments" />
-        <activity android:name=".Testpayment"></activity>
 
         <activity
             android:name="com.medicall.capstone.profile_edit"
@@ -158,18 +152,13 @@
             android:screenOrientation="portrait"
             android:supportsPictureInPicture="true"
             android:taskAffinity=".activities.VideoChatViewActivity" />
-        <activity
-            android:name="com.medicall.capstone.burger_test"
-            android:screenOrientation="portrait" />
+
         <activity
             android:name="com.medicall.capstone.doctor_homepage"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.medicall.capstone.Sign_UpActivity"
             android:exported="true"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.medicall.capstone.Sign_Up_VerifyActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.medicall.capstone.Login"
