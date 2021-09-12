@@ -36,8 +36,10 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -199,6 +201,11 @@ public class selectDate_hmo extends AppCompatActivity implements DatePickerDialo
         SimpleDateFormat simpledateformat = new SimpleDateFormat("EEEE");
         Date date1 = new Date(Year, Month, Day-1);
         String datestring = format.format(date2);
+        try {
+            date2 = format.parse(datestring);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         String dow = simpledateformat.format(date1);
         etDate.setText(date);
 
@@ -207,7 +214,7 @@ public class selectDate_hmo extends AppCompatActivity implements DatePickerDialo
         FirestoreRecyclerOptions<DocSchedModel> options = new FirestoreRecyclerOptions.Builder<DocSchedModel>()
                 .setQuery(query,DocSchedModel.class)
                 .build();
-
+        Date finalDate = date2;
         adapter = new FirestoreRecyclerAdapter<DocSchedModel, DocSchedViewHolder>(options) {
             @NonNull
             @Override
@@ -219,7 +226,7 @@ public class selectDate_hmo extends AppCompatActivity implements DatePickerDialo
             @Override
             protected void onBindViewHolder(@NonNull DocSchedViewHolder holder, int position, @NonNull DocSchedModel model) {
 
-                db.collection("Schedules").whereEqualTo("DoctorUId",gv.getSDDocUid()).whereEqualTo("StartTime",model.getStartTime()).whereEqualTo("EndTime", model.getEndTime()).whereEqualTo("Date", date2 ).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                db.collection("Schedules").whereEqualTo("DoctorUId",gv.getSDDocUid()).whereEqualTo("StartTime",model.getStartTime()).whereEqualTo("EndTime", model.getEndTime()).whereEqualTo("Date", finalDate ).whereEqualTo("Status", Arrays.asList("Paid","Pending Approval","Approved")).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
@@ -242,7 +249,7 @@ public class selectDate_hmo extends AppCompatActivity implements DatePickerDialo
                                         gv.setStartTime(model.getStartTime());
                                         gv.setEndTime(model.getEndTime());
                                         gv.setPost(count);
-                                        gv.setDateconsult(date2);
+                                        gv.setDateconsult(finalDate);
                                         gv.setDateandtime(currentTime);
 
                                         AlertDialog.Builder builder = new AlertDialog.Builder(selectDate_hmo.this);

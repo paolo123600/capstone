@@ -209,7 +209,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onClick(View v) {
                 Calendar calendar = Calendar.getInstance();
                 datenow = DateFormat.getDateInstance().format(calendar.getTime());
-                db.collection("Schedules").whereEqualTo("PatientUId",patuid).whereIn("Status", Arrays.asList("Paid","Pending Approval"))
+                db.collection("Schedules").whereEqualTo("PatientUId",patuid).whereIn("Status", Arrays.asList("Paid","Pending Approval","Approved"))
                         .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -237,7 +237,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                                     if(nowdate.before(datesched)||nowdate.equals(datesched)){
 
-                                        if(doc.getString("Status").equals("Paid")){
+                                        if(doc.getString("Status").equals("Paid")||doc.getString("Status").equals("Approved")){
                                             Toast.makeText(MainActivity.this, "You already have an appointment.", Toast.LENGTH_SHORT).show();
                                         }
                                         else if(doc.getString("Status").equals("Pending Approval")){

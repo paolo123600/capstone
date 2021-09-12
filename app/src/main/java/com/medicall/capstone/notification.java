@@ -85,7 +85,7 @@ String clinicname;
                 String selectedstat = spinner_status.getSelectedItem().toString();
                 switch (selectedstat) {
                     case "All":
-                        query = db.collection("Schedules").whereIn("Status", Arrays.asList("Paid","Pending Approval","Reschedule","Cancelled")).orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
+                        query = db.collection("Schedules").whereIn("Status", Arrays.asList("Paid","Pending Approval","Reschedule","Cancelled","Declined","Approved")).orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
                         Shownotif(query);
                         break;
                     case "Booked":
@@ -102,6 +102,14 @@ String clinicname;
                         break;
                     case "Cancelled":
                          query = db.collection("Schedules").whereEqualTo("Status","Cancelled").orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
+                        Shownotif(query);
+                        break;
+                    case "Declined":
+                        query = db.collection("Schedules").whereEqualTo("Status","Declined").orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
+                        Shownotif(query);
+                        break;
+                    case "Approved":
+                        query = db.collection("Schedules").whereEqualTo("Status","Approved").orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
                         Shownotif(query);
                         break;
                 }
@@ -189,6 +197,12 @@ String clinicname;
                                                          break;
                                                      case "Cancelled":
                                                          holder.tvpatname.setText(patname+" has cancelled an appointment with "+docname+" dated "+date);
+                                                         break;
+                                                     case "Declined":
+                                                         holder.tvpatname.setText(patname+"'s appointment has been declined dated "+date);
+                                                         break;
+                                                     case "Approved":
+                                                         holder.tvpatname.setText(patname+"'s appointment has been approved dated "+date);
                                                          break;
 
                                                  }

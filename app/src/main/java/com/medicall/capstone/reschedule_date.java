@@ -39,6 +39,7 @@ import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -85,7 +86,7 @@ public class reschedule_date extends AppCompatActivity implements DatePickerDial
         Hour = calendar.get(Calendar.HOUR_OF_DAY);
         Minute = calendar.get(Calendar.MINUTE);
 
-
+        Position=gv.getPosition();
         docid = gv.getSDDocUid();
 
         Intent intent = getIntent();
@@ -259,7 +260,7 @@ public class reschedule_date extends AppCompatActivity implements DatePickerDial
                                         ).addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
-                                                db.collection("Schedules").whereEqualTo("DoctorUId", gv.getSDDocUid()).whereEqualTo("StartTime",gv.getSDtimestart()).whereEqualTo("EndTime",gv.getSDtimestop()).whereEqualTo("Status","Paid").whereEqualTo("Date",gv.getDDate()).get()
+                                                db.collection("Schedules").whereEqualTo("DoctorUId", gv.getSDDocUid()).whereEqualTo("StartTime",gv.getSDtimestart()).whereEqualTo("EndTime",gv.getSDtimestop()).whereIn("Status", Arrays.asList("Paid","Approved","Pending Approval")).whereEqualTo("Date",gv.getDDate()).get()
                                                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                                             @Override
                                                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -267,7 +268,8 @@ public class reschedule_date extends AppCompatActivity implements DatePickerDial
 
                                                                     for (QueryDocumentSnapshot doc : task.getResult()) {
                                                                         int docposition = doc.getLong("Position").intValue();
-                                                                        if (docposition > Position-1){
+
+                                                                        if (docposition > Position){
                                                                             String docuid = doc.getId();
                                                                             db.collection("Schedules").document(docuid).update("Position", docposition-1)
                                                                                     .addOnSuccessListener(new OnSuccessListener<Void>() {

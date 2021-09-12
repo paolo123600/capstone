@@ -132,7 +132,7 @@ public class patient_schedule extends AppCompatActivity  {
             Toast.makeText(patient_schedule.this, "error1", Toast.LENGTH_SHORT).show();
         }
 
-        db.collection("Schedules").whereEqualTo("PatientUId",Patuid).whereIn("Status",Arrays.asList("Paid","Pending Approval","Declined")).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("Schedules").whereEqualTo("PatientUId",Patuid).whereIn("Status",Arrays.asList("Paid","Pending Approval","Declined","Approved")).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                     if (task.isSuccessful()){
@@ -152,7 +152,7 @@ public class patient_schedule extends AppCompatActivity  {
                                     if(doc.getString("Status").equals("Paid")){
                                         cancelbtn.setVisibility(View.VISIBLE);
                                         reschedbtn.setVisibility(View.VISIBLE);}
-                                    if(doc.getString("Status").equals("Paid")){
+                                    if(doc.getString("Status").equals("Pending Approval")||doc.getString("Status").equals("Approved")){
                                         cancelbtn.setVisibility(View.VISIBLE);}
 
                                     scheddocu =doc.getId();
@@ -181,6 +181,8 @@ public class patient_schedule extends AppCompatActivity  {
                                     datetv.setText("Date :"+date1);
 
                                     gv.setDDate(datesched);
+                                    Position = doc.getLong("Position").intValue();
+                                    gv.setPosition(doc.getLong("Position").intValue());
                                     gv.setSDClinic(doc.getString("ClinicName"));
                                     gv.setSDDocUid(doc.getString("DoctorUId"));
                                     gv.setSDtimestart(doc.getString("StartTime"));
@@ -217,7 +219,7 @@ public class patient_schedule extends AppCompatActivity  {
                                     @Override
                                     public void onSuccess(Void aVoid) {
 
-                                        db.collection("Schedules").whereEqualTo("DoctorUId",gv.getSDDocUid()).whereEqualTo("StartTime",gv.getSDtimestart()).whereEqualTo("EndTime",gv.getSDtimestop()).whereEqualTo("Status","Paid").whereEqualTo("Date",gv.getDDate()).get()
+                                        db.collection("Schedules").whereEqualTo("DoctorUId",gv.getSDDocUid()).whereEqualTo("StartTime",gv.getSDtimestart()).whereEqualTo("EndTime",gv.getSDtimestop()).whereIn("Status",Arrays.asList("Paid","Pending Approval","Approved")).whereEqualTo("Date",gv.getDDate()).get()
                                                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                                     @Override
                                                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -226,7 +228,7 @@ public class patient_schedule extends AppCompatActivity  {
                                                             for (QueryDocumentSnapshot doc : task.getResult()) {
 
                                                                  int docpostion = doc.getLong("Position").intValue();
-                                                                if ( docpostion > Position-1){
+                                                                if ( docpostion > Position){
                                                                     String docuid = doc.getId();
                                                                     db.collection("Schedules").document(docuid).update(
                                                                             "Position",docpostion-1
@@ -283,13 +285,16 @@ public class patient_schedule extends AppCompatActivity  {
                 String selectedstat = spinner_status.getSelectedItem().toString();
                 switch (selectedstat) {
                     case "All":
-                        query1 = db.collection("Schedules").whereEqualTo("PatientUId", Patuid).whereIn("Status", Arrays.asList("Completed" ,"Rescheduled", "Cancelled","Declined")).orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
+                        query1 = db.collection("Schedules").whereEqualTo("PatientUId", Patuid).whereIn("Status", Arrays.asList("Completed" ,"Rescheduled", "Cancelled","Declined","Approved")).orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
                         break;
                     case "Declined":
                         query1 = db.collection("Schedules").whereEqualTo("Status", "Declined").whereEqualTo("PatientUId", Patuid).orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
                         break;
                     case "Completed":
                         query1 = db.collection("Schedules").whereEqualTo("Status", "Completed").whereEqualTo("PatientUId", Patuid).orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
+                        break;
+                    case "Appoved":
+                        query1 = db.collection("Schedules").whereEqualTo("Status", "Approved").whereEqualTo("PatientUId", Patuid).orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
                         break;
                     case "Rescheduled":
                         query1 = db.collection("Schedules").whereEqualTo("Status", "Rescheduled").whereEqualTo("PatientUId", Patuid).orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
@@ -355,6 +360,12 @@ public class patient_schedule extends AppCompatActivity  {
                                                                     holder.tvdocname.setText("Doctor: "+docname);
                                                                     holder.tvdatesched.setText("Date: "+date);
                                                                     holder.tvstatus.setText("Status: "+"Declined");
+                                                                    break;
+                                                                case "Approved":
+                                                                    holder.tvpatname.setText("Patient: "+ patname);
+                                                                    holder.tvdocname.setText("Doctor: "+docname);
+                                                                    holder.tvdatesched.setText("Date: "+date);
+                                                                    holder.tvstatus.setText("Status: "+"Approved");
                                                                     break;
 
                                                             }

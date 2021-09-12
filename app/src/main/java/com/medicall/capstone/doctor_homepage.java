@@ -119,7 +119,7 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
         btn_dochat = (Button) findViewById(R.id.btn_chat_dochome);
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat format = new SimpleDateFormat("MMMM d ,yyyy");
-         DDate = calendar.getTime();
+        DDate = calendar.getTime();
         datenow = format.format(DDate);
         try {
             DDate = format.parse(datenow);
@@ -129,8 +129,8 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
 
         mFirestorelist = (RecyclerView)findViewById(R.id.scheddoc_list);
 
-    btncomplete= (ImageView) findViewById(R.id.button_complete);
-    btnnext = (ImageView) findViewById(R.id.button_next);
+        btncomplete= (ImageView) findViewById(R.id.button_complete);
+        btnnext = (ImageView) findViewById(R.id.button_next);
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         userId = fAuth.getCurrentUser().getUid();
@@ -186,10 +186,10 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
 
             Date currentTime = Calendar.getInstance().getTime();
 
-          //  String timenow1 =dateFormat.format(currentTime);
+//            String timenow1 =dateFormat.format(currentTime);
 
-
-          String timenow1 ="4:40PM";
+//
+          String timenow1 ="10:40AM";
             timenow = dateFormat.parse(timenow1);
 
         } catch (ParseException e) {
@@ -316,10 +316,10 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
 
                     Date currentTime = Calendar.getInstance().getTime();
 
-              //      String timenow1 =dateFormat.format(currentTime);
+                    //      String timenow1 =dateFormat.format(currentTime);
 
 
-         String timenow1 ="4:40PM";
+                    String timenow1 ="10:40AM";
                     timenow = dateFormat.parse(timenow1);
 
                 } catch (ParseException e) {
@@ -336,270 +336,324 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
     private void checkschedcurrent() {
 
 
-db.collection("DoctorSchedules").whereEqualTo(currentday,true).whereEqualTo("DocId", preferenceManager.getString(Constants.KEY_USER_ID)).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-    @Override
-    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-        if (task.isSuccessful()){
-            if (!task.getResult().isEmpty()){
-                String timestart = "none", timestop = "none";
-                for (QueryDocumentSnapshot document : task.getResult()) {
+        db.collection("DoctorSchedules").whereEqualTo(currentday,true).whereEqualTo("DocId", preferenceManager.getString(Constants.KEY_USER_ID)).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()){
+                    if (!task.getResult().isEmpty()){
+                        String timestart = "none", timestop = "none";
+                        for (QueryDocumentSnapshot document : task.getResult()) {
 
-                    String time1 = document.getString("StartTime");
-                    String time2 = document.getString("EndTime");
-                    Date d1= new Date(), d2= new Date();
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("h:mm aa");
+                            String time1 = document.getString("StartTime");
+                            String time2 = document.getString("EndTime");
+                            Date d1= new Date(), d2= new Date();
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("h:mm aa");
 
-                    try {
-                        d1 = dateFormat.parse(time1);
-                        d2= dateFormat.parse(time2);
-            } catch (ParseException e) {
-                Toast.makeText(doctor_homepage.this, "errorsettingtime", Toast.LENGTH_SHORT).show();
+                            try {
+                                d1 = dateFormat.parse(time1);
+                                d2= dateFormat.parse(time2);
+                            } catch (ParseException e) {
+                                Toast.makeText(doctor_homepage.this, "errorsettingtime", Toast.LENGTH_SHORT).show();
 
-            }
-                    if (timenow.after(d1) && timenow.before(d2) || timenow.equals(d2)) {
-                timestart=time1;
-                timestop=time2;
+                            }
+                            if (timenow.after(d1) && timenow.before(d2) || timenow.equals(d2)) {
+                                timestart=time1;
+                                timestop=time2;
 
-            }
+                            }
 
-        } Query query =  db.collection("Schedules").whereEqualTo("Date", DDate).whereEqualTo("StartTime", timestart).whereEqualTo("DoctorUId", preferenceManager.getString(Constants.KEY_USER_ID)).whereEqualTo("Status", "Paid").whereNotIn("Position", Arrays.asList(1,0)).orderBy("Position", Query.Direction.ASCENDING).limit(5);
-                FirestoreRecyclerOptions<DocTodaySchedModel> options = new FirestoreRecyclerOptions.Builder<DocTodaySchedModel>()
-                        .setQuery(query, DocTodaySchedModel.class)
-                        .build();
-
-                adapter = new FirestoreRecyclerAdapter<DocTodaySchedModel, SchedHolder>(options) {
-                    @NonNull
-                    @Override
-                    public SchedHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.doctor_singlesched,parent,false);
-                        return new SchedHolder(view);
-                    }
-
-                    @Override
-                    protected void onBindViewHolder(@NonNull SchedHolder holder, int position, @NonNull DocTodaySchedModel model) {
-                        db.collection("Patients").document(model.PatientUId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        }
+                        String finalTimestart1 = timestart;
+                        String finalTimestop1 = timestop;
+                        String finalTimestart2 = timestart;
+                        String finalTimestop2 = timestop;
+                        db.collection("Schedules").whereEqualTo("Date", DDate).whereEqualTo("StartTime", timestart).whereEqualTo("DoctorUId", preferenceManager.getString(Constants.KEY_USER_ID)).whereEqualTo("Status", "Pending Approval").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    DocumentSnapshot document = task.getResult();
-                                    if (document.exists()) {
-                                        holder.tv_patientnamelist.setText(document.getString("LastName")+", "+document.getString("FirstName"));
-                                        holder.tv_positionlist.setText(model.Position+"");
-                                        holder.btnViewRecord.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View view) {
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()){
+                                    QuerySnapshot querySnapshot = task.getResult();
+                                if (!querySnapshot.isEmpty()) {
 
-                                            }
-                                        });
-                                    } else {
-                                        Toast.makeText(doctor_homepage.this, "document does not exist", Toast.LENGTH_SHORT).show();
+                                        for (QueryDocumentSnapshot doc : task.getResult()){
+                                            int position = doc.getLong("Position").intValue();
+                                            Date currentTime = Calendar.getInstance().getTime();
+
+                                            db.collection("Schedules").document(doc.getId()).update("Status","Declined","Dnt",currentTime,"Position",0).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+
+                                                    db.collection("Schedules").whereEqualTo("Date", DDate).whereEqualTo("StartTime", finalTimestart2).whereEqualTo("DoctorUId", preferenceManager.getString(Constants.KEY_USER_ID)).whereEqualTo("EndTime", finalTimestop2).whereIn("Status", Arrays.asList("Paid","Approved")).get()
+                                                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                                    if (task.isSuccessful()) {
+                                                                        QuerySnapshot querySnapshot = task.getResult();
+                                                                        if (!querySnapshot.isEmpty()) {
+
+                                                                            for (QueryDocumentSnapshot doc : task.getResult()) {
+                                                                                int docposition = doc.getLong("Position").intValue();
+                                                                                if (docposition > 1 && docposition >position) {
+                                                                                    String docuid = doc.getId();
+                                                                                    db.collection("Schedules").document(docuid).update("Position", docposition - 1)
+                                                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                                                @Override
+                                                                                                public void onSuccess(Void aVoid) {
+
+
+                                                                                                }
+                                                                                            });
+                                                                                }
+                                                                            }
+                                                                        }   }
+                                                                }
+                                                            });
+                                                }
+                                            });
+                                        }
                                     }
-                                } else {
-
                                 }
                             }
                         });
+                        Query query =  db.collection("Schedules").whereEqualTo("Date", DDate).whereEqualTo("StartTime", timestart).whereEqualTo("DoctorUId", preferenceManager.getString(Constants.KEY_USER_ID)).whereIn("Status", Arrays.asList("Paid","Approved")).whereNotEqualTo("Position", 1  ).orderBy("Position", Query.Direction.ASCENDING);
+                        FirestoreRecyclerOptions<DocTodaySchedModel> options = new FirestoreRecyclerOptions.Builder<DocTodaySchedModel>()
+                                .setQuery(query, DocTodaySchedModel.class)
+                                .build();
 
-                    }
-                };
-
-                mFirestorelist.setHasFixedSize(true);
-                mFirestorelist.setLayoutManager(new LinearLayoutManager(doctor_homepage.this));
-                mFirestorelist.setAdapter(adapter);
-                adapter.stopListening();
-                adapter.startListening();
-
-
-                String finalTimestart = timestart;
-                String finalTimestop = timestop;
-                db.collection("Schedules").whereEqualTo("Date", DDate).whereEqualTo("StartTime", timestart).whereEqualTo("DoctorUId", preferenceManager.getString(Constants.KEY_USER_ID)).whereEqualTo("EndTime", timestop).whereIn("Status", Arrays.asList("Paid", "Completed")).whereEqualTo("Position",1)
-                        .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        adapter = new FirestoreRecyclerAdapter<DocTodaySchedModel, SchedHolder>(options) {
+                            @NonNull
                             @Override
-                            public void onEvent(@Nullable QuerySnapshot value,
-                                                @Nullable FirebaseFirestoreException e) {
-                                if (e != null) {
-                                    Toast.makeText(doctor_homepage.this, "error listening", Toast.LENGTH_SHORT).show();
-                                    return;
-                                }
+                            public SchedHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.doctor_singlesched,parent,false);
+                                return new SchedHolder(view);
+                            }
 
-                                List<String> pats = new ArrayList<>();
-                                if (value.isEmpty()){
-                                    patnametv.setText("You have no current appointments");
-                                    schedtimetv.setText("");
-                                    callbtn.setVisibility(View.INVISIBLE);
-                                    pat_record.setVisibility(View.INVISIBLE);
-                                    btncomplete.setVisibility(View.INVISIBLE);
-                                    btnnext.setVisibility(View.INVISIBLE);
-                                }
-                                else {
-                                for (QueryDocumentSnapshot doc : value) {
-                                    String docid = doc.getId();
-                                    patUid = doc.getString("PatientUId");
+                            @Override
+                            protected void onBindViewHolder(@NonNull SchedHolder holder, int position, @NonNull DocTodaySchedModel model) {
+                                db.collection("Patients").document(model.PatientUId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                        if (task.isSuccessful()) {
+                                            DocumentSnapshot document = task.getResult();
+                                            if (document.exists()) {
+                                                holder.tv_patientnamelist.setText(document.getString("LastName")+", "+document.getString("FirstName"));
+                                                holder.tv_positionlist.setText(model.Position+"");
+                                                holder.btnViewRecord.setOnClickListener(new View.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(View view) {
 
-                                    db.collection("Patients").document(patUid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                            if (task.isSuccessful()) {
-                                                DocumentSnapshot document1 = task.getResult();
-                                                {
-                                                    if (document1.exists()) {
-                                                        gmail = document1.getString("Email");
-                                                        patnametv.setText(document1.getString("LastName") + ", " + document1.getString("FirstName"));
-                                                        schedtimetv.setText("Time: " + doc.getString("StartTime") + " - " + doc.getString("EndTime"));
-                                                        callbtn.setVisibility(View.VISIBLE);
-                                                        pat_record.setVisibility(View.VISIBLE);
-                                                        GlobalVariables gv = (GlobalVariables) getApplicationContext();
-                                                        gv.setSDtimestart(doc.getString("TimeStart"));
-                                                        gv.setSDDate(datenow);
-                                                        gv.setSDid(doc.getId());
-                                                        btncomplete.setVisibility(View.VISIBLE);
-                                                        btnnext.setVisibility(View.VISIBLE);
+                                                    }
+                                                });
+                                            } else {
+                                                Toast.makeText(doctor_homepage.this, "document does not exist", Toast.LENGTH_SHORT).show();
+                                            }
+                                        } else {
 
-                                                        btncomplete.setOnClickListener(new View.OnClickListener() {
-                                                            @Override
-                                                            public void onClick(View view) {
+                                        }
+                                    }
+                                });
 
-                                                                new AlertDialog.Builder(doctor_homepage.this).setMessage("Are you sure the appointment is completed?").setPositiveButton("Accept", new DialogInterface.OnClickListener() {
-                                                                    @Override
-                                                                    public void onClick(DialogInterface dialog, int which) {
-                                                                        Date currentTime = Calendar.getInstance().getTime();
-                                                                        db.collection("Schedules").document(docid).update(
-                                                                                "Status", "Completed",
-                                                                                "Dnt", currentTime,
-                                                                                "Position",0
+                            }
+                        };
 
-                                                                        ).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                                            @Override
-                                                                            public void onSuccess(Void aVoid) {
-                                                                                db.collection("Schedules").whereEqualTo("DoctorUId",preferenceManager.getString(Constants.KEY_USER_ID)).whereEqualTo("StartTime", finalTimestart).whereEqualTo("EndTime", finalTimestop).whereEqualTo("Status","Paid").whereEqualTo("Date", DDate).get()
-                                                                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                                                                            @Override
-                                                                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                                                                                if (task.isSuccessful()) {
-
-                                                                                                    for (QueryDocumentSnapshot doc : task.getResult()) {
-                                                                                                        int docposition = doc.getLong("Position").intValue();
-                                                                                                        if (docposition > 1) {
-                                                                                                            String docuid = doc.getId();
-                                                                                                            db.collection("Schedules").document(docuid).update("Position", docposition - 1)
-                                                                                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                                                                                        @Override
-                                                                                                                        public void onSuccess(Void aVoid) {
+                        mFirestorelist.setHasFixedSize(true);
+                        mFirestorelist.setLayoutManager(new LinearLayoutManager(doctor_homepage.this));
+                        mFirestorelist.setAdapter(adapter);
+                        adapter.stopListening();
+                        adapter.startListening();
 
 
-                                                                                                                        }
-                                                                                                                    });
+                        String finalTimestart = timestart;
+                        String finalTimestop = timestop;
+
+
+                        db.collection("Schedules").whereEqualTo("Date", DDate).whereEqualTo("StartTime", timestart).whereEqualTo("DoctorUId", preferenceManager.getString(Constants.KEY_USER_ID)).whereEqualTo("EndTime", timestop).whereIn("Status", Arrays.asList("Paid", "Completed","Approved")).whereEqualTo("Position",1)
+                                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onEvent(@Nullable QuerySnapshot value,
+                                                        @Nullable FirebaseFirestoreException e) {
+                                        if (e != null) {
+                                            Toast.makeText(doctor_homepage.this, "error listening", Toast.LENGTH_SHORT).show();
+                                            return;
+                                        }
+
+                                        List<String> pats = new ArrayList<>();
+                                        if (value.isEmpty()){
+                                            patnametv.setText("You have no current appointments");
+                                            schedtimetv.setText("");
+                                            callbtn.setVisibility(View.INVISIBLE);
+                                            pat_record.setVisibility(View.INVISIBLE);
+                                            btncomplete.setVisibility(View.INVISIBLE);
+                                            btnnext.setVisibility(View.INVISIBLE);
+                                        }
+                                        else {
+                                            for (QueryDocumentSnapshot doc : value) {
+                                                String docid = doc.getId();
+                                                patUid = doc.getString("PatientUId");
+
+                                                db.collection("Patients").document(patUid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                        if (task.isSuccessful()) {
+                                                            DocumentSnapshot document1 = task.getResult();
+                                                            {
+                                                                if (document1.exists()) {
+                                                                    gmail = document1.getString("Email");
+                                                                    patnametv.setText(document1.getString("LastName") + ", " + document1.getString("FirstName"));
+                                                                    schedtimetv.setText("Time: " + doc.getString("StartTime") + " - " + doc.getString("EndTime"));
+                                                                    callbtn.setVisibility(View.VISIBLE);
+                                                                    pat_record.setVisibility(View.VISIBLE);
+                                                                    GlobalVariables gv = (GlobalVariables) getApplicationContext();
+                                                                    gv.setSDtimestart(doc.getString("TimeStart"));
+                                                                    gv.setSDDate(datenow);
+                                                                    gv.setSDid(doc.getId());
+                                                                    btncomplete.setVisibility(View.VISIBLE);
+                                                                    btnnext.setVisibility(View.VISIBLE);
+
+                                                                    btncomplete.setOnClickListener(new View.OnClickListener() {
+                                                                        @Override
+                                                                        public void onClick(View view) {
+
+                                                                            new AlertDialog.Builder(doctor_homepage.this).setMessage("Are you sure the appointment is completed?").setPositiveButton("Accept", new DialogInterface.OnClickListener() {
+                                                                                @Override
+                                                                                public void onClick(DialogInterface dialog, int which) {
+                                                                                    Date currentTime = Calendar.getInstance().getTime();
+                                                                                    db.collection("Schedules").document(docid).update(
+                                                                                            "Status", "Completed",
+                                                                                            "Dnt", currentTime,
+                                                                                            "Position",0
+
+                                                                                    ).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                                        @Override
+                                                                                        public void onSuccess(Void aVoid) {
+                                                                                            db.collection("Schedules").whereEqualTo("DoctorUId",preferenceManager.getString(Constants.KEY_USER_ID)).whereEqualTo("StartTime", finalTimestart).whereEqualTo("EndTime", finalTimestop).whereEqualTo("Status",Arrays.asList("Paid","Approved")).whereEqualTo("Date", DDate).get()
+                                                                                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                                                                        @Override
+                                                                                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                                                                            if (task.isSuccessful()) {
+
+                                                                                                                for (QueryDocumentSnapshot doc : task.getResult()) {
+                                                                                                                    int docposition = doc.getLong("Position").intValue();
+                                                                                                                    if (docposition > 1) {
+                                                                                                                        String docuid = doc.getId();
+                                                                                                                        db.collection("Schedules").document(docuid).update("Position", docposition - 1)
+                                                                                                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                                                                                    @Override
+                                                                                                                                    public void onSuccess(Void aVoid) {
+
+
+                                                                                                                                    }
+                                                                                                                                });
+                                                                                                                    }
+                                                                                                                }
+                                                                                                            }
+                                                                                                        }
+                                                                                                    });
+                                                                                        }
+                                                                                    });
+                                                                                }
+                                                                            }).setNegativeButton("Decline", new DialogInterface.OnClickListener() {
+                                                                                @Override
+                                                                                public void onClick(DialogInterface dialog, int which) {
+
+                                                                                }
+                                                                            }).show();
+
+
+                                                                        }
+                                                                    });
+                                                                    btnnext.setOnClickListener(new View.OnClickListener() {
+                                                                        @Override
+                                                                        public void onClick(View view) {
+                                                                            new AlertDialog.Builder(doctor_homepage.this).setMessage("Are you sure you would like to move this patient?").setPositiveButton("Accept", new DialogInterface.OnClickListener() {
+                                                                                @Override
+                                                                                public void onClick(DialogInterface dialog, int which) {
+                                                                                    db.collection("Schedules").whereEqualTo("DoctorUId",preferenceManager.getString(Constants.KEY_USER_ID)).whereEqualTo("StartTime", finalTimestart).whereEqualTo("EndTime", finalTimestop).whereEqualTo("Status",Arrays.asList("Paid","Approved")).whereEqualTo("Date", DDate).get()
+                                                                                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                                                                @Override
+                                                                                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                                                                    if (task.isSuccessful()) {
+
+                                                                                                        for (QueryDocumentSnapshot doc : task.getResult()) {
+                                                                                                            int docposition = doc.getLong("Position").intValue();
+                                                                                                            if (docposition > 1) {
+                                                                                                                String docuid = doc.getId();
+                                                                                                                db.collection("Schedules").document(docuid).update("Position", docposition - 1)
+                                                                                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                                                                            @Override
+                                                                                                                            public void onSuccess(Void aVoid) {
+                                                                                                                                db.collection("Schedules").whereEqualTo("DoctorUId",preferenceManager.getString(Constants.KEY_USER_ID)).whereEqualTo("StartTime", finalTimestart).whereEqualTo("EndTime", finalTimestop).whereIn("Status", Arrays.asList("Paid","Completed","Approved")).whereEqualTo("Date", DDate).get()
+                                                                                                                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                                                                                                            @Override
+                                                                                                                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                                                                                                                if (task.isSuccessful()) {
+
+                                                                                                                                                    int count = task.getResult().size();
+                                                                                                                                                    db.collection("Schedules").document(docid).update(
+                                                                                                                                                            "Position",count
+
+                                                                                                                                                    ).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                                                                                                        @Override
+                                                                                                                                                        public void onSuccess(Void aVoid) {
+
+                                                                                                                                                        }
+                                                                                                                                                    });
+                                                                                                                                                }
+                                                                                                                                            }
+                                                                                                                                        });
+
+
+                                                                                                                            }
+                                                                                                                        });
+                                                                                                            }
                                                                                                         }
                                                                                                     }
                                                                                                 }
-                                                                                            }
-                                                                                        });
-                                                                            }
-                                                                        });
-                                                                    }
-                                                                }).setNegativeButton("Decline", new DialogInterface.OnClickListener() {
-                                                                    @Override
-                                                                    public void onClick(DialogInterface dialog, int which) {
+                                                                                            });
+                                                                                }
+                                                                            }).setNegativeButton("Decline", new DialogInterface.OnClickListener() {
+                                                                                @Override
+                                                                                public void onClick(DialogInterface dialog, int which) {
 
-                                                                    }
-                                                                }).show();
+                                                                                }
+                                                                            }).show();
 
+
+                                                                        }
+
+
+                                                                    });
+
+
+                                                                }
 
                                                             }
-                                                        });
-                                                        btnnext.setOnClickListener(new View.OnClickListener() {
-                                                            @Override
-                                                            public void onClick(View view) {
-                                                                new AlertDialog.Builder(doctor_homepage.this).setMessage("Are you sure you would like to move this patient?").setPositiveButton("Accept", new DialogInterface.OnClickListener() {
-                                                                    @Override
-                                                                    public void onClick(DialogInterface dialog, int which) {
-                                                                        db.collection("Schedules").whereEqualTo("DoctorUId",preferenceManager.getString(Constants.KEY_USER_ID)).whereEqualTo("StartTime", finalTimestart).whereEqualTo("EndTime", finalTimestop).whereEqualTo("Status","Paid").whereEqualTo("Date", DDate).get()
-                                                                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                                                                    @Override
-                                                                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                                                                        if (task.isSuccessful()) {
 
-                                                                                            for (QueryDocumentSnapshot doc : task.getResult()) {
-                                                                                                int docposition = doc.getLong("Position").intValue();
-                                                                                                if (docposition > 1) {
-                                                                                                    String docuid = doc.getId();
-                                                                                                    db.collection("Schedules").document(docuid).update("Position", docposition - 1)
-                                                                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                                                                                @Override
-                                                                                                                public void onSuccess(Void aVoid) {
-                                                                                                                    db.collection("Schedules").whereEqualTo("DoctorUId",preferenceManager.getString(Constants.KEY_USER_ID)).whereEqualTo("StartTime", finalTimestart).whereEqualTo("EndTime", finalTimestop).whereIn("Status", Arrays.asList("Paid","Completed")).whereEqualTo("Date", DDate).get()
-                                                                                                                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                                                                                                                @Override
-                                                                                                                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                                                                                                                    if (task.isSuccessful()) {
-
-                                                                                                                                        int count = task.getResult().size();
-                                                                                                                                        db.collection("Schedules").document(docid).update(
-                                                                                                                                                "Position",count
-
-                                                                                                                                        ).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                                                                                                            @Override
-                                                                                                                                            public void onSuccess(Void aVoid) {
-
-                                                                                                                                            }
-                                                                                                                                        });
-                                                                                                                                    }
-                                                                                                                                }
-                                                                                                                            });
-
-
-                                                                                                                }
-                                                                                                            });
-                                                                                                }
-                                                                                            }
-                                                                                        }
-                                                                                    }
-                                                                                });
-                                                                    }
-                                                                }).setNegativeButton("Decline", new DialogInterface.OnClickListener() {
-                                                                    @Override
-                                                                    public void onClick(DialogInterface dialog, int which) {
-
-                                                                    }
-                                                                }).show();
-
-
-                                                                    }
-
-
-                                                        });
-
-
+                                                        }
                                                     }
-
-                                                }
-
-                                            }
-                                        }
-                                    });
-                                }}
-                            }
-                        });
+                                                });
+                                            }}
+                                    }
+                                });
 
 
+
+                    }
+                    else {
+
+                        patnametv.setText("You don't have a schedule.");
+                        schedtimetv.setText("");
+                        callbtn.setVisibility(View.INVISIBLE);
+                        pat_record.setVisibility(View.INVISIBLE);
+                        btncomplete.setVisibility(View.INVISIBLE);
+                        btnnext.setVisibility(View.INVISIBLE);
+
+                    }
 
                 }
-            else {
-
-                patnametv.setText("You don't have a schedule.");
-                schedtimetv.setText("");
-                callbtn.setVisibility(View.INVISIBLE);
-                pat_record.setVisibility(View.INVISIBLE);
-                btncomplete.setVisibility(View.INVISIBLE);
-                btnnext.setVisibility(View.INVISIBLE);
 
             }
 
-            }
-
-            }
-
-});
+        });
 
 
 

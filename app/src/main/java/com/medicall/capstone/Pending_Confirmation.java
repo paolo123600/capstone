@@ -33,6 +33,8 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
 
 public class Pending_Confirmation extends AppCompatActivity {
 
@@ -131,8 +133,9 @@ public class Pending_Confirmation extends AppCompatActivity {
                                             QuerySnapshot querySnapshot = task.getResult();
                                             if(!querySnapshot.isEmpty()){
                                                 for(QueryDocumentSnapshot scheds : task.getResult()){
+                                                    Date currentTime = Calendar.getInstance().getTime();
                                                     db.collection("Schedules").document(scheds.getString("SchedId"))
-                                                            .update("Status", "Paid");
+                                                            .update("Status", "Approved","Dnt",currentTime);
                                                     AlertDialog.Builder status = new AlertDialog.Builder(Pending_Confirmation.this);
                                                     status.setTitle("Schedule approved");
                                                     status.setMessage("Appointment successfully approved!");
@@ -186,8 +189,9 @@ public class Pending_Confirmation extends AppCompatActivity {
                                             QuerySnapshot querySnapshot = task.getResult();
                                             if(!querySnapshot.isEmpty()){
                                                 for(QueryDocumentSnapshot scheds : task.getResult()){
+                                                    Date currentTime = Calendar.getInstance().getTime();
                                                     db.collection("Schedules").document(scheds.getString("SchedId"))
-                                                            .update("Status", "Declined");
+                                                            .update("Status", "Declined","Dnt",currentTime);
                                                     AlertDialog.Builder status1 = new AlertDialog.Builder(Pending_Confirmation.this);
                                                     status1.setTitle("Schedule cancelled");
                                                     status1.setMessage("Appointment successfully declined!");

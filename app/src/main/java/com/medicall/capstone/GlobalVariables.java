@@ -140,6 +140,16 @@ public class GlobalVariables extends Application {
     String SDnote;
     String SDid;
     String SDDocLastName;
+    int Position;
+
+    public int getPosition() {
+        return Position;
+    }
+
+    public void setPosition(int position) {
+        Position = position;
+    }
+
     public String getSDDocLastName() {
         return SDDocLastName;
     }
