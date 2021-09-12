@@ -21,7 +21,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.medicall.capstone.R;
 
 import com.medicall.capstone.utilities.Constants;
@@ -58,7 +61,7 @@ public class upload_hmo extends AppCompatActivity {
     FirebaseAuth fAuth;
     FirebaseFirestore db;
     String userId, patientid, storageid, patientName;
-    EditText cardnum;
+    TextView cardnumber;
     GlobalVariables gv;
     String patuid;
     private PreferenceManager preferenceManager;
@@ -75,7 +78,7 @@ public class upload_hmo extends AppCompatActivity {
         upload = findViewById(R.id.imgUpload);
         hmoinfo = findViewById(R.id.txtview_hmopreview);
         uploadbtn = findViewById(R.id.btn_upload);
-        cardnum = (EditText) findViewById(R.id.cardNumber);
+        cardnumber = (TextView) findViewById(R.id.cardNumber);
         switchhmo = findViewById(R.id.switch_hmo);
         preferenceManager = new PreferenceManager(getApplicationContext());
         back = findViewById(R.id.backspace);
@@ -90,6 +93,14 @@ public class upload_hmo extends AppCompatActivity {
         hmoinfo.setVisibility(TextView.GONE);
 
         patuid = preferenceManager.getString(Constants.KEY_USER_ID);
+
+        DocumentReference documentReference = db.collection("Patients").document(patuid).collection("HMO").document(gv.getHMOName());
+        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
+                cardnumber.setText("Card Number: " + documentSnapshot.getString("CardNumber"));
+            }
+        });
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -197,6 +208,7 @@ public class upload_hmo extends AppCompatActivity {
         }
     }
 
+
     public void uploadHMO(){
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Uploading file..");
@@ -210,6 +222,8 @@ public class upload_hmo extends AppCompatActivity {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 String cardnum = documentSnapshot.getString("CardNumber");
+
+
 
 
         db.collection("Doctors").whereEqualTo("UserId", gv.getSDDocUid())
@@ -295,6 +309,12 @@ public class upload_hmo extends AppCompatActivity {
         progressDialog.setTitle("Uploading file..");
         progressDialog.show();
 
+        db.collection("Patients").document(patuid).collection("HMO").document(gv.getHMOName()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                String cardnum = documentSnapshot.getString("CardNumber");
+
+
         db.collection("Doctors").whereEqualTo("UserId", gv.getSDDocUid())
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -310,7 +330,7 @@ public class upload_hmo extends AppCompatActivity {
                                 Map<String, Object> patienthmo = new HashMap<>();
                                 patienthmo.put("ClinicName", doctor.getString("ClinicName"));
                                 patienthmo.put("PatientUId", patuid);
-                                patienthmo.put("CardNumber", String.valueOf(cardnum.getText()));
+                                patienthmo.put("CardNumber", cardnum);
                                 patienthmo.put("StartTime", gv.getStartTime());
                                 patienthmo.put("EndTime", gv.getEndTime());
                                 patienthmo.put("Date", gv.getDateconsult());
@@ -345,6 +365,9 @@ public class upload_hmo extends AppCompatActivity {
                         }
                     }
                 }
+            }
+        });
+
             }
         });
 
