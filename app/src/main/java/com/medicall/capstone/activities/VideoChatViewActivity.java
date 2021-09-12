@@ -216,7 +216,7 @@ private  boolean inpip = false;
             public void onClick(View view) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     if(usertype.equals("Patient")){
-                        Rational rational = new Rational(2,
+                        Rational rational = new Rational(2,  
                                 3);
                         PictureInPictureParams params3 =
                                 new PictureInPictureParams.Builder()
