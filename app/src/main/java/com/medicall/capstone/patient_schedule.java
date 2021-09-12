@@ -132,7 +132,7 @@ public class patient_schedule extends AppCompatActivity  {
             Toast.makeText(patient_schedule.this, "error1", Toast.LENGTH_SHORT).show();
         }
 
-        db.collection("Schedules").whereEqualTo("PatientUId",Patuid).whereIn("Status",Arrays.asList("Paid","Pending Approval")).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("Schedules").whereEqualTo("PatientUId",Patuid).whereIn("Status",Arrays.asList("Paid","Pending Approval","Declined")).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                     if (task.isSuccessful()){
@@ -150,8 +150,11 @@ public class patient_schedule extends AppCompatActivity  {
                             }
                                 if(nowdate.before(datesched)||nowdate.equals(datesched)){
                                     if(doc.getString("Status").equals("Paid")){
+                                        cancelbtn.setVisibility(View.VISIBLE);
                                         reschedbtn.setVisibility(View.VISIBLE);}
-                                    cancelbtn.setVisibility(View.VISIBLE);
+                                    if(doc.getString("Status").equals("Paid")){
+                                        cancelbtn.setVisibility(View.VISIBLE);}
+
                                     scheddocu =doc.getId();
                                     docid=doc.getString("DoctorUId");
                                     db.collection("Doctors").document(docid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -280,7 +283,10 @@ public class patient_schedule extends AppCompatActivity  {
                 String selectedstat = spinner_status.getSelectedItem().toString();
                 switch (selectedstat) {
                     case "All":
-                        query1 = db.collection("Schedules").whereEqualTo("PatientUId", Patuid).whereIn("Status", Arrays.asList("Completed" ,"Rescheduled", "Cancelled")).orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
+                        query1 = db.collection("Schedules").whereEqualTo("PatientUId", Patuid).whereIn("Status", Arrays.asList("Completed" ,"Rescheduled", "Cancelled","Declined")).orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
+                        break;
+                    case "Declined":
+                        query1 = db.collection("Schedules").whereEqualTo("Status", "Declined").whereEqualTo("PatientUId", Patuid).orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
                         break;
                     case "Completed":
                         query1 = db.collection("Schedules").whereEqualTo("Status", "Completed").whereEqualTo("PatientUId", Patuid).orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
@@ -342,6 +348,13 @@ public class patient_schedule extends AppCompatActivity  {
                                                                     holder.tvdocname.setText("Doctor: "+docname);
                                                                     holder.tvdatesched.setText("Date: "+date);
                                                                     holder.tvstatus.setText("Status: "+"Cancelled");
+                                                                    break;
+
+                                                                case "Declined":
+                                                                    holder.tvpatname.setText("Patient: "+ patname);
+                                                                    holder.tvdocname.setText("Doctor: "+docname);
+                                                                    holder.tvdatesched.setText("Date: "+date);
+                                                                    holder.tvstatus.setText("Status: "+"Declined");
                                                                     break;
 
                                                             }

@@ -112,6 +112,7 @@
         <item>Completed</item>
         <item>Rescheduled</item>
         <item>Cancelled</item>
+        <item>Declined</item>
 
     </string-array>
 
