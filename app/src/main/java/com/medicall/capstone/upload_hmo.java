@@ -322,7 +322,7 @@ public class upload_hmo extends AppCompatActivity {
                                 patienthmo.put("StorageId","NoPic");
                                 patienthmo.put("SchedId", schedid);
 
-                                db.collection("Schedules").document().set(patienthmo)
+                                db.collection("Schedules").document(schedid).set(patienthmo)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
