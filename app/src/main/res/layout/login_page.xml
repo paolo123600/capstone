@@ -183,15 +183,17 @@
             app:layout_constraintTop_toBottomOf="@id/create"
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_10sdp">
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:padding="@dimen/_10sdp">
+
 
             <TextView
                 android:id="@+id/terms"
                 android:layout_width="wrap_content"
                 android:clickable="true"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_10sdp"
-                android:text="Terms" />
+                android:text="@string/termsandcondition"
+                android:textColorLink="@color/button"/>
 
 
         </LinearLayout>
@@ -225,7 +227,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="If you have concerns, contact us at"
+                    android:text="If you have any concerns, contact us at"
                     android:paddingLeft="@dimen/_10sdp" />
 
                 <TextView

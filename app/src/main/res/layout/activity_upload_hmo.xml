@@ -70,12 +70,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <EditText
-                android:id="@+id/cardNumber"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="Card Number"
-                android:inputType="textPersonName" />
+           <TextView
+               android:id="@+id/cardNumber"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="Card number"
+               android:gravity="center"
+               android:textSize="@dimen/_15sdp"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
