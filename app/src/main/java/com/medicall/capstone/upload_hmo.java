@@ -21,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.medicall.capstone.R;
 
 import com.medicall.capstone.utilities.Constants;
@@ -133,10 +134,7 @@ public class upload_hmo extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(cardnum.getText().toString().trim().isEmpty()){
-                    Toast.makeText(upload_hmo.this, "Please enter your card number!", Toast.LENGTH_SHORT).show();
-                }
-                else{
+
                     AlertDialog.Builder builder = new AlertDialog.Builder(upload_hmo.this);
                     builder.setCancelable(true);
                     builder.setTitle("Finalization");
@@ -161,7 +159,7 @@ public class upload_hmo extends AppCompatActivity {
                     });
                     AlertDialog dialog = builder.create();
                     dialog.show();
-                }
+
 
             }
         });
@@ -208,6 +206,12 @@ public class upload_hmo extends AppCompatActivity {
         Date now = new Date();
         String fileName = patuid + "_" + formatt.format(now);
 
+        db.collection("Patients").document(patuid).collection("HMO").document(gv.getHMOName()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                String cardnum = documentSnapshot.getString("CardNumber");
+
+
         db.collection("Doctors").whereEqualTo("UserId", gv.getSDDocUid())
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -228,7 +232,7 @@ public class upload_hmo extends AppCompatActivity {
                                             patienthmo.put("ClinicName", doctor.getString("ClinicName"));
                                             patienthmo.put("PatientUId", patuid);
                                             patienthmo.put("StorageId", fileName);
-                                            patienthmo.put("CardNumber", String.valueOf(cardnum.getText()));
+                                            patienthmo.put("CardNumber", cardnum);
                                             patienthmo.put("StartTime", gv.getStartTime());
                                             patienthmo.put("EndTime", gv.getEndTime());
                                             patienthmo.put("Date", gv.getDateconsult());
@@ -281,6 +285,9 @@ public class upload_hmo extends AppCompatActivity {
                 }
             }
         });
+            }
+        });
+
     }
 
     public void uploadHMONoPic(){
@@ -298,6 +305,8 @@ public class upload_hmo extends AppCompatActivity {
                     if(!querySnapshot.isEmpty()){
                         for(QueryDocumentSnapshot doctor: task.getResult()){
 
+                            String schedid = db.collection("Schedules").document().getId();
+
                                 Map<String, Object> patienthmo = new HashMap<>();
                                 patienthmo.put("ClinicName", doctor.getString("ClinicName"));
                                 patienthmo.put("PatientUId", patuid);
@@ -310,7 +319,8 @@ public class upload_hmo extends AppCompatActivity {
                                 patienthmo.put("Position", gv.getPost()+1);
                                 patienthmo.put("Status", "Pending Approval");
                                 patienthmo.put("DoctorUId", gv.getSDDocUid());
-                                patienthmo.put("StorageId","None");
+                                patienthmo.put("StorageId","NoPic");
+                                patienthmo.put("SchedId", schedid);
 
                                 db.collection("Schedules").document().set(patienthmo)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {

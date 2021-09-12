@@ -127,4 +127,6 @@
 
     <!-- BOLD-->
     <string name="bold"><b><i>FirstName</i></b></string>
+    
+    <string name="termsandcondition"><a href="https://www.termsfeed.com/live/83c45c03-d205-4bac-a32b-95b0434678e0">Privacy Policy</a></string>
 </resources>
