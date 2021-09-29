@@ -1,5 +1,6 @@
 package com.medicall.capstone;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -139,6 +141,7 @@ public class Login extends AppCompatActivity {
 
                 if(task.isSuccessful()){
                     String Uid=FirebaseAuth.getInstance().getCurrentUser().getUid();
+                    String authemail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
                     GlobalVariables gv= (GlobalVariables) getApplicationContext();
                     gv.setMainUser(email);
                     gv.setMainuserID(Uid);
@@ -153,12 +156,19 @@ public class Login extends AppCompatActivity {
                                     DocumentSnapshot document = task.getResult();
 
                                     if (document.exists()){
+                                        if (authemail.equals(document.getString(Constants.KEY_EMAIL))) {
+                                            preferenceManager.putString(Constants.KEY_EMAIL, document.getString(Constants.KEY_EMAIL));
+                                        } else {
+                                            preferenceManager.putString(Constants.KEY_EMAIL, authemail);
+                                            db.collection("Patients").document(document.getId()).update("Email", authemail);
+                                        }
+
                                         preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN, true);
                                         preferenceManager.putString(Constants.USERTYPE, "Patient");
                                         preferenceManager.putString(Constants.KEY_USER_ID, Uid);
                                         preferenceManager.putString(Constants.KEY_FIRST_NAME, document.getString(Constants.KEY_FIRST_NAME));
                                         preferenceManager.putString(Constants.KEY_LAST_NAME, document.getString(Constants.KEY_LAST_NAME));
-                                        preferenceManager.putString(Constants.KEY_EMAIL, document.getString(Constants.KEY_EMAIL));
+
 
                                         Intent intent = new Intent (Login.this, MainActivity.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -244,7 +254,18 @@ public class Login extends AppCompatActivity {
                         });
 
                     }else if (!user.isEmailVerified()){
-                        Toast.makeText(Login.this, "Email is not Verfified", Toast.LENGTH_SHORT).show();
+                        new AlertDialog.Builder(Login.this).setTitle("Email is not Verified").setMessage("Do you want to resend the verification in your Email?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                user.sendEmailVerification();
+                            }
+                        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }).show();
                         signInProgressBar.setVisibility(View.INVISIBLE);
                         bg_remove.setVisibility(View.VISIBLE);
                     }

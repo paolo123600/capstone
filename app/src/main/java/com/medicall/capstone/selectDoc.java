@@ -35,7 +35,7 @@ public class selectDoc extends AppCompatActivity {
     private  FirestoreRecyclerAdapter adapter;
 
     private String doclastname;
-
+    GlobalVariables gv;
     ImageView back;
 
 
@@ -49,13 +49,9 @@ public class selectDoc extends AppCompatActivity {
         // Start
         doctorlist= (RecyclerView) findViewById(R.id.DoctorRF);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        Query clinicsRef = db.collection("Clinics").whereEqualTo("Status","Registered");
-        Spinner spinner = (Spinner) findViewById(R.id.spinnerclinic);
-        List<String> Clinics = new ArrayList<>();
-        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, Clinics);
-        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter1);
 
+
+        gv = (GlobalVariables) getApplicationContext();
         back = findViewById(R.id.backspace);
 
         back.setOnClickListener(new View.OnClickListener() {
@@ -66,42 +62,15 @@ public class selectDoc extends AppCompatActivity {
             }
         });
 
-        clinicsRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    Clinics.add("Please select a Clinic");
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        String subject = document.getString("ClinicName");
-
-                        Clinics.add(subject);
-                    }
-                    for (String clinics  : Clinics ){
-                        if(!clinics.equals("Please select a Clinic")){
-                        db.collection("Doctors").whereEqualTo("ClinicName",clinics).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()){
-                                    if (task.getResult().isEmpty()){
-                                        Clinics.remove(clinics);
-                                    }
-                                }
-                            }
-                        });}
-                    }
-
-                    adapter1.notifyDataSetChanged();
-                }
-            }
-        });
-
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
 
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                String Clinicname = spinner.getSelectedItem().toString();
+
+
+
+                String Clinicname = gv.getSDClinic();
+
+
                 //query
                 Query query = db.collection("Doctors").whereEqualTo("ClinicName",Clinicname);
                 FirestoreRecyclerOptions<DoctorModel> options = new FirestoreRecyclerOptions.Builder<DoctorModel>()
@@ -132,9 +101,6 @@ public class selectDoc extends AppCompatActivity {
                                 gv.setSDClinic(Clinicname);
                                 startActivity(intent);
 
-
-
-
                             }
                         });
 
@@ -158,15 +124,6 @@ public class selectDoc extends AppCompatActivity {
 
             }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-
-
-    }
 
     @Override
     public void onBackPressed() {
