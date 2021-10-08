@@ -38,18 +38,25 @@
 
     </LinearLayout>
 
+    <com.mancj.materialsearchbar.MaterialSearchBar
+        android:id="@+id/clinicSearchBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:mt_hint="Search Clinic" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/_40sdp"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintTop_toBottomOf="@+id/clinicSearchBar"
         android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/linearbaba"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintTop_toBottomOf="@id/lineartaas"
             android:layout_marginLeft="@dimen/_10sdp"
             android:layout_marginRight="@dimen/_10sdp"
             android:orientation="vertical">
@@ -67,7 +74,7 @@
                 android:id="@+id/HMOList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="8dp"/>
+                android:layout_marginTop="60dp"/>
 
         </LinearLayout>
 
