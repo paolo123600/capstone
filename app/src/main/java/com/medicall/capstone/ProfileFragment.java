@@ -73,7 +73,7 @@ public class ProfileFragment extends AppCompatActivity {
     FirebaseFirestore db;
 
     ImageView changeDP;
-    Button changeEmail;
+    TextView changeEmail;
 
     @Override
     public void onBackPressed() {
@@ -211,7 +211,7 @@ public class ProfileFragment extends AppCompatActivity {
                 gender.setText(documentSnapshot.getString("Sex"));
                 address.setText(documentSnapshot.getString("Address"));
                 municipality.setText(documentSnapshot.getString("Municipality"));
-                number.setText(documentSnapshot.getString("Contact"));
+                number.setText("0" + documentSnapshot.getString("Contact"));
                 email.setText(documentSnapshot.getString("Email"));
                 postal.setText(documentSnapshot.getString("Postal"));
                 birthday.setText(documentSnapshot.getString("Birthday"));

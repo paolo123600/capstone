@@ -22,7 +22,9 @@
         android:theme="@style/Theme.Capstone"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".changeEmail_Patient"></activity>
+        <activity android:name=".changeEmail_Secretary"></activity>
+        <activity android:name=".changeEmail_Doctor" />
+        <activity android:name=".changeEmail_Patient" />
         <activity android:name=".selectClinic" />
         <activity android:name=".doc_changepic" />
         <activity android:name=".Patient_ChangePicture" />

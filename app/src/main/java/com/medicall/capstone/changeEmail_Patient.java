@@ -30,7 +30,7 @@ import java.util.HashMap;
 
 public class changeEmail_Patient extends AppCompatActivity {
 
-    TextView email;
+
     EditText changeemail_pass, changeemail_newemail;
     Button submit;
 
@@ -46,7 +46,7 @@ public class changeEmail_Patient extends AppCompatActivity {
         fAuth = FirebaseAuth.getInstance();
         userEmail = fAuth.getCurrentUser().getEmail();
 
-        email = findViewById(R.id.changeemail_email);
+
         changeemail_pass = findViewById(R.id.changeemail_password);
         changeemail_newemail = findViewById(R.id.changeemail_new_email);
         submit = findViewById(R.id.changeemail_submit);

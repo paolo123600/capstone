@@ -96,6 +96,19 @@
                 android:inputType="textImeMultiLine"
                 android:gravity="center"/>
 
+            <TextView
+                android:id="@+id/change_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Change Email"
+                android:background="@drawable/darkround"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_8sdp"
+                android:padding="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:drawableLeft="@drawable/ic_edit_emai_pencil"
+                android:drawablePadding="@dimen/_3sdp"/>
+
         </LinearLayout>
 
 
@@ -293,14 +306,7 @@
            android:gravity="center"
            android:padding="@dimen/_10sdp">
 
-           <Button
-               android:id="@+id/change_email"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:text="Change Email"
-               android:background="@drawable/darkround"
-               android:textColor="@color/white"
-               android:padding="@dimen/_10sdp"/>
+
 
            <Button
                android:id="@+id/editbtn"

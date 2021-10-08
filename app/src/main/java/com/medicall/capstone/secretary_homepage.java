@@ -188,6 +188,11 @@ public class  secretary_homepage extends AppCompatActivity implements Navigation
                             }
                         });
                 break;
+
+            case  R.id.nav_change_email_sec:
+                Intent intent = new Intent(getApplicationContext(), changeEmail_Secretary.class);
+                startActivity(intent);
+                break;
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;

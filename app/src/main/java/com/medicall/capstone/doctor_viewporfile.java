@@ -53,6 +53,7 @@ public class doctor_viewporfile extends AppCompatActivity {
     Dialog dialog4;
     Button changepass;
     Button editbutton;
+    Button updateEmail;
 
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
@@ -100,6 +101,7 @@ public class doctor_viewporfile extends AppCompatActivity {
         prc = findViewById(R.id.number_prc);
         doctype = findViewById(R.id.doctor_type);
         back = findViewById(R.id.backspace);
+        updateEmail = findViewById(R.id.updateEmailDoc);
 
         editbutton = findViewById(R.id.editbtn);
 
@@ -123,6 +125,13 @@ public class doctor_viewporfile extends AppCompatActivity {
         editbutton = findViewById(R.id.editbtn);
         mAuth = FirebaseAuth.getInstance();
 
+        updateEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), changeEmail_Doctor.class);
+                startActivity(intent);
+            }
+        });
 
         //Change Picture
         changeDP.setOnClickListener(new View.OnClickListener() {

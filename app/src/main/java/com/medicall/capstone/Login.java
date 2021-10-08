@@ -178,6 +178,7 @@ public class Login extends AppCompatActivity {
                                     else {
 
                                         String Uid=FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                        String authemail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
                                         DocumentReference docIdref = db.collection("Doctors").document(Uid);
                                         docIdref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                             @Override
@@ -185,12 +186,19 @@ public class Login extends AppCompatActivity {
                                                 if (task.isSuccessful()){
                                                     DocumentSnapshot document = task.getResult();
                                                     if (document.exists()){
+
+                                                        if (authemail.equals(document.getString(Constants.KEY_EMAIL))) {
+                                                            preferenceManager.putString(Constants.KEY_EMAIL, document.getString(Constants.KEY_EMAIL));
+                                                        } else {
+                                                            preferenceManager.putString(Constants.KEY_EMAIL, authemail);
+                                                            db.collection("Doctors").document(document.getId()).update("Email", authemail);
+                                                        }
+
                                                         preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN, true);
                                                         preferenceManager.putString(Constants.USERTYPE, "Doctor");
                                                         preferenceManager.putString(Constants.KEY_USER_ID, Uid);
                                                         preferenceManager.putString(Constants.KEY_FIRST_NAME, document.getString(Constants.KEY_FIRST_NAME));
                                                         preferenceManager.putString(Constants.KEY_LAST_NAME, document.getString(Constants.KEY_LAST_NAME));
-                                                        preferenceManager.putString(Constants.KEY_EMAIL, document.getString(Constants.KEY_EMAIL));
                                                         preferenceManager.putString("ClinicName",document.getString("ClinicName"));
 
                                                         Intent intent = new Intent (Login.this, Ra_doc.class);
@@ -199,6 +207,7 @@ public class Login extends AppCompatActivity {
                                                     }
                                                     else {
                                                         String Uid=FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                                        String authemail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
                                                         DocumentReference docIdref = db.collection("Secretary").document(Uid);
                                                         docIdref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                                             @Override
@@ -207,12 +216,18 @@ public class Login extends AppCompatActivity {
                                                                     DocumentSnapshot document = task.getResult();
                                                                     if (document.exists()){
 
+                                                                        if (authemail.equals(document.getString(Constants.KEY_EMAIL))) {
+                                                                            preferenceManager.putString(Constants.KEY_EMAIL, document.getString(Constants.KEY_EMAIL));
+                                                                        } else {
+                                                                            preferenceManager.putString(Constants.KEY_EMAIL, authemail);
+                                                                            db.collection("Secretary").document(document.getId()).update("Email", authemail);
+                                                                        }
+
                                                                         preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN, true);
                                                                         preferenceManager.putString(Constants.USERTYPE, "Secretary");
                                                                         preferenceManager.putString(Constants.KEY_USER_ID, Uid);
                                                                         preferenceManager.putString(Constants.KEY_FIRST_NAME, document.getString(Constants.KEY_FIRST_NAME));
                                                                         preferenceManager.putString(Constants.KEY_LAST_NAME, document.getString(Constants.KEY_LAST_NAME));
-                                                                        preferenceManager.putString(Constants.KEY_EMAIL, document.getString(Constants.KEY_EMAIL));
                                                                         preferenceManager.putString("ClinicName",document.getString("ClinicName"));
 
                                                                         Intent intent = new Intent (Login.this, Ra_sec.class);
