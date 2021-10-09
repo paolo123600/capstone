@@ -48,6 +48,8 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
+
+
         gv = (GlobalVariables) getApplicationContext();
 
         preferenceManager = new PreferenceManager(getApplicationContext());

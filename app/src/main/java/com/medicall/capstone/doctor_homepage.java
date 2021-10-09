@@ -142,6 +142,7 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -186,10 +187,10 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
 
             Date currentTime = Calendar.getInstance().getTime();
 
-//            String timenow1 =dateFormat.format(currentTime);
+            String timenow1 =dateFormat.format(currentTime);
 
-//
-          String timenow1 ="10:40AM";
+
+//          String timenow1 ="3:40PM";
             timenow = dateFormat.parse(timenow1);
 
         } catch (ParseException e) {
@@ -316,10 +317,10 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
 
                     Date currentTime = Calendar.getInstance().getTime();
 
-                    //      String timenow1 =dateFormat.format(currentTime);
+                          String timenow1 =dateFormat.format(currentTime);
 
 
-                    String timenow1 ="10:40AM";
+//                    String timenow1 ="3:40AM";
                     timenow = dateFormat.parse(timenow1);
 
                 } catch (ParseException e) {

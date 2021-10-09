@@ -89,7 +89,7 @@ public class  secretary_homepage extends AppCompatActivity implements Navigation
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         drawer = findViewById(R.id.drawer_layout_sec);
         NavigationView navigationView = findViewById(R.id.nav_viewer_sec);
         navigationView.setNavigationItemSelectedListener(this);
