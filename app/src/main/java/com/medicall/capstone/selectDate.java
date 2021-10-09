@@ -271,7 +271,7 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
             @Override
             protected void onBindViewHolder(@NonNull DocSchedViewHolder holder, int position, @NonNull DocSchedModel model) {
 
-                db.collection("Schedules").whereEqualTo("DoctorUId",gv.getSDDocUid()).whereEqualTo("StartTime",model.getStartTime()).whereEqualTo("EndTime", model.getEndTime()).whereEqualTo("Date", finalDate).whereEqualTo("Status", Arrays.asList("Paid","Pending Approval","Approved")).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                db.collection("Schedules").whereEqualTo("DoctorUId",gv.getSDDocUid()).whereEqualTo("StartTime",model.getStartTime()).whereEqualTo("EndTime", model.getEndTime()).whereEqualTo("Date", finalDate).whereIn("Status", Arrays.asList("Paid","Pending Approval","Approved")).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
@@ -286,10 +286,6 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
                                 holder.list_bookbtn.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-
-
-
-
 
                                         AlertDialog.Builder builder = new AlertDialog.Builder(selectDate.this);
                                         builder.setCancelable(true);
@@ -584,7 +580,6 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
             if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
                 int consumeCountValue=getPurchaseCountValueFromPref()+1;
                 savePurchaseCountValueToPref(consumeCountValue);
-                Toast.makeText(getApplicationContext(), "Item Consumed", Toast.LENGTH_SHORT).show();
             }
         }
     };

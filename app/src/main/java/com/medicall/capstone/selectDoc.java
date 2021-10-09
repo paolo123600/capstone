@@ -57,7 +57,7 @@ public class selectDoc extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), PaymentMethod.class);
+                Intent intent = new Intent(getApplicationContext(), selectClinic.class);
                 startActivity(intent);
             }
         });

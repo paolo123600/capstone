@@ -226,7 +226,7 @@ public class selectDate_hmo extends AppCompatActivity implements DatePickerDialo
             @Override
             protected void onBindViewHolder(@NonNull DocSchedViewHolder holder, int position, @NonNull DocSchedModel model) {
 
-                db.collection("Schedules").whereEqualTo("DoctorUId",gv.getSDDocUid()).whereEqualTo("StartTime",model.getStartTime()).whereEqualTo("EndTime", model.getEndTime()).whereEqualTo("Date", finalDate ).whereEqualTo("Status", Arrays.asList("Paid","Pending Approval","Approved")).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                db.collection("Schedules").whereEqualTo("DoctorUId",gv.getSDDocUid()).whereEqualTo("StartTime",model.getStartTime()).whereEqualTo("EndTime", model.getEndTime()).whereEqualTo("Date", finalDate ).whereIn("Status", Arrays.asList("Paid","Pending Approval","Approved")).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {

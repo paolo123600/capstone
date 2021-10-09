@@ -142,6 +142,8 @@ public class pat_blood_pressure extends AppCompatActivity {
                 }else {
                     edittxtupper = bpupper.getText().toString();
                     edittxtlower = bplower.getText().toString();
+                    bplower.setText("");
+                    bpupper.setText("");
 
                     Date currentTime = Calendar.getInstance().getTime();
                     Map<String, Object> patbp = new HashMap<>();

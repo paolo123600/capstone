@@ -49,6 +49,13 @@ public class Patient_HMOList extends AppCompatActivity {
     TextView None;
 
     @Override
+    public void onBackPressed() {
+
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_hmo_list);
