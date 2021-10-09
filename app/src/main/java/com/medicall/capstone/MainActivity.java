@@ -128,6 +128,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         logo = findViewById(R.id.imagelogo);
         schedstats = findViewById(R.id.linearLayout1);
+        schedstats.bringToFront();
         schedstats.setVisibility(LinearLayout.GONE);
 
         db = FirebaseFirestore.getInstance();

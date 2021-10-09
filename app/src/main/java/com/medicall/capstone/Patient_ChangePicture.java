@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -39,6 +41,7 @@ import com.medicall.capstone.utilities.Constants;
 import com.medicall.capstone.utilities.PreferenceManager;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 
 import java.util.HashMap;
@@ -63,6 +66,9 @@ public class Patient_ChangePicture extends AppCompatActivity {
     FirebaseStorage storage2;
     StorageReference photoref;
 
+    String storageID;
+    Bitmap currentPic;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,7 +89,40 @@ public class Patient_ChangePicture extends AppCompatActivity {
         preferenceManager = new PreferenceManager(getApplicationContext());
         userID = preferenceManager.getString(Constants.KEY_USER_ID);
 
-        newprofile.setBackgroundResource(R.drawable.circlebackground);
+        db.collection("Patients").whereEqualTo("UserId",userID)
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    QuerySnapshot querySnapshot = task.getResult();
+                    if(!querySnapshot.isEmpty()){
+                        for(QueryDocumentSnapshot profilepic : task.getResult()){
+                            storageID = profilepic.getString("StorageId");
+                            if(storageID.equals("None")){
+                                newprofile.setBackgroundResource(R.drawable.circlebackground);
+                            }
+                            else{
+                                storageReference = FirebaseStorage.getInstance().getReference("PatientPicture/" + storageID);
+                                try{
+                                    File local = File.createTempFile("myProfilePicture",".jpg");
+                                    storageReference.getFile(local)
+                                            .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                                @Override
+                                                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                                    currentPic = BitmapFactory.decodeFile(local.getAbsolutePath());
+                                                    newprofile.setImageBitmap(currentPic);
+                                                }
+                                            });
+                                }
+                                catch(IOException e){
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        });
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,7 +182,7 @@ public class Patient_ChangePicture extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(Patient_ChangePicture.this);
                 builder.setCancelable(true);
                 builder.setTitle("Finalization");
-                builder.setMessage("Are you sure about your HMO?");
+                builder.setMessage("Use this as your picture?");
                 builder.setPositiveButton("Confirm",
                         new DialogInterface.OnClickListener() {
                             @Override
