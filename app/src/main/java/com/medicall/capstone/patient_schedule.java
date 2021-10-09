@@ -68,6 +68,7 @@ public class patient_schedule extends AppCompatActivity  {
     private  String lend = "";
     private String end = "";
     private Dialog dialog;
+    private String price = "";
     String doclastname;
     int Position ;
 
@@ -179,6 +180,7 @@ public class patient_schedule extends AppCompatActivity  {
                                     statustv.setText("Status: "+doc.getString("Status"));
                                     timetv.setText("Time :"+doc.getString("StartTime")+"-"+doc.getString("EndTime"));
                                     datetv.setText("Date :"+date1);
+                                    price = doc.getString("Price");
 
                                     gv.setDDate(datesched);
                                     Position = doc.getLong("Position").intValue();
@@ -275,6 +277,7 @@ public class patient_schedule extends AppCompatActivity  {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), reschedule_date.class);
                 intent.putExtra("schedid", scheddocu);
+                intent.putExtra("price", price);
                 startActivity(intent);
             }
         });

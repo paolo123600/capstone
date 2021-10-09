@@ -63,6 +63,7 @@ public class reschedule_date extends AppCompatActivity implements DatePickerDial
     String docid ="";
     private PreferenceManager preferenceManager;
     int Position ;
+    String price = "";
     String scheddocu, schedid;
 
     ImageView back;
@@ -91,7 +92,7 @@ public class reschedule_date extends AppCompatActivity implements DatePickerDial
 
         Intent intent = getIntent();
         schedid = intent.getStringExtra("schedid");
-
+        price = intent.getStringExtra("price");
         back = findViewById(R.id.backspace);
 
         back.setOnClickListener(new View.OnClickListener() {
@@ -235,7 +236,7 @@ public class reschedule_date extends AppCompatActivity implements DatePickerDial
             @Override
             protected void onBindViewHolder(@NonNull reschedule_date.DocReSchedViewHolder holder, int position, @NonNull DocSchedModel model) {
 
-                db.collection("Schedules").whereEqualTo("DoctorUId",gv.getSDDocUid()).whereEqualTo("StartTime",model.getStartTime()).whereEqualTo("EndTime", model.getEndTime()).whereEqualTo("Date", datestring ).whereEqualTo("Status","Paid").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                db.collection("Schedules").whereEqualTo("DoctorUId",gv.getSDDocUid()).whereEqualTo("StartTime",model.getStartTime()).whereEqualTo("EndTime", model.getEndTime()).whereEqualTo("Date", finalDate ).whereIn("Status", Arrays.asList("Paid","Pending Approval","Approved")).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
@@ -286,6 +287,7 @@ public class reschedule_date extends AppCompatActivity implements DatePickerDial
                                                                     PatSched.put("StartTime", model.getStartTime());
                                                                     PatSched.put("EndTime", model.getEndTime());
                                                                     PatSched.put("Position", count+1);
+                                                                    PatSched.put("Price", price);
                                                                     PatSched.put ("Date", finalDate);
                                                                     PatSched.put ("Status", "Paid" );
                                                                     PatSched.put ("PatientUId", patuid );
