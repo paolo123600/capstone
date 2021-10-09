@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -39,6 +41,7 @@ import com.medicall.capstone.utilities.Constants;
 import com.medicall.capstone.utilities.PreferenceManager;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 
 import java.util.HashMap;
@@ -63,6 +66,9 @@ public class doc_changepic extends AppCompatActivity {
     FirebaseStorage storage2;
     StorageReference photoref;
 
+    String storageID;
+    Bitmap currentPic;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +88,41 @@ public class doc_changepic extends AppCompatActivity {
 
         preferenceManager = new PreferenceManager(getApplicationContext());
         userID = preferenceManager.getString(Constants.KEY_USER_ID);
+
+        db.collection("Doctors").whereEqualTo("UserId", userID)
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    QuerySnapshot querySnapshot = task.getResult();
+                    if(!querySnapshot.isEmpty()){
+                        for(QueryDocumentSnapshot doctor : task.getResult()){
+                            storageID = doctor.getString("StorageId");
+                            if(storageID.equals("None")){
+                                newprofile.setBackgroundResource(R.drawable.circlebackground);
+                            }
+                            else{
+                                storageReference = FirebaseStorage.getInstance().getReference("DoctorPicture/" + storageID);
+                                try{
+                                    File local = File.createTempFile("myDP","");
+                                    storageReference.getFile(local)
+                                            .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                                @Override
+                                                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                                    currentPic = BitmapFactory.decodeFile(local.getAbsolutePath());
+                                                    newprofile.setImageBitmap(currentPic);
+                                                }
+                                            });
+                                }
+                                catch (IOException e){
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        });
 
         newprofile.setBackgroundResource(R.drawable.circlebackground);
 
