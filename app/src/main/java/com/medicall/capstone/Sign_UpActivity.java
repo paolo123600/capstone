@@ -105,6 +105,8 @@ protected void onCreate(Bundle savedInstanceState) {
                 Toast.makeText(Sign_UpActivity.this, "Enter Nationality",Toast.LENGTH_SHORT).show();
             }else if (ET_Email.getText().toString().trim().isEmpty()){
                 Toast.makeText(Sign_UpActivity.this, "Enter Email",Toast.LENGTH_SHORT).show();
+            }else if (ET_Sex.getText().toString().trim().isEmpty()){
+                Toast.makeText(Sign_UpActivity.this, "Enter Gender",Toast.LENGTH_SHORT).show();
             }else if (ET_Pass.getText().toString().trim().isEmpty()){
                 Toast.makeText(Sign_UpActivity.this, "Enter Password",Toast.LENGTH_SHORT).show();
             } else if (ET_Pass.getText().toString().length()<6){

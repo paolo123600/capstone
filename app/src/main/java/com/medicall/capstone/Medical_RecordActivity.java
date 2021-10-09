@@ -99,33 +99,20 @@ public class Medical_RecordActivity extends AppCompatActivity implements Adapter
 
                 if(ET_ContactP.getText().toString().trim().isEmpty()){
                     Toast.makeText(Medical_RecordActivity.this, "Enter Contact Person",Toast.LENGTH_SHORT).show();
-                } else if (ET_ContactN.getText().toString().trim().isEmpty()){
-                    Toast.makeText(Medical_RecordActivity.this, "Enter Contact Number",Toast.LENGTH_SHORT).show();
-                }else if (ET_Height.getText().toString().trim().isEmpty()){
-                    Toast.makeText(Medical_RecordActivity.this, "Enter Height",Toast.LENGTH_SHORT).show();
-                }else if(ET_Weight.getText().toString().trim().isEmpty()){
-                    Toast.makeText(Medical_RecordActivity.this, "Enter Weight",Toast.LENGTH_SHORT).show();
-                }else if (autobloodtype.getText().toString().trim().isEmpty()){
-                    Toast.makeText(Medical_RecordActivity.this, "Enter Blood Pressure",Toast.LENGTH_SHORT).show();
-                }else if (ET_Allergies.getText().toString().trim().isEmpty()){
-                    Toast.makeText(Medical_RecordActivity.this, "Enter Allergies",Toast.LENGTH_SHORT).show();
-                }else if (ET_Illness.getText().toString().trim().isEmpty()){
-                    Toast.makeText(Medical_RecordActivity.this, "Enter Allergies",Toast.LENGTH_SHORT).show();
+                } else if (ET_ContactN.getText().toString().trim().isEmpty()) {
+                    Toast.makeText(Medical_RecordActivity.this, "Enter Contact Number", Toast.LENGTH_SHORT).show();
+                }else if (autobloodtype.getText().toString().trim().isEmpty()) {
+                    Toast.makeText(Medical_RecordActivity.this, "Enter Blood Type", Toast.LENGTH_SHORT).show();
                 }else{
 
-                    new AlertDialog.Builder(Medical_RecordActivity.this).setMessage("Finish registration?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
+
                             email = gv.getEmail();
                             registerUser();
 
-                        }
-                    }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                        }
-                    }).show();
+
+
+
+
 
                 }
             }
@@ -195,7 +182,8 @@ public class Medical_RecordActivity extends AppCompatActivity implements Adapter
 
                                             new android.app.AlertDialog.Builder(Medical_RecordActivity.this)
                                                     .setTitle("Account Successfully Created")
-                                                    .setMessage("You have successfully created an account!! Please confirm your email before logging in.")
+                                                    .setCancelable(false)
+                                                    .setMessage("You have successfully created an account. Please confirm your email before logging in.")
                                                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                                         @Override
                                                         public void onClick(DialogInterface dialogInterface, int i) {
