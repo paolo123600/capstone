@@ -26,6 +26,8 @@ import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -57,6 +59,7 @@ public class ProfileFragment extends AppCompatActivity {
     Button editbutton;
     Dialog dialog;
     Dialog dialog1;
+    Button Update;
 
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
@@ -109,6 +112,8 @@ public class ProfileFragment extends AppCompatActivity {
         storageReference = storage.getReference();
         dpicture = findViewById(R.id.patient_dp);
         db = FirebaseFirestore.getInstance();
+
+
 
         changeDP = findViewById(R.id.editImage);
 
