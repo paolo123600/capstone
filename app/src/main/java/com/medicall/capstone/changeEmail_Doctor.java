@@ -81,50 +81,56 @@ public class changeEmail_Doctor extends AppCompatActivity {
                 user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        Toast.makeText(changeEmail_Doctor.this, "User Re-authenticated", Toast.LENGTH_SHORT).show();
+                        if (task.isSuccessful()) {
+                            Toast.makeText(changeEmail_Doctor.this, "User Re-authenticated", Toast.LENGTH_SHORT).show();
 
-                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                        user.verifyBeforeUpdateEmail(new_email).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    //DialogBox
-                                    new AlertDialog.Builder(changeEmail_Doctor.this).setMessage("We have sent a link in your Email, Please click the link to complete the Email update").setCancelable(false).setPositiveButton("Log out", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            FirebaseFirestore database = FirebaseFirestore.getInstance();
-                                            DocumentReference documentReference =
-                                                    db.collection(Constants.KEY_COLLECTION_DOCTOR).document(
-                                                            preferenceManager.getString(Constants.KEY_USER_ID)
-                                                    );
-                                            HashMap<String, Object> updates = new HashMap<>();
-                                            updates.put(Constants.KEY_FCM_TOKEN, FieldValue.delete());
-                                            documentReference.update(updates)
-                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                        @Override
-                                                        public void onSuccess(Void aVoid) {
-                                                            preferenceManager.clearPreferences();
-                                                            startActivity(new Intent(getApplicationContext(), Login.class));
-                                                            finish();
-                                                        }
-                                                    })
-                                                    .addOnFailureListener(new OnFailureListener() {
-                                                        @Override
-                                                        public void onFailure(@NonNull Exception e) {
-                                                            Toast.makeText(changeEmail_Doctor.this, "Unable to sign out", Toast.LENGTH_SHORT).show();
-                                                        }
-                                                    });
-                                        }
-                                    }).show();
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            user.verifyBeforeUpdateEmail(new_email).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        //DialogBox
+                                        new AlertDialog.Builder(changeEmail_Doctor.this).setMessage("We have sent a link in your Email, Please click the link to complete the Email update").setCancelable(false).setPositiveButton("Log out", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                FirebaseFirestore database = FirebaseFirestore.getInstance();
+                                                DocumentReference documentReference =
+                                                        db.collection(Constants.KEY_COLLECTION_DOCTOR).document(
+                                                                preferenceManager.getString(Constants.KEY_USER_ID)
+                                                        );
+                                                HashMap<String, Object> updates = new HashMap<>();
+                                                updates.put(Constants.KEY_FCM_TOKEN, FieldValue.delete());
+                                                documentReference.update(updates)
+                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                            @Override
+                                                            public void onSuccess(Void aVoid) {
+                                                                preferenceManager.clearPreferences();
+                                                                startActivity(new Intent(getApplicationContext(), Login.class));
+                                                                finish();
+                                                            }
+                                                        })
+                                                        .addOnFailureListener(new OnFailureListener() {
+                                                            @Override
+                                                            public void onFailure(@NonNull Exception e) {
+                                                                Toast.makeText(changeEmail_Doctor.this, "Unable to sign out", Toast.LENGTH_SHORT).show();
+                                                            }
+                                                        });
+                                            }
+                                        }).show();
 
-                                    //Signout
+                                        //Signout
 
-                                }else {
-                                    Toast.makeText(changeEmail_Doctor.this, "Email already exist", Toast.LENGTH_SHORT).show();
+                                    }else {
+                                        Toast.makeText(changeEmail_Doctor.this, "Email already exist", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
-                            }
-                        });
+                            });
+                        }else {
+                            Toast.makeText(changeEmail_Doctor.this, "Incorrect Password", Toast.LENGTH_SHORT).show();
+                        }
+
                     }
+
                 });
             }
         });
