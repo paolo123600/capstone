@@ -11,6 +11,7 @@
     </string-array>
 
     <string-array name="blood">
+        <item>I don\'t know</item>
         <item>A positive (A+)</item>
         <item>A negative (A-)</item>
         <item>B positive (B+)</item>

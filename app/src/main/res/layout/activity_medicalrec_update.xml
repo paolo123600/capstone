@@ -136,15 +136,15 @@
             android:layout_marginEnd="@dimen/_10sdp">
 
 
-            <TextView
-                android:id="@+id/medicalrec_bloodtype"
-                android:visibility="visible"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Blood type"
-                android:textStyle="bold"
-                android:padding="@dimen/_10sdp"
-                android:layout_marginLeft="@dimen/_10sdp"/>
+                <Spinner
+                    android:id="@+id/btedit"
+                    android:background="@drawable/editprofile_spinnerbox"
+                    android:layout_width="match_parent"
+                    android:padding="@dimen/_10sdp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/_5sdp"/>
+
+
 
         </LinearLayout>
 
