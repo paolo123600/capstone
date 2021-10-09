@@ -53,7 +53,7 @@ public class doctor_viewporfile extends AppCompatActivity {
     Dialog dialog4;
     Button changepass;
     Button editbutton;
-    Button updateEmail;
+    TextView updateEmail;
 
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
