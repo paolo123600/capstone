@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +34,7 @@ public class changeEmail_Patient extends AppCompatActivity {
 
     EditText changeemail_pass, changeemail_newemail;
     Button submit;
+    ImageView back;
 
     FirebaseAuth fAuth;
     String userEmail;
@@ -45,6 +47,15 @@ public class changeEmail_Patient extends AppCompatActivity {
 
         fAuth = FirebaseAuth.getInstance();
         userEmail = fAuth.getCurrentUser().getEmail();
+        back = findViewById(R.id.backspace);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),Login.class);
+                startActivity(intent);
+            }
+        });
 
 
         changeemail_pass = findViewById(R.id.changeemail_password);
