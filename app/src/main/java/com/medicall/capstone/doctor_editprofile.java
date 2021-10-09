@@ -101,11 +101,14 @@ public class doctor_editprofile extends AppCompatActivity {
                 Doctors.put("Address", address);
                 Doctors.put("PostalCode", postal);
 
-
-                documentReference.update(Doctors);
-                Toast.makeText(doctor_editprofile.this, "Updated Successfully", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getApplicationContext(), Login.class);
-                startActivity(intent);
+                if(numberProfile.getText().toString().length()>10){
+                    Toast.makeText(doctor_editprofile.this, "Enter a 10 Digit Number",Toast.LENGTH_SHORT).show();
+                }else {
+                    documentReference.update(Doctors);
+                    Toast.makeText(doctor_editprofile.this, "Updated Successfully", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), Login.class);
+                    startActivity(intent);
+                }
 
             }
         });

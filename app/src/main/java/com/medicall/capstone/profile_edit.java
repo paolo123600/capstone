@@ -108,7 +108,11 @@ public class profile_edit extends AppCompatActivity {
                     Toast.makeText(profile_edit.this, "Enter your Postal Code", Toast.LENGTH_SHORT).show();
                 }else if (numberProfile.getText().toString().isEmpty()) {
                     Toast.makeText(profile_edit.this, "Enter your Contact Number", Toast.LENGTH_SHORT).show();
-                }else {
+                }else if (numberProfile.getText().toString().length()>10){
+                    Toast.makeText(profile_edit.this, "Enter a 10 digit Contact Number", Toast.LENGTH_SHORT).show();
+                }
+
+                else {
 
                     String municipality = municiplatyProfile.getText().toString();
                     String number = numberProfile.getText().toString();
