@@ -49,20 +49,16 @@
         android:orientation="vertical">
 
 
-
         <LinearLayout
-            android:id="@+id/profilepicture"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/profilelabel"
-            android:orientation="horizontal"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_10sdp">
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="@dimen/_10sdp"
+            android:background="@color/profilehead">
 
             <FrameLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_width="@dimen/_100sdp"
                 android:layout_height="wrap_content">
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -81,36 +77,44 @@
 
             </FrameLayout>
 
+            <TextView
+                android:id="@+id/first_name_profile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Name"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_15sdp"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/_10sdp"/>
 
+            <TextView
+                android:id="@+id/email_profile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Email"
+                android:textColor="@color/white"
+                android:inputType="textImeMultiLine"
+                android:gravity="center"/>
 
-            <LinearLayout
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="center">
-
-                <TextView
-                    android:id="@+id/first_name_profile"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Name"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_15sdp"/>
-
-                <TextView
-                    android:id="@+id/email_profile"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Email"
-                    android:textColor="@color/black"
-                    android:inputType="textImeMultiLine"/>
-
-            </LinearLayout>
-
+            <TextView
+                android:id="@+id/change_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Change Email"
+                android:background="@drawable/darkround"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_8sdp"
+                android:padding="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:drawableLeft="@drawable/ic_edit_emai_pencil"
+                android:drawablePadding="@dimen/_3sdp"/>
 
         </LinearLayout>
+
+
+
+
+
 
        <LinearLayout
            android:id="@+id/namelabeledittxt"
@@ -121,11 +125,7 @@
            android:layout_marginStart="@dimen/_10sdp"
            android:layout_marginEnd="@dimen/_10sdp">
 
-           <View
-               android:layout_width="match_parent"
-               android:layout_height="1dp"
-               android:background="@drawable/roundtbox"
-               android:layout_marginTop="@dimen/_10sdp"/>
+
 
            <TextView
                android:layout_width="wrap_content"
@@ -220,7 +220,8 @@
                android:layout_marginTop="@dimen/_10sdp"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               android:text="Municipality:"/>
+               android:text="Municipality:"
+               android:textStyle="bold"/>
 
            <TextView
                android:id="@+id/municipality_profile"
@@ -241,7 +242,8 @@
                android:layout_weight="1"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               android:text="Postal code:" />
+               android:text="Postal code:"
+               android:textStyle="bold"/>
 
            <TextView
                android:id="@+id/postal_profile"
@@ -304,6 +306,8 @@
            android:gravity="center"
            android:padding="@dimen/_10sdp">
 
+
+
            <Button
                android:id="@+id/editbtn"
                android:layout_width="wrap_content"
@@ -311,6 +315,7 @@
                android:text="Edit Profile"
                android:background="@drawable/darkround"
                android:textColor="@color/white"
+               android:layout_marginLeft="@dimen/_10sdp"
                android:padding="@dimen/_10sdp"/>
 
            <Button

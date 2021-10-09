@@ -6,7 +6,10 @@
 
 
 
-
+    <item
+        android:id="@+id/nav_change_email_sec"
+        android:icon="@drawable/edit_pencil"
+        android:title="Change Email" />
 
     <item
         android:id="@+id/nav_logout_sec"

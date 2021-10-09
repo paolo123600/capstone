@@ -13,7 +13,7 @@
     <uses-permission android:name="com.android.vending.BILLING" />
 
     <application
-        android:name="com.medicall.capstone.GlobalVariables"
+        android:name=".GlobalVariables"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -22,7 +22,11 @@
         android:theme="@style/Theme.Capstone"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".doc_changepic"></activity>
+        <activity android:name=".changeEmail_Secretary"></activity>
+        <activity android:name=".changeEmail_Doctor" />
+        <activity android:name=".changeEmail_Patient" />
+        <activity android:name=".selectClinic" />
+        <activity android:name=".doc_changepic" />
         <activity android:name=".Patient_ChangePicture" />
         <activity android:name=".doctor.Doctor_patient_bp" />
         <activity android:name=".doctor.Doctor_schedlist_pastsched" />
@@ -52,116 +56,110 @@
         <activity android:name=".doctor_editprofile" />
         <activity android:name=".doctor_viewporfile" />
         <activity android:name=".activities.PastAppointments" />
-
         <activity
-            android:name="com.medicall.capstone.profile_edit"
+            android:name=".profile_edit"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.medicall.capstone.patient_record_doctor"
+            android:name=".patient_record_doctor"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.medicall.capstone.about"
+            android:name=".about"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.medicall.capstone.patientrec_doc"
+            android:name=".patientrec_doc"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.medicall.capstone.patientrec_sec"
+            android:name=".patientrec_sec"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.medicall.capstone.Ra_sec"
+            android:name=".Ra_sec"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.medicall.capstone.Ra_doc"
+            android:name=".Ra_doc"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.medicall.capstone.ForgotPassword"
+            android:name=".ForgotPassword"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.medicall.capstone.NewPass"
+            android:name=".NewPass"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.medicall.capstone.patient_record_clinic"
+            android:name=".patient_record_clinic"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.medicall.capstone.medicalrec_update"
+            android:name=".medicalrec_update"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ImageFullscreen" />
+        <activity
+            android:name=".medical_records"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.medicall.capstone.ImageFullscreen"/>
-        <activity
-            android:name="com.medicall.capstone.medical_records"
+            android:name=".RecentChatDoc"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.medicall.capstone.RecentChatDoc"
+            android:name=".Terms"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.medicall.capstone.Terms"
+            android:name=".DataAct"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.medicall.capstone.DataAct"
+            android:name=".RecentChatSecretary"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.medicall.capstone.RecentChatSecretary"
+            android:name=".RecentChats"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.medicall.capstone.RecentChats"
+            android:name=".Clinic_view"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.medicall.capstone.Clinic_view"
+            android:name=".Sec_patient_list"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.medicall.capstone.Sec_patient_list"
+            android:name=".Doctor_Patientchatlist"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.medicall.capstone.Doctor_Patientchatlist"
+            android:name=".activities.OutgoingInvitationActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.medicall.capstone.activities.OutgoingInvitationActivity"
+            android:name=".activities.IncomingInvitationActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.medicall.capstone.activities.IncomingInvitationActivity"
+            android:name=".activities.VideoCall_Main"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.medicall.capstone.activities.VideoCall_Main"
+            android:name=".MessageActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.medicall.capstone.MessageActivity"
+            android:name=".ProfileFragment"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.medicall.capstone.ProfileFragment"
+            android:name=".patient_schedule"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.medicall.capstone.patient_schedule"
+            android:name=".notification"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.medicall.capstone.notification"
+            android:name=".Medical_RecordActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.medicall.capstone.Medical_RecordActivity"
-            android:screenOrientation="portrait">
-
-
-        </activity>
-        <activity
-            android:name="com.medicall.capstone.secretary_homepage"
+            android:name=".secretary_homepage"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.medicall.capstone.activities.VideoChatViewActivity"
+            android:name=".activities.VideoChatViewActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
             android:resizeableActivity="true"
             android:screenOrientation="portrait"
             android:supportsPictureInPicture="true"
             android:taskAffinity=".activities.VideoChatViewActivity" />
-
         <activity
-            android:name="com.medicall.capstone.doctor_homepage"
+            android:name=".doctor_homepage"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.medicall.capstone.Sign_UpActivity"
+            android:name=".Sign_UpActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.medicall.capstone.Login"
+            android:name=".Login"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -170,13 +168,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.medicall.capstone.MainActivity"
-            android:screenOrientation="portrait" >
-
-        </activity>
+            android:name=".MainActivity"
+            android:screenOrientation="portrait" />
 
         <service
-            android:name="com.medicall.capstone.firebase.MessagingService"
+            android:name=".firebase.MessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

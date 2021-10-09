@@ -43,91 +43,68 @@
         android:layout_marginTop="@dimen/_43sdp"
         app:layout_constraintTop_toBottomOf="@id/toolbar">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
 
             <LinearLayout
-                android:id="@+id/profilelabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
                 android:orientation="vertical"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginEnd="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_10sdp"/>
+                android:gravity="center"
+                android:background="@color/profilehead"
+                android:padding="@dimen/_10sdp">
 
-            <LinearLayout
-                android:id="@+id/namelabeledittxt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/profilelabel"
-                android:orientation="vertical"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginEnd="@dimen/_10sdp">
+                <FrameLayout
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="wrap_content">
 
-                <LinearLayout
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:id="@+id/doctor_dp"/>
+
+                    <ImageView
+                        android:id="@+id/editImage"
+                        android:layout_width="@dimen/_35sdp"
+                        android:layout_height="@dimen/_35sdp"
+                        android:layout_gravity="bottom|center_horizontal"
+                        android:layout_marginLeft="@dimen/_30sdp"
+                        android:scaleType="fitXY"
+                        android:background="@drawable/edit_smallicon"/>
+
+                </FrameLayout>
+
+                <TextView
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:id="@+id/first_name_profile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:text="Name"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_15sdp"/>
 
-                    <FrameLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/doctor_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Specialization"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_13sdp"/>
 
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            android:layout_width="130dp"
-                            android:layout_height="130dp"
-                            android:id="@+id/doctor_dp"/>
-
-                        <ImageView
-                            android:id="@+id/editImage"
-                            android:layout_width="@dimen/_35sdp"
-                            android:layout_height="@dimen/_35sdp"
-                            android:layout_gravity="bottom|center_horizontal"
-                            android:layout_marginLeft="@dimen/_30sdp"
-                            android:scaleType="fitXY"
-                            android:background="@drawable/edit_smallicon"/>
-
-                    </FrameLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:paddingLeft="@dimen/_10sdp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Name" />
-
-                        <TextView
-                            android:id="@+id/first_name_profile"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Name"
-                            android:textColor="@color/black"
-                            android:padding="@dimen/_10sdp"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Specialization"/>
-
-                        <TextView
-                            android:id="@+id/doctor_type"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Specialization"
-                            android:textColor="@color/black"
-                            android:padding="@dimen/_10sdp"/>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-
+                <TextView
+                    android:gravity="center"
+                    android:id="@+id/email_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Email"
+                    android:textColor="@color/white"
+                    android:inputType="textImeMultiLine"/>
 
 
             </LinearLayout>
@@ -135,18 +112,80 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/layoutaddress"
-                app:layout_constraintTop_toBottomOf="@id/namelabeledittxt"
                 android:orientation="vertical"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginEnd="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_10sdp">
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_marginLeft="@dimen/_10sdp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:textStyle="bold"
+                    android:text="Contact Number:"/>
+
+                <TextView
+                    android:id="@+id/number_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Contact number"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_15sdp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/roundtbox"
+                    android:layout_marginTop="@dimen/_10sdp"/>
+
+                <TextView
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Birthday:"
+                    android:textStyle="bold"/>
+
+
+                <TextView
+                    android:id="@+id/birthday_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Birthday"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_15sdp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/roundtbox"
+                    android:layout_marginTop="@dimen/_10sdp"/>
+
+                <TextView
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Sex:"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/gender_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Sex"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_15sdp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/roundtbox"
+                    android:layout_marginTop="@dimen/_10sdp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Address"
-                    android:layout_marginTop="@dimen/_10sdp"/>
+                    android:text="Address: "
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/address_profile"
@@ -154,257 +193,137 @@
                     android:layout_height="match_parent"
                     android:text="Address"
                     android:textColor="@color/black"
-                    android:padding="@dimen/_10sdp"/>
+                    android:textSize="@dimen/_15sdp"/>
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/municipalitylabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/layoutaddress"
-                android:orientation="horizontal"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginEnd="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_10sdp">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/roundtbox"
+                    android:layout_marginTop="@dimen/_10sdp"/>
 
                 <TextView
-                    android:layout_weight="1"
-                    android:layout_width="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Municipality"/>
-
-                <TextView
-                    android:layout_weight="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Postal code"
-                    android:layout_marginLeft="@dimen/_90sdp"/>
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/municipalityedittxt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/municipalitylabel"
-                android:orientation="horizontal"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginEnd="@dimen/_10sdp">
+                    android:text="Municipality: "
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/municipality_profile"
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="Municipality"
                     android:textColor="@color/black"
-                    android:padding="@dimen/_10sdp"/>
+                    android:textSize="@dimen/_15sdp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/roundtbox"
+                    android:layout_marginTop="@dimen/_10sdp"/>
+
+                <TextView
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Postal code:"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/postal_profile"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="Postal"
                     android:textColor="@color/black"
-                    android:layout_marginLeft="@dimen/_10sdp"
-                    android:padding="@dimen/_10sdp"/>
+                    android:textSize="@dimen/_15sdp"/>
 
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/emaillabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/municipalityedittxt"
-                android:orientation="horizontal"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginEnd="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_10sdp">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/roundtbox"
+                    android:layout_marginTop="@dimen/_10sdp"/>
 
                 <TextView
                     android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Email Address"/>
-
-                <TextView
-                    android:layout_weight="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Sex"
-                    android:layout_marginLeft="@dimen/_40sdp"/>
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/emaileditxt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/emaillabel"
-                android:orientation="horizontal"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginEnd="@dimen/_10sdp">
-
-                <TextView
-                    android:id="@+id/email_profile"
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_height="match_parent"
-                    android:text="Email"
-                    android:textColor="@color/black"
-                    android:padding="@dimen/_10sdp"
-                    android:inputType="textImeMultiLine"/>
-
-                <TextView
-                    android:id="@+id/gender_profile"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:text="Sex"
-                    android:textColor="@color/black"
-                    android:layout_marginLeft="@dimen/_10sdp"
-                    android:padding="@dimen/_10sdp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/contactlabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/emaileditxt"
-                android:orientation="horizontal"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginEnd="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_10sdp">
-
-                <TextView
-                    android:layout_weight="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Contact Number"/>
-
-                <TextView
-                    android:layout_weight="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Birthday"
-                    android:layout_marginLeft="@dimen/_55sdp"/>
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/contactedittxt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/contactlabel"
-                android:orientation="horizontal"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginEnd="@dimen/_10sdp">
-
-                <TextView
-                    android:id="@+id/number_profile"
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_height="match_parent"
-                    android:text="Contact number"
-                    android:textColor="@color/black"
-                    android:padding="@dimen/_10sdp"/>
-
-                <TextView
-                    android:id="@+id/birthday_profile"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:text="Birthday"
-                    android:textColor="@color/black"
-                    android:layout_marginLeft="@dimen/_10sdp"
-                    android:padding="@dimen/_10sdp"/>
-
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/ptrprcinfo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/contactedittxt"
-                android:orientation="horizontal"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginEnd="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_10sdp">
-
-                <TextView
-                    android:layout_weight="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="PTR Number"/>
-
-                <TextView
-                    android:layout_weight="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="PRC Number"
-                    android:layout_marginLeft="@dimen/_55sdp"/>
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ptrprcinfo2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/ptrprcinfo"
-                android:orientation="horizontal"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginEnd="@dimen/_10sdp">
+                    android:text="PTR Number: "
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/number_ptr"
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="PTR Number"
                     android:textColor="@color/black"
-                    android:padding="@dimen/_10sdp"/>
+                    android:textSize="@dimen/_15sdp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/roundtbox"
+                    android:layout_marginTop="@dimen/_10sdp"/>
+
+                <TextView
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PRC Number: "
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/number_prc"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="PRC Number"
                     android:textColor="@color/black"
-                    android:layout_marginLeft="@dimen/_10sdp"
-                    android:padding="@dimen/_10sdp"/>
+                    android:textSize="@dimen/_15sdp"/>
 
-            </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/roundtbox"
+                    android:layout_marginTop="@dimen/_10sdp"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/ptrprcinfo2"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginEnd="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_11sdp"
-                android:gravity="center">
-
-                <Button
-                    android:id="@+id/changepass"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Change Password"
-                    android:background="@drawable/darkround"
-                    android:textColor="@color/white"
-                    android:padding="@dimen/_10sdp"/>
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <Button
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginBottom="@dimen/_10sdp"
+                        android:layout_gravity="center"
+                        android:id="@+id/updateEmailDoc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Change Email"
+                        android:background="@drawable/darkround"
+                        android:textColor="@color/white"
+                        android:padding="@dimen/_10sdp" />
+
+                    <Button
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginBottom="@dimen/_10sdp"
+                        android:layout_gravity="center"
+                        android:id="@+id/changepass"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Change Password"
+                        android:background="@drawable/darkround"
+                        android:textColor="@color/white"
+                        android:padding="@dimen/_10sdp"
+                        android:layout_marginLeft="@dimen/_10sdp"/>
+
+
+                </LinearLayout>
+
 
             </LinearLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
     </ScrollView>
 

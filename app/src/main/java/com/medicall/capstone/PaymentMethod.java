@@ -45,7 +45,7 @@ public class PaymentMethod extends AppCompatActivity {
         googlepay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PaymentMethod.this, selectDoc.class);
+                Intent intent = new Intent(PaymentMethod.this, selectClinic.class);
                 startActivity(intent);
             }
         });

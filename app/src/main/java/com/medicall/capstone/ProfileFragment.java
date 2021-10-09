@@ -73,6 +73,7 @@ public class ProfileFragment extends AppCompatActivity {
     FirebaseFirestore db;
 
     ImageView changeDP;
+    TextView changeEmail;
 
     @Override
     public void onBackPressed() {
@@ -110,6 +111,16 @@ public class ProfileFragment extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
         changeDP = findViewById(R.id.editImage);
+
+        changeEmail = findViewById(R.id.change_email);
+
+        changeEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), changeEmail_Patient.class);
+                startActivity(intent);
+            }
+        });
 
         changeDP.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -200,7 +211,7 @@ public class ProfileFragment extends AppCompatActivity {
                 gender.setText(documentSnapshot.getString("Sex"));
                 address.setText(documentSnapshot.getString("Address"));
                 municipality.setText(documentSnapshot.getString("Municipality"));
-                number.setText(documentSnapshot.getString("Contact"));
+                number.setText("0" + documentSnapshot.getString("Contact"));
                 email.setText(documentSnapshot.getString("Email"));
                 postal.setText(documentSnapshot.getString("Postal"));
                 birthday.setText(documentSnapshot.getString("Birthday"));
