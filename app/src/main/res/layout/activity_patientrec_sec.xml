@@ -87,8 +87,7 @@
                         android:layout_height="wrap_content"
                         android:text="Name"
                         android:textSize="@dimen/_15sdp"
-                        android:textColor="@color/black"
-                        android:inputType="textImeMultiLine"/>
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:id="@+id/patientrec_email"
