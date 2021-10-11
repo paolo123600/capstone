@@ -70,7 +70,7 @@ String clinicid;
                 else{
                     txt= txt.substring(0,1).toUpperCase()+txt.substring(1).toLowerCase();
                     startsearchpatient(txt.toString());
-                    Toast.makeText(Doctor_Patientchatlist.this, txt.toString(), Toast.LENGTH_SHORT).show();
+
 
                 }
 

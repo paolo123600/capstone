@@ -99,6 +99,7 @@ public class Pending_Appointments extends AppCompatActivity {
                                     String datestring ;
                                     Date date = new Date();
                                     date = model.getDate();
+                                    gv.setDDate(date);
                                     datestring= format.format(date);
                                     db.collection("Doctors").document(model.getDoctorUId())
                                             .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -138,6 +139,7 @@ public class Pending_Appointments extends AppCompatActivity {
                                         public void onClick(View v) {
                                             Intent intent = new Intent(Pending_Appointments.this, Pending_Confirmation.class);
                                             gv.setPending_docUid(model.getDoctorUId());
+                                            gv.setPosition(model.getPosition());
                                             gv.setPending_patUid(model.getPatientUId());
                                             gv.setPending_sched(datestring + " (" + model.getStartTime() + " - " + model.getEndTime() + ")" );
                                             gv.setPending_hmo(model.getHMOName());

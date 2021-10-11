@@ -13,6 +13,16 @@ public class PendingModel {
     private String EndTime;
     private String CardNumber;
 
+    public Integer getPosition() {
+        return Position;
+    }
+
+    public void setPosition(Integer position) {
+        Position = position;
+    }
+
+    private Integer Position;
+
     public PendingModel(){
 
     }

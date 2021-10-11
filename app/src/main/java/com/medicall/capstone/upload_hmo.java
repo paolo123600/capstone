@@ -320,7 +320,6 @@ public class upload_hmo extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(upload_hmo.this, "Checkpoint1", Toast.LENGTH_SHORT).show();
                     QuerySnapshot querySnapshot = task.getResult();
                     if(!querySnapshot.isEmpty()){
                         for(QueryDocumentSnapshot doctor: task.getResult()){
@@ -346,7 +345,6 @@ public class upload_hmo extends AppCompatActivity {
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
-                                                Toast.makeText(upload_hmo.this, "Checkpoint2", Toast.LENGTH_SHORT).show();
                                                 if(progressDialog.isShowing()){
                                                     progressDialog.dismiss();
                                                 }

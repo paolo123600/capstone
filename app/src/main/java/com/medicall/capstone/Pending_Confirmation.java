@@ -33,8 +33,11 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Pending_Confirmation extends AppCompatActivity {
 
@@ -191,7 +194,36 @@ public class Pending_Confirmation extends AppCompatActivity {
                                                 for(QueryDocumentSnapshot scheds : task.getResult()){
                                                     Date currentTime = Calendar.getInstance().getTime();
                                                     db.collection("Schedules").document(scheds.getString("SchedId"))
-                                                            .update("Status", "Declined","Dnt",currentTime);
+                                                            .update("Status", "Declined","Dnt",currentTime,"Position",0).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+                                                            db.collection("Schedules").whereEqualTo("DoctorUId", gv.getPending_docUid()).whereEqualTo("StartTime",gv.getStartTime()).whereEqualTo("EndTime",gv.getEndTime()).whereIn("Status", Arrays.asList("Paid","Approved","Pending Approval")).whereEqualTo("Date",gv.getDDate()).get()
+                                                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                                        @Override
+                                                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                                            if (task.isSuccessful()){
+
+                                                                                for (QueryDocumentSnapshot doc : task.getResult()) {
+                                                                                    int docposition = doc.getLong("Position").intValue();
+                                                                                    if (docposition > gv.getPosition()){
+                                                                                        String docuid = doc.getId();
+                                                                                        db.collection("Schedules").document(docuid).update("Position", docposition-1)
+                                                                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                                                    @Override
+                                                                                                    public void onSuccess(Void aVoid) {
+
+
+                                                                                                    }
+                                                                                                });
+                                                                                    }
+                                                                                }
+
+
+                                                                            }
+                                                                        }
+                                                                    });
+                                                        }
+                                                    });
                                                     AlertDialog.Builder status1 = new AlertDialog.Builder(Pending_Confirmation.this);
                                                     status1.setTitle("Schedule cancelled");
                                                     status1.setMessage("Appointment successfully declined!");
