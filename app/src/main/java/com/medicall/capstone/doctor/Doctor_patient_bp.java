@@ -1,6 +1,7 @@
 package com.medicall.capstone.doctor;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,10 +16,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.firestore.paging.FirestorePagingAdapter;
 import com.firebase.ui.firestore.paging.FirestorePagingOptions;
 import com.firebase.ui.firestore.paging.LoadingState;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.medicall.capstone.BPModel;
 import com.medicall.capstone.R;
 import com.medicall.capstone.patient_record_clinic;
@@ -38,6 +43,8 @@ public class Doctor_patient_bp extends AppCompatActivity {
     String userId;
     RecyclerView mFirestoreList;
     ImageView back;
+    TextView none;
+
 
     private FirestoreRecyclerAdapter adapter;
 
@@ -45,7 +52,7 @@ public class Doctor_patient_bp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_patient_bp);
-
+        none = findViewById(R.id.None);
 
 
         mFirestoreList = findViewById(R.id.Doctor_patBP);
@@ -94,6 +101,25 @@ public class Doctor_patient_bp extends AppCompatActivity {
         mFirestoreList.setHasFixedSize(true);
         mFirestoreList.setLayoutManager(new LinearLayoutManager(this));
         mFirestoreList.setAdapter(adapter);
+
+
+        db.collection("Patients").document(userId).collection("BP").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable  QuerySnapshot value, @Nullable  FirebaseFirestoreException error) {
+                if(error != null){
+                    Toast.makeText(Doctor_patient_bp.this, "Error Loading", Toast.LENGTH_SHORT).show();
+
+                }
+                if (value.isEmpty()){
+                    none.setVisibility(View.VISIBLE);
+                    mFirestoreList.setVisibility(View.GONE);
+                } else {
+                    none.setVisibility(View.GONE);
+                    mFirestoreList.setVisibility(View.VISIBLE);
+                }
+
+            }
+        });
 
 
 
