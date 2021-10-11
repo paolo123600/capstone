@@ -1,4 +1,4 @@
- package com.medicall.capstone;
+package com.medicall.capstone;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -136,71 +136,71 @@ public class patient_schedule extends AppCompatActivity  {
         db.collection("Schedules").whereEqualTo("PatientUId",Patuid).whereIn("Status",Arrays.asList("Paid","Pending Approval","Declined","Approved")).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                    if (task.isSuccessful()){
+                if (task.isSuccessful()){
 
-                        for (QueryDocumentSnapshot doc : task.getResult()) {
-                            Date datesched = doc.getDate("Date");
-                            SimpleDateFormat format = new SimpleDateFormat("MMMM d ,yyyy");
-                            String scheddate =format.format(datesched);
+                    for (QueryDocumentSnapshot doc : task.getResult()) {
+                        Date datesched = doc.getDate("Date");
+                        SimpleDateFormat format = new SimpleDateFormat("MMMM d ,yyyy");
+                        String scheddate =format.format(datesched);
 
 
-                            try {
-                               datesched  = format2.parse(scheddate);
-                            } catch (ParseException e) {
-                                Toast.makeText(patient_schedule.this, "error1", Toast.LENGTH_SHORT).show();
-                            }
-                                if(nowdate.before(datesched)||nowdate.equals(datesched)){
-                                    if(doc.getString("Status").equals("Paid")){
-                                        cancelbtn.setVisibility(View.VISIBLE);
-                                        reschedbtn.setVisibility(View.VISIBLE);}
-                                    if(doc.getString("Status").equals("Pending Approval")||doc.getString("Status").equals("Approved")){
-                                        cancelbtn.setVisibility(View.VISIBLE);}
+                        try {
+                            datesched  = format2.parse(scheddate);
+                        } catch (ParseException e) {
+                            Toast.makeText(patient_schedule.this, "error1", Toast.LENGTH_SHORT).show();
+                        }
+                        if(nowdate.before(datesched)||nowdate.equals(datesched)){
+                            if(doc.getString("Status").equals("Paid")){
+                                cancelbtn.setVisibility(View.VISIBLE);
+                                reschedbtn.setVisibility(View.VISIBLE);}
+                            if(doc.getString("Status").equals("Pending Approval")||doc.getString("Status").equals("Approved")){
+                                cancelbtn.setVisibility(View.VISIBLE);}
 
-                                    scheddocu =doc.getId();
-                                    docid=doc.getString("DoctorUId");
-                                    db.collection("Doctors").document(docid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                            if (task.isSuccessful()){
-                                                DocumentSnapshot document = task.getResult();
-                                                if (document.exists()) {
-                                                    docnametv.setText("Doc. "+document.getString("LastName"));
-                                                    doclastname=document.getString("LastName");
-                                                } else {
-                                                    Toast.makeText(patient_schedule.this, "does not exits", Toast.LENGTH_SHORT).show();
-                                                }
-
-                                            }
+                            scheddocu =doc.getId();
+                            docid=doc.getString("DoctorUId");
+                            db.collection("Doctors").document(docid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()){
+                                        DocumentSnapshot document = task.getResult();
+                                        if (document.exists()) {
+                                            docnametv.setText("Doc. "+document.getString("LastName"));
+                                            doclastname=document.getString("LastName");
+                                        } else {
+                                            Toast.makeText(patient_schedule.this, "does not exits", Toast.LENGTH_SHORT).show();
                                         }
-                                    });
-                                    Date datescheds =doc.getDate("Date");
 
-                                    String date1=  format.format(datesched);
-                                    clinicnametv.setText(doc.getString("ClinicName"));
-                                    statustv.setText("Status: "+doc.getString("Status"));
-                                    timetv.setText("Time :"+doc.getString("StartTime")+"-"+doc.getString("EndTime"));
-                                    datetv.setText("Date :"+date1);
-                                    price = doc.getString("Price");
-
-                                    gv.setDDate(datesched);
-                                    Position = doc.getLong("Position").intValue();
-                                    gv.setPosition(doc.getLong("Position").intValue());
-                                    gv.setSDClinic(doc.getString("ClinicName"));
-                                    gv.setSDDocUid(doc.getString("DoctorUId"));
-                                    gv.setSDtimestart(doc.getString("StartTime"));
-                                    gv.setSDtimestop(doc.getString("EndTime"));
-
+                                    }
                                 }
+                            });
+                            Date datescheds =doc.getDate("Date");
 
+                            String date1=  format.format(datesched);
+                            clinicnametv.setText(doc.getString("ClinicName"));
+                            statustv.setText("Status: "+doc.getString("Status"));
+                            timetv.setText("Time :"+doc.getString("StartTime")+"-"+doc.getString("EndTime"));
+                            datetv.setText("Date :"+date1);
+                            price = doc.getString("Price");
 
-                            }
-
+                            gv.setDDate(datesched);
+                            Position = doc.getLong("Position").intValue();
+                            gv.setPosition(doc.getLong("Position").intValue());
+                            gv.setSDClinic(doc.getString("ClinicName"));
+                            gv.setSDDocUid(doc.getString("DoctorUId"));
+                            gv.setSDtimestart(doc.getString("StartTime"));
+                            gv.setSDtimestop(doc.getString("EndTime"));
 
                         }
 
 
                     }
-            });
+
+
+                }
+
+
+            }
+        });
 
         cancelbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -229,7 +229,7 @@ public class patient_schedule extends AppCompatActivity  {
 
                                                             for (QueryDocumentSnapshot doc : task.getResult()) {
 
-                                                                 int docpostion = doc.getLong("Position").intValue();
+                                                                int docpostion = doc.getLong("Position").intValue();
                                                                 if ( docpostion > Position){
                                                                     String docuid = doc.getId();
                                                                     db.collection("Schedules").document(docuid).update(
@@ -260,7 +260,7 @@ public class patient_schedule extends AppCompatActivity  {
                         .setNegativeButton("Decline", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                               dialogInterface.dismiss();
+                                dialogInterface.dismiss();
                             }
                         })
                         .setIcon(android.R.drawable.ic_dialog_alert)
@@ -308,96 +308,96 @@ public class patient_schedule extends AppCompatActivity  {
 
                         break;
                 }
-                    FirestoreRecyclerOptions<DocTodaySchedModel> options = new FirestoreRecyclerOptions.Builder<DocTodaySchedModel>()
-                            .setQuery(query1, DocTodaySchedModel.class)
-                            .build();
-                    adapter = new FirestoreRecyclerAdapter<DocTodaySchedModel, patient_schedule.Schedholder>(options) {
-                        @NonNull
-                        @Override
-                        public patient_schedule.Schedholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.notif_single_patient,parent,false);
-                            return new patient_schedule.Schedholder(view);
-                        }
+                FirestoreRecyclerOptions<DocTodaySchedModel> options = new FirestoreRecyclerOptions.Builder<DocTodaySchedModel>()
+                        .setQuery(query1, DocTodaySchedModel.class)
+                        .build();
+                adapter = new FirestoreRecyclerAdapter<DocTodaySchedModel, patient_schedule.Schedholder>(options) {
+                    @NonNull
+                    @Override
+                    public patient_schedule.Schedholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.notif_single_patient,parent,false);
+                        return new patient_schedule.Schedholder(view);
+                    }
 
-                        @Override
-                        protected void onBindViewHolder(@NonNull patient_schedule.Schedholder holder, int position, @NonNull DocTodaySchedModel model) {
-                            Date datesched =model.getDate();
-                            SimpleDateFormat format = new SimpleDateFormat("MMMM d ,yyyy");
-                            String date=  format.format(datesched);
-                            String status = model.getStatus();
-                            Date bookeddate = model.getDnt();
-                            db.collection("Patients").document(model.getPatientUId()).get()
-                                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                        @Override
-                                        public void onSuccess(DocumentSnapshot documentSnapshot1) {
-                                            documentSnapshot1.getData();
-                                            String patname = documentSnapshot1.getString("LastName")+", "+documentSnapshot1.getString("FirstName");
-                                            db.collection("Doctors").document(model.getDoctorUId()).get()
-                                                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                                        @Override
-                                                        public void onSuccess(DocumentSnapshot documentSnapshot2) {
-                                                            documentSnapshot2.getData();
-                                                            String docname= "Doc. "+documentSnapshot2.getString("LastName");
-                                                            switch (status){
-                                                                case "Completed":
-                                                                    holder.tvpatname.setText("Patient: "+ patname);
-                                                                    holder.tvdocname.setText("Doctor: "+docname);
-                                                                    holder.tvdatesched.setText("Date: "+date);
-                                                                    holder.tvstatus.setText("Status: "+"Paid");
-                                                                    break;
-                                                                case "Rescheduled":
-                                                                    holder.tvpatname.setText("Patient: "+ patname);
-                                                                    holder.tvdocname.setText("Doctor: "+docname);
-                                                                    holder.tvdatesched.setText("Date: "+date);
-                                                                    holder.tvstatus.setText("Status: "+"Rescheduled");
-                                                                    break;
-                                                                case "Cancelled":
-                                                                    holder.tvpatname.setText("Patient: "+ patname);
-                                                                    holder.tvdocname.setText("Doctor: "+docname);
-                                                                    holder.tvdatesched.setText("Date: "+date);
-                                                                    holder.tvstatus.setText("Status: "+"Cancelled");
-                                                                    break;
+                    @Override
+                    protected void onBindViewHolder(@NonNull patient_schedule.Schedholder holder, int position, @NonNull DocTodaySchedModel model) {
+                        Date datesched =model.getDate();
+                        SimpleDateFormat format = new SimpleDateFormat("MMMM d ,yyyy");
+                        String date=  format.format(datesched);
+                        String status = model.getStatus();
+                        Date bookeddate = model.getDnt();
+                        db.collection("Patients").document(model.getPatientUId()).get()
+                                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onSuccess(DocumentSnapshot documentSnapshot1) {
+                                        documentSnapshot1.getData();
+                                        String patname = documentSnapshot1.getString("LastName")+", "+documentSnapshot1.getString("FirstName");
+                                        db.collection("Doctors").document(model.getDoctorUId()).get()
+                                                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                                    @Override
+                                                    public void onSuccess(DocumentSnapshot documentSnapshot2) {
+                                                        documentSnapshot2.getData();
+                                                        String docname= "Doc. "+documentSnapshot2.getString("LastName");
+                                                        switch (status){
+                                                            case "Completed":
+                                                                holder.tvpatname.setText("Patient: "+ patname);
+                                                                holder.tvdocname.setText("Doctor: "+docname);
+                                                                holder.tvdatesched.setText("Date: "+date);
+                                                                holder.tvstatus.setText("Status: "+"Paid");
+                                                                break;
+                                                            case "Rescheduled":
+                                                                holder.tvpatname.setText("Patient: "+ patname);
+                                                                holder.tvdocname.setText("Doctor: "+docname);
+                                                                holder.tvdatesched.setText("Date: "+date);
+                                                                holder.tvstatus.setText("Status: "+"Rescheduled");
+                                                                break;
+                                                            case "Cancelled":
+                                                                holder.tvpatname.setText("Patient: "+ patname);
+                                                                holder.tvdocname.setText("Doctor: "+docname);
+                                                                holder.tvdatesched.setText("Date: "+date);
+                                                                holder.tvstatus.setText("Status: "+"Cancelled");
+                                                                break;
 
-                                                                case "Declined":
-                                                                    holder.tvpatname.setText("Patient: "+ patname);
-                                                                    holder.tvdocname.setText("Doctor: "+docname);
-                                                                    holder.tvdatesched.setText("Date: "+date);
-                                                                    holder.tvstatus.setText("Status: "+"Declined");
-                                                                    break;
-                                                                case "Approved":
-                                                                    holder.tvpatname.setText("Patient: "+ patname);
-                                                                    holder.tvdocname.setText("Doctor: "+docname);
-                                                                    holder.tvdatesched.setText("Date: "+date);
-                                                                    holder.tvstatus.setText("Status: "+"Approved");
-                                                                    break;
+                                                            case "Declined":
+                                                                holder.tvpatname.setText("Patient: "+ patname);
+                                                                holder.tvdocname.setText("Doctor: "+docname);
+                                                                holder.tvdatesched.setText("Date: "+date);
+                                                                holder.tvstatus.setText("Status: "+"Declined");
+                                                                break;
+                                                            case "Approved":
+                                                                holder.tvpatname.setText("Patient: "+ patname);
+                                                                holder.tvdocname.setText("Doctor: "+docname);
+                                                                holder.tvdatesched.setText("Date: "+date);
+                                                                holder.tvstatus.setText("Status: "+"Approved");
+                                                                break;
 
-                                                            }
-                                                            SimpleDateFormat simpleDate =  new SimpleDateFormat("MMM d ,yyyy h:ma");
-                                                            String bookeddatestring = simpleDate.format(bookeddate);
                                                         }
-                                                    }).addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
-                                                    Toast.makeText(patient_schedule.this, "error showing patient", Toast.LENGTH_SHORT).show();
-                                                }
-                                            });
-                                        }
-                                    }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(patient_schedule.this, "error showing patient", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                                                        SimpleDateFormat simpleDate =  new SimpleDateFormat("MMM d ,yyyy h:ma");
+                                                        String bookeddatestring = simpleDate.format(bookeddate);
+                                                    }
+                                                }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Toast.makeText(patient_schedule.this, "error showing patient", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(patient_schedule.this, "error showing patient", Toast.LENGTH_SHORT).show();
+                            }
+                        });
 
 
 
 
-                        }
-                    };
-                    mFirestorelist.setHasFixedSize(true);
-                    mFirestorelist.setLayoutManager(new LinearLayoutManager(patient_schedule.this));
-                    mFirestorelist.setAdapter(adapter);
-                    adapter.startListening();
+                    }
+                };
+                mFirestorelist.setHasFixedSize(true);
+                mFirestorelist.setLayoutManager(new LinearLayoutManager(patient_schedule.this));
+                mFirestorelist.setAdapter(adapter);
+                adapter.startListening();
 
 
             }
