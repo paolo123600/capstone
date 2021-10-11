@@ -44,6 +44,16 @@
         android:layout_marginTop="60dp"
         android:orientation="vertical">
 
+        <TextView
+            android:layout_marginTop="@dimen/_10sdp"
+            android:id="@+id/noHistory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="There is currently no past records"
+            android:textSize="@dimen/_15sdp"
+            android:gravity="center_horizontal"
+            android:visibility="gone"/>
 
 
         <androidx.recyclerview.widget.RecyclerView
