@@ -484,6 +484,7 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
             Toast.makeText(this, "Purchase Canceled", Toast.LENGTH_SHORT).show();
         }
 
+
         else {
             Toast.makeText(this, "Error: "+ billingResult.getDebugMessage(), Toast.LENGTH_SHORT).show();
         }
