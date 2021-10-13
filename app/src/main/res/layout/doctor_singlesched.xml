@@ -14,40 +14,50 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/docnameid"
             android:padding="@dimen/_10sdp">
 
-            <TextView
-                android:id="@+id/notif_pat"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                android:text="Patient Name"
-                android:textAllCaps="true"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/notif_pat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Patient Name"
+                    android:textAllCaps="true"
+                    android:textSize="18sp"
+                    android:textColor="@color/lessblack"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/notif_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Position:"
+                    android:textSize="17dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
 
 
-            <TextView
-                android:id="@+id/notif_date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Position:"
-                android:textSize="17dp"
-                android:textStyle="bold" />
 
-            <Button
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/view_patInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/darkround"
-                android:padding="@dimen/_10sdp"
                 android:textColor="@color/white"
+                android:padding="@dimen/_6sdp"
                 android:layout_gravity="right"
-                android:text="Patient Info" />
+                android:textSize="@dimen/_5sdp"
+                android:background="@drawable/darkround"
+                android:src="@drawable/ic_person_doctorhomepage"/>
 
         </LinearLayout>
 

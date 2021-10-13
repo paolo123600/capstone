@@ -1,6 +1,7 @@
 package com.medicall.capstone;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -252,58 +253,80 @@ public class reschedule_date extends AppCompatActivity implements DatePickerDial
                                     @Override
                                     public void onClick(View view) {
 
-                                        Date currentTime = Calendar.getInstance().getTime();
-                                        db.collection("Schedules").document(schedid).update(
-                                                "Status", "Rescheduled",
-                                                "Dnt", currentTime,
-                                                "Position",0
-
-                                        ).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(reschedule_date.this);
+                                        builder.setCancelable(true);
+                                        builder.setTitle("Reschedule");
+                                        builder.setMessage("Do you want to book this schedule?");
+                                        builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                                             @Override
-                                            public void onSuccess(Void aVoid) {
-                                                db.collection("Schedules").whereEqualTo("DoctorUId", gv.getSDDocUid()).whereEqualTo("StartTime",gv.getSDtimestart()).whereEqualTo("EndTime",gv.getSDtimestop()).whereIn("Status", Arrays.asList("Paid","Approved","Pending Approval")).whereEqualTo("Date",gv.getDDate()).get()
-                                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                                            @Override
-                                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                                                if (task.isSuccessful()){
+                                            public void onClick(DialogInterface dialog, int which) {
 
-                                                                    for (QueryDocumentSnapshot doc : task.getResult()) {
-                                                                        int docposition = doc.getLong("Position").intValue();
+                                                Date currentTime = Calendar.getInstance().getTime();
+                                                db.collection("Schedules").document(schedid).update(
+                                                        "Status", "Rescheduled",
+                                                        "Dnt", currentTime,
+                                                        "Position",0
 
-                                                                        if (docposition > Position){
-                                                                            String docuid = doc.getId();
-                                                                            db.collection("Schedules").document(docuid).update("Position", docposition-1)
-                                                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                                                        @Override
-                                                                                        public void onSuccess(Void aVoid) {
+                                                ).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        db.collection("Schedules").whereEqualTo("DoctorUId", gv.getSDDocUid()).whereEqualTo("StartTime",gv.getSDtimestart()).whereEqualTo("EndTime",gv.getSDtimestop()).whereIn("Status", Arrays.asList("Paid","Approved","Pending Approval")).whereEqualTo("Date",gv.getDDate()).get()
+                                                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                                    @Override
+                                                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                                        if (task.isSuccessful()){
+
+                                                                            for (QueryDocumentSnapshot doc : task.getResult()) {
+                                                                                int docposition = doc.getLong("Position").intValue();
+
+                                                                                if (docposition > Position){
+                                                                                    String docuid = doc.getId();
+                                                                                    db.collection("Schedules").document(docuid).update("Position", docposition-1)
+                                                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                                                @Override
+                                                                                                public void onSuccess(Void aVoid) {
 
 
-                                                                                        }
-                                                                                    });
+                                                                                                }
+                                                                                            });
+                                                                                }
+                                                                            }
+                                                                            Map<String, Object> PatSched = new HashMap<>();
+                                                                            PatSched.put("DoctorUId", docid);
+                                                                            PatSched.put("StartTime", model.getStartTime());
+                                                                            PatSched.put("EndTime", model.getEndTime());
+                                                                            PatSched.put("Position", count+1);
+                                                                            PatSched.put("Price", price);
+                                                                            PatSched.put ("Date", finalDate);
+                                                                            PatSched.put ("Status", "Paid" );
+                                                                            PatSched.put ("PatientUId", patuid );
+                                                                            PatSched.put ("Dnt",currentTime);
+                                                                            PatSched.put("ClinicName",gv.getSDClinic());
+
+                                                                            db.collection("Schedules").document().set(PatSched);
+                                                                            Toast.makeText(reschedule_date.this, "Successfully Rescheduled", Toast.LENGTH_SHORT).show();
+                                                                            Intent intent = new Intent(reschedule_date.this, MainActivity.class);
+                                                                            startActivity(intent);
+
                                                                         }
                                                                     }
-                                                                    Map<String, Object> PatSched = new HashMap<>();
-                                                                    PatSched.put("DoctorUId", docid);
-                                                                    PatSched.put("StartTime", model.getStartTime());
-                                                                    PatSched.put("EndTime", model.getEndTime());
-                                                                    PatSched.put("Position", count+1);
-                                                                    PatSched.put("Price", price);
-                                                                    PatSched.put ("Date", finalDate);
-                                                                    PatSched.put ("Status", "Paid" );
-                                                                    PatSched.put ("PatientUId", patuid );
-                                                                    PatSched.put ("Dnt",currentTime);
-                                                                    PatSched.put("ClinicName",gv.getSDClinic());
+                                                                });
+                                                    }
+                                                });
 
-                                                                    db.collection("Schedules").document().set(PatSched);
-                                                                    Toast.makeText(reschedule_date.this, "Successfully Rescheduled", Toast.LENGTH_SHORT).show();
-                                                                    Intent intent = new Intent(reschedule_date.this, MainActivity.class);
-                                                                    startActivity(intent);
-
-                                                                }
-                                                            }
-                                                        });
                                             }
                                         });
+                                        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                            }
+                                        });
+
+                                        AlertDialog dialog = builder.create();
+                                        dialog.show();
+
+
                                     }
                                 });
                             }

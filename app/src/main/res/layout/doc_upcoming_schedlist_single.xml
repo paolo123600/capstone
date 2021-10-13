@@ -18,7 +18,7 @@
 
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
@@ -47,15 +47,16 @@
                 android:text="Patient Name"
                 android:textAllCaps="true"
                 android:textSize="18sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:textColor="@color/black"/>
 
             <TextView
                 android:id="@+id/doc_upcomingsched_datesched"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Doc type"
+                android:text="Date"
                 android:textAllCaps="true"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 android:textStyle="bold"/>
 
         </LinearLayout>

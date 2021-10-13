@@ -437,7 +437,7 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
                                             DocumentSnapshot document = task.getResult();
                                             if (document.exists()) {
                                                 holder.tv_patientnamelist.setText(document.getString("LastName")+", "+document.getString("FirstName"));
-                                                holder.tv_positionlist.setText(model.Position+"");
+                                                holder.tv_positionlist.setText("Position: " + model.Position+"");
                                                 holder.btnViewRecord.setOnClickListener(new View.OnClickListener() {
                                                     @Override
                                                     public void onClick(View view) {
@@ -790,12 +790,12 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
     private class SchedHolder extends  RecyclerView.ViewHolder {
 
         private TextView tv_patientnamelist, tv_positionlist;
-        private Button btnViewRecord;
+        private CircleImageView btnViewRecord;
         public SchedHolder(@NonNull View itemView) {
             super(itemView);
             tv_patientnamelist = (TextView) itemView.findViewById(R.id.notif_pat);
             tv_positionlist = (TextView) itemView.findViewById(R.id.notif_date);
-            btnViewRecord = (Button) itemView.findViewById(R.id.view_patInfo);
+            btnViewRecord = (CircleImageView) itemView.findViewById(R.id.view_patInfo);
 
 
         }
