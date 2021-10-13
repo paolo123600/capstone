@@ -138,12 +138,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="20dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/position"
-                    android:layout_width="144dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Number"
                     android:textSize="15dp"
@@ -154,7 +155,8 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@drawable/roundtbox"
+                    android:background="@color/lessblack"
+
                     android:layout_marginTop="@dimen/_10sdp"/>
 
 
@@ -171,7 +173,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_constraintTop_toBottomOf="@id/toolbar"
-                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginRight="@dimen/_10sdp"/>
 
@@ -236,6 +238,7 @@
 
 
 
+
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_viewer_doc"
         android:layout_width="wrap_content"
@@ -243,6 +246,7 @@
         android:layout_gravity="start"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/drawer_menu_doc"/>
+
 
 
 
