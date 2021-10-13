@@ -78,6 +78,7 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
     private Button callbtn;
     private Button  pat_record;
     String gmail = "";
+    TextView noofappoints;
     String patUid = "";
     String currentday= "";
     private List<User> users;
@@ -128,7 +129,7 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
         }
 
         mFirestorelist = (RecyclerView)findViewById(R.id.scheddoc_list);
-
+        noofappoints = (TextView) findViewById(R.id.position);
         btncomplete= (ImageView) findViewById(R.id.button_complete);
         btnnext = (ImageView) findViewById(R.id.button_next);
         fAuth = FirebaseAuth.getInstance();
@@ -368,6 +369,29 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
                         String finalTimestop1 = timestop;
                         String finalTimestart2 = timestart;
                         String finalTimestop2 = timestop;
+
+
+                        db.collection("Schedules").whereEqualTo("Date", DDate).whereEqualTo("StartTime", timestart).whereEqualTo("DoctorUId", preferenceManager.getString(Constants.KEY_USER_ID)).whereEqualTo("EndTime", timestop).whereIn("Status", Arrays.asList("Paid","Approved"))
+                                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onEvent(@Nullable QuerySnapshot value,
+                                                        @Nullable FirebaseFirestoreException e) {
+                                        if (e != null) {
+                                            Toast.makeText(doctor_homepage.this, "error listening", Toast.LENGTH_SHORT).show();
+                                            return;
+                                        }
+
+
+                                        if (!value.isEmpty()){
+                                            int count;
+                                            count = value.size();
+                                            noofappoints.setText("Total Appointments: "+count);
+                                        }
+                                        else {
+                                            noofappoints.setText("Total Appointments: None");
+                                            }
+                                    }
+                                });
                         db.collection("Schedules").whereEqualTo("Date", DDate).whereEqualTo("StartTime", timestart).whereEqualTo("DoctorUId", preferenceManager.getString(Constants.KEY_USER_ID)).whereEqualTo("Status", "Pending Approval").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
