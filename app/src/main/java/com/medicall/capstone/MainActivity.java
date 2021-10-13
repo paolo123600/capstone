@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     String datenow;
     String userId;
     Boolean schedalready = false;
-   private String start = "";
+    private String start = "";
     private String lstart = "";
     private  String lend = "";
     private String end = "";
@@ -200,12 +200,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View v) {
 
-        Intent intent = new Intent(MainActivity.this, RecentChats.class);
-        startActivity(intent);
+                Intent intent = new Intent(MainActivity.this, RecentChats.class);
+                startActivity(intent);
 
             }
         });
-                buttonbook.setOnClickListener(new View.OnClickListener() {
+        buttonbook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Calendar calendar = Calendar.getInstance();
@@ -248,15 +248,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                                     }
                                     else if (nowdate.after(datesched)) {  String documentsched =doc.getId();
-                                    db.collection("Schedules").document(documentsched).update("Status","Unattended").addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
+                                        db.collection("Schedules").document(documentsched).update("Status","Unattended").addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
 
-                                        }
-                                    });
+                                            }
+                                        });
                                     }
 
-                        }  if (schedalready==false){
+                                }  if (schedalready==false){
                                     Intent intent = new Intent(MainActivity.this, selectDoc.class);
                                     startActivity(intent);
                                 }  }
@@ -290,8 +290,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-                drawer.addDrawerListener(toggle);
-                toggle.syncState();
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
 
     }
 
@@ -409,13 +409,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         DocumentReference documentReference = db.collection("Patients").document(userId);
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                navUsernamePat.setText(documentSnapshot.getString("FirstName") + " " + documentSnapshot.getString("LastName"));
-                navEmail.setText(documentSnapshot.getString("Email"));
-            }
+                    @Override
+                    public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                        navUsernamePat.setText(documentSnapshot.getString("FirstName") + " " + documentSnapshot.getString("LastName"));
+                        navEmail.setText(documentSnapshot.getString("Email"));
+                    }
 
-        }
+                }
 
 
 
