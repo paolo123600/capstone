@@ -139,16 +139,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Number of Patients:"
-                    android:textSize="15dp"
-                    android:textColor="@color/black"
-
-                    />
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/position"
@@ -160,6 +151,11 @@
 
 
                     />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/roundtbox"
+                    android:layout_marginTop="@dimen/_10sdp"/>
 
 
             </LinearLayout>
@@ -233,16 +229,12 @@
 
 
 
+
+
     </LinearLayout>
 
 
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/nav_viewer_doc"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        app:headerLayout="@layout/nav_header"
-        app:menu="@menu/drawer_menu_doc"/>
+
 
 
 
