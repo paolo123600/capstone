@@ -441,7 +441,9 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
                                                 holder.btnViewRecord.setOnClickListener(new View.OnClickListener() {
                                                     @Override
                                                     public void onClick(View view) {
-
+                                                        Intent intent = new Intent(doctor_homepage.this,patientrec_sec.class);
+                                                        intent.putExtra("patid",model.getPatientUId());
+                                                        startActivity(intent);
                                                     }
                                                 });
                                             } else {
@@ -526,7 +528,7 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
                                                                                     ).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                                         @Override
                                                                                         public void onSuccess(Void aVoid) {
-                                                                                            db.collection("Schedules").whereEqualTo("DoctorUId",preferenceManager.getString(Constants.KEY_USER_ID)).whereEqualTo("StartTime", finalTimestart).whereEqualTo("EndTime", finalTimestop).whereEqualTo("Status",Arrays.asList("Paid","Approved")).whereEqualTo("Date", DDate).get()
+                                                                                            db.collection("Schedules").whereEqualTo("DoctorUId",preferenceManager.getString(Constants.KEY_USER_ID)).whereEqualTo("StartTime", finalTimestart).whereEqualTo("EndTime", finalTimestop).whereIn("Status",Arrays.asList("Paid","Approved")).whereEqualTo("Date", DDate).get()
                                                                                                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                                                                                         @Override
                                                                                                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -568,7 +570,7 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
                                                                             new AlertDialog.Builder(doctor_homepage.this).setMessage("Are you sure you would like to move this patient?").setPositiveButton("Accept", new DialogInterface.OnClickListener() {
                                                                                 @Override
                                                                                 public void onClick(DialogInterface dialog, int which) {
-                                                                                    db.collection("Schedules").whereEqualTo("DoctorUId",preferenceManager.getString(Constants.KEY_USER_ID)).whereEqualTo("StartTime", finalTimestart).whereEqualTo("EndTime", finalTimestop).whereEqualTo("Status",Arrays.asList("Paid","Approved")).whereEqualTo("Date", DDate).get()
+                                                                                    db.collection("Schedules").whereEqualTo("DoctorUId",preferenceManager.getString(Constants.KEY_USER_ID)).whereEqualTo("StartTime", finalTimestart).whereEqualTo("EndTime", finalTimestop).whereIn("Status",Arrays.asList("Paid","Approved")).whereEqualTo("Date", DDate).get()
                                                                                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                                                                                 @Override
                                                                                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
