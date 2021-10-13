@@ -34,6 +34,8 @@ import com.medicall.capstone.secretary.SecretaryPatschedModel;
 import com.medicall.capstone.secretary.Secretary_schedlist_patsched_past;
 import com.medicall.capstone.utilities.PreferenceManager;
 
+import org.w3c.dom.Text;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -44,6 +46,7 @@ public class PastAppointments extends AppCompatActivity {
     FirebaseAuth fAuth;
     FirebaseFirestore db;
     RecyclerView mFirestoreList;
+    TextView history;
 
     String patuid;
 
@@ -67,10 +70,13 @@ public class PastAppointments extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         preferenceManager = new PreferenceManager(getApplicationContext());
 
+        history = findViewById(R.id.noHistory);
+
         Intent intent = getIntent();
         patuid = intent.getStringExtra("patuid");
 
         back = findViewById(R.id.backspace);
+        getHistory();
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +85,26 @@ public class PastAppointments extends AppCompatActivity {
             }
         });
 
+        db.collection("Schedules").whereEqualTo("PatientUId", patuid).whereEqualTo("Status","Completed")
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    QuerySnapshot querySnapshot = task.getResult();
+                    if(!querySnapshot.isEmpty()){
+                        for(QueryDocumentSnapshot nohistory : task.getResult()){
+                            history.setVisibility(TextView.GONE);
+                        }
+                    }
+                    else{
+                        history.setVisibility(TextView.VISIBLE);
+                    }
+                }
+            }
+        });
+    }
+
+    public void getHistory(){
         Query query = db.collection("Schedules").whereEqualTo("PatientUId", patuid).whereEqualTo("Status", "Completed").orderBy("Date", Query.Direction.DESCENDING).limit(20);
 
         FirestoreRecyclerOptions<SecretaryPatschedModel> options = new FirestoreRecyclerOptions.Builder<SecretaryPatschedModel>().setQuery(query, SecretaryPatschedModel.class).build();
@@ -144,9 +170,8 @@ public class PastAppointments extends AppCompatActivity {
         };
 
         mFirestoreList.setHasFixedSize(true);
-        mFirestoreList.setLayoutManager(new LinearLayoutManager(this));
+        mFirestoreList.setLayoutManager(new LinearLayoutManager(PastAppointments.this));
         mFirestoreList.setAdapter(adapter);
-
     }
 
     private class SecretaryPatSchedViewHolder extends RecyclerView.ViewHolder{

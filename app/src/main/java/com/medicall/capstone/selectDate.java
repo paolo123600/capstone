@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -63,6 +64,9 @@ import java.util.Map;
 public class selectDate extends AppCompatActivity implements DatePickerDialog.OnDateSetListener , PurchasesUpdatedListener  {
     private static final String PREF_FILE = "MyPref" ;
     String PRODUCT_ID = "";
+
+    ProgressDialog progressDialog;
+
     TextView tvDate;
     EditText etDate;
     private RecyclerView docschedlist;
@@ -109,6 +113,7 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
                     }
                 }
             }
+
 
             @Override
             public void onBillingServiceDisconnected() {
@@ -470,6 +475,9 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
     @Override
     public void onPurchasesUpdated(@NonNull BillingResult billingResult, @Nullable List<Purchase> purchases) {
         if(billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK && purchases !=null){
+            progressDialog = new ProgressDialog(this);
+            progressDialog.setTitle("Validating payment..");
+            progressDialog.show();
             handlePurchases(purchases);
         }
 
@@ -559,6 +567,10 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
                             .build();
 
                     billingClient.consumeAsync(consumeParams, consumeListener);
+                    if(progressDialog.isShowing()){
+                        progressDialog.dismiss();
+                    }
+                    Toast.makeText(getApplicationContext(), "You have successfully booked an appointment", Toast.LENGTH_SHORT).show();
                 }
             }
             //if purchase is pending
