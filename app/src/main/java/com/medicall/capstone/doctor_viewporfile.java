@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -182,46 +184,42 @@ public class doctor_viewporfile extends AppCompatActivity {
         changepass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog3 = new Dialog(doctor_viewporfile.this);
-                dialog3.setContentView(R.layout.changepasspopdoc);
-                dialog3.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-                dialog3.show();
-
-                Button cancel = dialog3.findViewById(R.id.cancel);
-                Button conf = dialog3.findViewById(R.id.confchangepass);
-                cancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v)
-                    {
-                        onBackPressed();
-                    }
-                });
-                ////
-                mAuth.sendPasswordResetEmail(String.valueOf(email.getText())).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete( Task<Void> task) {
-                        conf.setOnClickListener(new View.OnClickListener() {
+                AlertDialog.Builder builder = new AlertDialog.Builder(doctor_viewporfile.this);
+                builder.setCancelable(true);
+                builder.setTitle("Change Password");
+                builder.setMessage("Do you want to change your password?");
+                builder.setPositiveButton("Confirm",
+                        new DialogInterface.OnClickListener() {
                             @Override
-                            public void onClick(View v) {
-                                dialog3.dismiss();
-                                dialog4 = new Dialog(doctor_viewporfile.this);
-                                dialog4.setContentView(R.layout.confirmpopdoc);
-                                dialog4.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-                                dialog4.show();
-                                Button conf1 = dialog4.findViewById(R.id.conf);
-                                conf1.setOnClickListener(new View.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                mAuth.sendPasswordResetEmail(String.valueOf(email.getText())).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
-                                    public void onClick(View v)
-                                    {
-                                        dialog4.dismiss();
-                                        onBackPressed();
+                                    public void onComplete( Task<Void> task) {
+                                        AlertDialog.Builder builder1 = new AlertDialog.Builder(doctor_viewporfile.this);
+                                        builder1.setCancelable(true);
+                                        builder1.setTitle("Request Sent");
+                                        builder1.setMessage("A link has been sent to your email.");
+                                        builder1.setPositiveButton("Confirm",
+                                                new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        onBackPressed();
+                                                    }
+                                                });
+                                        AlertDialog dialog1 = builder1.create();
+                                        dialog1.show();
                                     }
                                 });
                             }
                         });
+                builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        onBackPressed();
                     }
                 });
-
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
 
