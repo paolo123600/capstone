@@ -2,16 +2,22 @@ package com.medicall.capstone.secretary;
 
 public class SecretaryListModel {
 
-    private String FirstName, LastName, DocType, ClinicName, UserId;
+    private String FirstName;
+    private String LastName;
+    private String DocType;
+    private String ClinicName;
+    private String UserId;
+    private String CLuid;
 
     private SecretaryListModel() {}
 
-    private SecretaryListModel(String FirstName, String LastName, String DocType, String ClinicName, String UserId) {
+    private SecretaryListModel(String FirstName, String LastName, String DocType, String ClinicName, String UserId, String CLuid) {
         this.FirstName = FirstName;
         this.LastName = LastName;
         this.DocType = DocType;
         this.ClinicName = ClinicName;
         this.UserId = UserId;
+        this.CLuid = CLuid;
 
     }
 
@@ -53,5 +59,13 @@ public class SecretaryListModel {
 
     public void setUserId(String userId) {
         UserId = userId;
+    }
+
+    public String getCLuid() {
+        return CLuid;
+    }
+
+    public void setCLuid(String CLuid) {
+        this.CLuid = CLuid;
     }
 }

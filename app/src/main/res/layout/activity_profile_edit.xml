@@ -44,24 +44,12 @@
         app:layout_constraintTop_toBottomOf="@id/toolbar"
         tools:layout_editor_absoluteX="62dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:id="@+id/profilelabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginEnd="@dimen/_10sdp"
-                android:orientation="vertical"
-                app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
 
-
-
-            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/namelabeledittxt"
@@ -69,26 +57,129 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_10sdp"
-                android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@+id/profilelabel">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Name" />
-
-                <TextView
-                    android:id="@+id/first_name_profile"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="@dimen/_10sdp"
-                    android:text="Name" />
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:text="Address" />
+                    android:text="Name:"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/first_name_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_15sdp"
+                    android:textColor="@color/black"
+                    android:text="Name" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/roundtbox"
+                    android:layout_marginTop="@dimen/_10sdp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="Email Address:"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/email_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textImeMultiLine"
+                    android:text="Email"
+                    android:textSize="@dimen/_15sdp"
+                    android:textColor="@color/black"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/roundtbox"
+                    android:layout_marginTop="@dimen/_10sdp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="Sex:"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/gender_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Sex"
+                    android:textSize="@dimen/_15sdp"
+                    android:textColor="@color/black"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/roundtbox"
+                    android:layout_marginTop="@dimen/_10sdp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="Birthday:"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/birthday_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Birthday"
+                    android:textSize="@dimen/_15sdp"
+                    android:textColor="@color/black"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/roundtbox"
+                    android:layout_marginTop="@dimen/_10sdp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="Contact Number:"
+                    android:textStyle="bold"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="10"
+                    app:prefixText="+63">
+
+
+                    <EditText
+                        android:id="@+id/number_profile"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="number"
+                        android:maxLength="11" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/roundtbox"
+                    android:layout_marginTop="@dimen/_10sdp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="Address:"
+                    android:textStyle="bold"/>
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -99,111 +190,92 @@
                         android:id="@+id/address_profile"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-
                         android:padding="@dimen/_10sdp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/roundtbox"
+                    android:layout_marginTop="@dimen/_10sdp"/>
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/municipalitylabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginEnd="@dimen/_10sdp"
-                android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@+id/namelabeledittxt">
-
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/municipalitylabel"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Municipality" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_143sdp"
-                    android:text="Postal code" />
+                    android:orientation="horizontal">
 
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/municipalityedittxt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-               android:layout_marginLeft="@dimen/_10sdp"
-                android:layout_marginRight="@dimen/_10sdp"
-                android:orientation="horizontal"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/municipalitylabel">
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="0dp"
-                    android:layout_weight="3"
-                    android:layout_height="match_parent">
-
-
-                    <EditText
-                        android:id="@+id/municipality_profile"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2"
-                        android:inputType="textImeMultiLine"
-                        android:padding="@dimen/_10sdp"
-                        android:paddingTop="20dp" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="@dimen/_20sdp">
-
-                    <EditText
-                        android:id="@+id/postal_profile"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="@dimen/_10sdp"
-
+                    <TextView
                         android:layout_weight="1"
-                        android:inputType="textImeMultiLine"
-                        android:padding="@dimen/_10sdp" />
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:text="Municipality:"
+                        android:textStyle="bold"/>
 
-                </com.google.android.material.textfield.TextInputLayout>
+                    <TextView
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:text="Address:"
+                        android:textStyle="bold"
+                        android:layout_marginLeft="@dimen/_10sdp"/>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/municipalityedittxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent">
+
+
+                        <EditText
+                            android:id="@+id/municipality_profile"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:inputType="textImeMultiLine"
+                            android:paddingTop="20dp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/_10sdp">
+
+                        <EditText
+                            android:id="@+id/postal_profile"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:inputType="textImeMultiLine" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                </LinearLayout>
 
 
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/emaillabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginEnd="@dimen/_10sdp"
-                android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@+id/municipalityedittxt">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Email Address" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_132sdp"
-                    android:text="Sex" />
 
 
-            </LinearLayout>
+
+
+
 
             <LinearLayout
                 android:id="@+id/emaileditxt"
@@ -214,96 +286,14 @@
                 android:orientation="horizontal"
                 app:layout_constraintTop_toBottomOf="@+id/emaillabel">
 
-                <TextView
-                    android:id="@+id/email_profile"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:inputType="textImeMultiLine"
-                    android:padding="@dimen/_10sdp"
-                    android:text="Email" />
 
-                <TextView
-                    android:id="@+id/gender_profile"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="@dimen/_10sdp"
-                    android:layout_weight="1"
-                    android:padding="@dimen/_10sdp"
-                    android:text="Sex" />
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/contactlabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginEnd="@dimen/_10sdp"
-                android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@+id/emaileditxt">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Contact Number" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_75sdp"
-                    android:layout_weight="1"
-                    android:text="Birthday" />
 
 
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/contactedittxt"
-                android:layout_width="385dp"
-                android:layout_height="78dp"
-                android:layout_marginStart="16dp"
-
-                android:layout_marginLeft="16dp"
-
-                android:orientation="horizontal"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/contactlabel">
 
 
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="-8dp"
-                    app:counterEnabled="true"
-                    app:counterMaxLength="10"
-                    app:prefixText="+63">
-
-
-                    <EditText
-                        android:id="@+id/number_profile"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="3"
-                        android:inputType="number"
-                        android:maxLength="11" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <TextView
-                    android:id="@+id/birthday_profile"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/_10sdp"
-                    android:text="Birthday" />
-
-
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -324,7 +314,7 @@
 
             </LinearLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
     </ScrollView>
 

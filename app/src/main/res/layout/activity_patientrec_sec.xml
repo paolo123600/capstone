@@ -45,12 +45,59 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_constraintTop_toTopOf="parent"
-    android:layout_marginTop="@dimen/_50sdp">
+    android:layout_marginTop="@dimen/_43sdp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/profilelbl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/_10sdp"
+            android:background="@color/profilehead"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_100sdp"
+                android:id="@+id/patient_dp"
+                android:background="@drawable/circlebackground"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginLeft="@dimen/_5sdp">
+
+                <TextView
+                    android:id="@+id/full_name_patientrec"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Name"
+                    android:textSize="@dimen/_15sdp"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/patientrec_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Email"
+                    android:textSize="@dimen/_10sdp"
+                    android:textColor="@color/white"
+                    android:inputType="textImeMultiLine"/>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
 
 
         <LinearLayout
@@ -61,48 +108,7 @@
             android:layout_marginLeft="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_5sdp">
 
-            <LinearLayout
-                android:id="@+id/profilelbl"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintTop_toTopOf="parent">
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_width="@dimen/_100sdp"
-                    android:layout_height="@dimen/_100sdp"
-                    android:id="@+id/patient_dp"
-                    android:background="@drawable/circlebackground"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:layout_marginLeft="@dimen/_5sdp">
-
-                    <TextView
-                        android:id="@+id/full_name_patientrec"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Name"
-                        android:textSize="@dimen/_15sdp"
-                        android:textColor="@color/black" />
-
-                    <TextView
-                        android:id="@+id/patientrec_email"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Email"
-                        android:textSize="@dimen/_10sdp"
-                        android:textColor="@color/black"
-                        android:inputType="textImeMultiLine"/>
-
-
-                </LinearLayout>
-
-
-            </LinearLayout>
 
 
 
@@ -113,11 +119,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@drawable/roundtbox"
-                    android:layout_marginTop="@dimen/_10sdp"/>
+
 
                 <TextView
                     android:layout_width="match_parent"

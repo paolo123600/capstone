@@ -58,6 +58,7 @@ public class selectClinic extends AppCompatActivity {
     ImageView back;
     TextView None;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +74,7 @@ public class selectClinic extends AppCompatActivity {
         hmoList = (RecyclerView) findViewById(R.id.HMOList);
         back = findViewById(R.id.backspace);
         None = findViewById(R.id.list_none);
+
 
         getClinic();
 
@@ -129,6 +131,14 @@ public class selectClinic extends AppCompatActivity {
             protected void onBindViewHolder(@NonNull selectClinic.SecretaryListModelView holder, int position, @NonNull SecretaryListModel model){
 
                 holder.nameCLINIC.setText(model.getClinicName());
+                holder.viewclinfo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getApplicationContext(), selectClinic_info.class);
+                        intent.putExtra("ClinicUid", model.getCLuid());
+                        startActivity(intent);
+                    }
+                });
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -195,9 +205,11 @@ public class selectClinic extends AppCompatActivity {
 
     private class SecretaryListModelView extends RecyclerView.ViewHolder{
         private TextView nameCLINIC;
+        private Button viewclinfo;
         public SecretaryListModelView(@NonNull View itemView){
             super(itemView);
             nameCLINIC = itemView.findViewById(R.id.seclist_name);
+            viewclinfo = itemView.findViewById(R.id.cl_info);
         }
     }
 }

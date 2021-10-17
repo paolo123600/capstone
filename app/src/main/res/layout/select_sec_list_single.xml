@@ -39,14 +39,28 @@
                 <TextView
                     android:id="@+id/seclist_name"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="HMO Name"
+                    android:layout_height="match_parent"
+                    android:text="Clinic Name"
                     android:textSize="20dp"
                     android:gravity="center_vertical"
                     android:textStyle="bold" />
 
 
+            </LinearLayout>
 
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/cl_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Info"
+                    android:background="@drawable/darkround"
+                    android:textColor="@color/white"/>
 
             </LinearLayout>
 
