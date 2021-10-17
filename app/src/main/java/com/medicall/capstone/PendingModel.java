@@ -12,6 +12,15 @@ public class PendingModel {
     private String StartTime;
     private String EndTime;
     private String CardNumber;
+    private String ExpiryDate;
+
+    public String getExpiryDate() {
+        return ExpiryDate;
+    }
+
+    public void setExpiryDate(String expiryDate) {
+        ExpiryDate = expiryDate;
+    }
 
     public Integer getPosition() {
         return Position;
@@ -91,7 +100,7 @@ public class PendingModel {
         CardNumber = cardNumber;
     }
 
-    public PendingModel(String clinicName, Date date, String doctorUId, String patientUId, String hmoName, String startTime, String endTime, String cardNumber){
+    public PendingModel(String clinicName, Date date, String doctorUId, String patientUId, String hmoName, String startTime, String endTime, String cardNumber, String expiryDate){
         ClinicName = clinicName;
         Date = date;
         DoctorUId = doctorUId;
@@ -100,5 +109,6 @@ public class PendingModel {
         StartTime = startTime;
         EndTime = endTime;
         CardNumber = cardNumber;
+        ExpiryDate = expiryDate;
     }
 }

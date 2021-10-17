@@ -63,7 +63,8 @@ public class Pending_Appointments extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                Intent intent = new Intent (Pending_Appointments.this, secretary_homepage.class);
+                startActivity(intent);
             }
         });
 
@@ -147,6 +148,7 @@ public class Pending_Appointments extends AppCompatActivity {
                                             gv.setEndTime(model.getEndTime());
                                             gv.setPending_sched(datestring );
                                             gv.setPending_cardNumber(model.getCardNumber());
+                                            gv.setExpiryDate(model.getExpiryDate());
                                             startActivity(intent);
                                         }
                                     });

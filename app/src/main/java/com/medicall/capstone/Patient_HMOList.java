@@ -113,12 +113,14 @@ public class Patient_HMOList extends AppCompatActivity {
 
                 holder.nameHMO.setText(model.getHMOName());
                 holder.cardHMO.setText(model.getCardNumber());
+                holder.expiryHMO.setText(model.getExpiryDate());
                 holder.editHMO.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(Patient_HMOList.this, Patient_HMOEdit.class);
                         gv.setEditHMO_cardNumber(model.getCardNumber());
                         gv.setEditHMO_hmoName(model.getHMOName());
+                        gv.setEditHMO_expirydate(model.getExpiryDate());
                         startActivity(intent);
                     }
                 });
@@ -198,10 +200,12 @@ public class Patient_HMOList extends AppCompatActivity {
         private Button editHMO;
         private Button deleteHMO;
         private TextView cardHMO;
+        private TextView expiryHMO;
         public PatientHMOModelView(@NonNull View itemView){
             super(itemView);
             cardHMO = itemView.findViewById(R.id.card_number);
             nameHMO = itemView.findViewById(R.id.hmo_name);
+            expiryHMO = itemView.findViewById(R.id.hmo_expiry);
             editHMO = itemView.findViewById(R.id.hmo_edit);
             deleteHMO = itemView.findViewById(R.id.hmo_delete);
         }

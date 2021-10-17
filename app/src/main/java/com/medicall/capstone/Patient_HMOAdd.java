@@ -1,5 +1,6 @@
 package com.medicall.capstone;
 
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -34,6 +36,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,6 +57,8 @@ public class Patient_HMOAdd extends AppCompatActivity {
     String hmospinner;
     EditText HMOnumber;
 
+private EditText expiry;
+private DatePickerDialog datePickerDialog;
 
     EditText ET_VCode;
     Button btn_Continue;
@@ -68,6 +74,8 @@ public class Patient_HMOAdd extends AppCompatActivity {
     String subjecthmo;
 
     String addhmonum;
+
+    String addexpirydate;
 
     AutoCompleteTextView autospinner;
     @Override
@@ -91,13 +99,11 @@ public class Patient_HMOAdd extends AppCompatActivity {
         llbtnminus= (LinearLayout) findViewById(R.id.LLbtnminus);
         btnaccept = (Button) findViewById(R.id.btnhmocontinue);
         HMOnumber = findViewById(R.id.hmocardnumber);
+        initDatePicker();
+        expiry = (EditText) findViewById(R.id.expireDate);
+        expiry.setText(getTodaysDate());
 
         CollectionReference clinicsRef = db.collection("HMO");
-
-
-
-
-
 
         Spinner spinnertag = new Spinner(this);
         spinnertag.setId(count);
@@ -122,10 +128,7 @@ public class Patient_HMOAdd extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         String subject = document.getString("HMOName");
-
                         hmo.add(subject);
-
-
                     }
                 }
             }
@@ -161,10 +164,76 @@ public class Patient_HMOAdd extends AppCompatActivity {
                         Toast.makeText(Patient_HMOAdd.this, "Please select an HMO in the list", Toast.LENGTH_SHORT).show();
                     }
 
-
-
             }
         });
+    }
+
+    private String getTodaysDate() {
+
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        month = month +1;
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        return makeDateString(day,month,year);
+    }
+
+    //date
+    private void initDatePicker() {
+        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int day) {
+                month = month + 1;
+                String date = makeDateString(day, month, year);
+                expiry.setText(date);
+            }
+
+        };
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        int style = android.app.AlertDialog.THEME_HOLO_LIGHT;
+
+        datePickerDialog = new DatePickerDialog(this, style,dateSetListener,year,month,day);
+
+    }
+
+    private String makeDateString(int day, int month, int year) {
+        return getMonthFormat(month) + " " + day + " " + year;
+
+    }
+
+    private String getMonthFormat(int month) {
+        if(month == 1)
+            return  "JAN";
+        if(month == 2)
+            return  "FEB";
+        if(month == 3)
+            return  "MAR";
+        if(month == 4)
+            return  "APR";
+        if(month == 5)
+            return  "MAY";
+        if(month == 6)
+            return  "JUN";
+        if(month == 7)
+            return  "JUL";
+        if(month == 8)
+            return  "AUG";
+        if(month == 9)
+            return  "SEP";
+        if(month == 10)
+            return  "OCT";
+        if(month == 11)
+            return  "NOV";
+        if(month == 12)
+            return  "DEC";
+
+        return "JAN";
+    }
+    public void openDate (View view){
+        datePickerDialog.show();
     }
 
 
@@ -173,21 +242,22 @@ public class Patient_HMOAdd extends AppCompatActivity {
 
        hmospinner = autospinner.getText().toString();
        addhmonum = HMOnumber.getText().toString();
-
-
-
+       addexpirydate = expiry.getText().toString();
 
            Map<String,Object> hmodb = new HashMap<>();
            hmodb.put ("HMOName",hmospinner);
+           hmodb.put("ExpiryDate",addexpirydate);
            db.collection("HMO").document(hmospinner).set(hmodb);
            ///
            Map<String,Object> uid = new HashMap<>();
            uid.put ("PatientUId",Uid);
+           uid.put("ExpiryDate",addexpirydate);
            db.collection("HMO").document(hmospinner).collection("Patients").document(Uid).set(uid);
 
            Map<String,Object> pathmo = new HashMap<>();
            pathmo.put ("HMOName",hmospinner);
            pathmo.put("CardNumber", addhmonum);
+           pathmo.put("ExpiryDate",addexpirydate);
            db.collection("Patients").document(Uid).collection("HMO").document(hmospinner).set(pathmo);
 
 

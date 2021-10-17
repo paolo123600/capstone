@@ -33,6 +33,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -45,6 +46,7 @@ public class Pending_Confirmation extends AppCompatActivity {
     private TextView DoctorName;
     private TextView Schedule;
     private TextView Time;
+    private TextView Expired;
     private TextView HMO_Name;
     private Button Accept;
     private Button Decline;
@@ -72,6 +74,7 @@ public class Pending_Confirmation extends AppCompatActivity {
         Schedule = (TextView) findViewById(R.id.conf_schedule);
         HMO_Name = (TextView) findViewById(R.id.conf_hmoname);
         HMO_Image = (ImageView) findViewById(R.id.conf_hmoimage);
+        Expired = (TextView) findViewById(R.id.expiration);
         Time= (TextView) findViewById(R.id.conf_time);
         Accept = (Button) findViewById(R.id.conf_btnaccept);
         Decline = (Button) findViewById(R.id.conf_btndecline);
@@ -109,6 +112,7 @@ public class Pending_Confirmation extends AppCompatActivity {
         Time.setText(gv.getStartTime()+" - "+gv.getEndTime());
         HMO_Name.setText("HMO: " + gv.getPending_hmo());
         CardNumber.setText("Card Number: " + gv.getPending_cardNumber());
+        Expired.setText("Expiry Date: " + gv.getExpiryDate());
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,7 +127,7 @@ public class Pending_Confirmation extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(Pending_Confirmation.this);
                 builder.setCancelable(true);
                 builder.setTitle("Confirmation");
-                builder.setMessage("Approve this appointment?");
+                builder.setMessage("Do you want to approve this appointment?");
                 builder.setPositiveButton("Confirm",
                         new DialogInterface.OnClickListener() {
                             @Override
@@ -179,7 +183,7 @@ public class Pending_Confirmation extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(Pending_Confirmation.this);
                 builder.setCancelable(true);
                 builder.setTitle("Confirmation");
-                builder.setMessage("Cancel this appointment?");
+                builder.setMessage("Do you want to decline this appointment?");
                 builder.setPositiveButton("Confirm",
                         new DialogInterface.OnClickListener() {
                             @Override
@@ -261,8 +265,27 @@ public class Pending_Confirmation extends AppCompatActivity {
         HMO_Image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Pending_Confirmation.this, ImageFullscreen.class);
-                startActivity(intent);
+                db.collection("Schedules").whereEqualTo("ClinicName", preferenceManager.getString("ClinicName")).whereEqualTo("PatientUId",gv.getPending_patUid()).whereEqualTo("Status","Pending Approval")
+                        .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            QuerySnapshot querySnapshot = task.getResult();
+                            if(!querySnapshot.isEmpty()){
+                                for(QueryDocumentSnapshot scheds : task.getResult()){
+                                    storageid = scheds.getString("StorageId");
+                                    if(storageid.equals("NoPic")){
+
+                                    }
+                                    else{
+                                        Intent intent = new Intent(Pending_Confirmation.this, ImageFullscreen.class);
+                                        startActivity(intent);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
             }
         });
     }

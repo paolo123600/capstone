@@ -40,6 +40,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         android:orientation="vertical"
         android:layout_marginTop="@dimen/_50sdp">
@@ -47,9 +48,9 @@
 
         <LinearLayout
             android:id="@+id/edittxtll"
-            android:layout_width="361dp"
+            android:layout_width="match_parent"
+            android:padding="10dp"
             android:layout_height="76dp"
-            android:layout_marginLeft="15dp"
             android:layout_marginTop="@dimen/_10sdp"
             android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@+id/selectdatell">
@@ -76,8 +77,6 @@
             <TextView
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-
                 android:gravity="center"
                 android:text="/"
                 android:textSize="@dimen/_20sdp" />

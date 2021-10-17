@@ -13,6 +13,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
+import android.text.SpannedString;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -99,6 +102,7 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
         gv = (GlobalVariables) getApplicationContext();
 
         calendar = Calendar.getInstance();
+
         preferenceManager = new PreferenceManager(getApplicationContext());
         billingClient = BillingClient.newBuilder(this)
                 .enablePendingPurchases().setListener(this).build();
@@ -295,7 +299,7 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
                                         AlertDialog.Builder builder = new AlertDialog.Builder(selectDate.this);
                                         builder.setCancelable(true);
                                         builder.setTitle("Booking");
-                                        builder.setMessage("Do you want to book this schedule?");
+                                        builder.setMessage(Html.fromHtml("Do you want to book this schedule?" + "\n" + "<font color='#D50000'> WARNING: There will be no refund once confirmed</font>"));
                                         builder.setPositiveButton("Confirm",
                                                 new DialogInterface.OnClickListener() {
                                                     @Override

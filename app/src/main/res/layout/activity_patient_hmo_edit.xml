@@ -68,6 +68,25 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/_50sdp"
+            android:layout_marginRight="@dimen/_50sdp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <EditText
+                android:id="@+id/expireDate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Expiration Date"
+                android:onClick="openDate"
+                android:layout_gravity="center"
+                android:inputType="date"
+                style="spinner"
+                android:focusableInTouchMode="false"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
             android:id="@+id/linearButton"

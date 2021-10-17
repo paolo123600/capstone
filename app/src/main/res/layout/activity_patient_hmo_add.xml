@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/grey"
-    tools:context="com.medicall.capstone.add_patient_HMO">
+    tools:context="com.medicall.capstone.Patient_HMOAdd">
 
     <LinearLayout
         android:id="@+id/linearLayout3"
@@ -71,7 +71,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="HMO"
-                android:inputType="none"/>
+                android:inputType="none"
+                android:focusableInTouchMode="false"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -89,6 +90,27 @@
                 android:layout_height="wrap_content"
                 android:hint="Card Number"
                 android:inputType="number"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginLeft="@dimen/_50sdp"
+            android:layout_marginRight="@dimen/_50sdp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <EditText
+                android:id="@+id/expireDate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Expiration Date"
+                android:onClick="openDate"
+                android:layout_gravity="center"
+                android:inputType="date"
+                style="spinner"
+                android:focusableInTouchMode="false"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 

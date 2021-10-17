@@ -4,6 +4,16 @@ public class PatientHMOModel {
     String HMOName;
     String CardNumber;
 
+    public String getExpiryDate() {
+        return ExpiryDate;
+    }
+
+    public void setExpiryDate(String expiryDate) {
+        ExpiryDate = expiryDate;
+    }
+
+    String ExpiryDate;
+
     public PatientHMOModel(){
 
     }
@@ -24,8 +34,9 @@ public class PatientHMOModel {
         CardNumber = cardNumber;
     }
 
-    public PatientHMOModel(String hmoName, String cardNumber){
+    public PatientHMOModel(String hmoName, String cardNumber, String expiryDate){
         this.CardNumber = cardNumber;
         this.HMOName = hmoName;
+        this.ExpiryDate = expiryDate;
     }
 }

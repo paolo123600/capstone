@@ -508,6 +508,16 @@ public class GlobalVariables extends Application {
 
     String Pending_cardNumber;
 
+    public String getExpiryDate() {
+        return ExpiryDate;
+    }
+
+    public void setExpiryDate(String expiryDate) {
+        ExpiryDate = expiryDate;
+    }
+
+    String ExpiryDate;
+
     public String getEditHMO_cardNumber() {
         return EditHMO_cardNumber;
     }
@@ -537,5 +547,15 @@ public class GlobalVariables extends Application {
     }
 
     String HMOName;
+
+    public String getEditHMO_expirydate() {
+        return EditHMO_expirydate;
+    }
+
+    public void setEditHMO_expirydate(String editHMO_expirydate) {
+        EditHMO_expirydate = editHMO_expirydate;
+    }
+
+    String EditHMO_expirydate;
 
 }

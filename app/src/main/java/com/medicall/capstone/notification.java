@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -183,26 +184,26 @@ String clinicname;
                                              @Override
                                              public void onSuccess(DocumentSnapshot documentSnapshot2) {
                                                  documentSnapshot2.getData();
-                                                 String docname= "Doc. "+documentSnapshot2.getString("LastName");
+                                                 String docname= "Dr. "+documentSnapshot2.getString("LastName");
 
                                                  switch (status){
                                                      case "Paid":
-                                                         holder.tvpatname.setText(patname+ " has book an appointment with " +docname+ " dated " + date);
+                                                         holder.tvpatname.setText(Html.fromHtml(patname+ " has " + "<font color='#2FD845'>BOOKED</font>" + " an appointment with " +docname+ " dated " + date));
                                                          break;
                                                      case "Pending Approval":
-                                                         holder.tvpatname.setText(patname+" has booked an appointment with "+docname+" that is currently pending for "+date);
+                                                         holder.tvpatname.setText(Html.fromHtml(patname+" has booked an appointment with "+docname+" that is currently " + "<font color='#F0EF45'>PENDING</font>" +" for "+date));
                                                          break;
                                                      case "Rescheduled":
-                                                         holder.tvpatname.setText(patname+" has rescheduled an appointment with "+docname+" dated "+date);
+                                                         holder.tvpatname.setText(Html.fromHtml(patname+" has " + "<font color='#33D2DA'>RESCHEDULED</font>" + " an appointment with "+docname+" dated "+date));
                                                          break;
                                                      case "Cancelled":
-                                                         holder.tvpatname.setText(patname+" has cancelled an appointment with "+docname+" dated "+date);
+                                                         holder.tvpatname.setText(Html.fromHtml(patname+" has " + "<font color='#FF871D'>CANCELLED</font>" + " an appointment with "+docname+" dated "+date));
                                                          break;
                                                      case "Declined":
-                                                         holder.tvpatname.setText(patname+"'s appointment has been declined dated "+date);
+                                                         holder.tvpatname.setText(Html.fromHtml(patname+"'s appointment has been " + "<font color='#DA3333'>DECLINED</font>" + " dated "+date));
                                                          break;
                                                      case "Approved":
-                                                         holder.tvpatname.setText(patname+"'s appointment has been approved dated "+date);
+                                                         holder.tvpatname.setText(Html.fromHtml(patname+"'s appointment has been " + "<font color='#2FD845'>APPROVED</font>" + " dated "+date));
                                                          break;
 
                                                  }
