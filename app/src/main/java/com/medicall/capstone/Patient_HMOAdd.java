@@ -56,6 +56,7 @@ public class Patient_HMOAdd extends AppCompatActivity {
     ImageView back;
     String hmospinner;
     EditText HMOnumber;
+    EditText HMOCnumber;
 
 private EditText expiry;
 private DatePickerDialog datePickerDialog;
@@ -76,6 +77,7 @@ private DatePickerDialog datePickerDialog;
     String addhmonum;
 
     String addexpirydate;
+    String addhmocontact;
 
     AutoCompleteTextView autospinner;
     @Override
@@ -101,7 +103,7 @@ private DatePickerDialog datePickerDialog;
         HMOnumber = findViewById(R.id.hmocardnumber);
         initDatePicker();
         expiry = (EditText) findViewById(R.id.expireDate);
-        expiry.setText(getTodaysDate());
+        HMOCnumber = findViewById(R.id.hmocontactnumber);
 
         CollectionReference clinicsRef = db.collection("HMO");
 
@@ -142,8 +144,16 @@ private DatePickerDialog datePickerDialog;
             public void onClick(View view) {
 
                 addhmonum = HMOnumber.getText().toString();
+                addexpirydate = expiry.getText().toString();
+                addhmocontact = HMOCnumber.getText().toString();
                 if (addhmonum.isEmpty()) {
-                    Toast.makeText(Patient_HMOAdd.this, "Please Enter a Card Number", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Patient_HMOAdd.this, "Please Enter your Card Number", Toast.LENGTH_SHORT).show();
+                }
+                else if (addexpirydate.isEmpty()){
+                    Toast.makeText(Patient_HMOAdd.this, "Expiry date cannot be empty", Toast.LENGTH_SHORT).show();
+                }
+                else if(addhmocontact.isEmpty()){
+                    Toast.makeText(Patient_HMOAdd.this, "Please enter HMO provider's contact number", Toast.LENGTH_SHORT).show();
                 }
                 else if (hmo.contains(autospinner.getText().toString())) {
                         new AlertDialog.Builder(Patient_HMOAdd.this).setTitle("Add HMO").setMessage("Are you sure you want to add this HMO?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -243,21 +253,25 @@ private DatePickerDialog datePickerDialog;
        hmospinner = autospinner.getText().toString();
        addhmonum = HMOnumber.getText().toString();
        addexpirydate = expiry.getText().toString();
+       addhmocontact = HMOCnumber.getText().toString();
 
            Map<String,Object> hmodb = new HashMap<>();
            hmodb.put ("HMOName",hmospinner);
            hmodb.put("ExpiryDate",addexpirydate);
+           hmodb.put("HMOCNumber",addhmocontact);
            db.collection("HMO").document(hmospinner).set(hmodb);
            ///
            Map<String,Object> uid = new HashMap<>();
            uid.put ("PatientUId",Uid);
            uid.put("ExpiryDate",addexpirydate);
+           uid.put("HMOCNumber",addhmocontact);
            db.collection("HMO").document(hmospinner).collection("Patients").document(Uid).set(uid);
 
            Map<String,Object> pathmo = new HashMap<>();
            pathmo.put ("HMOName",hmospinner);
            pathmo.put("CardNumber", addhmonum);
            pathmo.put("ExpiryDate",addexpirydate);
+           pathmo.put("HMOCNumber",addhmocontact);
            db.collection("Patients").document(Uid).collection("HMO").document(hmospinner).set(pathmo);
 
 

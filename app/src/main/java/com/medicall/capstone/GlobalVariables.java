@@ -558,4 +558,24 @@ public class GlobalVariables extends Application {
 
     String EditHMO_expirydate;
 
+    public String getEditHMO_contact() {
+        return EditHMO_contact;
+    }
+
+    public void setEditHMO_contact(String editHMO_contact) {
+        EditHMO_contact = editHMO_contact;
+    }
+
+    String EditHMO_contact;
+
+    public String getHMOContact() {
+        return HMOContact;
+    }
+
+    public void setHMOContact(String HMOContact) {
+        this.HMOContact = HMOContact;
+    }
+
+    String HMOContact;
+
 }

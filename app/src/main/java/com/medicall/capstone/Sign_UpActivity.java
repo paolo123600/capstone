@@ -101,7 +101,7 @@ protected void onCreate(Bundle savedInstanceState) {
                 Toast.makeText(Sign_UpActivity.this, "Enter Last Name",Toast.LENGTH_SHORT).show();
             }else if (ET_Contact.getText().toString().trim().isEmpty()){
                 Toast.makeText(Sign_UpActivity.this, "Enter Contact Number",Toast.LENGTH_SHORT).show();
-            }else if(ET_Contact.getText().toString().length()<10){
+            }else if(ET_Contact.getText().toString().length()<11){
                 Toast.makeText(Sign_UpActivity.this, "Enter a 10 Digit Number",Toast.LENGTH_SHORT).show();
             }
             else if (ET_Nationality.getText().toString().trim().isEmpty()){

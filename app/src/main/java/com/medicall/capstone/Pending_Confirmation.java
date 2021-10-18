@@ -47,6 +47,7 @@ public class Pending_Confirmation extends AppCompatActivity {
     private TextView Schedule;
     private TextView Time;
     private TextView Expired;
+    private TextView Contact;
     private TextView HMO_Name;
     private Button Accept;
     private Button Decline;
@@ -75,6 +76,7 @@ public class Pending_Confirmation extends AppCompatActivity {
         HMO_Name = (TextView) findViewById(R.id.conf_hmoname);
         HMO_Image = (ImageView) findViewById(R.id.conf_hmoimage);
         Expired = (TextView) findViewById(R.id.expiration);
+        Contact = (TextView) findViewById(R.id.contactnum);
         Time= (TextView) findViewById(R.id.conf_time);
         Accept = (Button) findViewById(R.id.conf_btnaccept);
         Decline = (Button) findViewById(R.id.conf_btndecline);
@@ -113,6 +115,7 @@ public class Pending_Confirmation extends AppCompatActivity {
         HMO_Name.setText("HMO: " + gv.getPending_hmo());
         CardNumber.setText("Card Number: " + gv.getPending_cardNumber());
         Expired.setText("Expiry Date: " + gv.getExpiryDate());
+        Contact.setText("Provider's Contact: " + gv.getHMOContact());
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override

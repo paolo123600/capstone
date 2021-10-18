@@ -149,6 +149,7 @@ public class Pending_Appointments extends AppCompatActivity {
                                             gv.setPending_sched(datestring );
                                             gv.setPending_cardNumber(model.getCardNumber());
                                             gv.setExpiryDate(model.getExpiryDate());
+                                            gv.setHMOContact(model.getHMOCNumber());
                                             startActivity(intent);
                                         }
                                     });

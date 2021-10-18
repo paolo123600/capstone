@@ -194,7 +194,7 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 app:prefixText="+63"
                 app:counterEnabled="true"
-                app:counterMaxLength="10"
+                app:counterMaxLength="11"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <EditText
@@ -203,7 +203,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="Contact number"
-                    android:maxLength="10"
+                    android:maxLength="11"
                     android:padding="@dimen/_12sdp"/>
 
             </com.google.android.material.textfield.TextInputLayout>

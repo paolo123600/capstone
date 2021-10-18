@@ -58,7 +58,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Expiry Date"
-                    android:textSize="@dimen/_13sdp"/>
+                    android:textSize="@dimen/_13sdp" />
+
+                <TextView
+                    android:id="@+id/hmo_contact"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Contact"
+                    android:textSize="@dimen/_13sdp" />
 
 
             </LinearLayout>

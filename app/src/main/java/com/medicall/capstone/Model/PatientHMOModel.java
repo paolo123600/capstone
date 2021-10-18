@@ -4,6 +4,16 @@ public class PatientHMOModel {
     String HMOName;
     String CardNumber;
 
+    public String getHMOCNumber() {
+        return HMOCNumber;
+    }
+
+    public void setHMOCNumber(String HMOCNumber) {
+        this.HMOCNumber = HMOCNumber;
+    }
+
+    String HMOCNumber;
+
     public String getExpiryDate() {
         return ExpiryDate;
     }

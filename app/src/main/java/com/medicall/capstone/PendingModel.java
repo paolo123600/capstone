@@ -14,6 +14,16 @@ public class PendingModel {
     private String CardNumber;
     private String ExpiryDate;
 
+    public String getHMOCNumber() {
+        return HMOCNumber;
+    }
+
+    public void setHMOCNumber(String HMOCNumber) {
+        this.HMOCNumber = HMOCNumber;
+    }
+
+    private String HMOCNumber;
+
     public String getExpiryDate() {
         return ExpiryDate;
     }
@@ -100,7 +110,7 @@ public class PendingModel {
         CardNumber = cardNumber;
     }
 
-    public PendingModel(String clinicName, Date date, String doctorUId, String patientUId, String hmoName, String startTime, String endTime, String cardNumber, String expiryDate){
+    public PendingModel(String clinicName, Date date, String doctorUId, String patientUId, String hmoName, String startTime, String endTime, String cardNumber, String expiryDate, String hmoCnumber){
         ClinicName = clinicName;
         Date = date;
         DoctorUId = doctorUId;
@@ -110,5 +120,6 @@ public class PendingModel {
         EndTime = endTime;
         CardNumber = cardNumber;
         ExpiryDate = expiryDate;
+        HMOCNumber = hmoCnumber;
     }
 }

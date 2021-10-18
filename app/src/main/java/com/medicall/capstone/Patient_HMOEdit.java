@@ -32,6 +32,7 @@ public class Patient_HMOEdit extends AppCompatActivity {
     String userID;
     GlobalVariables gv;
     EditText Cnumber;
+    EditText HMOContact;
     Button Cancel, Confirm;
     String hmoname;
     EditText expiration;
@@ -46,6 +47,7 @@ public class Patient_HMOEdit extends AppCompatActivity {
         Cancel = (Button) findViewById(R.id.edithmo_cancel);
         Confirm = (Button) findViewById(R.id.edithmo_confirm);
         Cnumber = (EditText) findViewById(R.id.inpCardNumber);
+        HMOContact = (EditText) findViewById(R.id.hmocontactnumber);
         initDatePicker();
         expiration = (EditText) findViewById(R.id.expireDate);
 
@@ -56,6 +58,7 @@ public class Patient_HMOEdit extends AppCompatActivity {
 
         Cnumber.setText(gv.getEditHMO_cardNumber());
         expiration.setText(gv.getEditHMO_expirydate());
+        HMOContact.setText(gv.getEditHMO_contact());
         hmoname = gv.getEditHMO_hmoName();
 
         back = findViewById(R.id.backspace);
@@ -90,6 +93,7 @@ public class Patient_HMOEdit extends AppCompatActivity {
                                 Map<String, Object> updateHMO = new HashMap<>();
                                 updateHMO.put("CardNumber", String.valueOf(Cnumber.getText()));
                                 updateHMO.put("ExpiryDate", String.valueOf(expiration.getText()));
+                                updateHMO.put("HMOCNumber", String.valueOf(HMOContact.getText()));
 
                                 db.collection("Patients").document(userID).collection("HMO").document(hmoname).update(updateHMO)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {

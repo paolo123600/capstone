@@ -95,6 +95,24 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:counterEnabled="true"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginTop="@dimen/_5sdp"
+            app:counterMaxLength="11">
+
+            <EditText
+                android:id="@+id/hmocontactnumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="HMO Contact Number"
+                android:inputType="number"
+                android:maxLength="11"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginLeft="@dimen/_50sdp"

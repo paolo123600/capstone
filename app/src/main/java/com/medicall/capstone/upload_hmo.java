@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.firestore.DocumentReference;
@@ -69,6 +71,7 @@ public class upload_hmo extends AppCompatActivity {
     String userId, patientid, storageid, patientName;
     TextView cardnumber;
     TextView expiration;
+    TextView hmocontact;
     GlobalVariables gv;
     String patuid;
     private PreferenceManager preferenceManager;
@@ -87,6 +90,7 @@ public class upload_hmo extends AppCompatActivity {
         uploadbtn = findViewById(R.id.btn_upload);
         cardnumber = (TextView) findViewById(R.id.cardNumber);
         expiration = (TextView) findViewById(R.id.expired);
+        hmocontact = (TextView) findViewById(R.id.hmocnumber);
         switchhmo = findViewById(R.id.switch_hmo);
         preferenceManager = new PreferenceManager(getApplicationContext());
         back = findViewById(R.id.backspace);
@@ -108,6 +112,7 @@ public class upload_hmo extends AppCompatActivity {
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
                 cardnumber.setText("Card Number: " + documentSnapshot.getString("CardNumber"));
                 expiration.setText("Expiry Date: " + documentSnapshot.getString("ExpiryDate"));
+                hmocontact.setText(documentSnapshot.getString("HMOCNumber"));
             }
         });
 
@@ -151,6 +156,7 @@ public class upload_hmo extends AppCompatActivity {
         });
 
         uploadbtn.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(upload_hmo.this);
@@ -220,7 +226,7 @@ public class upload_hmo extends AppCompatActivity {
         progressDialog.setTitle("Uploading file..");
         progressDialog.show();
 
-        SimpleDateFormat formatt = new SimpleDateFormat("yyyy_dd", Locale.TAIWAN);
+        SimpleDateFormat formatt = new SimpleDateFormat("yyyy_MM_dd", Locale.TAIWAN);
         Date now = new Date();
         String fileName = patuid + "_" + formatt.format(now);
 
@@ -229,8 +235,7 @@ public class upload_hmo extends AppCompatActivity {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 String cardnum = documentSnapshot.getString("CardNumber");
                 String expiry = documentSnapshot.getString("ExpiryDate");
-
-
+                String hmocnum = documentSnapshot.getString("HMOCNumber");
 
                 db.collection("Doctors").whereEqualTo("UserId", gv.getSDDocUid())
                         .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -240,68 +245,77 @@ public class upload_hmo extends AppCompatActivity {
                             QuerySnapshot querySnapshot = task.getResult();
                             if(!querySnapshot.isEmpty()){
                                 for(QueryDocumentSnapshot doctor: task.getResult()){
-                                    storageReference = FirebaseStorage.getInstance().getReference("PatientHMO/" +fileName);
-                                    storageReference.putFile(imageUri)
-                                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                                @Override
-                                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    if(imageUri == null){
+                                        if(progressDialog.isShowing()){
+                                            progressDialog.dismiss();
+                                        }
+                                        Toast.makeText(upload_hmo.this, "Please insert an image", Toast.LENGTH_SHORT).show();
+                                    }
+                                    else{
+                                        storageReference = FirebaseStorage.getInstance().getReference("PatientHMO/" +fileName);
+                                        storageReference.putFile(imageUri)
+                                                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                                    @Override
+                                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                                                    String schedid = db.collection("Schedules").document().getId();
+                                                        String schedid = db.collection("Schedules").document().getId();
 
-                                                    Map<String, Object> patienthmo = new HashMap<>();
-                                                    patienthmo.put("ClinicName", doctor.getString("ClinicName"));
-                                                    patienthmo.put("PatientUId", patuid);
-                                                    patienthmo.put("StorageId", fileName);
-                                                    patienthmo.put("CardNumber", cardnum);
-                                                    patienthmo.put("ExpiryDate", expiry);
-                                                    patienthmo.put("StartTime", gv.getStartTime());
-                                                    patienthmo.put("EndTime", gv.getEndTime());
-                                                    patienthmo.put("Date", gv.getDateconsult());
-                                                    patienthmo.put("Dnt", gv.getDateandtime());
-                                                    patienthmo.put("HMOName", gv.getHMOName());
-                                                    patienthmo.put("Position", gv.getPost()+1);
-                                                    patienthmo.put("Status", "Pending Approval");
-                                                    patienthmo.put("DoctorUId", gv.getSDDocUid());
-                                                    patienthmo.put("Price", "HMO");
-                                                    patienthmo.put("SchedId", schedid);
+                                                        Map<String, Object> patienthmo = new HashMap<>();
+                                                        patienthmo.put("ClinicName", doctor.getString("ClinicName"));
+                                                        patienthmo.put("PatientUId", patuid);
+                                                        patienthmo.put("StorageId", fileName);
+                                                        patienthmo.put("CardNumber", cardnum);
+                                                        patienthmo.put("ExpiryDate", expiry);
+                                                        patienthmo.put("HMOCNumber",hmocnum);
+                                                        patienthmo.put("StartTime", gv.getStartTime());
+                                                        patienthmo.put("EndTime", gv.getEndTime());
+                                                        patienthmo.put("Date", gv.getDateconsult());
+                                                        patienthmo.put("Dnt", gv.getDateandtime());
+                                                        patienthmo.put("HMOName", gv.getHMOName());
+                                                        patienthmo.put("Position", gv.getPost()+1);
+                                                        patienthmo.put("Status", "Pending Approval");
+                                                        patienthmo.put("DoctorUId", gv.getSDDocUid());
+                                                        patienthmo.put("Price", "HMO");
+                                                        patienthmo.put("SchedId", schedid);
 
-                                                    db.collection("Schedules").document(schedid).set(patienthmo)
-                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                                @Override
-                                                                public void onSuccess(Void aVoid) {
-
-                                                                    if(progressDialog.isShowing()){
-                                                                        progressDialog.dismiss();
+                                                        db.collection("Schedules").document(schedid).set(patienthmo)
+                                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                    @Override
+                                                                    public void onSuccess(Void aVoid) {
+                                                                        if(progressDialog.isShowing()){
+                                                                            progressDialog.dismiss();
+                                                                        }
+                                                                        Toast.makeText(upload_hmo.this, "You have successfully booked a schedule!", Toast.LENGTH_SHORT).show();
+                                                                        Intent intent = new Intent(upload_hmo.this, MainActivity.class);
+                                                                        startActivity(intent);
                                                                     }
-                                                                    Toast.makeText(upload_hmo.this, "You have successfully booked a schedule!", Toast.LENGTH_SHORT).show();
-                                                                    Intent intent = new Intent(upload_hmo.this, MainActivity.class);
-                                                                    startActivity(intent);
-                                                                }
-                                                            })
-                                                            .addOnFailureListener(new OnFailureListener() {
-                                                                @Override
-                                                                public void onFailure(@NonNull Exception e) {
-                                                                    Toast.makeText(upload_hmo.this, "Failed to upload!", Toast.LENGTH_SHORT).show();
-                                                                }
-                                                            });
-                                                    upload.setImageURI(null);
-                                                }
-                                            })
-                                            .addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
-                                                    if(progressDialog.isShowing()){
-                                                        progressDialog.dismiss();
+                                                                })
+                                                                .addOnFailureListener(new OnFailureListener() {
+                                                                    @Override
+                                                                    public void onFailure(@NonNull Exception e) {
+                                                                        Toast.makeText(upload_hmo.this, "Failed to upload!", Toast.LENGTH_SHORT).show();
+                                                                    }
+                                                                });
+                                                        upload.setImageURI(null);
                                                     }
-                                                    Toast.makeText(upload_hmo.this, "Failed to Upload!", Toast.LENGTH_SHORT).show();
-                                                }
-                                            })
-                                            .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                                                @Override
-                                                public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        if(progressDialog.isShowing()){
+                                                            progressDialog.dismiss();
+                                                        }
+                                                        Toast.makeText(upload_hmo.this, "Failed to Upload!", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                })
+                                                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                                                    @Override
+                                                    public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
 
-                                                }
-                                            });
+                                                    }
+                                                });
+                                    }
+
                                 }
                             }
                         }
@@ -322,7 +336,7 @@ public class upload_hmo extends AppCompatActivity {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 String cardnum = documentSnapshot.getString("CardNumber");
                 String expiry = documentSnapshot.getString("ExpiryDate");
-
+                String hmocnum = documentSnapshot.getString("HMOCNumber");
 
                 db.collection("Doctors").whereEqualTo("UserId", gv.getSDDocUid())
                         .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -340,6 +354,7 @@ public class upload_hmo extends AppCompatActivity {
                                     patienthmo.put("PatientUId", patuid);
                                     patienthmo.put("CardNumber", cardnum);
                                     patienthmo.put("ExpiryDate", expiry);
+                                    patienthmo.put("HMOCNumber",hmocnum);
                                     patienthmo.put("StartTime", gv.getStartTime());
                                     patienthmo.put("EndTime", gv.getEndTime());
                                     patienthmo.put("Date", gv.getDateconsult());
