@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -140,22 +142,37 @@ public class pat_blood_pressure extends AppCompatActivity {
                 }else if (bplower.getText().toString().trim().isEmpty()) {
                     Toast.makeText(pat_blood_pressure.this, "Enter your Blood Pressure", Toast.LENGTH_SHORT).show();
                 }else {
-                    edittxtupper = bpupper.getText().toString();
-                    edittxtlower = bplower.getText().toString();
-                    bplower.setText("");
-                    bpupper.setText("");
 
-                    Date currentTime = Calendar.getInstance().getTime();
-                    Map<String, Object> patbp = new HashMap<>();
-                    patbp.put("Date", collectionBpDate);
-                    patbp.put("Upper", edittxtupper);
-                    patbp.put("Lower", edittxtlower);
-                    patbp.put("Dnt", currentTime);
+                    new AlertDialog.Builder(pat_blood_pressure.this).setTitle("Add Blood Pressure").setMessage("Are you sure you want to add this Blood Pressure?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            edittxtupper = bpupper.getText().toString();
+                            edittxtlower = bplower.getText().toString();
+                            bplower.setText("");
+                            bpupper.setText("");
 
-                    String ctime;
-                    ctime = currentTime.toString();
+                            Date currentTime = Calendar.getInstance().getTime();
+                            Map<String, Object> patbp = new HashMap<>();
+                            patbp.put("Date", collectionBpDate);
+                            patbp.put("Upper", edittxtupper);
+                            patbp.put("Lower", edittxtlower);
+                            patbp.put("Dnt", currentTime);
 
-                    db.collection("Patients").document(userId).collection("BP").document(ctime).set(patbp);
+                            String ctime;
+                            ctime = currentTime.toString();
+
+                            db.collection("Patients").document(userId).collection("BP").document(ctime).set(patbp);
+
+                        }
+
+                    }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    }).show();
+
+
 
                 }
             }

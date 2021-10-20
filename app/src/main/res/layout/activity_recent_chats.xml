@@ -65,9 +65,9 @@
                         android:id="@+id/None"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
-                        android:textStyle="bold"
+
                         android:layout_gravity="center"
-                        android:textSize="20dp"
+                        android:textSize="18dp"
                         android:text="There are no current chats"/>
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -99,9 +99,8 @@
                         android:id="@+id/None1"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
-                        android:textStyle="bold"
                         android:layout_gravity="center"
-                        android:textSize="20dp"
+                        android:textSize="18dp"
                         android:text="There are no current chats"/>
 
                     <androidx.recyclerview.widget.RecyclerView

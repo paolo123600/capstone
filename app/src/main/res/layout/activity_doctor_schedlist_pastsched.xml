@@ -48,16 +48,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Theres no Schedule"
-            android:textSize="@dimen/_20sdp"
+            android:textSize="18dp"
+            android:paddingTop="10dp"
+            android:visibility="gone"
             android:gravity="center"
-            android:visibility="gone"/>
+            />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/Doc_past_sched_recview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:layout_editor_absoluteX="111dp"
-            tools:layout_editor_absoluteY="52dp" />
+            tools:layout_editor_absoluteY="52dp"
+            />
 
 
 

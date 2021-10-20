@@ -48,9 +48,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Theres no Schedule"
-            android:textSize="@dimen/_20sdp"
+            android:paddingTop="10dp"
+            android:textSize="18dp"
             android:gravity="center"
-            android:visibility="gone"/>
+            android:visibility="gone"
+           />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/Doc_upcoming_sched_recview"

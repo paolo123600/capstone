@@ -44,7 +44,8 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="There is currently no appointment."
-        android:visibility="gone"/>
+        android:visibility="gone"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/PendingHMO"
