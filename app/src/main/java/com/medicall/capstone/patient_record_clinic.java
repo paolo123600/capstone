@@ -99,6 +99,7 @@ public class patient_record_clinic extends AppCompatActivity {
                             patientrecList.setVisibility(View.GONE);
                         }
                         else{
+                            PatientNone.setVisibility(View.GONE);
                             patientrecList.setVisibility(View.VISIBLE);
                         }
                     }

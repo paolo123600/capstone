@@ -1,6 +1,7 @@
 package com.medicall.capstone;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -25,8 +26,11 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.medicall.capstone.R;
 
 import java.util.HashMap;
@@ -43,6 +47,8 @@ public class docsched_page2 extends AppCompatActivity {
     Button addbtn;
     int row_index;
     ImageView back;
+    TextView Gone;
+
 
     boolean asd = true, qwe = false;
 
@@ -59,6 +65,7 @@ public class docsched_page2 extends AppCompatActivity {
 
 
         userId = "DocumentId";
+        Gone = (TextView) findViewById(R.id.noSched);
 
         Intent intent = getIntent();
         docname = intent.getStringExtra("docname");
@@ -76,6 +83,22 @@ public class docsched_page2 extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), docshed_page1.class);
                 startActivity(intent);
+            }
+        });
+
+        db.collection("DoctorSchedules").whereEqualTo("DocId",docid).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if(error != null){
+                    Toast.makeText(docsched_page2.this, "Error Loading",Toast.LENGTH_SHORT).show();
+                }
+                if (value.isEmpty()){
+                    Gone.setVisibility(View.VISIBLE);
+                    mFirestoreList.setVisibility(View.GONE);
+                }else{
+                    Gone.setVisibility(View.GONE);
+                    mFirestoreList.setVisibility(View.VISIBLE);
+                }
             }
         });
 

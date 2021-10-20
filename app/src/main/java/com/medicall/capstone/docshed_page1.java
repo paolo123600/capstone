@@ -1,6 +1,7 @@
 package com.medicall.capstone;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,6 +21,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -53,6 +56,7 @@ public class docshed_page1 extends AppCompatActivity {
     private PreferenceManager preferenceManager;
     MaterialSearchBar materialSearchBar;
     String txt;
+    TextView Gone;
 
     private String docn;
 
@@ -60,6 +64,7 @@ public class docshed_page1 extends AppCompatActivity {
     private FirebaseStorage storage;
     String image;
     Bitmap getpic;
+    String clinicname;
 
     ImageView back;
     @Override
@@ -68,12 +73,32 @@ public class docshed_page1 extends AppCompatActivity {
         setContentView(R.layout.activity_docshed_page1);
         preferenceManager = new PreferenceManager(getApplicationContext());
         docn = preferenceManager.getString("ClinicName");
+        Gone = (TextView) findViewById(R.id.noDoctor);
+        mFirestoreList = findViewById(R.id.docsched_list);
+        db = FirebaseFirestore.getInstance();
+        clinicname = preferenceManager.getString("ClinicName");
         getdoc();
 
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
 
         back = findViewById(R.id.backspace);
+
+        db.collection("Doctors").whereEqualTo("ClinicName",clinicname).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if(error != null){
+                    Toast.makeText(docshed_page1.this, "Error Loading",Toast.LENGTH_SHORT).show();
+                }
+                if (value.isEmpty()){
+                    Gone.setVisibility(View.VISIBLE);
+                    mFirestoreList.setVisibility(View.GONE);
+                }else{
+                    Gone.setVisibility(View.GONE);
+                    mFirestoreList.setVisibility(View.VISIBLE);
+                }
+            }
+        });
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,8 +137,8 @@ public class docshed_page1 extends AppCompatActivity {
         });
 
 
-        db = FirebaseFirestore.getInstance();
-        mFirestoreList = findViewById(R.id.docsched_list);
+
+
         test = findViewById(R.id.docsched_list);
         preferenceManager = new PreferenceManager(getApplicationContext());
         Query query = db.collection("Doctors").whereEqualTo("ClinicName",preferenceManager.getString("ClinicName"));
