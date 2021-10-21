@@ -125,7 +125,7 @@
                 android:layout_height="match_parent"
                 android:hint="Expiration Date"
                 android:onClick="openDate"
-                android:layout_gravity="center"
+                android:gravity="center"
                 android:inputType="date"
                 style="spinner"
                 android:focusableInTouchMode="false"/>

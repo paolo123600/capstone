@@ -112,9 +112,9 @@ public class Patient_HMOList extends AppCompatActivity {
             protected void onBindViewHolder(@NonNull PatientHMOModelView holder, int position, @NonNull PatientHMOModel model){
 
                 holder.nameHMO.setText(model.getHMOName());
-                holder.cardHMO.setText(model.getCardNumber());
-                holder.expiryHMO.setText(model.getExpiryDate());
-                holder.contactHMO.setText(model.getHMOCNumber());
+                holder.cardHMO.setText("Card Number: " + model.getCardNumber());
+                holder.expiryHMO.setText("Expiry Date: " + model.getExpiryDate());
+                holder.contactHMO.setText("Contact Number: " + model.getHMOCNumber());
                 holder.editHMO.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
