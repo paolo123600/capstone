@@ -99,7 +99,7 @@
             app:counterEnabled="true"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_marginTop="@dimen/_5sdp"
-            app:counterMaxLength="11">
+            app:counterMaxLength="12">
 
             <EditText
                 android:id="@+id/hmocontactnumber"
@@ -107,7 +107,7 @@
                 android:layout_height="wrap_content"
                 android:hint="HMO Contact Number"
                 android:inputType="number"
-                android:maxLength="11"/>
+                android:maxLength="12"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
