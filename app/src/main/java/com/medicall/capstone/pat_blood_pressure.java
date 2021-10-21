@@ -229,6 +229,7 @@ public class pat_blood_pressure extends AppCompatActivity {
         adapter.stopListening();
     }
 
+
     @Override
     protected void onStart() {
         super.onStart();
