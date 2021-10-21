@@ -74,6 +74,15 @@
                 android:backgroundTint="@color/black"
                 android:layout_gravity="right"/>
 
+            <TextView
+                android:id="@+id/noSched"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="18dp"
+                android:text="There is no registered schedule for this doctor."
+                android:visibility="gone"/>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/docsched_schedule"
                 android:layout_width="match_parent"

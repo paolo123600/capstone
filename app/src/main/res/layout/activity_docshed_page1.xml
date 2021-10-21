@@ -54,14 +54,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:mt_hint="Search by Surname" />
+
+        <TextView
+            android:id="@+id/noDoctor"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="There is no doctors registered in this clinic."
+            android:visibility="gone"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/docsched_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:layout_editor_absoluteX="162dp"
-            tools:layout_editor_absoluteY="226dp"
-
-            />
+            tools:layout_editor_absoluteY="226dp"/>
 
     </LinearLayout>
 

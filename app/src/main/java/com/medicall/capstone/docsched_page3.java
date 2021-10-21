@@ -27,15 +27,19 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.medicall.capstone.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class docsched_page3 extends AppCompatActivity {
@@ -73,13 +77,31 @@ public class docsched_page3 extends AppCompatActivity {
         savebtn = (Button) findViewById(R.id.docsched_save);
 
         back = findViewById(R.id.backspace);
-
-        ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(this,
-                R.array.Price, android.R.layout.simple_spinner_item);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        Query clinicsRef = db.collection("Prices").orderBy("PriceInt");
+        List<String> prices = new ArrayList<>();
+        ArrayAdapter<String> arrayAdapter =  new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, prices);
 
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
         pricetv.setAdapter(arrayAdapter);
+        clinicsRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+
+                        String subject = document.getString("PriceName");
+
+                        prices.add(subject);
+                    }
+//
+
+                    arrayAdapter.notifyDataSetChanged();
+                }
+            }
+        });
+
+
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -11,6 +11,7 @@ import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -343,32 +344,32 @@ public class patient_schedule extends AppCompatActivity  {
                                                                 holder.tvpatname.setText("Patient: "+ patname);
                                                                 holder.tvdocname.setText("Doctor: "+docname);
                                                                 holder.tvdatesched.setText("Date: "+date);
-                                                                holder.tvstatus.setText("Status: "+"Paid");
+                                                                holder.tvstatus.setText(Html.fromHtml("Status: "+"font colors='#2FD845'>Paid</font>"));
                                                                 break;
                                                             case "Rescheduled":
                                                                 holder.tvpatname.setText("Patient: "+ patname);
                                                                 holder.tvdocname.setText("Doctor: "+docname);
                                                                 holder.tvdatesched.setText("Date: "+date);
-                                                                holder.tvstatus.setText("Status: "+"Rescheduled");
+                                                                holder.tvstatus.setText(Html.fromHtml("Status: "+"<font color='#33D2DA'>RESCHEDULED</font>"));
                                                                 break;
                                                             case "Cancelled":
                                                                 holder.tvpatname.setText("Patient: "+ patname);
                                                                 holder.tvdocname.setText("Doctor: "+docname);
                                                                 holder.tvdatesched.setText("Date: "+date);
-                                                                holder.tvstatus.setText("Status: "+"Cancelled");
+                                                                holder.tvstatus.setText(Html.fromHtml("Status: "+"<font color='#FF871D'>CANCELLED</font>"));
                                                                 break;
 
                                                             case "Declined":
                                                                 holder.tvpatname.setText("Patient: "+ patname);
                                                                 holder.tvdocname.setText("Doctor: "+docname);
                                                                 holder.tvdatesched.setText("Date: "+date);
-                                                                holder.tvstatus.setText("Status: "+"Declined");
+                                                                holder.tvstatus.setText(Html.fromHtml("Status: "+"<font color='#DA3333'>DECLINED</font>"));
                                                                 break;
                                                             case "Approved":
                                                                 holder.tvpatname.setText("Patient: "+ patname);
                                                                 holder.tvdocname.setText("Doctor: "+docname);
                                                                 holder.tvdatesched.setText("Date: "+date);
-                                                                holder.tvstatus.setText("Status: "+"Approved");
+                                                                holder.tvstatus.setText(Html.fromHtml("Status: "+"<font color='#2FD845'>APPROVED</font>"));
                                                                 break;
 
                                                         }
