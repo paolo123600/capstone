@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -45,7 +46,7 @@ import java.util.Map;
 public class docsched_page3 extends AppCompatActivity {
     TextView starttime, endtime  ;
     EditText maxbookingtv;
-    Spinner pricetv;
+    AutoCompleteTextView pricetv;
     int t1Hour, t1Minute, t2Hour, t2Minute;
     Button monbtn, tuebtn, wedbtn, thubtn , fribtn, satbtn, sunbtn , cancelbtn, savebtn;
     boolean monstat = false, tuestat = false, wedstat = false, thustat = false, fristat = false, satstat = false, sunstat = false;
@@ -65,7 +66,7 @@ public class docsched_page3 extends AppCompatActivity {
         starttime = findViewById(R.id.docsched_starttime);
         endtime = findViewById(R.id.docsched_endtime);
         maxbookingtv = (EditText) findViewById(R.id.docsched_maxbooking);
-        pricetv = (Spinner) findViewById(R.id.docsched_price);
+        pricetv = (AutoCompleteTextView) findViewById(R.id.docsched_price);
         monbtn = (Button) findViewById(R.id.docsched_monday);
         tuebtn = (Button) findViewById(R.id.docsched_tuesday);
         wedbtn = (Button) findViewById(R.id.docsched_wednesday);
@@ -267,7 +268,7 @@ if (monday){
 
                 if (monstat == false && tuestat == false && wedstat == false && thustat == false && fristat == false && satstat == false && sunstat == false) {
                     Toast.makeText(docsched_page3.this, "Please select day/s of week", Toast.LENGTH_SHORT).show();
-                } else if(maxbookingtv.getText().toString().equals("") || pricetv.getSelectedItem().toString().equals("") || stringnewend.equals("")|| stringnewend.equals("")){
+                } else if(maxbookingtv.getText().toString().equals("") || pricetv.getText().toString().equals("") || stringnewend.equals("")|| stringnewend.equals("")){
                     Toast.makeText(docsched_page3.this, "Please fill all necessary fields", Toast.LENGTH_SHORT).show();
                 }
                     else {
@@ -533,7 +534,7 @@ if (monday){
             Toast.makeText(this, "There has been a conflict between schedules. Please check and try again.", Toast.LENGTH_SHORT).show();
         }else {
             String maxbooking = maxbookingtv.getText().toString();
-            String price = pricetv.getSelectedItem().toString();
+            String price = pricetv.getText().toString();
             Intent intent = getIntent();
 
             if (price.equals("₱150")) {
@@ -609,7 +610,7 @@ if (monday){
             Toast.makeText(this, "There has been a conflict between schedules. Please check and try again.", Toast.LENGTH_SHORT).show();
         }else {
             String maxbooking = maxbookingtv.getText().toString();
-            String price = pricetv.getSelectedItem().toString();
+            String price = pricetv.getText().toString();
 
             if (price.equals("₱150")) {
                 price = "appointment_150";

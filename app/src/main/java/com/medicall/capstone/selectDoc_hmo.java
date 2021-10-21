@@ -170,7 +170,7 @@ public class selectDoc_hmo extends AppCompatActivity {
                                         holder.view_info.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View v) {
-                                                Intent intent = new Intent(getApplicationContext(), View_doctor_info.class);
+                                                Intent intent = new Intent(getApplicationContext(), View_doctor_info_hmo.class);
                                                 GlobalVariables gv =(GlobalVariables) getApplicationContext ();
                                                 gv.setSDDocUid(model.getUserId());
                                                 startActivity(intent);

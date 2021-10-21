@@ -127,7 +127,7 @@ public class selectDoc extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(getApplicationContext(), PaymentMethod.class);
+        Intent intent = new Intent(getApplicationContext(), selectDoc.class);
         startActivity(intent);
     }
 

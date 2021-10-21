@@ -148,14 +148,14 @@
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/_10sdp">
+                        android:padding="@dimen/_4sdp">
 
                         <TextView
                             android:id="@+id/docsched_starttime"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_35sdp"
                             android:hint="Start time"
-                            android:background="@drawable/edittext_bg"
+                            android:background="@drawable/edittext_bg_grey"
                             android:padding="@dimen/_10sdp"
                             android:textSize="@dimen/_12sdp"
                             android:gravity="center"
@@ -168,7 +168,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/_20sdp"
-                        android:padding="@dimen/_10sdp">
+                        android:padding="@dimen/_4sdp">
 
 
                         <TextView
@@ -176,7 +176,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_35sdp"
                             android:hint="End time"
-                            android:background="@drawable/edittext_bg"
+                            android:background="@drawable/edittext_bg_grey"
                             android:padding="@dimen/_10sdp"
                             android:textSize="@dimen/_12sdp"
                             android:gravity="center"
@@ -196,39 +196,53 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:padding="@dimen/_10sdp">
+                        android:padding="@dimen/_5sdp">
 
-                        <EditText
-                            android:id="@+id/docsched_maxbooking"
+                        <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_35sdp"
-                            android:inputType="number"
-                            android:textSize="@dimen/_12sdp"
-                            android:gravity="center"
-                            android:background="@drawable/edittext_bg"
-                            android:padding="@dimen/_10sdp"
-                            android:hint="Max Booking"/>
+                            android:layout_height="match_parent"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                            <EditText
+                                android:id="@+id/docsched_maxbooking"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:inputType="number"
+                                android:textSize="@dimen/_12sdp"
+                                android:gravity="center"
+                                android:padding="@dimen/_10sdp"
+                                android:hint="Max Booking"/>
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
 
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="match_parent"
-                        android:padding="@dimen/_10sdp"
+                        android:padding="@dimen/_5sdp"
                         android:layout_marginLeft="@dimen/_15sdp">
 
 
-
-                        <Spinner
-                            android:id="@+id/docsched_price"
+                        <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_35sdp"
-                            android:background="@drawable/edittext_bg"
-                            android:layout_marginLeft="@dimen/_4sdp"
-                            android:layout_gravity="center"
-                            android:hint="Price"
-                            android:spinnerMode="dialog"
-                            android:prompt="@string/pricelist"/>
+                            android:layout_height="match_parent"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/docsched_price"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:hint="Price"
+                                android:gravity="center"
+                                android:padding="@dimen/_10sdp"
+                                android:spinnerMode="dialog"
+                                android:prompt="@string/pricelist"/>
+
+                        </com.google.android.material.textfield.TextInputLayout>
 
 
 

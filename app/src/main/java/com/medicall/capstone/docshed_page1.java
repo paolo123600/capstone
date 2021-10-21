@@ -168,7 +168,7 @@ public class docshed_page1 extends AppCompatActivity {
 
                         Intent intent = new Intent(getApplicationContext(), docsched_page2.class);
                         intent.putExtra("docid", model.getUserId());
-                        intent.putExtra("docname", "Doctor " + model.getLastName());
+                        intent.putExtra("docname", "Dr. " + model.getLastName());
                         startActivity(intent);
 
                     }
@@ -274,7 +274,7 @@ public class docshed_page1 extends AppCompatActivity {
 
                                         Intent intent = new Intent(getApplicationContext(), docsched_page2.class);
                                         intent.putExtra("docid", model.getUserId());
-                                        intent.putExtra("docname", "Doctor " + model.getLastName());
+                                        intent.putExtra("docname", "Dr. " + model.getLastName());
                                         startActivity(intent);
 
 
@@ -368,7 +368,7 @@ public class docshed_page1 extends AppCompatActivity {
 
                                         Intent intent = new Intent(getApplicationContext(), docsched_page2.class);
                                         intent.putExtra("docid", model.getUserId());
-                                        intent.putExtra("docname", "Doctor " + model.getLastName());
+                                        intent.putExtra("docname", "Dr. " + model.getLastName());
                                         startActivity(intent);
 
 
