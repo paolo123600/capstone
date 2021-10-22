@@ -138,7 +138,7 @@ public class Pending_Appointments extends AppCompatActivity {
                                     holder.view_confirm.setOnClickListener(new View.OnClickListener(){
                                         @Override
                                         public void onClick(View v) {
-                                            Intent intent = new Intent(Pending_Appointments.this, Pending_Confirmation.class);
+
                                             gv.setPending_docUid(model.getDoctorUId());
                                             gv.setPosition(model.getPosition());
                                             gv.setPending_patUid(model.getPatientUId());
@@ -157,10 +157,12 @@ public class Pending_Appointments extends AppCompatActivity {
                                                         gv.setExpiryDate(documentSnapshot.getString("ExpiryDate"));
                                                         gv.setHMOContact(documentSnapshot.getString("HMOCNumber"));
                                                         gv.setPending_HMOAddress(documentSnapshot.getString("HMOAddress"));
+                                                        Intent intent = new Intent(Pending_Appointments.this, Pending_Confirmation.class);
+                                                        startActivity(intent);
                                                     }
                                                 }
                                             });
-                                            startActivity(intent);
+
                                         }
                                     });
 

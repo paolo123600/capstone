@@ -297,7 +297,7 @@ public class patient_schedule extends AppCompatActivity  {
                     case "Completed":
                         query1 = db.collection("Schedules").whereEqualTo("Status", "Completed").whereEqualTo("PatientUId", Patuid).orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
                         break;
-                    case "Appoved":
+                    case "Approved":
                         query1 = db.collection("Schedules").whereEqualTo("Status", "Approved").whereEqualTo("PatientUId", Patuid).orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
                         break;
                     case "Rescheduled":
