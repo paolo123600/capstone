@@ -113,6 +113,12 @@ public class selectClinic extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), PaymentMethod.class);
+        startActivity(intent);
+    }
+
     private void getClinic(){
         Query query = db.collection("Clinics");
         FirestoreRecyclerOptions<SecretaryListModel> options = new FirestoreRecyclerOptions.Builder<SecretaryListModel>()

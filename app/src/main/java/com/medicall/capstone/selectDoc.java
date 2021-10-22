@@ -127,7 +127,7 @@ public class selectDoc extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(getApplicationContext(), selectDoc.class);
+        Intent intent = new Intent(getApplicationContext(), selectClinic.class);
         startActivity(intent);
     }
 

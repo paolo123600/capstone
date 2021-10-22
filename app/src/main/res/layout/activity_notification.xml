@@ -73,14 +73,16 @@
             android:text="There is no Current Notifications"
             android:visibility="gone"/>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycleview_notif"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:visibility="gone"/>
+
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycleview_notif"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:visibility="gone"/>
+
 
 
 

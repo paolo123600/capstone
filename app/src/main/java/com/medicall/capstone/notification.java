@@ -86,36 +86,36 @@ String clinicname;
                 String selectedstat = spinner_status.getSelectedItem().toString();
                 switch (selectedstat) {
                     case "All":
-                        query = db.collection("Schedules").whereIn("Status", Arrays.asList("Paid","Pending Approval","Reschedule","Cancelled","Declined","Approved")).orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
+                        query = db.collection("Schedules").whereEqualTo("ClinicName",clinicname).whereIn("Status", Arrays.asList("Paid","Pending Approval","Reschedule","Cancelled","Declined","Approved", "Unattended")).orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
                         Shownotif(query);
                         break;
                     case "Booked":
-                         query = db.collection("Schedules").whereEqualTo("Status","Paid").orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
+                         query = db.collection("Schedules").whereEqualTo("ClinicName",clinicname).whereEqualTo("Status","Paid").orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
                         Shownotif(query);
                         break;
                     case "Pending":
-                         query = db.collection("Schedules").whereEqualTo("Status","Pending Approval").orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
+                         query = db.collection("Schedules").whereEqualTo("ClinicName",clinicname).whereEqualTo("Status","Pending Approval").orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
                         Shownotif(query);
                         break;
                     case "Rescheduled":
-                         query = db.collection("Schedules").whereEqualTo("Status","Rescheduled").orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
+                         query = db.collection("Schedules").whereEqualTo("ClinicName",clinicname).whereEqualTo("Status","Rescheduled").orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
                         Shownotif(query);
                         break;
                     case "Cancelled":
-                         query = db.collection("Schedules").whereEqualTo("Status","Cancelled").orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
+                         query = db.collection("Schedules").whereEqualTo("ClinicName",clinicname).whereEqualTo("Status","Cancelled").orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
                         Shownotif(query);
                         break;
                     case "Declined":
-                        query = db.collection("Schedules").whereEqualTo("Status","Declined").orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
+                        query = db.collection("Schedules").whereEqualTo("ClinicName",clinicname).whereEqualTo("Status","Declined").orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
                         Shownotif(query);
                         break;
                     case "Approved":
-                        query = db.collection("Schedules").whereEqualTo("Status","Approved").orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
+                        query = db.collection("Schedules").whereEqualTo("ClinicName",clinicname).whereEqualTo("Status","Approved").orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
                         Shownotif(query);
                         break;
 
                     case "Unattended":
-                        query = db.collection("Schedules").whereEqualTo("Status","Unattended").orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
+                        query = db.collection("Schedules").whereEqualTo("ClinicName",clinicname).whereEqualTo("Status","Unattended").orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
                         Shownotif(query);
                         break;
                 }
@@ -212,7 +212,7 @@ String clinicname;
                                                          break;
 
                                                      case "Unattended":
-                                                         holder.tvpatname.setText(Html.fromHtml(patname+"'s appointment has been " + "<font color='#DA3333'>APPROVED</font>" + " dated "+date));
+                                                         holder.tvpatname.setText(Html.fromHtml(patname+"'s appointment was " + "<font color='#DA3333'>UNATTENDED</font>" + " dated "+date));
                                                          break;
 
                                                  }
