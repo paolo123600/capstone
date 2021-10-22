@@ -113,6 +113,11 @@ String clinicname;
                         query = db.collection("Schedules").whereEqualTo("Status","Approved").orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
                         Shownotif(query);
                         break;
+
+                    case "Unattended":
+                        query = db.collection("Schedules").whereEqualTo("Status","Unattended").orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
+                        Shownotif(query);
+                        break;
                 }
             ;
             }
@@ -204,6 +209,10 @@ String clinicname;
                                                          break;
                                                      case "Approved":
                                                          holder.tvpatname.setText(Html.fromHtml(patname+"'s appointment has been " + "<font color='#2FD845'>APPROVED</font>" + " dated "+date));
+                                                         break;
+
+                                                     case "Unattended":
+                                                         holder.tvpatname.setText(Html.fromHtml(patname+"'s appointment has been " + "<font color='#DA3333'>APPROVED</font>" + " dated "+date));
                                                          break;
 
                                                  }

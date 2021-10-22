@@ -381,7 +381,7 @@ public class patient_schedule extends AppCompatActivity  {
                                                                 holder.tvpatname.setText("Patient: "+ patname);
                                                                 holder.tvdocname.setText("Doctor: "+docname);
                                                                 holder.tvdatesched.setText("Date: "+date);
-                                                                holder.tvstatus.setText(Html.fromHtml("Status: "+"<font color='#FF871D'>UNATTENDED</font>"));
+                                                                holder.tvstatus.setText(Html.fromHtml("Status: "+"<font color='#DA3333'>UNATTENDED</font>"));
                                                                 break;
 
                                                         }
