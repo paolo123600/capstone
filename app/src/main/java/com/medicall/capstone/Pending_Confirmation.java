@@ -120,6 +120,7 @@ public class Pending_Confirmation extends AppCompatActivity {
         CardNumber.setText("Card Number: " + gv.getPending_cardNumber());
         Expired.setText("Expiry Date: " + gv.getExpiryDate());
         Contact.setText("Provider's Contact: " + gv.getHMOContact());
+        Address.setText("Provider's Address: " + HMOAddress);
 
 
         back.setOnClickListener(new View.OnClickListener() {

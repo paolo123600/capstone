@@ -11,36 +11,6 @@ public class PendingModel {
     private String HMOName;
     private String StartTime;
     private String EndTime;
-    private String CardNumber;
-    private String ExpiryDate;
-
-    public String getHMOAddress() {
-        return HMOAddress;
-    }
-
-    public void setHMOAddress(String HMOAddress) {
-        this.HMOAddress = HMOAddress;
-    }
-
-    private String HMOAddress;
-
-    public String getHMOCNumber() {
-        return HMOCNumber;
-    }
-
-    public void setHMOCNumber(String HMOCNumber) {
-        this.HMOCNumber = HMOCNumber;
-    }
-
-    private String HMOCNumber;
-
-    public String getExpiryDate() {
-        return ExpiryDate;
-    }
-
-    public void setExpiryDate(String expiryDate) {
-        ExpiryDate = expiryDate;
-    }
 
     public Integer getPosition() {
         return Position;
@@ -112,15 +82,8 @@ public class PendingModel {
         EndTime = endTime;
     }
 
-    public String getCardNumber() {
-        return CardNumber;
-    }
 
-    public void setCardNumber(String cardNumber) {
-        CardNumber = cardNumber;
-    }
-
-    public PendingModel(String clinicName, Date date, String doctorUId, String patientUId, String hmoName, String startTime, String endTime, String cardNumber, String expiryDate, String hmoCnumber, String hmoAddress){
+    public PendingModel(String clinicName, Date date, String doctorUId, String patientUId, String hmoName, String startTime, String endTime){
         ClinicName = clinicName;
         Date = date;
         DoctorUId = doctorUId;
@@ -128,9 +91,5 @@ public class PendingModel {
         HMOName = hmoName;
         StartTime = startTime;
         EndTime = endTime;
-        CardNumber = cardNumber;
-        ExpiryDate = expiryDate;
-        HMOCNumber = hmoCnumber;
-        HMOAddress = hmoAddress;
     }
 }

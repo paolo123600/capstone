@@ -247,9 +247,6 @@ public class upload_hmo extends AppCompatActivity {
         db.collection("Patients").document(patuid).collection("HMO").document(gv.getHMOName()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                String cardnum = documentSnapshot.getString("CardNumber");
-                String expiry = documentSnapshot.getString("ExpiryDate");
-                String hmocnum = documentSnapshot.getString("HMOCNumber");
 
                 db.collection("Doctors").whereEqualTo("UserId", gv.getSDDocUid())
                         .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -278,9 +275,6 @@ public class upload_hmo extends AppCompatActivity {
                                                         patienthmo.put("ClinicName", doctor.getString("ClinicName"));
                                                         patienthmo.put("PatientUId", patuid);
                                                         patienthmo.put("StorageId", fileName);
-                                                        patienthmo.put("CardNumber", cardnum);
-                                                        patienthmo.put("ExpiryDate", expiry);
-                                                        patienthmo.put("HMOCNumber",hmocnum);
                                                         patienthmo.put("StartTime", gv.getStartTime());
                                                         patienthmo.put("EndTime", gv.getEndTime());
                                                         patienthmo.put("Date", gv.getDateconsult());
@@ -348,9 +342,6 @@ public class upload_hmo extends AppCompatActivity {
         db.collection("Patients").document(patuid).collection("HMO").document(gv.getHMOName()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                String cardnum = documentSnapshot.getString("CardNumber");
-                String expiry = documentSnapshot.getString("ExpiryDate");
-                String hmocnum = documentSnapshot.getString("HMOCNumber");
 
                 db.collection("Doctors").whereEqualTo("UserId", gv.getSDDocUid())
                         .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -366,9 +357,6 @@ public class upload_hmo extends AppCompatActivity {
                                     Map<String, Object> patienthmo = new HashMap<>();
                                     patienthmo.put("ClinicName", doctor.getString("ClinicName"));
                                     patienthmo.put("PatientUId", patuid);
-                                    patienthmo.put("CardNumber", cardnum);
-                                    patienthmo.put("ExpiryDate", expiry);
-                                    patienthmo.put("HMOCNumber",hmocnum);
                                     patienthmo.put("StartTime", gv.getStartTime());
                                     patienthmo.put("EndTime", gv.getEndTime());
                                     patienthmo.put("Date", gv.getDateconsult());

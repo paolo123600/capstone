@@ -147,10 +147,19 @@ public class Pending_Appointments extends AppCompatActivity {
                                             gv.setStartTime(model.getStartTime() );
                                             gv.setEndTime(model.getEndTime());
                                             gv.setPending_sched(datestring );
-                                            gv.setPending_cardNumber(model.getCardNumber());
-                                            gv.setExpiryDate(model.getExpiryDate());
-                                            gv.setHMOContact(model.getHMOCNumber());
-                                            gv.setPending_HMOAddress(model.getHMOAddress());
+                                            db.collection("Patients").document(model.getPatientUId()).collection("HMO").document(model.getHMOName())
+                                                    .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                    if(task.isSuccessful()){
+                                                        DocumentSnapshot documentSnapshot = task.getResult();
+                                                        gv.setPending_cardNumber(documentSnapshot.getString("CardNumber"));
+                                                        gv.setExpiryDate(documentSnapshot.getString("ExpiryDate"));
+                                                        gv.setHMOContact(documentSnapshot.getString("HMOCNumber"));
+                                                        gv.setPending_HMOAddress(documentSnapshot.getString("HMOAddress"));
+                                                    }
+                                                }
+                                            });
                                             startActivity(intent);
                                         }
                                     });
