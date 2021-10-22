@@ -89,7 +89,7 @@ public class Pending_Confirmation extends AppCompatActivity {
         storageReference = storage.getReference();
         back = findViewById(R.id.backspace);
         String HMOAddress = gv.getPending_HMOAddress();
-        Toast.makeText(this, HMOAddress, Toast.LENGTH_SHORT).show();
+
 
         retrieveHMO();
 
