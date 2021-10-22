@@ -321,7 +321,7 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
 //                          String timenow1 =dateFormat.format(currentTime);
 
 
-                    String timenow1 ="3:40PM";
+                    String timenow1 ="4:01PM";
                     timenow = dateFormat.parse(timenow1);
 
                 } catch (ParseException e) {
@@ -330,6 +330,8 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
 
 
                 checkschedcurrent();
+
+
             }
         };
         registerReceiver(minuteUpdateReceiver, intentFilter);
@@ -392,6 +394,62 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
                                             }
                                     }
                                 });
+                        db.collection("Schedules").whereEqualTo("DoctorUId",preferenceManager.getString(Constants.KEY_USER_ID)).whereIn("Status", Arrays.asList("Paid","Approved")).whereEqualTo("Date",DDate).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()){
+                                    QuerySnapshot querySnapshot = task.getResult();
+                                    if (!querySnapshot.isEmpty()){
+                                        for (QueryDocumentSnapshot document : task.getResult()) {
+                                            SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm aa");
+                                            Date times = new Date();
+                                            try {
+                                                String endtime = document.getString("EndTime");
+                                                times = dateFormat.parse(endtime);
+                                                if (timenow.after(times)){
+                                                    String documentsched =document.getId();
+                                                    Date currentTime = Calendar.getInstance().getTime();
+                                                    db.collection("Schedules").document(documentsched).update("Status","Unattended", "Dnt", currentTime).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+
+                                                        }
+                                                    });
+                                                }
+                                            } catch (ParseException e) {
+                                                Toast.makeText(doctor_homepage.this, "error time", Toast.LENGTH_SHORT).show();
+                                            }
+
+                                        }
+                                    }
+                                }  else {
+
+                                }
+                            }
+                        });
+                        db.collection("Schedules").whereEqualTo("DoctorUId",preferenceManager.getString(Constants.KEY_USER_ID)).whereLessThan("Date",DDate).whereIn("Status", Arrays.asList("Paid","Approved")).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()){
+                                    QuerySnapshot querySnapshot = task.getResult();
+                                    if (!querySnapshot.isEmpty()){
+                                        for (QueryDocumentSnapshot document : task.getResult()) {
+                                            String documentsched =document.getId();
+                                            Date currentTime = Calendar.getInstance().getTime();
+                                            db.collection("Schedules").document(documentsched).update("Status","Unattended","Dnt", currentTime).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+
+                                                }
+                                            });
+
+                                        }
+                                    }
+                                }
+                            else {
+
+                                }}
+                        });
                         db.collection("Schedules").whereEqualTo("Date", DDate).whereEqualTo("StartTime", timestart).whereEqualTo("DoctorUId", preferenceManager.getString(Constants.KEY_USER_ID)).whereEqualTo("Status", "Pending Approval").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
