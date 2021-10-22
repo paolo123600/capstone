@@ -108,6 +108,7 @@
         <item>Cancelled</item>
         <item>Declined</item>
         <item>Rescheduled</item>
+        <item>Unattended</item>
 
 
     </string-array>
@@ -118,6 +119,7 @@
         <item>Completed</item>
         <item>Declined</item>
         <item>Rescheduled</item>
+        <item>Unattended</item>
 
 
     </string-array>

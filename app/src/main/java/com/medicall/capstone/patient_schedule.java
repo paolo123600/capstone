@@ -289,7 +289,7 @@ public class patient_schedule extends AppCompatActivity  {
                 String selectedstat = spinner_status.getSelectedItem().toString();
                 switch (selectedstat) {
                     case "All":
-                        query1 = db.collection("Schedules").whereEqualTo("PatientUId", Patuid).whereIn("Status", Arrays.asList("Completed" ,"Rescheduled", "Cancelled","Declined","Approved")).orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
+                        query1 = db.collection("Schedules").whereEqualTo("PatientUId", Patuid).whereIn("Status", Arrays.asList("Completed" ,"Rescheduled", "Cancelled","Declined","Approved","Unattended")).orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
                         break;
                     case "Declined":
                         query1 = db.collection("Schedules").whereEqualTo("Status", "Declined").whereEqualTo("PatientUId", Patuid).orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
@@ -308,6 +308,11 @@ public class patient_schedule extends AppCompatActivity  {
                         query1 = db.collection("Schedules").whereEqualTo("Status", "Cancelled").whereEqualTo("PatientUId", Patuid).orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
 
                         break;
+                    case "Unattended":
+                        query1 = db.collection("Schedules").whereEqualTo("Status", "Unattended").whereEqualTo("PatientUId", Patuid).orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
+
+                        break;
+
                 }
                 FirestoreRecyclerOptions<DocTodaySchedModel> options = new FirestoreRecyclerOptions.Builder<DocTodaySchedModel>()
                         .setQuery(query1, DocTodaySchedModel.class)
@@ -370,6 +375,13 @@ public class patient_schedule extends AppCompatActivity  {
                                                                 holder.tvdocname.setText("Doctor: "+docname);
                                                                 holder.tvdatesched.setText("Date: "+date);
                                                                 holder.tvstatus.setText(Html.fromHtml("Status: "+"<font color='#2FD845'>APPROVED</font>"));
+                                                                break;
+
+                                                            case "Unattended":
+                                                                holder.tvpatname.setText("Patient: "+ patname);
+                                                                holder.tvdocname.setText("Doctor: "+docname);
+                                                                holder.tvdatesched.setText("Date: "+date);
+                                                                holder.tvstatus.setText(Html.fromHtml("Status: "+"<font color='#FF871D'>UNATTENDED</font>"));
                                                                 break;
 
                                                         }
