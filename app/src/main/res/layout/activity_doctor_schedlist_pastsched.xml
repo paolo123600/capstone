@@ -47,7 +47,7 @@
             android:id="@+id/doc_past_sched_none"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Theres no Schedule"
+            android:text="There is currently no past schedule for this doctor"
             android:textSize="18dp"
             android:layout_marginTop="250dp"
 

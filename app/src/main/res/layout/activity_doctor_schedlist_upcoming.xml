@@ -55,7 +55,7 @@
                 android:gravity="center"
                 android:layout_marginTop="250dp"
                 android:paddingTop="0dp"
-                android:text="Theres no Schedule"
+                android:text="There is currently no schedules booked for this doctor"
                 android:textSize="18dp"
                 android:visibility="gone"
 
