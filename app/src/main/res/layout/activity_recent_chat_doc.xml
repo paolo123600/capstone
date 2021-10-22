@@ -85,17 +85,18 @@
                 app:layout_constraintStart_toStartOf="parent" />
             <TextView
                 android:id="@+id/None"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_gravity="center"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:gravity="center"
                 android:textSize="18dp"
-                android:text="There are no current chats"/>
+                android:text="There are no current chats"
+                android:visibility="gone"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/chat_recyclerview_recentchatDoc"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingTop="@dimen/_20sdp" />
+                android:paddingTop="@dimen/_20sdp"/>
 
         </LinearLayout>
 
