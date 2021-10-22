@@ -578,4 +578,24 @@ public class GlobalVariables extends Application {
 
     String HMOContact;
 
+    public String getEditHMO_Address() {
+        return EditHMO_Address;
+    }
+
+    public void setEditHMO_Address(String editHMO_Address) {
+        EditHMO_Address = editHMO_Address;
+    }
+
+    String EditHMO_Address;
+
+    public String getPending_HMOAddress() {
+        return Pending_HMOAddress;
+    }
+
+    public void setPending_HMOAddress(String pending_HMOAddress) {
+        Pending_HMOAddress = pending_HMOAddress;
+    }
+
+    String Pending_HMOAddress;
+
 }

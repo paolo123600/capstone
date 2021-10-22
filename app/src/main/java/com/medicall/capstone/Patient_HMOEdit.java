@@ -15,9 +15,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.medicall.capstone.R;
 
@@ -39,6 +43,9 @@ public class Patient_HMOEdit extends AppCompatActivity {
     private DatePickerDialog datePickerDialog;
 
     ImageView back;
+    TextInputLayout editHMOAddress;
+    EditText HMOAddress;
+    String hmoAdd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +67,30 @@ public class Patient_HMOEdit extends AppCompatActivity {
         expiration.setText(gv.getEditHMO_expirydate());
         HMOContact.setText(gv.getEditHMO_contact());
         hmoname = gv.getEditHMO_hmoName();
+        editHMOAddress = findViewById(R.id.editHMOAddress);
+        hmoAdd = gv.getEditHMO_Address();
+        HMOAddress = findViewById(R.id.HMOaddress);
 
         back = findViewById(R.id.backspace);
+
+        db.collection("Patients").document(userID).collection("HMO").document(hmoname)
+                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    DocumentSnapshot patientHMO = task.getResult();
+                    String hmoBranch = patientHMO.getString("HMOAddress");
+                    if(hmoBranch.equals("None")){
+                        editHMOAddress.setVisibility(View.GONE);
+                        HMOAddress.setVisibility(View.GONE);
+                    }
+                    else{
+                        editHMOAddress.setVisibility(View.VISIBLE);
+                        HMOAddress.setText(hmoBranch);
+                    }
+                }
+            }
+        });
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,6 +123,7 @@ public class Patient_HMOEdit extends AppCompatActivity {
                                 updateHMO.put("CardNumber", String.valueOf(Cnumber.getText()));
                                 updateHMO.put("ExpiryDate", String.valueOf(expiration.getText()));
                                 updateHMO.put("HMOCNumber", String.valueOf(HMOContact.getText()));
+                                updateHMO.put("HMOAddress", String.valueOf(HMOAddress.getText()));
 
                                 db.collection("Patients").document(userID).collection("HMO").document(hmoname).update(updateHMO)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {

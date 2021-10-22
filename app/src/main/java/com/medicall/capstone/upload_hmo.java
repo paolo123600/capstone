@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -72,6 +73,9 @@ public class upload_hmo extends AppCompatActivity {
     TextView cardnumber;
     TextView expiration;
     TextView hmocontact;
+    LinearLayout hmoAddress;
+    TextView hmoAddress2;
+    String hmoAddress3;
     GlobalVariables gv;
     String patuid;
     private PreferenceManager preferenceManager;
@@ -91,6 +95,8 @@ public class upload_hmo extends AppCompatActivity {
         cardnumber = (TextView) findViewById(R.id.cardNumber);
         expiration = (TextView) findViewById(R.id.expired);
         hmocontact = (TextView) findViewById(R.id.hmocnumber);
+        hmoAddress2 = findViewById(R.id.hmoaddress2);
+        hmoAddress = findViewById(R.id.linearHMOAddress);
         switchhmo = findViewById(R.id.switch_hmo);
         preferenceManager = new PreferenceManager(getApplicationContext());
         back = findViewById(R.id.backspace);
@@ -113,6 +119,14 @@ public class upload_hmo extends AppCompatActivity {
                 cardnumber.setText("Card Number: " + documentSnapshot.getString("CardNumber"));
                 expiration.setText("Expiry Date: " + documentSnapshot.getString("ExpiryDate"));
                 hmocontact.setText(documentSnapshot.getString("HMOCNumber"));
+                hmoAddress3 = documentSnapshot.getString("HMOAddress");
+                if(hmoAddress3.equals("None")){
+                    hmoAddress.setVisibility(View.GONE);
+                }
+                else{
+                    hmoAddress.setVisibility(View.VISIBLE);
+                    hmoAddress2.setText(documentSnapshot.getString("HMOAddress"));
+                }
             }
         });
 

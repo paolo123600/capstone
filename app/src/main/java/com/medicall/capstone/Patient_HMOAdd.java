@@ -16,12 +16,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.medicall.capstone.R;
 
@@ -57,6 +60,7 @@ public class Patient_HMOAdd extends AppCompatActivity {
     String hmospinner;
     EditText HMOnumber;
     EditText HMOCnumber;
+    Switch switchbtn;
 
 private EditText expiry;
 private DatePickerDialog datePickerDialog;
@@ -78,6 +82,10 @@ private DatePickerDialog datePickerDialog;
 
     String addexpirydate;
     String addhmocontact;
+
+    TextInputLayout addhmoAddress;
+    String addhmoAddress2;
+    EditText HMOAddress;
 
     AutoCompleteTextView autospinner;
     @Override
@@ -104,6 +112,9 @@ private DatePickerDialog datePickerDialog;
         initDatePicker();
         expiry = (EditText) findViewById(R.id.expireDate);
         HMOCnumber = findViewById(R.id.hmocontactnumber);
+        switchbtn = findViewById(R.id.switch_hmoaddress);
+        addhmoAddress = findViewById(R.id.addHMOAddress);
+        HMOAddress = (EditText) findViewById(R.id.HMOaddress);
 
         CollectionReference clinicsRef = db.collection("HMO");
 
@@ -111,6 +122,18 @@ private DatePickerDialog datePickerDialog;
         spinnertag.setId(count);
 
         back = findViewById(R.id.backspace);
+        
+        switchbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(switchbtn.isChecked()){
+                    addhmoAddress.setVisibility(EditText.VISIBLE);
+                }
+                else{
+                    addhmoAddress.setVisibility(EditText.GONE);
+                }
+            }
+        });
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,16 +169,50 @@ private DatePickerDialog datePickerDialog;
                 addhmonum = HMOnumber.getText().toString();
                 addexpirydate = expiry.getText().toString();
                 addhmocontact = HMOCnumber.getText().toString();
-                if (addhmonum.isEmpty()) {
-                    Toast.makeText(Patient_HMOAdd.this, "Please Enter your Card Number", Toast.LENGTH_SHORT).show();
+                addhmoAddress2 = HMOAddress.getText().toString();
+                if(switchbtn.isChecked()){
+                    if (addhmonum.isEmpty()) {
+                        Toast.makeText(Patient_HMOAdd.this, "Please Enter your Card Number", Toast.LENGTH_SHORT).show();
+                    }
+                    else if (addexpirydate.isEmpty()){
+                        Toast.makeText(Patient_HMOAdd.this, "Expiry date cannot be empty", Toast.LENGTH_SHORT).show();
+                    }
+                    else if(addhmocontact.isEmpty()){
+                        Toast.makeText(Patient_HMOAdd.this, "Please enter HMO provider's contact number", Toast.LENGTH_SHORT).show();
+                    }
+                    else if(addhmoAddress2.isEmpty()){
+                        Toast.makeText(Patient_HMOAdd.this, "Please enter your provider's address/branch", Toast.LENGTH_SHORT).show();
+                    }
+                    else if (hmo.contains(autospinner.getText().toString())) {
+                        new AlertDialog.Builder(Patient_HMOAdd.this).setTitle("Add HMO").setMessage("Are you sure you want to add this HMO?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                addhmowithAddress();
+                                Intent intent = new Intent(getApplicationContext(), Patient_HMOList.class);
+                                startActivity(intent);
+                            }
+                        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        }).show();
+
+                    } else {
+                        Toast.makeText(Patient_HMOAdd.this, "Please select an HMO in the list", Toast.LENGTH_SHORT).show();
+                    }
                 }
-                else if (addexpirydate.isEmpty()){
-                    Toast.makeText(Patient_HMOAdd.this, "Expiry date cannot be empty", Toast.LENGTH_SHORT).show();
-                }
-                else if(addhmocontact.isEmpty()){
-                    Toast.makeText(Patient_HMOAdd.this, "Please enter HMO provider's contact number", Toast.LENGTH_SHORT).show();
-                }
-                else if (hmo.contains(autospinner.getText().toString())) {
+                else{
+                    if (addhmonum.isEmpty()) {
+                        Toast.makeText(Patient_HMOAdd.this, "Please Enter your Card Number", Toast.LENGTH_SHORT).show();
+                    }
+                    else if (addexpirydate.isEmpty()){
+                        Toast.makeText(Patient_HMOAdd.this, "Expiry date cannot be empty", Toast.LENGTH_SHORT).show();
+                    }
+                    else if(addhmocontact.isEmpty()){
+                        Toast.makeText(Patient_HMOAdd.this, "Please enter HMO provider's contact number", Toast.LENGTH_SHORT).show();
+                    }
+                    else if (hmo.contains(autospinner.getText().toString())) {
                         new AlertDialog.Builder(Patient_HMOAdd.this).setTitle("Add HMO").setMessage("Are you sure you want to add this HMO?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -173,6 +230,8 @@ private DatePickerDialog datePickerDialog;
                     } else {
                         Toast.makeText(Patient_HMOAdd.this, "Please select an HMO in the list", Toast.LENGTH_SHORT).show();
                     }
+                }
+
 
             }
         });
@@ -254,17 +313,20 @@ private DatePickerDialog datePickerDialog;
        addhmonum = HMOnumber.getText().toString();
        addexpirydate = expiry.getText().toString();
        addhmocontact = HMOCnumber.getText().toString();
+       addhmoAddress2 = "None";
 
            Map<String,Object> hmodb = new HashMap<>();
            hmodb.put ("HMOName",hmospinner);
            hmodb.put("ExpiryDate",addexpirydate);
            hmodb.put("HMOCNumber",addhmocontact);
+            hmodb.put("HMOAddress",addhmoAddress2);
            db.collection("HMO").document(hmospinner).set(hmodb);
            ///
            Map<String,Object> uid = new HashMap<>();
            uid.put ("PatientUId",Uid);
            uid.put("ExpiryDate",addexpirydate);
            uid.put("HMOCNumber",addhmocontact);
+           uid.put("HMOAddress",addhmoAddress2);
            db.collection("HMO").document(hmospinner).collection("Patients").document(Uid).set(uid);
 
            Map<String,Object> pathmo = new HashMap<>();
@@ -272,7 +334,44 @@ private DatePickerDialog datePickerDialog;
            pathmo.put("CardNumber", addhmonum);
            pathmo.put("ExpiryDate",addexpirydate);
            pathmo.put("HMOCNumber",addhmocontact);
+           pathmo.put("HMOAddress",addhmoAddress2);
            db.collection("Patients").document(Uid).collection("HMO").document(hmospinner).set(pathmo);
+
+
+
+
+    }
+
+    private  void addhmowithAddress(){
+        String Uid=FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        hmospinner = autospinner.getText().toString();
+        addhmonum = HMOnumber.getText().toString();
+        addexpirydate = expiry.getText().toString();
+        addhmocontact = HMOCnumber.getText().toString();
+        addhmoAddress2 = HMOAddress.getText().toString();
+
+        Map<String,Object> hmodb = new HashMap<>();
+        hmodb.put ("HMOName",hmospinner);
+        hmodb.put("ExpiryDate",addexpirydate);
+        hmodb.put("HMOCNumber",addhmocontact);
+        hmodb.put("HMOAddress",addhmoAddress2);
+        db.collection("HMO").document(hmospinner).set(hmodb);
+        ///
+        Map<String,Object> uid = new HashMap<>();
+        uid.put ("PatientUId",Uid);
+        uid.put("ExpiryDate",addexpirydate);
+        uid.put("HMOCNumber",addhmocontact);
+        uid.put("HMOAddress",addhmoAddress2);
+        db.collection("HMO").document(hmospinner).collection("Patients").document(Uid).set(uid);
+
+        Map<String,Object> pathmo = new HashMap<>();
+        pathmo.put ("HMOName",hmospinner);
+        pathmo.put("CardNumber", addhmonum);
+        pathmo.put("ExpiryDate",addexpirydate);
+        pathmo.put("HMOCNumber",addhmocontact);
+        pathmo.put("HMOAddress",addhmoAddress2);
+        db.collection("Patients").document(Uid).collection("HMO").document(hmospinner).set(pathmo);
 
 
 

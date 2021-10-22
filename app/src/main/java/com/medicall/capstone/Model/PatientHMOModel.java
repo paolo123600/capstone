@@ -24,6 +24,16 @@ public class PatientHMOModel {
 
     String ExpiryDate;
 
+    public String getHMOAddress() {
+        return HMOAddress;
+    }
+
+    public void setHMOAddress(String HMOAddress) {
+        this.HMOAddress = HMOAddress;
+    }
+
+    String HMOAddress;
+
     public PatientHMOModel(){
 
     }
@@ -44,9 +54,10 @@ public class PatientHMOModel {
         CardNumber = cardNumber;
     }
 
-    public PatientHMOModel(String hmoName, String cardNumber, String expiryDate){
+    public PatientHMOModel(String hmoName, String cardNumber, String expiryDate, String hmoAddress){
         this.CardNumber = cardNumber;
         this.HMOName = hmoName;
         this.ExpiryDate = expiryDate;
+        this.HMOAddress = hmoAddress;
     }
 }

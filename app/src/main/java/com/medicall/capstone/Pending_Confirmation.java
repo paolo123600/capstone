@@ -53,6 +53,7 @@ public class Pending_Confirmation extends AppCompatActivity {
     private Button Decline;
     private ImageView HMO_Image;
     private TextView CardNumber;
+    private TextView Address;
     GlobalVariables gv;
     FirebaseFirestore db;
     ProgressDialog progressDialog;
@@ -80,12 +81,15 @@ public class Pending_Confirmation extends AppCompatActivity {
         Time= (TextView) findViewById(R.id.conf_time);
         Accept = (Button) findViewById(R.id.conf_btnaccept);
         Decline = (Button) findViewById(R.id.conf_btndecline);
+        Address = findViewById(R.id.address);
         CardNumber = (TextView) findViewById(R.id.conf_hmocardnum);
         gv = (GlobalVariables) getApplicationContext();
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
         back = findViewById(R.id.backspace);
+        String HMOAddress = gv.getPending_HMOAddress();
+        Toast.makeText(this, HMOAddress, Toast.LENGTH_SHORT).show();
 
         retrieveHMO();
 
@@ -116,6 +120,7 @@ public class Pending_Confirmation extends AppCompatActivity {
         CardNumber.setText("Card Number: " + gv.getPending_cardNumber());
         Expired.setText("Expiry Date: " + gv.getExpiryDate());
         Contact.setText("Provider's Contact: " + gv.getHMOContact());
+
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
