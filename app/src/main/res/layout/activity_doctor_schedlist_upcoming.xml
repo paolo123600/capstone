@@ -43,23 +43,33 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/doc_upcoming_sched_none"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Theres no Schedule"
-            android:paddingTop="10dp"
-            android:textSize="18dp"
-            android:gravity="center"
-            android:visibility="gone"
-           />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/Doc_upcoming_sched_recview"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_height="match_parent"
-            tools:layout_editor_absoluteX="111dp"
-            tools:layout_editor_absoluteY="52dp" />
+            android:layout_width="match_parent">
+
+            <TextView
+                android:id="@+id/doc_upcoming_sched_none"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="250dp"
+                android:paddingTop="0dp"
+                android:text="Theres no Schedule"
+                android:textSize="18dp"
+                android:visibility="gone"
+
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/Doc_upcoming_sched_recview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout_editor_absoluteX="111dp"
+                tools:layout_editor_absoluteY="52dp" />
+
+        </LinearLayout>
+
 
 
 
