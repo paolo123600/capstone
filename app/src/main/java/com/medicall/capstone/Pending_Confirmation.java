@@ -154,9 +154,9 @@ public class Pending_Confirmation extends AppCompatActivity {
                                                             .update("Status", "Approved","Dnt",currentTime);
                                                     AlertDialog.Builder status = new AlertDialog.Builder(Pending_Confirmation.this);
                                                     status.setTitle("Schedule approved");
-                                                    status.setMessage("Appointment successfully approved!");
+                                                    status.setMessage("Appointment successfully approved");
                                                     status.setCancelable(true);
-                                                    status.setNeutralButton(android.R.string.ok,
+                                                    status.setPositiveButton(android.R.string.ok,
                                                             new DialogInterface.OnClickListener() {
                                                                 @Override
                                                                 public void onClick(DialogInterface dialog, int which) {
@@ -239,9 +239,9 @@ public class Pending_Confirmation extends AppCompatActivity {
                                                     });
                                                     AlertDialog.Builder status1 = new AlertDialog.Builder(Pending_Confirmation.this);
                                                     status1.setTitle("Schedule cancelled");
-                                                    status1.setMessage("Appointment successfully declined!");
+                                                    status1.setMessage("Appointment successfully declined");
                                                     status1.setCancelable(true);
-                                                    status1.setNeutralButton(android.R.string.ok,
+                                                    status1.setPositiveButton(android.R.string.ok,
                                                             new DialogInterface.OnClickListener() {
                                                                 @Override
                                                                 public void onClick(DialogInterface dialog, int which) {

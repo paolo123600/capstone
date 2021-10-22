@@ -178,6 +178,12 @@ public class Pending_Appointments extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent (Pending_Appointments.this, secretary_homepage.class);
+        startActivity(intent);
+    }
+
     private class PendingViewHolder extends RecyclerView.ViewHolder{
         private TextView patName;
         private TextView docName;
