@@ -305,55 +305,51 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
                                                     @Override
                                                     public void onClick(DialogInterface dialog, int which) {
 
-                                                        switch (model.getPrice()){
-                                                            case "appointment_150":
-                                                                PRODUCT_ID = "appointment_150";
-                                                                break;
+                                                        db.collection("Prices").whereEqualTo("PriceName",model.getPrice()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                            @Override
+                                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                                if (task.isSuccessful()){
+                                                                    if (!task.getResult().isEmpty()){
+                                                                        for (QueryDocumentSnapshot doc : task.getResult()) {
 
-                                                            case "appointment_200":
-                                                                PRODUCT_ID = "appointment_200";
-                                                                break;
+                                                                            PRODUCT_ID = doc.getString("PriceId");
+                                                                            finalstart= model.getStartTime();
+                                                                            finalend = model.getEndTime();
+                                                                            finalcount= count+1;
+                                                                            finaldateee= finalDate;
+                                                                            finalprice = model.getPrice();
+                                                                            if(billingClient.isReady()){
+                                                                                initiatePurchase();
+                                                                            }
+                                                                            else {
+                                                                                billingClient = BillingClient.newBuilder(selectDate.this)
+                                                                                        .enablePendingPurchases().setListener(selectDate.this).build();
+                                                                                billingClient.startConnection(new BillingClientStateListener() {
+                                                                                    @Override
+                                                                                    public void onBillingSetupFinished(@NonNull BillingResult billingResult) {
+                                                                                        if(billingResult.getResponseCode()==BillingClient.BillingResponseCode.OK){
+                                                                                            Purchase.PurchasesResult queryPurchase = billingClient.queryPurchases(BillingClient.SkuType.INAPP);
+                                                                                            List <Purchase> queryPurchases = queryPurchase.getPurchasesList();
+                                                                                            if (queryPurchases!=null && queryPurchases.size()>0){
+                                                                                                handlePurchases(queryPurchases);
+                                                                                            }
+                                                                                        }
+                                                                                    }
 
-                                                            case "appointment_250":
-                                                                PRODUCT_ID = "appointment_250";
-                                                                break;
+                                                                                    @Override
+                                                                                    public void onBillingServiceDisconnected() {
 
-                                                            case "appointment_300":
-                                                                PRODUCT_ID = "appointment_300";
-                                                                break;
-                                                            default: break;
-
-                                                        }
-
-                                                        finalstart= model.getStartTime();
-                                                        finalend = model.getEndTime();
-                                                        finalcount= count+1;
-                                                        finaldateee= finalDate;
-                                                        finalprice = model.getPrice();
-                                                        if(billingClient.isReady()){
-                                                            initiatePurchase();
-                                                        }
-                                                        else {
-                                                            billingClient = BillingClient.newBuilder(selectDate.this)
-                                                                    .enablePendingPurchases().setListener(selectDate.this).build();
-                                                            billingClient.startConnection(new BillingClientStateListener() {
-                                                                @Override
-                                                                public void onBillingSetupFinished(@NonNull BillingResult billingResult) {
-                                                                    if(billingResult.getResponseCode()==BillingClient.BillingResponseCode.OK){
-                                                                        Purchase.PurchasesResult queryPurchase = billingClient.queryPurchases(BillingClient.SkuType.INAPP);
-                                                                        List <Purchase> queryPurchases = queryPurchase.getPurchasesList();
-                                                                        if (queryPurchases!=null && queryPurchases.size()>0){
-                                                                            handlePurchases(queryPurchases);
+                                                                                    }
+                                                                                });
+                                                                            }
                                                                         }
                                                                     }
                                                                 }
+                                                            }
+                                                        });
 
-                                                                @Override
-                                                                public void onBillingServiceDisconnected() {
 
-                                                                }
-                                                            });
-                                                        }
+
 
                                                     }
                                                 });
@@ -378,27 +374,11 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
                 });
                 holder.list_time.setText("Time: "+model.getStartTime()+" - "+model.getEndTime());
                 holder.list_maxbook.setText("Max Booking: "+model.getMaximumBooking());
-
-                switch (model.getPrice()){
-                    case "appointment_150":
-                        holder.list_price.setText("Price: ₱150");
-                        break;
-
-                    case "appointment_200":
-                        holder.list_price.setText("Price: ₱200");
-                        break;
-
-                    case "appointment_250":
-                        holder.list_price.setText("Price: ₱250");
-                        break;
-
-                    case "appointment_300":
-                        holder.list_price.setText("Price: ₱300");
-                        break;
-                    default: break;
+                holder.list_price.setText(model.getPrice());
 
 
-                }
+
+
 
 
             }
