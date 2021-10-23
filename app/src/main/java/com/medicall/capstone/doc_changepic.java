@@ -184,7 +184,7 @@ public class doc_changepic extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(doc_changepic.this);
                 builder.setCancelable(true);
                 builder.setTitle("Finalization");
-                builder.setMessage("Are you sure about your HMO?");
+                builder.setMessage("Use this as your picture?");
                 builder.setPositiveButton("Confirm",
                         new DialogInterface.OnClickListener() {
                             @Override
