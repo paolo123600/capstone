@@ -221,7 +221,7 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
                     @Override
                     public void onCancel(DialogInterface dialogInterface) {
 
-                        Toast.makeText(selectDate.this, "Datepicker Canceled", Toast.LENGTH_SHORT).show();
+
                     }
                 });
 
