@@ -258,7 +258,7 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
 
                                 if (user.token == null || user.token.trim().isEmpty()) {
 
-                                    Toast.makeText(doctor_homepage.this, "The user is offline", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(doctor_homepage.this, "The patient is  offline.", Toast.LENGTH_SHORT).show();
 
                                 } else {
                                     Intent intent = new Intent(getApplicationContext(), OutgoingInvitationActivity.class);
@@ -321,7 +321,7 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
 //                          String timenow1 =dateFormat.format(currentTime);
 
 
-                    String timenow1 ="4:01PM";
+                    String timenow1 ="3:01PM";
                     timenow = dateFormat.parse(timenow1);
 
                 } catch (ParseException e) {
