@@ -27,6 +27,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -140,8 +141,10 @@ public class selectClinic extends AppCompatActivity {
                 holder.viewclinfo.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        DocumentSnapshot snapshot = getSnapshots().getSnapshot(holder.getAdapterPosition());
+                        final String clinicid = snapshot.getId();
                         Intent intent = new Intent(getApplicationContext(), selectClinic_info.class);
-                        intent.putExtra("ClinicUid", model.getCLuid());
+                        intent.putExtra("ClinicUid", clinicid);
                         startActivity(intent);
                     }
                 });
