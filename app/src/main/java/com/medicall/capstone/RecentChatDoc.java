@@ -195,7 +195,7 @@ public class RecentChatDoc extends AppCompatActivity {
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                 if(task.isSuccessful()){
                                     DocumentSnapshot documentSnapshot = task.getResult();
-                                    String patname = documentSnapshot.getString("FirstName")+ documentSnapshot.getString("LastName");
+                                    String patname = documentSnapshot.getString("FirstName")+" "+ documentSnapshot.getString("LastName");
                                     holder.tvname.setText(patname);
 
                                     holder.itemView.setOnClickListener(new View.OnClickListener() {
