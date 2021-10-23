@@ -72,7 +72,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="@dimen/_10sdp"
+                    android:padding="@dimen/_5sdp"
                     app:layout_constraintTop_toBottomOf="@id/toolbar">
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -84,7 +84,6 @@
                             android:id="@+id/cardNumber"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:gravity="center"
                             android:text="Card number"
                             android:textSize="@dimen/_15sdp" />
 
@@ -96,7 +95,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:orientation="horizontal"
                     android:paddingTop="@dimen/_10sdp"
                     app:layout_constraintTop_toBottomOf="@id/cardNum">
@@ -114,7 +112,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:orientation="vertical"
                     android:paddingTop="@dimen/_10sdp"
                     app:layout_constraintTop_toBottomOf="@id/cardNum">
@@ -123,8 +120,9 @@
                         android:id="@+id/noname"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/_5sdp"
+                        android:paddingBottom="@dimen/_10sdp"
                         android:text="HMO Provider's Contact"
+                        android:padding="@dimen/_5sdp"
                         android:textSize="@dimen/_15sdp" />
 
                     <TextView
@@ -132,6 +130,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="HMO Contact"
+                        android:padding="@dimen/_5sdp"
                         android:textSize="@dimen/_15sdp" />
 
                 </LinearLayout>
@@ -140,7 +139,6 @@
                     android:id="@+id/linearHMOAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:orientation="vertical"
                     android:paddingTop="@dimen/_10sdp"
                     android:visibility="gone"
@@ -158,6 +156,7 @@
                         android:id="@+id/hmoaddress2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:padding="@dimen/_5sdp"
                         android:text="HMO Address"
                         android:textSize="@dimen/_15sdp" />
 
