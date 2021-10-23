@@ -56,8 +56,7 @@
                 android:padding="@dimen/_6sdp"
                 android:layout_gravity="right"
                 android:textSize="@dimen/_5sdp"
-                android:background="@drawable/darkround"
-                android:src="@drawable/ic_person_doctorhomepage"/>
+                android:background="@drawable/ic_baseline_info_24"/>
 
         </LinearLayout>
 

@@ -172,7 +172,7 @@ public class selectDate_hmo extends AppCompatActivity implements DatePickerDialo
                     @Override
                     public void onCancel(DialogInterface dialogInterface) {
 
-                        Toast.makeText(selectDate_hmo.this, "Datepicker Canceled", Toast.LENGTH_SHORT).show();
+
                     }
                 });
 
