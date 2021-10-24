@@ -46,13 +46,12 @@
 
         <TextView
             android:id="@+id/None"
-            android:layout_width="249dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="85dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
             android:text="There is no current record"
-            android:textStyle="bold"
-            android:textSize="20dp" />
+            android:textSize="18dp"
+            android:visibility="gone"/>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/Doctor_patBP"
             android:layout_width="match_parent"
