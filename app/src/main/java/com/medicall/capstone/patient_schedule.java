@@ -349,7 +349,7 @@ public class patient_schedule extends AppCompatActivity  {
                                                                 holder.tvpatname.setText("Patient: "+ patname);
                                                                 holder.tvdocname.setText("Doctor: "+docname);
                                                                 holder.tvdatesched.setText("Date: "+date);
-                                                                holder.tvstatus.setText(Html.fromHtml("Status: "+"font colors='#2FD845'>Paid</font>"));
+                                                                holder.tvstatus.setText(Html.fromHtml("Status: "+"<font color='#2FD845'>COMPLETED</font>"));
                                                                 break;
                                                             case "Rescheduled":
                                                                 holder.tvpatname.setText("Patient: "+ patname);
