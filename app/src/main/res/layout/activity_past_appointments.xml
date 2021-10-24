@@ -56,17 +56,17 @@
             android:visibility="gone"
            />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/past_appointment_secsched"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
+
+        </androidx.recyclerview.widget.RecyclerView>
 
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/past_appointment_secsched"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-
-    </androidx.recyclerview.widget.RecyclerView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
