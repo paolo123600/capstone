@@ -22,7 +22,8 @@
         android:theme="@style/Theme.Capstone"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".View_doctor_info_hmo"></activity>
+        <activity android:name=".doctor.E_Prescription_Template"></activity>
+        <activity android:name=".View_doctor_info_hmo" />
         <activity android:name=".selectClinic_info" />
         <activity android:name=".changeEmail_Secretary" />
         <activity android:name=".changeEmail_Doctor" />
