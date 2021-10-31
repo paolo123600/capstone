@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +37,7 @@ import com.medicall.capstone.R;
 import com.medicall.capstone.activities.OutgoingInvitationActivity;
 import com.medicall.capstone.doctor.Doctor_schedlist_pastsched;
 import com.medicall.capstone.doctor.Doctor_schedlist_upcoming;
+import com.medicall.capstone.doctor.E_Prescription_Template;
 import com.medicall.capstone.models.User;
 import com.medicall.capstone.utilities.Constants;
 import com.medicall.capstone.utilities.PreferenceManager;
@@ -97,6 +99,7 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
     RecyclerView mFirestorelist;
     String userId;
     ImageView btncomplete , btnnext;
+    ImageButton btnprescription;
     private BroadcastReceiver minuteUpdateReceiver;
 
     private StorageReference storageReference;
@@ -106,7 +109,7 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
     Bitmap getpic;
 
 
-
+    String clname;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,6 +141,7 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
         pat_record= (Button) findViewById(R.id.btn_patient);
         callbtn = (Button) findViewById(R.id.btn_call);
         drawer = findViewById(R.id.drawer_layout_doc);
+        btnprescription = findViewById(R.id.button_prescription);
         NavigationView navigationView = findViewById(R.id.nav_viewer_doc);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -151,6 +155,8 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
         toggle.syncState();
 
         updateNavHeader();
+
+
 
 
         patnametv = (TextView) findViewById(R.id.tvPatname);
@@ -220,6 +226,25 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
                 Intent intent = new Intent(getApplicationContext(), RecentChatDoc.class);
                 startActivity(intent);
 
+            }
+        });
+
+        DocumentReference documentReferenceCLINIC = db.collection("Doctors").document(userId);
+        documentReferenceCLINIC.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                clname = documentSnapshot.getString("ClinicName");
+            }
+        });
+
+        btnprescription.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), E_Prescription_Template.class);
+                intent.putExtra("patid",patUid);
+                intent.putExtra("docid", userId);
+                intent.putExtra("clname", clname);
+                startActivity(intent);
             }
         });
 
