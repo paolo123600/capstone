@@ -841,6 +841,9 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
                 startActivity(intent3);
 
                 break;
+            case R.id.nav_upload_signature:
+                Intent intent4 = new Intent(getApplicationContext(), Doc_Upload_Signature.class);
+                startActivity(intent4);
         }
 
         drawer.closeDrawer(GravityCompat.START);
