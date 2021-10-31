@@ -29,7 +29,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.medicall.capstone.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 public class Sign_UpActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener {
@@ -78,9 +81,17 @@ protected void onCreate(Bundle savedInstanceState) {
         @Override
         public void onClick(View view) {
             ///bday
+            SimpleDateFormat format1 = new SimpleDateFormat("MMMM d ,yyyy");
+            SimpleDateFormat format2 = new SimpleDateFormat("MM d yyyy");
+            String date ="";
+            try {
+                Date date1 = format2.parse(String.valueOf(dateButton.getText()));
+                date = format1.format(date1);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
 
-
-            gv.setBday(String.valueOf(dateButton.getText()));
+            gv.setBday(date);
 
             gv.setFname(String.valueOf(ET_FName.getText()));
             gv.setLname(String.valueOf(ET_LName.getText()));

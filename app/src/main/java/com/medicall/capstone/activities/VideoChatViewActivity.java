@@ -649,7 +649,9 @@ private  boolean inpip = false;
             mSwitchCameraBtn.setVisibility(View.VISIBLE);
             mLocalContainer.setVisibility(View.VISIBLE);
             mChatButton.setVisibility(View.VISIBLE);
-
+            if (!usertype.equals("Patient")){
+                mAddNote.setVisibility(View.VISIBLE);
+            }
 
             mLocalView.setVisibility(View.VISIBLE);
 
