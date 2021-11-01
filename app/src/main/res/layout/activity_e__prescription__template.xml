@@ -18,7 +18,7 @@
             android:padding="@dimen/_10sdp">
 
             <TextView
-                android:id="@+id/eprescrip_doctor_name"
+                android:id="@+id/eprescript_doctor_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Name"
@@ -26,7 +26,7 @@
                 android:textColor="@color/black"/>
 
             <TextView
-                android:id="@+id/eprescrip_specialization"
+                android:id="@+id/eprescript_specialization"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Specialization"
@@ -34,29 +34,33 @@
                 android:textColor="@color/black"/>
 
             <TextView
-                android:id="@+id/eprescrip_clinic_name"
+                android:id="@+id/eprescript_clinic_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Clinic Name"
-                android:textSize="@dimen/_10sdp"/>
+                android:textSize="@dimen/_10sdp"
+                android:textColor="@color/black"/>
 
             <TextView
-                android:id="@+id/eprescrip_address"
+                android:id="@+id/eprescript_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Address"/>
+                android:text="Address"
+                android:textColor="@color/black"/>
 
             <TextView
-                android:id="@+id/eprescrip_contact"
+                android:id="@+id/eprescript_contact"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Contact Number"/>
+                android:text="Contact Number"
+                android:textColor="@color/black"/>
 
             <TextView
-                android:id="@+id/eprescrip_email"
+                android:id="@+id/eprescript_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Email"/>
+                android:text="Email"
+                android:textColor="@color/black"/>
 
 
 
@@ -82,7 +86,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/eprescrip_patient_name"
+                    android:id="@+id/eprescript_patient_name"
                     android:layout_weight="3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -90,7 +94,7 @@
                     android:textColor="@color/black"/>
 
                 <TextView
-                    android:id="@+id/eprescrip_patient_age"
+                    android:id="@+id/eprescript_patient_age"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -98,7 +102,7 @@
                     android:textColor="@color/black"/>
 
                 <TextView
-                    android:id="@+id/eprescrip_patient_sex"
+                    android:id="@+id/eprescript_patient_sex"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -115,7 +119,7 @@
                 android:layout_marginTop="@dimen/_5sdp">
 
                 <TextView
-                    android:id="@+id/eprescrip_patient_address"
+                    android:id="@+id/eprescript_patient_address"
                     android:layout_weight="3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -125,7 +129,7 @@
 
 
                 <TextView
-                    android:id="@+id/eprescrip_patient_date"
+                    android:id="@+id/eprescript_patient_date"
                     android:layout_weight="2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -182,11 +186,12 @@
                 android:gravity="center">
 
                 <ImageView
-                    android:layout_width="@dimen/_50sdp"
+                    android:id="@+id/doctor_signature"
+                    android:layout_width="@dimen/_100sdp"
                     android:layout_height="@dimen/_50sdp"/>
 
                 <TextView
-                    android:id="@+id/eprescrip_docotor_name_below"
+                    android:id="@+id/eprescript_docotor_name_below"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Doctor Name"

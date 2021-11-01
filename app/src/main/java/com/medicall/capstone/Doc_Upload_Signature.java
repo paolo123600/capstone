@@ -262,7 +262,7 @@ public class Doc_Upload_Signature extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                            bmp.compress(Bitmap.CompressFormat.JPEG, 10, baos);
+                            bmp.compress(Bitmap.CompressFormat.PNG, 10, baos);
                             byte[] fileinbytes = baos.toByteArray();
                             UploadTask uploadTask = storageReference.putBytes(fileinbytes);
 
