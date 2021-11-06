@@ -1,19 +1,15 @@
-package com.medicall.capstone.doctor;
+package com.medicall.capstone;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,9 +27,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.medicall.capstone.GlobalVariables;
-import com.medicall.capstone.R;
-import com.medicall.capstone.doctor_homepage;
 
 import java.io.File;
 import java.io.IOException;
@@ -41,10 +34,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
-public class E_Prescription_Template extends AppCompatActivity {
+public class E_Prescription_Patient extends AppCompatActivity {
 
     TextView doctorname, doctornamebelow, doctorspecialization, clinicname, clinicaddress, contactnumber, email, date;
     TextView patientname, patient_age, patient_sex, patients_address;
@@ -58,30 +49,26 @@ public class E_Prescription_Template extends AppCompatActivity {
     private FirebaseStorage storage;
     String image;
     Bitmap getpic;
-    EditText docprescript;
-    Button submit;
-
+    TextView docprescript;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_e__prescription__template);
+        setContentView(R.layout.activity_e__prescription__patient);
+        doctorname = findViewById(R.id.patient_eprescript_doctor_name);
+        doctornamebelow = findViewById(R.id.patient_eprescript_docotor_name_below);
+        doctorspecialization = findViewById(R.id.patient_eprescript_specialization);
+        clinicname = findViewById(R.id.patient_eprescript_clinic_name);
+        clinicaddress = findViewById(R.id.patient_eprescript_address);
+        contactnumber = findViewById(R.id.patient_eprescript_contact);
+        email = findViewById(R.id.patient_eprescript_email);
+        date = findViewById(R.id.patient_eprescript_patient_date);
+        docprescript = findViewById(R.id.patient_eprescript_doctorprescription);
 
-        doctorname = findViewById(R.id.eprescript_doctor_name);
-        doctornamebelow = findViewById(R.id.eprescript_docotor_name_below);
-        doctorspecialization = findViewById(R.id.eprescript_specialization);
-        clinicname = findViewById(R.id.eprescript_clinic_name);
-        clinicaddress = findViewById(R.id.eprescript_address);
-        contactnumber = findViewById(R.id.eprescript_contact);
-        email = findViewById(R.id.eprescript_email);
-        date = findViewById(R.id.eprescript_patient_date);
-        docprescript = findViewById(R.id.eprescript_doctorprescription);
-        submit = findViewById(R.id.eprescription_submit);
-
-        patientname = findViewById(R.id.eprescript_patient_name);
-        patient_age = findViewById(R.id.eprescript_patient_age);
-        patient_sex = findViewById(R.id.eprescript_patient_sex);
-        patients_address = findViewById(R.id.eprescript_patient_address);
+        patientname = findViewById(R.id.patient_eprescript_patient_name);
+        patient_age = findViewById(R.id.patient_eprescript_patient_age);
+        patient_sex = findViewById(R.id.patient_eprescript_patient_sex);
+        patients_address = findViewById(R.id.patient_eprescript_patient_address);
         docsignature = findViewById(R.id.doctor_signature);
 
         fAuth = FirebaseAuth.getInstance();
@@ -95,38 +82,9 @@ public class E_Prescription_Template extends AppCompatActivity {
         String docid = intent.getStringExtra("docid");
         String clname = intent.getStringExtra("clname");
         String ddate = intent.getStringExtra("ddate");
+        String schedid = intent.getStringExtra("schedid");
 
-        String clinicnameID = clinicname.toString();
-
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new AlertDialog.Builder(E_Prescription_Template.this).setTitle("Prescription").setMessage("Are you sure you want to send this prescription?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String doctor_prescription = docprescript.getText().toString();
-
-                        Date datenow = Calendar.getInstance().getTime();
-                        Map<String, Object> eprescript = new HashMap<>();
-                        eprescript.put("Prescription", doctor_prescription);
-                        eprescript.put("Dnt", datenow);
-
-                        db.collection("Schedules").document(gv.getSDid()).collection("Prescription").document("Doctor_Prescription").set(eprescript);
-
-                        Intent intent = new Intent(getApplicationContext(), doctor_homepage.class);
-                        startActivity(intent);
-                    }
-                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                }).show();
-
-            }
-        });
-
-        DocumentReference documentReferenceSchedule = db.collection("Schedules").document(gv.getSDid()).collection("Prescription").document("Doctor_Prescription");
+        DocumentReference documentReferenceSchedule = db.collection("Schedules").document(schedid).collection("Prescription").document("Doctor_Prescription");
         documentReferenceSchedule.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
@@ -134,10 +92,11 @@ public class E_Prescription_Template extends AppCompatActivity {
 
 
             }
+
+
         });
 
-
-        DocumentReference documentReferenceDOC = db.collection("Doctors").document(docid);
+        DocumentReference documentReferenceDOC = db.collection("Doctors").document(gv.getSDDocUid());
         documentReferenceDOC.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
@@ -165,7 +124,8 @@ public class E_Prescription_Template extends AppCompatActivity {
             }
         });
 
-        DocumentReference documentReferenceCLINIC = db.collection("Clinics").document(clname);
+
+        DocumentReference documentReferenceCLINIC = db.collection("Clinics").document(gv.getSDClinic());
         documentReferenceCLINIC.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
@@ -173,9 +133,6 @@ public class E_Prescription_Template extends AppCompatActivity {
                 contactnumber.setText(documentSnapshot.getString("ContactNumber"));
             }
         });
-
-
-
 
         DocumentReference documentReference = db.collection("Patients").document(patid);
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
@@ -190,7 +147,6 @@ public class E_Prescription_Template extends AppCompatActivity {
 
                 int age = 0;
                 try {
-
                     SimpleDateFormat format = new SimpleDateFormat("MMMM d ,yyyy");
                     Date date1 = format.parse(documentSnapshot.getString("Birthday"));
                     Calendar now = Calendar.getInstance();
@@ -225,7 +181,7 @@ public class E_Prescription_Template extends AppCompatActivity {
                 date.setText("Date: " + datenowstring);
 
 
-                db.collection("Doctors").whereEqualTo("SignatureId", docid).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                db.collection("Doctors").whereEqualTo("SignatureId", gv.getSDDocUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
@@ -252,9 +208,6 @@ public class E_Prescription_Template extends AppCompatActivity {
                     }
                 });
 
-
-
-               
 
 
             }

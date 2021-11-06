@@ -32,6 +32,7 @@ import com.medicall.capstone.Login;
 import com.medicall.capstone.MessageActivity;
 import com.medicall.capstone.NoteActivity;
 import com.medicall.capstone.R;
+import com.medicall.capstone.doctor.E_Prescription_Template;
 import com.medicall.capstone.utilities.Constants;
 import com.medicall.capstone.utilities.PreferenceManager;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -76,6 +77,8 @@ public class VideoChatViewActivity extends AppCompatActivity {
     private boolean chatmode = false;
     private boolean onStopCalled = false;
     private ViewGroup.LayoutParams params2;
+
+    ImageButton docprescription;
 
     private ImageView mCallBtn;
     private ImageView mMuteBtn;
@@ -211,6 +214,70 @@ private  boolean inpip = false;
         GlobalVariables gv = (GlobalVariables) getApplicationContext();
         chtlayout = findViewById(R.id.chatlayout);
         db= FirebaseFirestore.getInstance();
+        docprescription = findViewById(R.id.videochathome_prescription);
+
+        Intent intent1 = getIntent();
+        String patid = intent1.getStringExtra("patid");
+        String docid = intent1.getStringExtra("docid");
+        String clname = intent1.getStringExtra("clname");
+        String ddate = intent1.getStringExtra("ddate");
+
+        docprescription.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    if(usertype.equals("Patient")){
+                        Rational rational = new Rational(2,
+                                3);
+                        PictureInPictureParams params3 =
+                                new PictureInPictureParams.Builder()
+                                        .setAspectRatio(rational)
+                                        .build();
+                        setPictureInPictureParams(params3);
+                        enterPictureInPictureMode(params3);
+                        Intent intent = new Intent(VideoChatViewActivity.this, E_Prescription_Template.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.putExtra("patid",patid);
+                        intent.putExtra("docid", docid);
+                        intent.putExtra("clname", clname);
+                        intent.putExtra("ddate", ddate);
+                        startActivity(intent);
+                    }
+                    else{
+                        Rational rational = new Rational(2,
+                                3);
+                        PictureInPictureParams params3 =
+                                new PictureInPictureParams.Builder()
+                                        .setAspectRatio(rational)
+                                        .build();
+                        setPictureInPictureParams(params3);
+                        enterPictureInPictureMode(params3);
+
+                        Intent intent = new Intent(VideoChatViewActivity.this, E_Prescription_Template.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.putExtra("patid",patid);
+                        intent.putExtra("docid", docid);
+                        intent.putExtra("clname", clname);
+                        intent.putExtra("ddate", ddate);
+                        startActivity(intent);
+
+
+                    }
+
+
+
+
+                } else {
+
+                }
+
+
+            }
+
+        });
+
+
+
         mChatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
