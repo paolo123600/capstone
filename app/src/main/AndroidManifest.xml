@@ -22,6 +22,8 @@
         android:theme="@style/Theme.Capstone"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
+        <activity android:name=".UpcomingSchedStatus"></activity>
+        <activity android:name=".View_doctor_info_hmo" />
         <activity android:name=".doctor.E_Prescription_Template"></activity>
         <activity android:name=".View_doctor_info_hmo" />
         <activity android:name=".selectClinic_info" />

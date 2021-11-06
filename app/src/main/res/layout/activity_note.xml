@@ -9,24 +9,24 @@
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="match_parent"
-        android:layout_height="58dp"
-        android:layout_marginTop="@dimen/_50sdp"
+        android:layout_width="71dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_50sdp"
         android:text="@string/note"
         android:textSize="24sp" />
 
     <EditText
         android:id="@+id/MLnote"
-        android:layout_width="320dp"
-        android:layout_height="327dp"
+        android:layout_width="366dp"
+        android:layout_height="466dp"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/_10sdp"
         android:background="@drawable/roundtbox"
         android:ems="10"
-        android:padding="@dimen/_5sdp"
         android:gravity="start|top"
-        android:inputType="textMultiLine" />
+        android:inputType="textMultiLine"
+        android:padding="@dimen/_5sdp" />
 
     <Button
         android:id="@+id/btnnoteconfirm"
