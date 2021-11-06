@@ -148,7 +148,9 @@ public class Doctor_schedlist_upcoming extends AppCompatActivity {
                                             holder.itemView.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
+                                                    String documentId = getSnapshots().getSnapshot(position).getId();
                                                     Intent intent1 = new Intent(getApplicationContext(),UpcomingSchedStatus.class);
+                                                    intent1.putExtra("documentid",documentId);
                                                     startActivity(intent1);
                                                 }
                                             });

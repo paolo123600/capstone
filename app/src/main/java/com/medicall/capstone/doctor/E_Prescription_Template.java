@@ -134,6 +134,7 @@ public class E_Prescription_Template extends AppCompatActivity {
 
                 int age = 0;
                 try {
+
                     SimpleDateFormat format = new SimpleDateFormat("MMMM d ,yyyy");
                     Date date1 = format.parse(documentSnapshot.getString("Birthday"));
                     Calendar now = Calendar.getInstance();
@@ -195,6 +196,9 @@ public class E_Prescription_Template extends AppCompatActivity {
                     }
                 });
 
+
+
+               
 
 
             }

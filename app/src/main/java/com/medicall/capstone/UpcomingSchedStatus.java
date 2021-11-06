@@ -4,14 +4,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -60,6 +63,7 @@ public class UpcomingSchedStatus extends AppCompatActivity {
     private StorageReference storageReference;
     private FirebaseStorage storage;
     FirebaseFirestore db;
+    String documentid;
 
 
 
@@ -69,6 +73,7 @@ public class UpcomingSchedStatus extends AppCompatActivity {
         setContentView(R.layout.activity_upcoming_sched_status);
 
 
+        documentid = getIntent().getExtras().getString("documentid");
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
 
@@ -92,99 +97,53 @@ public class UpcomingSchedStatus extends AppCompatActivity {
 
         userId = fAuth.getCurrentUser().getUid();
 
-
-        db.collection("Schedules").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("Schedules").document(documentid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
-            public void onComplete(@NonNull @NotNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()){
-                    for (QueryDocumentSnapshot document : task.getResult()){
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                clinicname.setText(documentSnapshot.getString("ClinicName"));
+                payment.setText(documentSnapshot.getString("Price"));
+                date.setText(documentSnapshot.getDate("Date").toString());
 
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm aa");
-                        Date times = new Date();
-
-
-
-                        clinicname.setText(document.getString("ClinicName"));
-                        payment.setText(document.getString("Price"));
-                        date.setText(document.getDate("Date").toString());
-
-                        String docUid = document.getString("DoctorUId");
-                        db.collection("Doctors").whereEqualTo("UserId", docUid).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull @NotNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()){
-                                    QuerySnapshot querySnapshot = task.getResult();
-                                    if (!querySnapshot.isEmpty()){
-                                        for (QueryDocumentSnapshot doctor: task.getResult()){
-                                            doctorname.setText(doctor.getString("LastName" ) + " " + doctor.getString("FirstName"));
-                                        }
-                                    }
+                String docUid = documentSnapshot.getString("DoctorUId");
+                String PatUid = documentSnapshot.getString("PatientUId");
+                db.collection("Doctors").whereEqualTo("UserId", docUid).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull @NotNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()){
+                            QuerySnapshot querySnapshot = task.getResult();
+                            if (!querySnapshot.isEmpty()){
+                                for (QueryDocumentSnapshot doctor: task.getResult()){
+                                    doctorname.setText(doctor.getString("LastName" ) + " " + doctor.getString("FirstName"));
                                 }
                             }
-                        });
+                        }
+                    }
+                });
+                db.collection("Patients").whereEqualTo("UserId", PatUid).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull @NotNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()){
+                            QuerySnapshot querySnapshot = task.getResult();
+                            if (!querySnapshot.isEmpty()){
+                                for (QueryDocumentSnapshot pat: task.getResult()){
+                                    firstname.setText(pat.getString("LastName" ) + " " + pat.getString("FirstName"));
 
-                        String Patname = document.getString("PatientUId");
-                        db.collection("Patients").whereEqualTo("UserId", Patname).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull @NotNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()){
-                                    QuerySnapshot querySnapshot = task.getResult();
-                                    if (!querySnapshot.isEmpty()){
-                                        for (QueryDocumentSnapshot pat: task.getResult()){
-                                            firstname.setText(pat.getString("LastName" ) + " " + pat.getString("FirstName"));
-
-                                        }
-                                    }
-                                }
-
-                            }
-                        });
-
-                        String Pic = document.getString("PatientUId");
-                        db.collection("Patients").whereEqualTo("UserId", Pic).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull @NotNull Task<QuerySnapshot> task) {
-                                if(task.isSuccessful()){
-                                    QuerySnapshot querySnapshot = task.getResult();
-                                    if(!querySnapshot.isEmpty()){
-                                        for(QueryDocumentSnapshot profile : task.getResult()){
-                                            image = profile.getString("StorageId");
-                                            if(image.equals("None")){
-                                                dpicture.setBackgroundResource(R.drawable.circlebackground);
-                                            }
-                                            else{
-                                                storageReference = FirebaseStorage.getInstance().getReference("PatientPicture/" + image);
-                                                try{
-                                                    File local = File.createTempFile("myProfilePicture",".jpg");
-                                                    storageReference.getFile(local)
-                                                            .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                                                                @Override
-                                                                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                                                                    profilepic = BitmapFactory.decodeFile(local.getAbsolutePath());
-                                                                    dpicture.setImageBitmap(profilepic);
-                                                                }
-                                                            });
-                                                }
-                                                catch (IOException e){
-                                                    e.printStackTrace();
-                                                }
-                                            }
-
-                                        }
-                                    }
                                 }
                             }
-                        });
-
-
-
-
-
+                        }
 
                     }
-                }
+                });
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(UpcomingSchedStatus.this, "Error Getting Schedule Information", Toast.LENGTH_SHORT).show();
             }
         });
+
+
 
 
 
