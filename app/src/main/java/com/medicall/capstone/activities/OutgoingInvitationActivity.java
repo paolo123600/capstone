@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.medicall.capstone.GlobalVariables;
 import com.medicall.capstone.R;
+import com.medicall.capstone.doctor_homepage;
 import com.medicall.capstone.models.User;
 import com.medicall.capstone.network.ApiClient;
 import com.medicall.capstone.network.ApiService;
@@ -57,6 +58,10 @@ public class OutgoingInvitationActivity extends AppCompatActivity {
         mediaPlayer.start();
 
         preferenceManager= new PreferenceManager(getApplicationContext());
+
+
+
+
 
         ImageView imageMeetingType = findViewById(R.id.imageMeetingType);
         String meetingType = getIntent().getStringExtra("type");
@@ -193,6 +198,9 @@ public class OutgoingInvitationActivity extends AppCompatActivity {
         }
     }
 
+
+
+
     private BroadcastReceiver invitationResponseReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -203,10 +211,20 @@ public class OutgoingInvitationActivity extends AppCompatActivity {
 //                        GlobalVariables gv = (GlobalVariables) getApplicationContext();
 //                        Toast.makeText(OutgoingInvitationActivity.this,gv.getChannel_Name() , Toast.LENGTH_SHORT).show();
 
+                        Intent intent1 = getIntent();
+                        String patid = intent1.getStringExtra("patid");
+                        String docid = intent1.getStringExtra("docid");
+                        String clname = intent1.getStringExtra("clname");
+                        String ddate = intent1.getStringExtra("ddate");
+
 
                         Intent intents = new Intent(OutgoingInvitationActivity.this, VideoChatViewActivity.class);
                         intents.putExtra("name",name);
                         intents.putExtra("friendid","");
+                        intents.putExtra("patid",patid);
+                        intents.putExtra("docid", docid);
+                        intents.putExtra("clname", clname);
+                        intents.putExtra("ddate", ddate);
                         startActivity(intents);
                         finish();
                         mediaPlayer.stop();

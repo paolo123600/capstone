@@ -7,34 +7,77 @@
     android:orientation="vertical"
     tools:context="com.medicall.capstone.NoteActivity">
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="71dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_50sdp"
-        android:text="@string/note"
-        android:textSize="24sp" />
+    <LinearLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/blue2"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
 
-    <EditText
-        android:id="@+id/MLnote"
-        android:layout_width="366dp"
-        android:layout_height="466dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:background="@drawable/roundtbox"
-        android:ems="10"
-        android:gravity="start|top"
-        android:inputType="textMultiLine"
-        android:padding="@dimen/_5sdp" />
 
-    <Button
-        android:id="@+id/btnnoteconfirm"
-        android:layout_width="174dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:background="@drawable/darkround"
-        android:text="Confirm"
-        android:textColor="@color/white" />
+        <ImageView
+            android:id="@+id/backspace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:background="@drawable/ic_backspace" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Note"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:textSize="@dimen/_15sdp"
+            android:textColor="@color/white"/>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <EditText
+            android:id="@+id/MLnote"
+            android:layout_width="366dp"
+            android:layout_height="466dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:background="@drawable/roundtbox"
+            android:ems="10"
+            android:gravity="start|top"
+            android:inputType="textMultiLine"
+            android:padding="@dimen/_5sdp" />
+
+        <Button
+            android:id="@+id/btnnoteconfirm"
+            android:layout_width="174dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/darkround"
+            android:text="Confirm"
+            android:textColor="@color/white" />
+
+
+
+    </LinearLayout>
+
+    </ScrollView>
+
+
 </LinearLayout>

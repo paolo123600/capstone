@@ -4,14 +4,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".doctor.E_Prescription_Template">
-
-
+    tools:context=".E_Prescription_Patient">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/blue2"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:layout_constraintTop_toTopOf="parent"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+
+            <ImageView
+                android:id="@+id/backspace"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:background="@drawable/ic_backspace" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Medical Records"
+                android:layout_marginLeft="@dimen/_20sdp"
+                android:textSize="@dimen/_15sdp"
+                android:textColor="@color/white"/>
+
+        </LinearLayout>
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -20,7 +51,7 @@
             android:padding="@dimen/_10sdp">
 
             <TextView
-                android:id="@+id/eprescript_doctor_name"
+                android:id="@+id/patient_eprescript_doctor_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Name"
@@ -28,7 +59,7 @@
                 android:textColor="@color/black"/>
 
             <TextView
-                android:id="@+id/eprescript_specialization"
+                android:id="@+id/patient_eprescript_specialization"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Specialization"
@@ -36,7 +67,7 @@
                 android:textColor="@color/black"/>
 
             <TextView
-                android:id="@+id/eprescript_clinic_name"
+                android:id="@+id/patient_eprescript_clinic_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Clinic Name"
@@ -44,21 +75,21 @@
                 android:textColor="@color/black"/>
 
             <TextView
-                android:id="@+id/eprescript_address"
+                android:id="@+id/patient_eprescript_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Address"
                 android:textColor="@color/black"/>
 
             <TextView
-                android:id="@+id/eprescript_contact"
+                android:id="@+id/patient_eprescript_contact"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Contact Number"
                 android:textColor="@color/black"/>
 
             <TextView
-                android:id="@+id/eprescript_email"
+                android:id="@+id/patient_eprescript_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Email"
@@ -75,7 +106,7 @@
             android:layout_marginTop="@dimen/_10sdp"/>
 
         <LinearLayout
-            android:id="@+id/eprescription_patient_info"
+            android:id="@+id/patient_eprescription_patient_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -88,7 +119,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/eprescript_patient_name"
+                    android:id="@+id/patient_eprescript_patient_name"
                     android:layout_weight="3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -96,7 +127,7 @@
                     android:textColor="@color/black"/>
 
                 <TextView
-                    android:id="@+id/eprescript_patient_age"
+                    android:id="@+id/patient_eprescript_patient_age"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -104,7 +135,7 @@
                     android:textColor="@color/black"/>
 
                 <TextView
-                    android:id="@+id/eprescript_patient_sex"
+                    android:id="@+id/patient_eprescript_patient_sex"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -121,7 +152,7 @@
                 android:layout_marginTop="@dimen/_5sdp">
 
                 <TextView
-                    android:id="@+id/eprescript_patient_address"
+                    android:id="@+id/patient_eprescript_patient_address"
                     android:layout_weight="3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -131,7 +162,7 @@
 
 
                 <TextView
-                    android:id="@+id/eprescript_patient_date"
+                    android:id="@+id/patient_eprescript_patient_date"
                     android:layout_weight="2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -156,11 +187,11 @@
             android:orientation="vertical">
 
 
-            <EditText
-                android:id="@+id/eprescript_doctorprescription"
+            <TextView
+                android:id="@+id/patient_eprescript_doctorprescription"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="Enter your prescription"
+                android:hint="Your Prescription"
                 android:gravity="top"/>
 
 
@@ -179,13 +210,7 @@
                 android:gravity="center"
                 android:layout_gravity="center">
 
-                <Button
-                    android:id="@+id/eprescription_submit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Submit"
-                    android:background="@drawable/darkround"
-                    android:textColor="@color/white"/>
+
 
             </LinearLayout>
 
@@ -202,7 +227,7 @@
                     android:layout_height="@dimen/_50sdp"/>
 
                 <TextView
-                    android:id="@+id/eprescript_docotor_name_below"
+                    android:id="@+id/patient_eprescript_docotor_name_below"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Doctor Name"

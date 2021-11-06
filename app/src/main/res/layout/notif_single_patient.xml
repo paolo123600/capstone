@@ -59,6 +59,16 @@
                 android:textSize="18sp"
                 android:textStyle="bold"/>
 
+            <Button
+                android:id="@+id/patient_prescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Prescription"
+                android:background="@drawable/darkround"
+                android:padding="@dimen/_10sdp"
+                android:layout_gravity="right"
+                android:textColor="@color/white"/>
+
 
 
         </LinearLayout>

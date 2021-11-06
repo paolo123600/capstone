@@ -252,6 +252,7 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
                 intent.putExtra("patid",patUid);
                 intent.putExtra("docid", userId);
                 intent.putExtra("clname", clname);
+                intent.putExtra("ddate", DDate);
                 startActivity(intent);
             }
         });
@@ -297,6 +298,10 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
                                     Intent intent = new Intent(getApplicationContext(), OutgoingInvitationActivity.class);
                                     intent.putExtra("user", user);
                                     intent.putExtra("type", "video");
+                                    intent.putExtra("patid",patUid);
+                                    intent.putExtra("docid", userId);
+                                    intent.putExtra("clname", clname);
+                                    intent.putExtra("ddate", DDate);
                                     startActivity(intent);
                                 }
 
@@ -442,7 +447,7 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
                                                 if (timenow.after(times)){
                                                     String documentsched =document.getId();
                                                     Date currentTime = Calendar.getInstance().getTime();
-                                                    db.collection("Schedules").document(documentsched).update("Status","Unattended", "Dnt", currentTime).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    db.collection("Schedules").document(documentsched).update("Status","Unattended3", "Dnt", currentTime).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                         @Override
                                                         public void onSuccess(Void aVoid) {
 
@@ -469,7 +474,7 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
                                         for (QueryDocumentSnapshot document : task.getResult()) {
                                             String documentsched =document.getId();
                                             Date currentTime = Calendar.getInstance().getTime();
-                                            db.collection("Schedules").document(documentsched).update("Status","Unattended","Dnt", currentTime).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            db.collection("Schedules").document(documentsched).update("Status","Unattended2","Dnt", currentTime).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void aVoid) {
 

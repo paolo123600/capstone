@@ -107,8 +107,6 @@ public class patient_schedule extends AppCompatActivity  {
         back = findViewById(R.id.backspace);
 
 
-
-
         ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(this,
                 R.array.StatusPat, R.layout.custom_spinner);
 
@@ -158,6 +156,7 @@ public class patient_schedule extends AppCompatActivity  {
                                 cancelbtn.setVisibility(View.VISIBLE);}
 
                             scheddocu =doc.getId();
+                            gv.setSDid(scheddocu);
                             docid=doc.getString("DoctorUId");
                             db.collection("Doctors").document(docid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                 @Override
@@ -332,6 +331,31 @@ public class patient_schedule extends AppCompatActivity  {
                         String date=  format.format(datesched);
                         String status = model.getStatus();
                         Date bookeddate = model.getDnt();
+                        holder.pat_prescription.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                String documentId = getSnapshots().getSnapshot(position).getId();
+                                Toast.makeText(patient_schedule.this, documentId, Toast.LENGTH_SHORT).show();
+                                db.collection("Schedules").document(documentId).collection("Prescription").document("Doctor_Prescription").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                        DocumentSnapshot documentSnapshot = task.getResult();
+                                        if (!documentSnapshot.exists()){
+                                            Toast.makeText(patient_schedule.this, "No Prescription", Toast.LENGTH_SHORT).show();
+                                        }else {
+                                            Intent intent = new Intent(getApplicationContext(), E_Prescription_Patient.class);
+                                            intent.putExtra("patid",model.getPatientUId());
+                                            intent.putExtra("docid",model.getDoctorUId());
+                                            intent.putExtra("clname",model.getClinicname());
+                                            intent.putExtra("schedid", documentId);
+                                            startActivity(intent);
+                                        }
+                                    }
+                                });
+
+                            }
+                        });
+
                         db.collection("Patients").document(model.getPatientUId()).get()
                                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                     @Override
@@ -436,8 +460,10 @@ public class patient_schedule extends AppCompatActivity  {
 
     private class Schedholder extends RecyclerView.ViewHolder{
         TextView tvpatname , tvdocname , tvstatus, tvdate, tvdatesched;
+        Button pat_prescription;
         public Schedholder(@NonNull View itemView) {
             super(itemView);
+            pat_prescription = itemView.findViewById(R.id.patient_prescription);
             tvpatname = itemView.findViewById(R.id.notif_patname);
             tvdocname = itemView.findViewById(R.id.notif_docname);
             tvstatus = itemView.findViewById(R.id.notif_patStatus);
