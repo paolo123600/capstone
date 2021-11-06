@@ -99,7 +99,8 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
     RecyclerView mFirestorelist;
     String userId;
     ImageView btncomplete , btnnext;
-    ImageButton btnprescription;
+    ImageButton btnprescription , btnnote;
+
     private BroadcastReceiver minuteUpdateReceiver;
 
     private StorageReference storageReference;
@@ -131,6 +132,7 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
             Toast.makeText(this, "error", Toast.LENGTH_SHORT).show();
         }
 
+        btnnote = (ImageButton) findViewById(R.id.button_note);
         mFirestorelist = (RecyclerView)findViewById(R.id.scheddoc_list);
         noofappoints = (TextView) findViewById(R.id.position);
         btncomplete= (ImageView) findViewById(R.id.button_complete);
@@ -209,7 +211,13 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
 
 
 
-
+        btnnote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(doctor_homepage.this, NoteActivity.class);
+                startActivity(intent);
+            }
+        });
         GlobalVariables gv = (GlobalVariables) getApplicationContext();
         pat_record.setOnClickListener(new View.OnClickListener() {
             @Override

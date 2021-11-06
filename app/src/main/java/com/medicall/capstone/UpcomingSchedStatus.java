@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -46,8 +47,8 @@ public class UpcomingSchedStatus extends AppCompatActivity {
     TextView date;
     TextView time;
     TextView payment;
-    Button note;
-    Button prescription;
+    Button notebtn;
+    Button prescriptionbtn;
 
 
     String userId;
@@ -89,8 +90,8 @@ public class UpcomingSchedStatus extends AppCompatActivity {
         date = findViewById(R.id.date_status);
         time = findViewById(R.id.time_status);
         payment = findViewById(R.id.payment_status);
-        note = (Button) findViewById(R.id.view_note);
-        prescription = (Button) findViewById(R.id.view_prescription);
+        notebtn = (Button) findViewById(R.id.view_note);
+        prescriptionbtn = (Button) findViewById(R.id.view_prescription);
 
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
@@ -151,7 +152,14 @@ public class UpcomingSchedStatus extends AppCompatActivity {
 
 
 
-
+notebtn.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        Intent intent = new Intent(UpcomingSchedStatus.this, CheckNote.class);
+        intent.putExtra("documentid",documentid);
+        startActivity(intent);
+    }
+});
 
 
 

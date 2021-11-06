@@ -96,6 +96,14 @@
                                 android:background="@drawable/doctor_rxlogo_white"
                                 android:layout_marginLeft="@dimen/_10sdp"
                                 android:layout_marginTop="@dimen/_5sdp"/>
+                            <ImageButton
+                                android:id="@+id/button_note"
+                                android:layout_width="44dp"
+                                android:layout_height="44dp"
+                                android:text="Move"
+                                android:background="@drawable/doctor_rxlogo_white"
+                                android:layout_marginLeft="@dimen/_10sdp"
+                                android:layout_marginTop="@dimen/_5sdp"/>
 
                         </LinearLayout>
 
@@ -247,6 +255,9 @@
 
 
 
+
+
+
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_viewer_doc"
         android:layout_width="wrap_content"
@@ -254,9 +265,6 @@
         android:layout_gravity="start"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/drawer_menu_doc"/>
-
-
-
 
 
 

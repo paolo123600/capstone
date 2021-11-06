@@ -22,13 +22,14 @@
         android:theme="@style/Theme.Capstone"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".UpcomingSchedStatus"></activity>
+        <activity android:name=".CheckNote"></activity>
+        <activity android:name=".UpcomingSchedStatus" />
         <activity android:name=".View_doctor_info_hmo" />
-        <activity android:name=".doctor.E_Prescription_Template"></activity>
+        <activity android:name=".doctor.E_Prescription_Template" />
         <activity android:name=".View_doctor_info_hmo" />
         <activity android:name=".selectClinic_info" />
         <activity android:name=".changeEmail_Secretary" />
-        <activity android:name=".Doc_Upload_Signature"/>
+        <activity android:name=".Doc_Upload_Signature" />
         <activity android:name=".changeEmail_Doctor" />
         <activity android:name=".changeEmail_Patient" />
         <activity android:name=".selectClinic" />
