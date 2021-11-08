@@ -43,6 +43,7 @@ import com.google.firebase.firestore.Query;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -172,7 +173,7 @@ public class Doctor_schedlist_upcoming extends AppCompatActivity {
         mFirestoreList.setLayoutManager(new LinearLayoutManager(this));
         mFirestoreList.setAdapter(adapter);
         Date currentTime1 = Calendar.getInstance().getTime();
-        db.collection("Schedules").whereEqualTo("DoctorUId", userId).whereEqualTo("Status", "Paid").whereGreaterThanOrEqualTo("Date",currentTime1).addSnapshotListener(new EventListener<QuerySnapshot>() {
+        db.collection("Schedules").whereEqualTo("DoctorUId", userId).whereIn("Status", Arrays.asList("Paid", "Approved")).whereGreaterThanOrEqualTo("Date",currentTime1).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 if (error != null) {
@@ -188,6 +189,8 @@ public class Doctor_schedlist_upcoming extends AppCompatActivity {
                 }
             }
         });
+
+
     }
 
     private class DoctorUpcomingViewHolder extends RecyclerView.ViewHolder{

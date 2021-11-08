@@ -45,10 +45,27 @@ public class UpcomingSchedStatus extends AppCompatActivity {
     TextView clinicname;
     TextView doctorname;
     TextView date;
-    TextView time;
+    TextView timer;
     TextView payment;
-    Button notebtn;
+    Button note;
     Button prescriptionbtn;
+
+    //hmo
+    ImageView hmo_sched;
+    TextView hmo_num;
+    TextView hmo_add;
+    TextView hmo_expiry;
+    TextView hmo_name;
+
+    TextView view1;
+    View view2;
+    TextView view3;
+    View view4;
+    TextView view5;
+    View view6;
+    TextView view7;
+    View view8;
+
 
 
     String userId;
@@ -57,7 +74,7 @@ public class UpcomingSchedStatus extends AppCompatActivity {
     FirebaseAuth mAuth;
 
     ImageView changeDP;
-    Bitmap profilepic;
+    Bitmap getPic;
     StorageReference ref;
     String image;
     ImageView dpicture;
@@ -65,7 +82,7 @@ public class UpcomingSchedStatus extends AppCompatActivity {
     private FirebaseStorage storage;
     FirebaseFirestore db;
     String documentid;
-
+    private View notebtn;
 
 
     @Override
@@ -82,16 +99,36 @@ public class UpcomingSchedStatus extends AppCompatActivity {
         dpicture = findViewById(R.id.patient_dp);
 
 
+
+
         mAuth = FirebaseAuth.getInstance();
         firstname = findViewById(R.id.first_name_profile);
         email = findViewById(R.id.email_profile);
         clinicname = findViewById(R.id.clinic_name);
         doctorname = findViewById(R.id.doctor_name);
         date = findViewById(R.id.date_status);
-        time = findViewById(R.id.time_status);
+        timer = findViewById(R.id.time_status);
         payment = findViewById(R.id.payment_status);
-        notebtn = (Button) findViewById(R.id.view_note);
+        //notebtn = (Button) findViewById(R.id.view_note);
+        //prescriptionbtn = (Button) findViewById(R.id.view_prescription);
+        note = (Button) findViewById(R.id.view_note);
         prescriptionbtn = (Button) findViewById(R.id.view_prescription);
+        hmo_name = findViewById(R.id.hmo_name);
+        hmo_expiry = findViewById(R.id.hmo_expiry);
+        hmo_num = findViewById(R.id.hmo_num);
+        hmo_add = findViewById(R.id.HMOaddress);
+        hmo_sched = findViewById(R.id.hmo_sched);
+
+        view1 = findViewById(R.id.view1);
+        view2 = findViewById(R.id.view2);
+        view3 = findViewById(R.id.view3);
+        view4 = findViewById(R.id.view4);
+        view5 = findViewById(R.id.view5);
+        view6 = findViewById(R.id.view6);
+        view7 = findViewById(R.id.view7);
+        view8 = findViewById(R.id.view8);
+
+
 
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
@@ -101,12 +138,69 @@ public class UpcomingSchedStatus extends AppCompatActivity {
         db.collection("Schedules").document(documentid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("hh: mm aa");
                 clinicname.setText(documentSnapshot.getString("ClinicName"));
                 payment.setText(documentSnapshot.getString("Price"));
                 date.setText(documentSnapshot.getDate("Date").toString());
 
                 String docUid = documentSnapshot.getString("DoctorUId");
                 String PatUid = documentSnapshot.getString("PatientUId");
+
+
+                if(payment.getText().equals("HMO")){
+                    Toast.makeText(UpcomingSchedStatus.this, PatUid, Toast.LENGTH_SHORT).show();
+                    String Hmoname = documentSnapshot.getString("HMOName");
+
+                    DocumentReference documentReference = db.collection("HMO").document(Hmoname).collection("Patients").document(PatUid);
+                    documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
+
+
+                            hmo_name.setText(Hmoname);
+                           hmo_add.setText(documentSnapshot.getString("HMOAddress"));
+                            hmo_expiry.setText(documentSnapshot.getString("ExpiryDate"));
+                            hmo_num.setText(documentSnapshot.getString("HMOCNumber"));
+                            hmo_sched.setVisibility(View.VISIBLE);
+
+                            hmo_name.setVisibility(View.VISIBLE);
+                            hmo_add.setVisibility(View.VISIBLE);
+                            hmo_expiry.setVisibility(View.VISIBLE);
+                            hmo_num.setVisibility(View.VISIBLE);
+                            view1.setVisibility(View.VISIBLE);
+                            view2.setVisibility(View.VISIBLE);
+                            view3.setVisibility(View.VISIBLE);
+                            view4.setVisibility(View.VISIBLE);
+                            view5.setVisibility(View.VISIBLE);
+                            view6.setVisibility(View.VISIBLE);
+                            view7.setVisibility(View.VISIBLE);
+
+                        }
+                    });
+                    String storageid = documentSnapshot.getString("StorageId");
+                    storageReference = FirebaseStorage.getInstance().getReference("PatientHMO/" + storageid);
+                    try{
+                        File localfile = File.createTempFile("myHMO", ".jpg");
+                        storageReference.getFile(localfile)
+                                .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                        getPic = BitmapFactory.decodeFile(localfile.getAbsolutePath());
+                                        hmo_sched.setImageBitmap(getPic);
+                                    }
+                                });
+                    }
+                    catch (IOException e){
+                        e.printStackTrace();
+                    }
+
+                }
+
+
+
+
+
+
                 db.collection("Doctors").whereEqualTo("UserId", docUid).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull @NotNull Task<QuerySnapshot> task) {
@@ -136,6 +230,12 @@ public class UpcomingSchedStatus extends AppCompatActivity {
                     }
                 });
 
+
+
+
+
+
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -143,6 +243,7 @@ public class UpcomingSchedStatus extends AppCompatActivity {
                 Toast.makeText(UpcomingSchedStatus.this, "Error Getting Schedule Information", Toast.LENGTH_SHORT).show();
             }
         });
+
 
 
 
