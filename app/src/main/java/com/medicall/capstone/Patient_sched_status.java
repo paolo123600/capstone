@@ -1,12 +1,10 @@
 package com.medicall.capstone;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -19,26 +17,16 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
-import java.io.IOException;
-import java.sql.Time;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-public class UpcomingSchedStatus extends AppCompatActivity {
+public class Patient_sched_status extends AppCompatActivity {
 
     TextView firstname;
     TextView email;
@@ -66,15 +54,12 @@ public class UpcomingSchedStatus extends AppCompatActivity {
     FirebaseFirestore db;
     String documentid;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_upcoming_sched_status);
+        setContentView(R.layout.activity_patient_sched_status);
 
-
-        documentid = getIntent().getExtras().getString("documentid");
+        documentid = getIntent().getExtras().getString("schedid");
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
 
@@ -90,7 +75,6 @@ public class UpcomingSchedStatus extends AppCompatActivity {
         date = findViewById(R.id.date_status);
         time = findViewById(R.id.time_status);
         payment = findViewById(R.id.payment_status);
-        notebtn = (Button) findViewById(R.id.view_note);
         prescriptionbtn = (Button) findViewById(R.id.view_prescription);
 
         fAuth = FirebaseAuth.getInstance();
@@ -140,56 +124,31 @@ public class UpcomingSchedStatus extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(UpcomingSchedStatus.this, "Error Getting Schedule Information", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Patient_sched_status.this, "Error Getting Schedule Information", Toast.LENGTH_SHORT).show();
             }
         });
 
 
 
 
-
-
-
-
-
-notebtn.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-        db.collection("Schedules").document(documentid).collection("Note").document("Doctor_Note").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        prescriptionbtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                DocumentSnapshot documentSnapshot = task.getResult();
-                if (!documentSnapshot.exists()){
-                    Toast.makeText(UpcomingSchedStatus.this, "No Note", Toast.LENGTH_SHORT).show();
-                }else {
-                    Intent intent = new Intent(UpcomingSchedStatus.this, CheckNote.class);
-                    intent.putExtra("documentid",documentid);
-                    startActivity(intent);
-                }
+            public void onClick(View view) {
+                db.collection("Schedules").document(documentid).collection("Prescription").document("Doctor_Prescription").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        DocumentSnapshot documentSnapshot = task.getResult();
+                        if (!documentSnapshot.exists()){
+                            Toast.makeText(Patient_sched_status.this, "No Prescription", Toast.LENGTH_SHORT).show();
+                        }else {
+                            Intent intent = new Intent(Patient_sched_status.this, E_Prescription_Patient.class);
+                            intent.putExtra("schedid",documentid);
+                            startActivity(intent);
+                        }
+                    }
+                });
             }
         });
-
-    }
-
-});
-prescriptionbtn.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-        db.collection("Schedules").document(documentid).collection("Prescription").document("Doctor_Prescription").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                DocumentSnapshot documentSnapshot = task.getResult();
-                if (!documentSnapshot.exists()){
-                    Toast.makeText(UpcomingSchedStatus.this, "No Prescription", Toast.LENGTH_SHORT).show();
-                }else {
-                    Intent intent = new Intent(UpcomingSchedStatus.this, E_Prescription_Doctor.class);
-                    intent.putExtra("schedid",documentid);
-                    startActivity(intent);
-                }
-            }
-        });
-    }
-});
 
 
 
@@ -200,3 +159,4 @@ prescriptionbtn.setOnClickListener(new View.OnClickListener() {
 
 
 }
+

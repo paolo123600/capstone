@@ -8,11 +8,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -36,7 +33,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class E_Prescription_Patient extends AppCompatActivity {
+public class E_Prescription_Doctor extends AppCompatActivity {
 
     TextView doctorname, doctornamebelow, doctorspecialization, clinicname, clinicaddress, contactnumber, email, date;
     TextView patientname, patient_age, patient_sex, patients_address;
@@ -58,7 +55,8 @@ public class E_Prescription_Patient extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_e__prescription__patient);
+        setContentView(R.layout.activity_e__prescription__doctor);
+
         doctorname = findViewById(R.id.patient_eprescript_doctor_name);
         doctornamebelow = findViewById(R.id.patient_eprescript_docotor_name_below);
         doctorspecialization = findViewById(R.id.patient_eprescript_specialization);
@@ -88,14 +86,14 @@ public class E_Prescription_Patient extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()){
-                 DocumentSnapshot documentSnapshot = task.getResult();
-                 patid = documentSnapshot.getString("PatientUId");
-                 docid = documentSnapshot.getString("DoctorUId");
-                 clname = documentSnapshot.getString("ClinicName");
-                 ddate = documentSnapshot.getDate("Date");
+                    DocumentSnapshot documentSnapshot = task.getResult();
+                    patid = documentSnapshot.getString("PatientUId");
+                    docid = documentSnapshot.getString("DoctorUId");
+                    clname = documentSnapshot.getString("ClinicName");
+                    ddate = documentSnapshot.getDate("Date");
 
                     DocumentReference documentReferenceSchedule = db.collection("Schedules").document(schedid).collection("Prescription").document("Doctor_Prescription");
-                    documentReferenceSchedule.addSnapshotListener(E_Prescription_Patient.this, new EventListener<DocumentSnapshot>() {
+                    documentReferenceSchedule.addSnapshotListener(E_Prescription_Doctor.this, new EventListener<DocumentSnapshot>() {
                         @Override
                         public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                             docprescript.setText(documentSnapshot.getString("Prescription"));
@@ -107,7 +105,7 @@ public class E_Prescription_Patient extends AppCompatActivity {
                     });
 
                     DocumentReference documentReferenceDOC = db.collection("Doctors").document(docid);
-                    documentReferenceDOC.addSnapshotListener(E_Prescription_Patient.this, new EventListener<DocumentSnapshot>() {
+                    documentReferenceDOC.addSnapshotListener(E_Prescription_Doctor.this, new EventListener<DocumentSnapshot>() {
                         @Override
                         public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                             doctorname.setText(documentSnapshot.getString("LastName") + ", " + documentSnapshot.getString("FirstName") + " " + documentSnapshot.getString("MiddleInitial"));
@@ -135,7 +133,7 @@ public class E_Prescription_Patient extends AppCompatActivity {
                     });
 
                     DocumentReference documentReferenceCLINIC = db.collection("Clinics").document(clname);
-                    documentReferenceCLINIC.addSnapshotListener(E_Prescription_Patient.this, new EventListener<DocumentSnapshot>() {
+                    documentReferenceCLINIC.addSnapshotListener(E_Prescription_Doctor.this, new EventListener<DocumentSnapshot>() {
                         @Override
                         public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                             clinicaddress.setText(documentSnapshot.getString("Address"));
@@ -144,7 +142,7 @@ public class E_Prescription_Patient extends AppCompatActivity {
                     });
 
                     DocumentReference documentReference = db.collection("Patients").document(patid);
-                    documentReference.addSnapshotListener(E_Prescription_Patient.this, new EventListener<DocumentSnapshot>() {
+                    documentReference.addSnapshotListener(E_Prescription_Doctor.this, new EventListener<DocumentSnapshot>() {
                         @Override
                         public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                             patientname.setText("Patient: " + documentSnapshot.getString("LastName") + ", " + documentSnapshot.getString("FirstName") + " " + documentSnapshot.getString("MiddleInitial"));
