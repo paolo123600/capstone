@@ -35,6 +35,8 @@
             android:textSize="@dimen/_15sdp"
             android:textColor="@color/white"/>
 
+
+
     </LinearLayout>
 
     <ScrollView
@@ -49,48 +51,6 @@
             android:orientation="vertical">
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:padding="@dimen/_10sdp"
-                android:background="@color/profilehead">
-
-                <FrameLayout
-                    android:layout_width="@dimen/_100sdp"
-                    android:layout_height="wrap_content">
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        android:id="@+id/patient_dp"/>
-
-
-
-
-                </FrameLayout>
-
-                <TextView
-                    android:id="@+id/first_name_profile"
-                    android:layout_width="386dp"
-                    android:layout_height="47dp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:gravity="center"
-                    android:text="Name"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_15sdp" />
-
-
-
-
-
-            </LinearLayout>
-
-
-
-
-
 
             <LinearLayout
                 android:id="@+id/namelabeledittxt"
@@ -101,7 +61,26 @@
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_10sdp">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="Patient Name:"
+                    android:textStyle="bold"/>
 
+                <TextView
+                    android:id="@+id/first_name_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Patient Name"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_15sdp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/roundtbox"
+                    android:layout_marginTop="@dimen/_10sdp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -212,6 +191,124 @@
                     android:layout_height="1dp"
                     android:background="@drawable/roundtbox"
                     android:layout_marginTop="@dimen/_10sdp"/>
+
+                <ImageView
+                    android:paddingTop="@dimen/_10sdp"
+                    android:id="@+id/hmo_sched"
+                    android:layout_width="match_parent"
+                    android:layout_height="145dp"
+                    android:layout_weight="1"
+                    android:visibility="gone"
+                    />
+
+                <TextView
+                    android:id="@+id/view1"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="HMO Name:"
+                    android:textStyle="bold"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/hmo_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="HMO Name"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_15sdp"
+                    android:visibility="gone"
+                    />
+
+                <View
+                    android:id="@+id/view2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/roundtbox"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/view3"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="HMO Expiration Date:"
+                    android:textStyle="bold"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/hmo_expiry"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Expiration Date"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_15sdp"
+                    android:visibility="gone"
+                    />
+
+                <View
+                    android:id="@+id/view4"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/roundtbox"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:visibility="gone"/>
+
+
+                <TextView
+                    android:id="@+id/view5"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="HMO Address:"
+                    android:textStyle="bold"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/HMOaddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="HMO Address"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_15sdp"
+                    android:visibility="gone"
+                    />
+
+                <View
+                    android:id="@+id/view6"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/roundtbox"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/view7"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="HMO Number:"
+                    android:textStyle="bold"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/hmo_num"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="HMO Number"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_15sdp"
+                    android:visibility="gone"
+                    />
+
+                <View
+                    android:id="@+id/view8"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/roundtbox"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:visibility="gone"/>
 
 
             </LinearLayout>
