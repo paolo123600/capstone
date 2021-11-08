@@ -34,11 +34,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.Time;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
-public class UpcomingSchedStatus extends AppCompatActivity {
+public class PastSchedstatus extends AppCompatActivity {
 
     TextView firstname;
     TextView email;
@@ -88,7 +86,8 @@ public class UpcomingSchedStatus extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_upcoming_sched_status);
+        setContentView(R.layout.activity_past_schedstatus);
+
 
 
         documentid = getIntent().getExtras().getString("documentid");
@@ -148,7 +147,7 @@ public class UpcomingSchedStatus extends AppCompatActivity {
 
 
                 if(payment.getText().equals("HMO")){
-                    Toast.makeText(UpcomingSchedStatus.this, PatUid, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PastSchedstatus.this, PatUid, Toast.LENGTH_SHORT).show();
                     String Hmoname = documentSnapshot.getString("HMOName");
 
                     DocumentReference documentReference = db.collection("HMO").document(Hmoname).collection("Patients").document(PatUid);
@@ -158,7 +157,7 @@ public class UpcomingSchedStatus extends AppCompatActivity {
 
 
                             hmo_name.setText(Hmoname);
-                           hmo_add.setText(documentSnapshot.getString("HMOAddress"));
+                            hmo_add.setText(documentSnapshot.getString("HMOAddress"));
                             hmo_expiry.setText(documentSnapshot.getString("ExpiryDate"));
                             hmo_num.setText(documentSnapshot.getString("HMOCNumber"));
                             hmo_sched.setVisibility(View.VISIBLE);
@@ -240,7 +239,7 @@ public class UpcomingSchedStatus extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(UpcomingSchedStatus.this, "Error Getting Schedule Information", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PastSchedstatus.this, "Error Getting Schedule Information", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -253,50 +252,51 @@ public class UpcomingSchedStatus extends AppCompatActivity {
 
 
 
-notebtn.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-        db.collection("Schedules").document(documentid).collection("Note").document("Doctor_Note").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        notebtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                DocumentSnapshot documentSnapshot = task.getResult();
-                if (!documentSnapshot.exists()){
-                    Toast.makeText(UpcomingSchedStatus.this, "No Note", Toast.LENGTH_SHORT).show();
-                }else {
-                    Intent intent = new Intent(UpcomingSchedStatus.this, CheckNote.class);
-                    intent.putExtra("documentid",documentid);
-                    startActivity(intent);
-                }
+            public void onClick(View view) {
+                db.collection("Schedules").document(documentid).collection("Note").document("Doctor_Note").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        DocumentSnapshot documentSnapshot = task.getResult();
+                        if (!documentSnapshot.exists()){
+                            Toast.makeText(PastSchedstatus.this, "No Note", Toast.LENGTH_SHORT).show();
+                        }else {
+                            Intent intent = new Intent(PastSchedstatus.this, CheckNote.class);
+                            intent.putExtra("documentid",documentid);
+                            startActivity(intent);
+                        }
+                    }
+                });
+
             }
+
         });
-
-    }
-
-});
-prescriptionbtn.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-        db.collection("Schedules").document(documentid).collection("Prescription").document("Doctor_Prescription").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        prescriptionbtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                DocumentSnapshot documentSnapshot = task.getResult();
-                if (!documentSnapshot.exists()){
-                    Toast.makeText(UpcomingSchedStatus.this, "No Prescription", Toast.LENGTH_SHORT).show();
-                }else {
-                    Intent intent = new Intent(UpcomingSchedStatus.this, E_Prescription_Doctor.class);
-                    intent.putExtra("schedid",documentid);
-                    startActivity(intent);
-                }
+            public void onClick(View view) {
+                db.collection("Schedules").document(documentid).collection("Prescription").document("Doctor_Prescription").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        DocumentSnapshot documentSnapshot = task.getResult();
+                        if (!documentSnapshot.exists()){
+                            Toast.makeText(PastSchedstatus.this, "No Prescription", Toast.LENGTH_SHORT).show();
+                        }else {
+                            Intent intent = new Intent(PastSchedstatus.this, CheckNote.class);
+                            intent.putExtra("schedid",documentid);
+                            startActivity(intent);
+                        }
+                    }
+                });
             }
         });
-    }
-});
 
 
 
 
 
     }
+
 
 
 
