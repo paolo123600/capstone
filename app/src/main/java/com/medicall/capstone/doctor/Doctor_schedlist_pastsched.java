@@ -27,7 +27,9 @@ import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.medicall.capstone.Login;
+import com.medicall.capstone.PastSchedstatus;
 import com.medicall.capstone.R;
+import com.medicall.capstone.UpcomingSchedStatus;
 import com.medicall.capstone.secretary.Secretary_schedlist_patsched;
 import com.medicall.capstone.utilities.PreferenceManager;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -49,6 +51,7 @@ public class Doctor_schedlist_pastsched extends AppCompatActivity {
     FirebaseAuth fAuth;
     FirebaseFirestore db;
     RecyclerView mFirestoreList;
+
 
     String docuid;
 
@@ -138,6 +141,24 @@ public class Doctor_schedlist_pastsched extends AppCompatActivity {
                                                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                                                     getpic = BitmapFactory.decodeFile(local.getAbsolutePath());
                                                     holder.profilepic.setImageBitmap(getpic);
+                                                }
+                                            });
+                                            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    String documentId = getSnapshots().getSnapshot(position).getId();
+                                                    Intent intent1 = new Intent(getApplicationContext(), UpcomingSchedStatus.class);
+                                                    intent1.putExtra("documentid",documentId);
+                                                    startActivity(intent1);
+                                                }
+                                            });
+                                            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    String documentId = getSnapshots().getSnapshot(position).getId();
+                                                    Intent intent1 = new Intent(getApplicationContext(), PastSchedstatus.class);
+                                                    intent1.putExtra("documentid",documentId);
+                                                    startActivity(intent1);
                                                 }
                                             });
                                         }
