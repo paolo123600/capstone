@@ -35,6 +35,38 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/Temperi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical|start"
+                android:text="Temperature"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/Pulse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical|start"
+                android:text="Pulse Rate"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/respir"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical|start"
+                android:text="Repiratory"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+
+
+            <TextView
                 android:id="@+id/BPlist_dnt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

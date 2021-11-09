@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,12 +42,15 @@ public class pat_blood_pressure extends AppCompatActivity {
     DatePickerDialog.OnDateSetListener listener;
     EditText bpupper;
     EditText bplower;
+    EditText temp;
+    EditText prate;
+    EditText res;
     Button submitbp;
 
     FirebaseAuth fAuth;
     FirebaseFirestore db;
     String userId;
-    String collectionBpDate, edittxtupper, edittxtlower;
+    String collectionBpDate, edittxtupper, edittxtlower, temps, pulse, respira;
     RecyclerView mFirestoreList;
     ImageView back;
     TextView none;
@@ -59,8 +63,6 @@ public class pat_blood_pressure extends AppCompatActivity {
         setContentView(R.layout.activity_pat_blood_pressure);
         none = findViewById(R.id.None);
 
-        bpupper = findViewById(R.id.bp_upper);
-        bplower = findViewById(R.id.bp_lower);
 
         submitbp = findViewById(R.id.submit_bp);
 
@@ -107,6 +109,9 @@ public class pat_blood_pressure extends AppCompatActivity {
             protected void onBindViewHolder(@NonNull BPViewHolder holder, int position, @NonNull BPModel model) {
                 holder.list_bpressure.setText("BP: " + model.getUpper() + "/" + model.getLower());
                 holder.list_dnt.setText(model.getDnt() + "");
+                holder.Temperi.setText("Temperature: " + model.getTemperature());
+                holder.Pulser.setText("Pulse Rate: " + model.getPulse());
+               holder.respi.setText("Respiratory Rate: " + model.getRespiratory());
 
             }
         };
@@ -137,44 +142,9 @@ public class pat_blood_pressure extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (bpupper.getText().toString().trim().isEmpty()){
-                    Toast.makeText(pat_blood_pressure.this, "Enter your Blood Pressure", Toast.LENGTH_SHORT).show();
-                }else if (bplower.getText().toString().trim().isEmpty()) {
-                    Toast.makeText(pat_blood_pressure.this, "Enter your Blood Pressure", Toast.LENGTH_SHORT).show();
-                }else {
+                Intent intent = new Intent(getApplicationContext(),addvitals.class);
+                startActivity(intent);
 
-                    new AlertDialog.Builder(pat_blood_pressure.this).setTitle("Add Blood Pressure").setMessage("Are you sure you want to add this Blood Pressure?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            edittxtupper = bpupper.getText().toString();
-                            edittxtlower = bplower.getText().toString();
-                            bplower.setText("");
-                            bpupper.setText("");
-
-                            Date currentTime = Calendar.getInstance().getTime();
-                            Map<String, Object> patbp = new HashMap<>();
-                            patbp.put("Date", collectionBpDate);
-                            patbp.put("Upper", edittxtupper);
-                            patbp.put("Lower", edittxtlower);
-                            patbp.put("Dnt", currentTime);
-
-                            String ctime;
-                            ctime = currentTime.toString();
-
-                            db.collection("Patients").document(userId).collection("BP").document(ctime).set(patbp);
-
-                        }
-
-                    }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                        }
-                    }).show();
-
-
-
-                }
             }
         });
 
@@ -196,6 +166,9 @@ public class pat_blood_pressure extends AppCompatActivity {
         });
 
 
+
+
+
     }
 
     private String makeDateString(int day, int month, int year){
@@ -213,13 +186,18 @@ public class pat_blood_pressure extends AppCompatActivity {
 
     private class BPViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView list_bpressure, list_date, list_dnt;
+        private TextView list_bpressure, list_date, list_dnt, Temperi, Pulser, respi;
 
         public BPViewHolder(@NonNull View itemView) {
             super(itemView);
 
             list_bpressure = itemView.findViewById(R.id.BPlist_bloodp);
             list_dnt = itemView.findViewById(R.id.BPlist_dnt);
+            Temperi = itemView.findViewById(R.id.Temperi);
+            Pulser = itemView.findViewById(R.id.Pulse);
+            respi = itemView.findViewById(R.id.respir);
+
+
         }
     }
 

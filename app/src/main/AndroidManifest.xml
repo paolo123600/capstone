@@ -22,11 +22,11 @@
         android:theme="@style/Theme.Capstone"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".E_Prescription_Doctor"></activity>
+        <activity android:name=".addvitals"></activity>
+        <activity android:name=".E_Prescription_Doctor" />
         <activity android:name=".Patient_sched_status" />
         <activity android:name=".E_Prescription_Patient" />
-        <activity android:name=".PastSchedstatus"></activity>
-
+        <activity android:name=".PastSchedstatus" />
         <activity android:name=".doctor.E_Prescription_Template" />
         <activity android:name=".CheckNote" />
         <activity android:name=".UpcomingSchedStatus" />
