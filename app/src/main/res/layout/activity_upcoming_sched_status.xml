@@ -348,39 +348,7 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/contactedittxt"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginEnd="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:gravity="center"
-                android:padding="@dimen/_10sdp">
 
-
-
-                <Button
-                    android:id="@+id/view_note"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Note"
-                    android:background="@drawable/darkround"
-                    android:textColor="@color/white"
-                    android:layout_marginLeft="@dimen/_10sdp"
-                    android:padding="@dimen/_10sdp"/>
-
-                <Button
-                    android:id="@+id/view_prescription"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:text="Prescription"
-                    android:background="@drawable/darkround"
-                    android:textColor="@color/white"
-                    android:padding="@dimen/_10sdp"/>
-
-            </LinearLayout>
 
         </LinearLayout>
 

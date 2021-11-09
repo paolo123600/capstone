@@ -253,47 +253,6 @@ public class UpcomingSchedStatus extends AppCompatActivity {
 
 
 
-notebtn.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-        db.collection("Schedules").document(documentid).collection("Note").document("Doctor_Note").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                DocumentSnapshot documentSnapshot = task.getResult();
-                if (!documentSnapshot.exists()){
-                    Toast.makeText(UpcomingSchedStatus.this, "No Note", Toast.LENGTH_SHORT).show();
-                }else {
-                    Intent intent = new Intent(UpcomingSchedStatus.this, CheckNote.class);
-                    intent.putExtra("documentid",documentid);
-                    startActivity(intent);
-                }
-            }
-        });
-
-    }
-
-});
-prescriptionbtn.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-        db.collection("Schedules").document(documentid).collection("Prescription").document("Doctor_Prescription").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                DocumentSnapshot documentSnapshot = task.getResult();
-                if (!documentSnapshot.exists()){
-                    Toast.makeText(UpcomingSchedStatus.this, "No Prescription", Toast.LENGTH_SHORT).show();
-                }else {
-                    Intent intent = new Intent(UpcomingSchedStatus.this, E_Prescription_Doctor.class);
-                    intent.putExtra("schedid",documentid);
-                    startActivity(intent);
-                }
-            }
-        });
-    }
-});
-
-
-
 
 
     }
