@@ -21,7 +21,7 @@
         <item
             android:id="@+id/blood_p"
             android:icon="@drawable/ic_baseline_water_drop_24"
-            android:title="Blood Pressure" />
+            android:title="Vitals" />
         <item
             android:id="@+id/nav_about"
             android:icon="@drawable/ic_about"

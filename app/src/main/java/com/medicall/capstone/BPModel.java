@@ -11,6 +11,9 @@ public class BPModel {
     private String Upper;
     private String Lower;
     private Date Dnt;
+    private String Temperature;
+    private String Pulse;
+    private String Respiratory;
 
     public BPModel() {}
 
@@ -54,5 +57,29 @@ public class BPModel {
 
     public void setItem_id(String item_id) {
         this.item_id = item_id;
+    }
+
+    public String getTemperature() {
+        return Temperature;
+    }
+
+    public void setTemperature(String temperature) {
+        Temperature = temperature;
+    }
+
+    public String getPulse() {
+        return Pulse;
+    }
+
+    public void setPulse(String pulse) {
+        Pulse = pulse;
+    }
+
+    public String getRespiratory() {
+        return Respiratory;
+    }
+
+    public void setRespiratory(String respiratory) {
+        Respiratory = respiratory;
     }
 }
