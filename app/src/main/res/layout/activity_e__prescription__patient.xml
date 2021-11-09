@@ -219,7 +219,14 @@
                     android:gravity="center"
                     android:layout_gravity="center">
 
-
+                    <Button
+                        android:id="@+id/btnScreenshot"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:text="Save Image"
+                        android:background="@drawable/cancelbutton"
+                        android:textColor="@color/white"
+                        android:padding="15dp"/>
 
                 </LinearLayout>
 
@@ -252,9 +259,8 @@
 
             </LinearLayout>
 
-
-
         </LinearLayout>
+
 
         </ScrollView>
 

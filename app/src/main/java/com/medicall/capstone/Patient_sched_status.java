@@ -26,6 +26,8 @@ import com.google.firebase.storage.StorageReference;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Arrays;
+
 public class Patient_sched_status extends AppCompatActivity {
 
     TextView firstname;
@@ -76,6 +78,31 @@ public class Patient_sched_status extends AppCompatActivity {
         time = findViewById(R.id.time_status);
         payment = findViewById(R.id.payment_status);
         prescriptionbtn = (Button) findViewById(R.id.view_prescription);
+
+        db.collection("Schedules").document(documentid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                String status = documentSnapshot.getString("Status");
+                if(status.equals("Unattended")){
+                    prescriptionbtn.setVisibility(View.GONE);
+                }
+                else if (status.equals("Cancelled")){
+                    prescriptionbtn.setVisibility(View.GONE);
+                }
+                else if (status.equals("Rescheduled")){
+                    prescriptionbtn.setVisibility(View.GONE);
+                }
+                else if (status.equals("Completed")){
+                    prescriptionbtn.setVisibility(View.VISIBLE);
+                }
+                else if (status.equals("Paid")){
+                    prescriptionbtn.setVisibility(View.GONE);
+                }
+                else if (status.equals("Declined")){
+                    prescriptionbtn.setVisibility(View.GONE);
+                }
+            }
+        });
 
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();

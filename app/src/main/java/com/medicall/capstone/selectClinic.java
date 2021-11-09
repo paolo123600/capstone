@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -27,6 +29,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -34,14 +37,20 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.mancj.materialsearchbar.MaterialSearchBar;
 import com.medicall.capstone.Model.PatientHMOModel;
 import com.medicall.capstone.secretary.SecretaryListModel;
 import com.medicall.capstone.utilities.PreferenceManager;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import kotlin.text.UStringsKt;
 
 public class selectClinic extends AppCompatActivity {
@@ -59,6 +68,12 @@ public class selectClinic extends AppCompatActivity {
     ImageView back;
     TextView None;
 
+    String userId;
+
+    private StorageReference storageReference;
+    private FirebaseStorage storage;
+    StorageReference ref;
+    Bitmap getpic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +83,7 @@ public class selectClinic extends AppCompatActivity {
         gv = (GlobalVariables) getApplicationContext();
         firebaseAuth = FirebaseAuth.getInstance();
         preferenceManager = new PreferenceManager(getApplicationContext());
+        userId = firebaseAuth.getCurrentUser().getUid();
 
         searchClinic = (MaterialSearchBar) findViewById(R.id.clinicSearchBar);
         searchClinic.setCardViewElevation(0);
@@ -75,7 +91,6 @@ public class selectClinic extends AppCompatActivity {
         hmoList = (RecyclerView) findViewById(R.id.HMOList);
         back = findViewById(R.id.backspace);
         None = findViewById(R.id.list_none);
-
 
         getClinic();
 
@@ -112,6 +127,7 @@ public class selectClinic extends AppCompatActivity {
 
             }
         });
+
     }
 
     @Override
@@ -121,6 +137,7 @@ public class selectClinic extends AppCompatActivity {
     }
 
     private void getClinic(){
+
         Query query = db.collection("Clinics");
         FirestoreRecyclerOptions<SecretaryListModel> options = new FirestoreRecyclerOptions.Builder<SecretaryListModel>()
                 .setQuery(query, SecretaryListModel.class)
@@ -137,14 +154,30 @@ public class selectClinic extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(@NonNull selectClinic.SecretaryListModelView holder, int position, @NonNull SecretaryListModel model){
 
+                storageReference = FirebaseStorage.getInstance().getReference("ClinicPicture/" + model.getStorageId());
+                try {
+                    File local = File.createTempFile("myProfilePicture","");
+                    storageReference.getFile(local).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                            getpic = BitmapFactory.decodeFile(local.getAbsolutePath());
+                            holder.clinicPicture.setImageBitmap(getpic);
+                        }
+                    });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
                 holder.nameCLINIC.setText(model.getClinicName());
                 holder.viewclinfo.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         DocumentSnapshot snapshot = getSnapshots().getSnapshot(holder.getAdapterPosition());
                         final String clinicid = snapshot.getId();
+                        final String cName = snapshot.getString("ClinicName");
                         Intent intent = new Intent(getApplicationContext(), selectClinic_info.class);
                         intent.putExtra("ClinicUid", clinicid);
+                        intent.putExtra("ClinicName",cName);
                         startActivity(intent);
                     }
                 });
@@ -188,6 +221,20 @@ public class selectClinic extends AppCompatActivity {
                                 @Override
                                 protected void onBindViewHolder(@NonNull selectClinic.SecretaryListModelView holder, int position, @NonNull SecretaryListModel model){
 
+                                    storageReference = FirebaseStorage.getInstance().getReference("ClinicPicture/" + model.getStorageId());
+                                    try {
+                                        File local = File.createTempFile("myProfilePicture","");
+                                        storageReference.getFile(local).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                            @Override
+                                            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                                getpic = BitmapFactory.decodeFile(local.getAbsolutePath());
+                                                holder.clinicPicture.setImageBitmap(getpic);
+                                            }
+                                        });
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+
                                     holder.nameCLINIC.setText(model.getClinicName());
                                     holder.itemView.setOnClickListener(new View.OnClickListener() {
                                         @Override
@@ -208,6 +255,7 @@ public class selectClinic extends AppCompatActivity {
                 }
             }
         });
+
     }
 
 
@@ -215,10 +263,12 @@ public class selectClinic extends AppCompatActivity {
     private class SecretaryListModelView extends RecyclerView.ViewHolder{
         private TextView nameCLINIC;
         private Button viewclinfo;
+        private CircleImageView clinicPicture;
         public SecretaryListModelView(@NonNull View itemView){
             super(itemView);
             nameCLINIC = itemView.findViewById(R.id.seclist_name);
             viewclinfo = itemView.findViewById(R.id.cl_info);
+            clinicPicture = itemView.findViewById(R.id.clinicImage);
         }
     }
 }

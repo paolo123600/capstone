@@ -33,6 +33,7 @@
         <activity android:name=".View_doctor_info_hmo" />
         <activity android:name=".selectClinic_info" />
         <activity android:name=".changeEmail_Secretary" />
+        <activity android:name=".Secretary_ChangePicture"/>
         <activity android:name=".Doc_Upload_Signature" />
         <activity android:name=".changeEmail_Doctor" />
         <activity android:name=".changeEmail_Patient" />

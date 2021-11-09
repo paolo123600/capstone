@@ -2,15 +2,25 @@ package com.medicall.capstone;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Environment;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,11 +40,15 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 public class E_Prescription_Patient extends AppCompatActivity {
 
@@ -55,10 +69,15 @@ public class E_Prescription_Patient extends AppCompatActivity {
     String patid,docid,clname;
     Date ddate;
 
+    LinearLayout toolbar;
+    Button screenshot;
+    Dialog saved;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_e__prescription__patient);
+        ActivityCompat.requestPermissions(this, new String[]{WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE}, PackageManager.PERMISSION_GRANTED);
         doctorname = findViewById(R.id.patient_eprescript_doctor_name);
         doctornamebelow = findViewById(R.id.patient_eprescript_docotor_name_below);
         doctorspecialization = findViewById(R.id.patient_eprescript_specialization);
@@ -75,11 +94,15 @@ public class E_Prescription_Patient extends AppCompatActivity {
         patients_address = findViewById(R.id.patient_eprescript_patient_address);
         docsignature = findViewById(R.id.doctor_signature);
 
+        toolbar = findViewById(R.id.toolbar);
+        screenshot = findViewById(R.id.btnScreenshot);
+
         fAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
         GlobalVariables gv = (GlobalVariables) getApplicationContext();
 
+        saved = new Dialog (E_Prescription_Patient.this);
 
         Intent intent = getIntent();
         String schedid = intent.getStringExtra("schedid");
@@ -131,15 +154,6 @@ public class E_Prescription_Patient extends AppCompatActivity {
 
 
 
-                        }
-                    });
-
-                    DocumentReference documentReferenceCLINIC = db.collection("Clinics").document(clname);
-                    documentReferenceCLINIC.addSnapshotListener(E_Prescription_Patient.this, new EventListener<DocumentSnapshot>() {
-                        @Override
-                        public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                            clinicaddress.setText(documentSnapshot.getString("Address"));
-                            contactnumber.setText(documentSnapshot.getString("ContactNumber"));
                         }
                     });
 
@@ -227,6 +241,86 @@ public class E_Prescription_Patient extends AppCompatActivity {
             }
         });
 
+
+        screenshot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(E_Prescription_Patient.this);
+                builder.setCancelable(true);
+                builder.setTitle("Save Image");
+
+                builder.setMessage("Do you want to save your prescription in your folder?");
+                builder.setPositiveButton("Yes",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                takeSS(v);
+                                saved.setContentView(R.layout.screenshot_saved);
+                                saved.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                                ImageView closebtn = saved.findViewById(R.id.imageClose);
+                                Button okay = saved.findViewById(R.id.btnHome);
+
+                                closebtn.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Intent intent = new Intent(E_Prescription_Patient.this, MainActivity.class);
+                                        startActivity(intent);
+                                    }
+                                });
+
+                                okay.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Intent intent = new Intent(E_Prescription_Patient.this, MainActivity.class);
+                                        startActivity(intent);
+                                    }
+                                });
+                                saved.show();
+                            }
+                        });
+                builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
+
+    }
+    public void takeSS(View view){
+        toolbar.setVisibility(View.GONE);
+        screenshot.setVisibility(View.GONE);
+        new android.os.Handler().postDelayed(
+            new Runnable() {
+                public void run() {
+                    View view1 = getWindow().getDecorView().getRootView();
+                    view1.setDrawingCacheEnabled(true);
+
+                    Bitmap bitmap = Bitmap.createBitmap(view1.getDrawingCache());
+                    view1.setDrawingCacheEnabled(false);
+
+                    String filename = Environment.getExternalStorageDirectory() + "/Download/" + Calendar.getInstance().getTime().toString() + ".jpg";
+                    File fileScreenshot = new File(filename);
+
+                    FileOutputStream fileOutputStream = null;
+
+                    try{
+                        fileOutputStream = new FileOutputStream(fileScreenshot);
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream);
+                        fileOutputStream.flush();
+                        fileOutputStream.close();
+                    }
+                    catch(IOException e){
+                        e.printStackTrace();
+                    }
+                    toolbar.setVisibility(View.VISIBLE);
+                    screenshot.setVisibility(View.VISIBLE);
+                }
+            }, 1);
 
     }
 }

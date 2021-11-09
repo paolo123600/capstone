@@ -10,6 +10,8 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,7 +22,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.medicall.capstone.R;
 
 import com.medicall.capstone.secretary.Secretary_schedlist;
@@ -37,8 +45,12 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class  secretary_homepage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -213,6 +225,7 @@ public class  secretary_homepage extends AppCompatActivity implements Navigation
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
+
             case R.id.nav_logout_sec:
                 Toast.makeText(this, "Signing Out...", Toast.LENGTH_SHORT).show();
                 FirebaseFirestore database = FirebaseFirestore.getInstance();
@@ -241,6 +254,11 @@ public class  secretary_homepage extends AppCompatActivity implements Navigation
             case  R.id.nav_change_email_sec:
                 Intent intent = new Intent(getApplicationContext(), changeEmail_Secretary.class);
                 startActivity(intent);
+                break;
+
+            case  R.id.nav_change_picture_sec:
+                Intent intent2 = new Intent(getApplicationContext(), Secretary_ChangePicture.class);
+                startActivity(intent2);
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);

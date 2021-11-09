@@ -9,16 +9,26 @@ public class SecretaryListModel {
     private String UserId;
     private String CLuid;
 
+    public String getStorageId() {
+        return StorageId;
+    }
+
+    public void setStorageId(String storageId) {
+        StorageId = storageId;
+    }
+
+    private String StorageId;
+
     private SecretaryListModel() {}
 
-    private SecretaryListModel(String FirstName, String LastName, String DocType, String ClinicName, String UserId, String CLuid) {
+    private SecretaryListModel(String FirstName, String LastName, String DocType, String ClinicName, String UserId, String CLuid, String storageId) {
         this.FirstName = FirstName;
         this.LastName = LastName;
         this.DocType = DocType;
         this.ClinicName = ClinicName;
         this.UserId = UserId;
         this.CLuid = CLuid;
-
+        this.StorageId = storageId;
     }
 
     public String getFirstName() {
