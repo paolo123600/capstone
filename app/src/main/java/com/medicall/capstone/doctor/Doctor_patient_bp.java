@@ -46,6 +46,10 @@ public class Doctor_patient_bp extends AppCompatActivity {
     TextView none;
 
 
+
+
+
+
     private FirestoreRecyclerAdapter adapter;
 
     @Override
@@ -76,6 +80,7 @@ public class Doctor_patient_bp extends AppCompatActivity {
 
 
 
+
         Query query = db.collection("Patients").document(userId).collection("BP").orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
 
 
@@ -93,8 +98,10 @@ public class Doctor_patient_bp extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(@NonNull Doctor_patient_bp.BPViewHolder holder, int position, @NonNull BPModel model) {
                 holder.list_bpressure.setText("BP: " + model.getUpper() + "/" + model.getLower());
+                holder.temperi.setText("Temperature: " + model.getTemperature());
+                holder.pulse.setText("Pulse: " + model.getPulse());
+                holder.respi.setText("Respiration: " + model.getRespiratory());
                 holder.list_dnt.setText(model.getDnt() + "");
-
             }
         };
 
@@ -129,13 +136,16 @@ public class Doctor_patient_bp extends AppCompatActivity {
 
     private class BPViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView list_bpressure, list_date, list_dnt;
+        private TextView list_bpressure, list_date, list_dnt, temperi, pulse, respi;
 
         public BPViewHolder(@NonNull View itemView) {
             super(itemView);
 
             list_bpressure = itemView.findViewById(R.id.BPlist_bloodp);
             list_dnt = itemView.findViewById(R.id.BPlist_dnt);
+            temperi = itemView.findViewById(R.id.Temperi);
+            pulse = itemView.findViewById(R.id.Pulse);
+            respi = itemView.findViewById(R.id.respir);
         }
     }
 

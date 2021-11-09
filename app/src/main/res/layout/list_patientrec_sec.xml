@@ -75,7 +75,7 @@
                     android:layout_gravity="right"
                     android:padding="@dimen/_8sdp"
                     android:background="@drawable/darkround"
-                    android:text="Blood Pressure"
+                    android:text="Vitals"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_10ssp"/>
 
