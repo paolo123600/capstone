@@ -43,6 +43,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -96,7 +97,7 @@ public class Secretary_schedlist_patsched extends AppCompatActivity {
         });
 
         Date currentTime = Calendar.getInstance().getTime();
-        Query query = db.collection("Schedules").whereEqualTo("DoctorUId", docuid).whereEqualTo("ClinicName", preferenceManager.getString("ClinicName")).whereEqualTo("Status", "Paid").whereGreaterThanOrEqualTo("Date",currentTime).orderBy("Date", Query.Direction.ASCENDING).limit(20);
+        Query query = db.collection("Schedules").whereEqualTo("DoctorUId", docuid).whereEqualTo("ClinicName", preferenceManager.getString("ClinicName")).whereIn("Status", Arrays.asList("Paid","Approved")).whereGreaterThanOrEqualTo("Date",currentTime).orderBy("Date", Query.Direction.ASCENDING).limit(20);
 
         FirestoreRecyclerOptions<SecretaryPatschedModel> options = new FirestoreRecyclerOptions.Builder<SecretaryPatschedModel>().setQuery(query, SecretaryPatschedModel.class).build();
 

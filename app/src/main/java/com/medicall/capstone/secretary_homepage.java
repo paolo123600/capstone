@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -13,10 +14,13 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.firestore.QuerySnapshot;
 import com.medicall.capstone.R;
 
 import com.medicall.capstone.secretary.Secretary_schedlist;
@@ -33,17 +37,19 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class  secretary_homepage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private LinearLayout Patrec_button;
-    private Button notifbtn;
+    private ImageView notifbtn;
     private LinearLayout chatbtn;
     LinearLayout managesched;
     Button bottomchat;
-
+    CardView notifcontainer;
     LinearLayout appointment_btn;
+    TextView notifcount;
 
     private PreferenceManager preferenceManager;
     FirebaseFirestore db;
@@ -63,10 +69,13 @@ public class  secretary_homepage extends AppCompatActivity implements Navigation
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_secretary_homepage);
 
-        notifbtn = (Button) findViewById(R.id.notif);
+        notifbtn = (ImageView) findViewById(R.id.notif);
         chatbtn = findViewById(R.id.secretary_chat_btn);
         managesched = findViewById(R.id.manage_schedule_button);
         bottomchat = findViewById(R.id.sec_bottom_chat);
+        notifcount = (TextView) findViewById(R.id.bellcount);
+        notifcontainer = (CardView) findViewById(R.id.notificationNumberContainer);
+
 
         appointment_btn = findViewById(R.id.appointment_button);
 
@@ -150,6 +159,46 @@ public class  secretary_homepage extends AppCompatActivity implements Navigation
             }
         });
 
+        DocumentReference documentReference = fStore.collection("Secretary").document(userId);
+        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+            String clinicname=  documentSnapshot.getString("ClinicName");
+
+                db.collection("Notification").whereEqualTo("ClinicName", clinicname).whereEqualTo("Seen",false)
+                        .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                            @Override
+                            public void onEvent(@Nullable QuerySnapshot value,
+                                                @Nullable FirebaseFirestoreException e) {
+                                if (e != null) {
+                                    Toast.makeText(secretary_homepage.this, "error listening", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+
+
+                                if (!value.isEmpty()){
+                                    int count;
+                                    count = value.size();
+
+                                    notifcount.setVisibility(View.VISIBLE);
+                                    notifcontainer.setVisibility(View.VISIBLE);
+                                    if (value.size() > 99){
+                                        notifcount.setText("99");
+                                    }
+                                    else {  notifcount.setText(""+count);}
+
+                                }
+
+                                else {
+                                    notifcount.setVisibility(View.GONE);
+                                    notifcontainer.setVisibility(View.GONE);
+                                }
+                            }
+                        });
+
+
+            }
+        });
 
     }
     @Override

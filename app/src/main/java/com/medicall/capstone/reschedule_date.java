@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.medicall.capstone.R;
 
 import com.medicall.capstone.utilities.Constants;
@@ -264,12 +265,28 @@ public class reschedule_date extends AppCompatActivity implements DatePickerDial
                                                 Date currentTime = Calendar.getInstance().getTime();
                                                 db.collection("Schedules").document(schedid).update(
                                                         "Status", "Rescheduled",
-                                                        "Dnt", currentTime,
                                                         "Position",0
 
                                                 ).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                     @Override
                                                     public void onSuccess(Void aVoid) {
+                                                        db.collection("Schedules").document(schedid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                            if(task.isSuccessful()){
+                                                                DocumentSnapshot documentSnapshot = task.getResult();
+                                                                Map<String, Object> Notif = new HashMap<>();
+                                                                Notif.put("DoctorUId", documentSnapshot.getString("DoctorUId"));
+                                                                Notif.put ("Date", documentSnapshot.getDate("Date"));
+                                                                Notif.put("AppointID",schedid);
+                                                                Notif.put ("Status", "Rescheduled" );
+                                                                Notif.put ("PatientUId", documentSnapshot.getString("PatientUId") );
+                                                                Notif.put ("Dnt",currentTime);
+                                                                Notif.put ("Seen",false);
+                                                                Notif.put("ClinicName",documentSnapshot.getString("ClinicName"));
+                                                                db.collection("Notification").document().set(Notif).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                    @Override
+                                                                    public void onSuccess(Void aVoid) {
                                                         db.collection("Schedules").whereEqualTo("DoctorUId", gv.getSDDocUid()).whereEqualTo("StartTime",gv.getSDtimestart()).whereEqualTo("EndTime",gv.getSDtimestop()).whereIn("Status", Arrays.asList("Paid","Approved","Pending Approval")).whereEqualTo("Date",gv.getDDate()).get()
                                                                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                                                     @Override
@@ -303,7 +320,7 @@ public class reschedule_date extends AppCompatActivity implements DatePickerDial
                                                                             PatSched.put ("Dnt",currentTime);
                                                                             PatSched.put("ClinicName",gv.getSDClinic());
 
-                                                                            db.collection("Schedules").document().set(PatSched);
+                                                                            db.collection("Schedules").document(schedid).update(PatSched);
                                                                             Toast.makeText(reschedule_date.this, "Successfully Rescheduled", Toast.LENGTH_SHORT).show();
                                                                             Intent intent = new Intent(reschedule_date.this, MainActivity.class);
                                                                             startActivity(intent);
@@ -311,9 +328,11 @@ public class reschedule_date extends AppCompatActivity implements DatePickerDial
                                                                         }
                                                                     }
                                                                 });
+                                                    }}); };}
+
+                                                });
                                                     }
                                                 });
-
                                             }
                                         });
                                         builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {

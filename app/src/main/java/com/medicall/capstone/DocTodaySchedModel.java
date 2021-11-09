@@ -3,7 +3,7 @@ package com.medicall.capstone;
 import java.util.Date;
 
 public class DocTodaySchedModel {
-    public DocTodaySchedModel(String doctorUId, String patientUId, String startTime, String endTime, int position, Date date, String status, String clinicname, Date dnt) {
+    public DocTodaySchedModel(String doctorUId, String patientUId, String startTime, String endTime, int position, Date date, String status, String clinicname, Date dnt , Boolean seen, String appointID) {
         DoctorUId = doctorUId;
         PatientUId = patientUId;
         StartTime = startTime;
@@ -12,7 +12,9 @@ public class DocTodaySchedModel {
         Date = date;
         Status = status;
         Clinicname = clinicname;
+        Seen = seen;
         Dnt = dnt;
+        AppointID = appointID;
     }
 
     public String getDoctorUId() {
@@ -84,6 +86,18 @@ public class DocTodaySchedModel {
     Date Dnt;
     int Position;
 
+
+
+    public Boolean getSeen() {
+        return Seen;
+    }
+
+    public void setSeen(Boolean seen) {
+        Seen = seen;
+    }
+
+    Boolean Seen;
+
     public java.util.Date getDnt() {
         return Dnt;
     }
@@ -92,7 +106,15 @@ public class DocTodaySchedModel {
         Dnt = dnt;
     }
 
+    public String getAppointID() {
+        return AppointID;
+    }
 
+    public void setAppointID(String appointID) {
+        AppointID = appointID;
+    }
+
+    String AppointID;
 
     public String getClinicname() {
         return Clinicname;

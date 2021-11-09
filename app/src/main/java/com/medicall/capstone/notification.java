@@ -73,7 +73,7 @@ String clinicname;
         });
 
 
-        Query query = db.collection("Schedules").whereEqualTo("ClinicName",clinicname).orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
+        Query query = db.collection("Notification").whereEqualTo("ClinicName",clinicname).orderBy("Dnt", Query.Direction.DESCENDING).limit(50);
 
         Shownotif(query);
 
@@ -86,36 +86,36 @@ String clinicname;
                 String selectedstat = spinner_status.getSelectedItem().toString();
                 switch (selectedstat) {
                     case "All":
-                        query = db.collection("Schedules").whereEqualTo("ClinicName",clinicname).whereIn("Status", Arrays.asList("Paid","Pending Approval","Reschedule","Cancelled","Declined","Approved", "Unattended")).orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
+                        query = db.collection("Notification").whereEqualTo("ClinicName",clinicname).whereIn("Status", Arrays.asList("Paid","Pending Approval","Reschedule","Cancelled","Declined","Approved", "Unattended","Rescheduled")).orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
                         Shownotif(query);
                         break;
                     case "Booked":
-                         query = db.collection("Schedules").whereEqualTo("ClinicName",clinicname).whereEqualTo("Status","Paid").orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
+                         query = db.collection("Notification").whereEqualTo("ClinicName",clinicname).whereEqualTo("Status","Paid").orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
                         Shownotif(query);
                         break;
                     case "Pending":
-                         query = db.collection("Schedules").whereEqualTo("ClinicName",clinicname).whereEqualTo("Status","Pending Approval").orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
+                         query = db.collection("Notification").whereEqualTo("ClinicName",clinicname).whereEqualTo("Status","Pending Approval").orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
                         Shownotif(query);
                         break;
                     case "Rescheduled":
-                         query = db.collection("Schedules").whereEqualTo("ClinicName",clinicname).whereEqualTo("Status","Rescheduled").orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
+                         query = db.collection("Notification").whereEqualTo("ClinicName",clinicname).whereEqualTo("Status","Rescheduled").orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
                         Shownotif(query);
                         break;
                     case "Cancelled":
-                         query = db.collection("Schedules").whereEqualTo("ClinicName",clinicname).whereEqualTo("Status","Cancelled").orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
+                         query = db.collection("Notification").whereEqualTo("ClinicName",clinicname).whereEqualTo("Status","Cancelled").orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
                         Shownotif(query);
                         break;
                     case "Declined":
-                        query = db.collection("Schedules").whereEqualTo("ClinicName",clinicname).whereEqualTo("Status","Declined").orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
+                        query = db.collection("Notification").whereEqualTo("ClinicName",clinicname).whereEqualTo("Status","Declined").orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
                         Shownotif(query);
                         break;
                     case "Approved":
-                        query = db.collection("Schedules").whereEqualTo("ClinicName",clinicname).whereEqualTo("Status","Approved").orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
+                        query = db.collection("Notification").whereEqualTo("ClinicName",clinicname).whereEqualTo("Status","Approved").orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
                         Shownotif(query);
                         break;
 
                     case "Unattended":
-                        query = db.collection("Schedules").whereEqualTo("ClinicName",clinicname).whereEqualTo("Status","Unattended").orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
+                        query = db.collection("Notification").whereEqualTo("ClinicName",clinicname).whereEqualTo("Status","Unattended").orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
                         Shownotif(query);
                         break;
                 }
@@ -235,8 +235,10 @@ String clinicname;
                  });
 
 
-
-
+                 String documentId = getSnapshots().getSnapshot(position).getId();
+                if (!model.Seen){
+                    db.collection("Notification").document(documentId).update("Seen" , true);
+                }
              }
          };
          mFirestorelist.setHasFixedSize(true);

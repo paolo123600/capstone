@@ -248,10 +248,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                                     }
                                     else if (nowdate.after(datesched)) {  String documentsched =doc.getId();
-                                        db.collection("Schedules").document(documentsched).update("Status","Unattended2").addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        db.collection("Schedules").document(documentsched).update("Status","Unattended").addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
+                                                Date currentTime = Calendar.getInstance().getTime();
+                                                Map<String, Object> Notif = new HashMap<>();
+                                                Notif.put("DoctorUId", doc.getString("DoctorUId"));
+                                                Notif.put ("Date", doc.getDate("Date"));
+                                                Notif.put("AppointID",documentsched);
+                                                Notif.put ("Status", "Cancelled" );
+                                                Notif.put ("PatientUId", doc.getString("PatientUId") );
+                                                Notif.put ("Dnt",currentTime);
+                                                Notif.put ("Seen",false);
+                                                Notif.put("ClinicName",doc.getString("ClinicName"));
+                                                db.collection("Notification").document().set(Notif).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
 
+                                                    }});
                                             }
                                         });
                                     }

@@ -36,6 +36,8 @@ import com.android.billingclient.api.ConsumeResponseListener;
 import com.android.billingclient.api.Purchase;
 import com.android.billingclient.api.PurchasesUpdatedListener;
 import com.android.billingclient.api.SkuDetailsParams;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.medicall.capstone.R;
 
 import com.medicall.capstone.utilities.Constants;
@@ -506,12 +508,13 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
                     PatSched.put("Price", finalprice);
                     PatSched.put ("Status", "Paid" );
                     PatSched.put ("PatientUId", patuid );
-                    PatSched.put ("Dnt",currentTime);
                     PatSched.put("ClinicName",gv.getSDClinic());
-                    db.collection("Schedules").document().set(PatSched)
+                   DocumentReference documentReference = db.collection("Schedules").document();
+                           documentReference.set(PatSched)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
+                                    String documentid = documentReference.getId();
                                     db.collection("Clinics").whereEqualTo("ClinicName",gv.getSDClinic()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                         @Override
                                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -524,9 +527,23 @@ public class selectDate extends AppCompatActivity implements DatePickerDialog.On
                                                         db.collection("Clinics").document(docuid).collection("Patients").document(patuid).set(Pat).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                             @Override
                                                             public void onSuccess(Void aVoid) {
-                                                                Log.d("TAG", "DocumentSnapshot successfully written!");
-                                                                Intent intent = new Intent(selectDate.this , MainActivity.class);
-                                                                startActivity(intent);
+                                                                Map<String, Object> Notif = new HashMap<>();
+                                                                Notif.put("DoctorUId", docid);
+                                                                Notif.put ("Date", finaldateee);
+                                                                Notif.put("AppointID",documentid);
+                                                                Notif.put ("Status", "Paid" );
+                                                                Notif.put ("PatientUId", patuid );
+                                                                Notif.put ("Dnt",currentTime);
+                                                                Notif.put ("Seen",false);
+                                                                Notif.put("ClinicName",gv.getSDClinic());
+                                                                db.collection("Notification").document().set(Notif).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                    @Override
+                                                                    public void onSuccess(Void aVoid) {
+                                                                        Intent intent = new Intent(selectDate.this , MainActivity.class);
+                                                                        startActivity(intent);
+                                                                    }
+                                                                });
+
                                                             }
                                                         });
                                                     }

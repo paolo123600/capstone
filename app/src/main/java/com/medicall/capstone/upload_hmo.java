@@ -278,7 +278,6 @@ public class upload_hmo extends AppCompatActivity {
                                                         patienthmo.put("StartTime", gv.getStartTime());
                                                         patienthmo.put("EndTime", gv.getEndTime());
                                                         patienthmo.put("Date", gv.getDateconsult());
-                                                        patienthmo.put("Dnt", gv.getDateandtime());
                                                         patienthmo.put("HMOName", gv.getHMOName());
                                                         patienthmo.put("Position", gv.getPost()+1);
                                                         patienthmo.put("Status", "Pending Approval");
@@ -290,12 +289,27 @@ public class upload_hmo extends AppCompatActivity {
                                                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                     @Override
                                                                     public void onSuccess(Void aVoid) {
-                                                                        if(progressDialog.isShowing()){
-                                                                            progressDialog.dismiss();
-                                                                        }
-                                                                        Toast.makeText(upload_hmo.this, "You have successfully booked a schedule!", Toast.LENGTH_SHORT).show();
-                                                                        Intent intent = new Intent(upload_hmo.this, MainActivity.class);
-                                                                        startActivity(intent);
+                                                                        Map<String, Object> Notif = new HashMap<>();
+                                                                        Notif.put("DoctorUId", gv.getSDDocUid());
+                                                                        Notif.put ("Date", gv.getDateconsult());
+                                                                        Notif.put("AppointID",schedid);
+                                                                        Notif.put ("Status", "Pending Approval" );
+                                                                        Notif.put ("PatientUId", patuid );
+                                                                        Notif.put ("Dnt",gv.getDateandtime());
+                                                                        Notif.put ("Seen",false);
+                                                                        Notif.put("ClinicName",doctor.getString("ClinicName"));
+                                                                        db.collection("Notification").document().set(Notif).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                            @Override
+                                                                            public void onSuccess(Void aVoid) {
+                                                                                if(progressDialog.isShowing()){
+                                                                                    progressDialog.dismiss();
+                                                                                }
+                                                                                Toast.makeText(upload_hmo.this, "You have successfully booked a schedule!", Toast.LENGTH_SHORT).show();
+                                                                                Intent intent = new Intent(upload_hmo.this, MainActivity.class);
+                                                                                startActivity(intent);
+                                                                            }
+                                                                        });
+
                                                                     }
                                                                 })
                                                                 .addOnFailureListener(new OnFailureListener() {
@@ -373,12 +387,28 @@ public class upload_hmo extends AppCompatActivity {
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void aVoid) {
-                                                    if(progressDialog.isShowing()){
-                                                        progressDialog.dismiss();
-                                                    }
-                                                    Toast.makeText(upload_hmo.this, "You have successfully booked a schedule!", Toast.LENGTH_SHORT).show();
-                                                    Intent intent = new Intent(upload_hmo.this, MainActivity.class);
-                                                    startActivity(intent);
+                                                    Map<String, Object> Notif = new HashMap<>();
+                                                    Notif.put("DoctorUId", gv.getSDDocUid());
+                                                    Notif.put ("Date", gv.getDateconsult());
+                                                    Notif.put("AppointID",schedid);
+                                                    Notif.put ("Status", "Pending Approval" );
+                                                    Notif.put ("PatientUId", patuid );
+                                                    Notif.put ("Dnt",gv.getDateandtime());
+                                                    Notif.put ("Seen",false);
+                                                    Notif.put("ClinicName",doctor.getString("ClinicName"));
+                                                    db.collection("Notification").document().set(Notif).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+                                                            if(progressDialog.isShowing()){
+                                                                progressDialog.dismiss();
+                                                            }
+                                                            Toast.makeText(upload_hmo.this, "You have successfully booked a schedule!", Toast.LENGTH_SHORT).show();
+                                                            Intent intent = new Intent(upload_hmo.this, MainActivity.class);
+                                                            startActivity(intent);
+                                                        }
+                                                    });
+
+
                                                 }
                                             })
                                             .addOnFailureListener(new OnFailureListener() {

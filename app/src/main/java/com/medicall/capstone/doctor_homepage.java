@@ -71,6 +71,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -447,10 +448,24 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
                                                 if (timenow.after(times)){
                                                     String documentsched =document.getId();
                                                     Date currentTime = Calendar.getInstance().getTime();
-                                                    db.collection("Schedules").document(documentsched).update("Status","Unattended3", "Dnt", currentTime).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    db.collection("Schedules").document(documentsched).update("Status","Unattended").addOnSuccessListener(new OnSuccessListener<Void>() {
                                                         @Override
                                                         public void onSuccess(Void aVoid) {
+                                                            Map<String, Object> Notif = new HashMap<>();
+                                                            Notif.put("DoctorUId", document.getString("DoctorUId"));
+                                                            Notif.put ("Date", document.getDate("Date"));
+                                                            Notif.put("AppointID",documentsched);
+                                                            Notif.put ("Status", "Unattended" );
+                                                            Notif.put ("PatientUId", document.getString("PatientUId") );
+                                                            Notif.put ("Dnt",currentTime);
+                                                            Notif.put ("Seen",false);
+                                                            Notif.put("ClinicName",document.getString("ClinicName"));
+                                                            db.collection("Notification").document().set(Notif).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                @Override
+                                                                public void onSuccess(Void aVoid) {
 
+                                                                }
+                                                            });
                                                         }
                                                     });
                                                 }
@@ -474,9 +489,26 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
                                         for (QueryDocumentSnapshot document : task.getResult()) {
                                             String documentsched =document.getId();
                                             Date currentTime = Calendar.getInstance().getTime();
-                                            db.collection("Schedules").document(documentsched).update("Status","Unattended2","Dnt", currentTime).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            db.collection("Schedules").document(documentsched).update("Status","Unattended","Dnt", currentTime).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void aVoid) {
+
+                                                        Map<String, Object> Notif = new HashMap<>();
+                                                        Notif.put("DoctorUId", document.getString("DoctorUId"));
+                                                        Notif.put ("Date", document.getDate("Date"));
+                                                        Notif.put("AppointID",documentsched);
+                                                        Notif.put ("Status", "Unattended" );
+                                                        Notif.put ("PatientUId", document.getString("PatientUId") );
+                                                        Notif.put ("Dnt",currentTime);
+                                                        Notif.put ("Seen",false);
+                                                        Notif.put("ClinicName",document.getString("ClinicName"));
+                                                        db.collection("Notification").document().set(Notif).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                            @Override
+                                                            public void onSuccess(Void aVoid) {
+
+                                                            }
+                                                        });
+
 
                                                 }
                                             });

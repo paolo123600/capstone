@@ -214,44 +214,66 @@ public class patient_schedule extends AppCompatActivity  {
                                 Date currentTime = Calendar.getInstance().getTime();
                                 db.collection("Schedules").document(scheddocu).update(
                                         "Status", "Cancelled",
-                                        "Dnt", currentTime,
                                         "Position",0
 
                                 ).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-
-                                        db.collection("Schedules").whereEqualTo("DoctorUId",gv.getSDDocUid()).whereEqualTo("StartTime",gv.getSDtimestart()).whereEqualTo("EndTime",gv.getSDtimestop()).whereIn("Status",Arrays.asList("Paid","Pending Approval","Approved")).whereEqualTo("Date",gv.getDDate()).get()
-                                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                                        if(task.isSuccessful()){
-
-                                                            for (QueryDocumentSnapshot doc : task.getResult()) {
-
-                                                                int docpostion = doc.getLong("Position").intValue();
-                                                                if ( docpostion > Position){
-                                                                    String docuid = doc.getId();
-                                                                    db.collection("Schedules").document(docuid).update(
-                                                                            "Position",docpostion-1
-
-                                                                    ).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        db.collection("Schedules").document(scheddocu).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                if(task.isSuccessful()){
+                                                    DocumentSnapshot documentSnapshot = task.getResult();
+                                                    Map<String, Object> Notif = new HashMap<>();
+                                                    Notif.put("DoctorUId", documentSnapshot.getString("DoctorUId"));
+                                                    Notif.put ("Date", documentSnapshot.getDate("Date"));
+                                                    Notif.put("AppointID",scheddocu);
+                                                    Notif.put ("Status", "Cancelled" );
+                                                    Notif.put ("PatientUId", documentSnapshot.getString("PatientUId") );
+                                                    Notif.put ("Dnt",currentTime);
+                                                    Notif.put ("Seen",false);
+                                                    Notif.put("ClinicName",documentSnapshot.getString("ClinicName"));
+                                                    db.collection("Notification").document().set(Notif).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+                                                            db.collection("Schedules").whereEqualTo("DoctorUId",gv.getSDDocUid()).whereEqualTo("StartTime",gv.getSDtimestart()).whereEqualTo("EndTime",gv.getSDtimestop()).whereIn("Status",Arrays.asList("Paid","Pending Approval","Approved")).whereEqualTo("Date",gv.getDDate()).get()
+                                                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                                                         @Override
-                                                                        public void onSuccess(Void aVoid) {
+                                                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                                            if(task.isSuccessful()){
 
+                                                                                for (QueryDocumentSnapshot doc : task.getResult()) {
+
+                                                                                    int docpostion = doc.getLong("Position").intValue();
+                                                                                    if ( docpostion > Position){
+                                                                                        String docuid = doc.getId();
+                                                                                        db.collection("Schedules").document(docuid).update(
+                                                                                                "Position",docpostion-1
+
+                                                                                        ).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                                            @Override
+                                                                                            public void onSuccess(Void aVoid) {
+
+                                                                                            }
+                                                                                        });
+
+                                                                                    }
+
+
+                                                                                }
+                                                                            }
                                                                         }
                                                                     });
-
-                                                                }
-
-
-                                                            }
+                                                            Toast.makeText(patient_schedule.this, "Successfully Cancelled", Toast.LENGTH_SHORT).show();
+                                                            Intent intent = new Intent(patient_schedule.this, patient_schedule.class);
+                                                            startActivity(intent);
                                                         }
-                                                    }
-                                                });
-                                        Toast.makeText(patient_schedule.this, "Successfully Cancelled", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(patient_schedule.this, patient_schedule.class);
-                                        startActivity(intent);
+                                                    });
+                                                }
+                                            }
+                                        });
+
+
                                     }
                                 });
                             }
@@ -284,31 +306,31 @@ public class patient_schedule extends AppCompatActivity  {
         spinner_status.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Query  query1 = db.collection("Schedules").whereEqualTo("PatientUId", Patuid).orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
+                Query  query1 = db.collection("Notification").whereEqualTo("PatientUId", Patuid).orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
                 String selectedstat = spinner_status.getSelectedItem().toString();
                 switch (selectedstat) {
                     case "All":
-                        query1 = db.collection("Schedules").whereEqualTo("PatientUId", Patuid).whereIn("Status", Arrays.asList("Completed" ,"Rescheduled", "Cancelled","Declined","Approved","Unattended")).orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
+                        query1 = db.collection("Notification").whereEqualTo("PatientUId", Patuid).whereIn("Status", Arrays.asList("Completed" ,"Rescheduled", "Cancelled","Declined","Approved","Unattended")).orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
                         break;
                     case "Declined":
-                        query1 = db.collection("Schedules").whereEqualTo("Status", "Declined").whereEqualTo("PatientUId", Patuid).orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
+                        query1 = db.collection("Notification").whereEqualTo("Status", "Declined").whereEqualTo("PatientUId", Patuid).orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
                         break;
                     case "Completed":
-                        query1 = db.collection("Schedules").whereEqualTo("Status", "Completed").whereEqualTo("PatientUId", Patuid).orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
+                        query1 = db.collection("Notification").whereEqualTo("Status", "Completed").whereEqualTo("PatientUId", Patuid).orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
                         break;
                     case "Approved":
-                        query1 = db.collection("Schedules").whereEqualTo("Status", "Approved").whereEqualTo("PatientUId", Patuid).orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
+                        query1 = db.collection("Notification").whereEqualTo("Status", "Approved").whereEqualTo("PatientUId", Patuid).orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
                         break;
                     case "Rescheduled":
-                        query1 = db.collection("Schedules").whereEqualTo("Status", "Rescheduled").whereEqualTo("PatientUId", Patuid).orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
+                        query1 = db.collection("Notification").whereEqualTo("Status", "Rescheduled").whereEqualTo("PatientUId", Patuid).orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
 
                         break;
                     case "Cancelled":
-                        query1 = db.collection("Schedules").whereEqualTo("Status", "Cancelled").whereEqualTo("PatientUId", Patuid).orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
+                        query1 = db.collection("Notification").whereEqualTo("Status", "Cancelled").whereEqualTo("PatientUId", Patuid).orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
 
                         break;
                     case "Unattended":
-                        query1 = db.collection("Schedules").whereEqualTo("Status", "Unattended").whereEqualTo("PatientUId", Patuid).orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
+                        query1 = db.collection("Notification").whereEqualTo("Status", "Unattended").whereEqualTo("PatientUId", Patuid).orderBy("Dnt", Query.Direction.DESCENDING).limit(20);
 
                         break;
 
@@ -334,7 +356,7 @@ public class patient_schedule extends AppCompatActivity  {
                         holder.itemView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                String documentId = getSnapshots().getSnapshot(position).getId();
+                                String documentId = model.AppointID;
                                 Intent intent = new Intent(getApplicationContext(), Patient_sched_status.class);
                                 intent.putExtra("schedid", documentId);
                                 startActivity(intent);
