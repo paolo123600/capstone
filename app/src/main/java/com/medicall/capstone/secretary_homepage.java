@@ -62,6 +62,8 @@ public class  secretary_homepage extends AppCompatActivity implements Navigation
     CardView notifcontainer;
     LinearLayout appointment_btn;
     TextView notifcount;
+    TextView pendingcount;
+    CardView pendingcontainer;
 
     private PreferenceManager preferenceManager;
     FirebaseFirestore db;
@@ -87,6 +89,8 @@ public class  secretary_homepage extends AppCompatActivity implements Navigation
         bottomchat = findViewById(R.id.sec_bottom_chat);
         notifcount = (TextView) findViewById(R.id.bellcount);
         notifcontainer = (CardView) findViewById(R.id.notificationNumberContainer);
+        pendingcount = (TextView) findViewById(R.id.pendingcount);
+        pendingcontainer = (CardView) findViewById(R.id.PendingContainer);
 
 
         appointment_btn = findViewById(R.id.appointment_button);
@@ -204,6 +208,37 @@ public class  secretary_homepage extends AppCompatActivity implements Navigation
                                 else {
                                     notifcount.setVisibility(View.GONE);
                                     notifcontainer.setVisibility(View.GONE);
+                                }
+                            }
+                        });
+
+                db.collection("Schedules").whereEqualTo("ClinicName", clinicname).whereEqualTo("Status","Pending Approval")
+                        .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                            @Override
+                            public void onEvent(@Nullable QuerySnapshot value,
+                                                @Nullable FirebaseFirestoreException e) {
+                                if (e != null) {
+                                    Toast.makeText(secretary_homepage.this, "error listening", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+
+
+                                if (!value.isEmpty()){
+                                    int count;
+                                    count = value.size();
+
+                                   pendingcount.setVisibility(View.VISIBLE);
+                                    pendingcontainer.setVisibility(View.VISIBLE);
+                                    if (value.size() > 99){
+                                        pendingcount.setText("99");
+                                    }
+                                    else {  pendingcount.setText(""+count);}
+
+                                }
+
+                                else {
+                                    pendingcount.setVisibility(View.GONE);
+                                    pendingcontainer.setVisibility(View.GONE);
                                 }
                             }
                         });

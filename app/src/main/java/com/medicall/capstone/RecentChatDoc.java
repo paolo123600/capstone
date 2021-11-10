@@ -3,6 +3,7 @@ package com.medicall.capstone;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -198,6 +199,7 @@ public class RecentChatDoc extends AppCompatActivity {
                                     String patname = documentSnapshot.getString("FirstName")+" "+ documentSnapshot.getString("LastName");
                                     holder.tvname.setText(patname);
 
+
                                     holder.itemView.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {
@@ -218,6 +220,8 @@ public class RecentChatDoc extends AppCompatActivity {
                 dnt = model.getDateAndTime();
                 datentime = dateFormat.format(dnt);
                 holder.tvtime.setText(datentime);
+
+
 
             }
         };
@@ -308,10 +312,14 @@ public class RecentChatDoc extends AppCompatActivity {
     private class DocRecentViewHolder extends RecyclerView.ViewHolder {
         TextView tvname;
         TextView tvmessage;
+        TextView chatcount;
+        CardView chatcontainer;
         TextView tvtime;
         public DocRecentViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            chatcount = itemView.findViewById(R.id.chatUnseenCount);
+            chatcontainer = itemView.findViewById(R.id.chatUnseenContainer);
             tvname = itemView.findViewById(R.id.username_userfrag);
             tvmessage = itemView.findViewById(R.id.lastMessage);
             tvtime = itemView.findViewById(R.id.tvtime);

@@ -16,6 +16,7 @@
             android:layout_height="@dimen/_30sdp"
             app:cardBackgroundColor="@color/red"
             app:cardCornerRadius="50dp"
+            android:id="@+id/chatUnseenContainer"
             app:layout_constraintEnd_toEndOf="@+id/linearLayout6"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginRight="@dimen/_10sdp"
@@ -26,6 +27,7 @@
                 android:layout_height="match_parent">
 
                 <TextView
+                    android:id="@+id/chatUnseenCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="1"

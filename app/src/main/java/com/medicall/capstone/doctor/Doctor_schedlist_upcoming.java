@@ -95,7 +95,7 @@ public class Doctor_schedlist_upcoming extends AppCompatActivity {
         });
 
         Date currentTime = Calendar.getInstance().getTime();
-        Query query = db.collection("Schedules").whereEqualTo("DoctorUId", userId).whereEqualTo("Status", "Paid").whereGreaterThanOrEqualTo("Date",currentTime).orderBy("Date", Query.Direction.ASCENDING).limit(20);
+        Query query = db.collection("Schedules").whereEqualTo("DoctorUId", userId).whereIn("Status", Arrays.asList("Paid", "Approved")).whereGreaterThanOrEqualTo("Date",currentTime).orderBy("Date", Query.Direction.ASCENDING).limit(20);
 
         FirestoreRecyclerOptions<DoctorUpcomingModel> options = new FirestoreRecyclerOptions.Builder<DoctorUpcomingModel>().setQuery(query, DoctorUpcomingModel.class).build();
 
