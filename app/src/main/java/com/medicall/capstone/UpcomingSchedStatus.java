@@ -72,6 +72,7 @@ public class UpcomingSchedStatus extends AppCompatActivity {
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     FirebaseAuth mAuth;
+    ImageView back;
 
     ImageView changeDP;
     Bitmap getPic;
@@ -99,7 +100,7 @@ public class UpcomingSchedStatus extends AppCompatActivity {
         dpicture = findViewById(R.id.patient_dp);
 
 
-
+        back = findViewById(R.id.backspace);
 
         mAuth = FirebaseAuth.getInstance();
         firstname = findViewById(R.id.first_name_profile);
@@ -127,6 +128,14 @@ public class UpcomingSchedStatus extends AppCompatActivity {
         view6 = findViewById(R.id.view6);
         view7 = findViewById(R.id.view7);
         view8 = findViewById(R.id.view8);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Login.class);
+                startActivity(intent);
+            }
+        });
 
 
 

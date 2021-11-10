@@ -81,6 +81,8 @@ public class PastSchedstatus extends AppCompatActivity {
     FirebaseFirestore db;
     String documentid;
     private View notebtn;
+    ImageView back;
+
 
 
     @Override
@@ -117,6 +119,7 @@ public class PastSchedstatus extends AppCompatActivity {
         hmo_num = findViewById(R.id.hmo_num);
         hmo_add = findViewById(R.id.HMOaddress);
         hmo_sched = findViewById(R.id.hmo_sched);
+        back = findViewById(R.id.backspace);
 
         view1 = findViewById(R.id.view1);
         view2 = findViewById(R.id.view2);
@@ -133,6 +136,15 @@ public class PastSchedstatus extends AppCompatActivity {
         fStore = FirebaseFirestore.getInstance();
 
         userId = fAuth.getCurrentUser().getUid();
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Login.class);
+                startActivity(intent);
+            }
+        });
+
 
         db.collection("Schedules").document(documentid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
