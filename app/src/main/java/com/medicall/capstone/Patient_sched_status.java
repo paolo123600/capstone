@@ -101,6 +101,9 @@ public class Patient_sched_status extends AppCompatActivity {
                 else if (status.equals("Declined")){
                     prescriptionbtn.setVisibility(View.GONE);
                 }
+                else if(status.equals("Approved")){
+                    prescriptionbtn.setVisibility(View.GONE);
+                }
             }
         });
 
