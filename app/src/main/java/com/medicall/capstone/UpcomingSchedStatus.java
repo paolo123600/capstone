@@ -45,7 +45,7 @@ public class UpcomingSchedStatus extends AppCompatActivity {
     TextView clinicname;
     TextView doctorname;
     TextView date;
-    TextView timer;
+    TextView time;
     TextView payment;
     Button note;
     Button prescriptionbtn;
@@ -108,7 +108,7 @@ public class UpcomingSchedStatus extends AppCompatActivity {
         clinicname = findViewById(R.id.clinic_name);
         doctorname = findViewById(R.id.doctor_name);
         date = findViewById(R.id.date_status);
-        timer = findViewById(R.id.time_status);
+        time = findViewById(R.id.time_status);
         payment = findViewById(R.id.payment_status);
         notebtn = (Button) findViewById(R.id.view_note);
         prescriptionbtn = (Button) findViewById(R.id.view_prescription);
@@ -147,11 +147,17 @@ public class UpcomingSchedStatus extends AppCompatActivity {
         db.collection("Schedules").document(documentid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                SimpleDateFormat dateFormat = new SimpleDateFormat("hh: mm aa");
+
+                SimpleDateFormat format = new SimpleDateFormat("MMMM d ,yyyy");
                 clinicname.setText(documentSnapshot.getString("ClinicName"));
                 payment.setText(documentSnapshot.getString("Price"));
-                date.setText(documentSnapshot.getDate("Date").toString());
 
+
+                Date ddate = documentSnapshot.getDate("Date");
+
+                String datestring =format.format(ddate);
+                date.setText(datestring);
+                time.setText(documentSnapshot.getString("StartTime") +" - "+ documentSnapshot.getString("EndTime"));
                 String docUid = documentSnapshot.getString("DoctorUId");
                 String PatUid = documentSnapshot.getString("PatientUId");
 

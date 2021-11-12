@@ -36,6 +36,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 
 public class Patient_sched_status extends AppCompatActivity {
 
@@ -123,25 +124,10 @@ public class Patient_sched_status extends AppCompatActivity {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 String status = documentSnapshot.getString("Status");
-                if(status.equals("Unattended")){
-                    prescriptionbtn.setVisibility(View.GONE);
-                }
-                else if (status.equals("Cancelled")){
-                    prescriptionbtn.setVisibility(View.GONE);
-                }
-                else if (status.equals("Rescheduled")){
-                    prescriptionbtn.setVisibility(View.GONE);
-                }
-                else if (status.equals("Completed")){
+                if(status.equals("Completed")){
                     prescriptionbtn.setVisibility(View.VISIBLE);
                 }
-                else if (status.equals("Paid")){
-                    prescriptionbtn.setVisibility(View.GONE);
-                }
-                else if (status.equals("Declined")){
-                    prescriptionbtn.setVisibility(View.GONE);
-                }
-                else if(status.equals("Approved")){
+       else {
                     prescriptionbtn.setVisibility(View.GONE);
                 }
             }
@@ -224,11 +210,15 @@ public class Patient_sched_status extends AppCompatActivity {
         db.collection("Schedules").document(documentid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                SimpleDateFormat dateFormat = new SimpleDateFormat("hh: mm aa");
+
+                SimpleDateFormat format = new SimpleDateFormat("MMMM d ,yyyy");
                 clinicname.setText(documentSnapshot.getString("ClinicName"));
                 payment.setText(documentSnapshot.getString("Price"));
-                date.setText(documentSnapshot.getDate("Date").toString());
+                Date ddate = documentSnapshot.getDate("Date");
 
+                String datestring =format.format(ddate);
+                date.setText(datestring);
+                time.setText(documentSnapshot.getString("StartTime") +" - "+ documentSnapshot.getString("EndTime"));
                 String docUid = documentSnapshot.getString("DoctorUId");
                 String PatUid = documentSnapshot.getString("PatientUId");
 
