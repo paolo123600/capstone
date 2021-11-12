@@ -70,6 +70,7 @@ public class Patient_sched_status extends AppCompatActivity {
     View view6;
     TextView view7;
     View view8;
+    ImageView back;
 
     ImageView changeDP;
     Bitmap profilepic;
@@ -93,7 +94,7 @@ public class Patient_sched_status extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
         dpicture = findViewById(R.id.patient_dp);
-
+        back = findViewById(R.id.backspace);
 
         mAuth = FirebaseAuth.getInstance();
         firstname = findViewById(R.id.first_name_profile);
@@ -119,6 +120,13 @@ public class Patient_sched_status extends AppCompatActivity {
         view6 = findViewById(R.id.view6);
         view7 = findViewById(R.id.view7);
         view8 = findViewById(R.id.view8);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         db.collection("Schedules").document(documentid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
@@ -224,7 +232,6 @@ public class Patient_sched_status extends AppCompatActivity {
 
 
                 if(payment.getText().equals("HMO")){
-                    Toast.makeText(Patient_sched_status.this, PatUid, Toast.LENGTH_SHORT).show();
                     String Hmoname = documentSnapshot.getString("HMOName");
 
                     DocumentReference documentReference = db.collection("HMO").document(Hmoname).collection("Patients").document(PatUid);

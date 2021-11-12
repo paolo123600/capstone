@@ -38,7 +38,6 @@ public class addvitals extends AppCompatActivity {
     Button submit;
 
 
-
     FirebaseAuth fAuth;
     FirebaseFirestore db;
     String userId;
@@ -57,6 +56,7 @@ public class addvitals extends AppCompatActivity {
         fAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         userId = fAuth.getCurrentUser().getUid();
+        back = findViewById(R.id.backspace);
 
         bpupper = findViewById(R.id.bp_upper);
         bplower = findViewById(R.id.bp_lower);
@@ -65,7 +65,12 @@ public class addvitals extends AppCompatActivity {
         res = findViewById(R.id.respiration);
         submit = findViewById(R.id.vitalbtn);
 
-
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override

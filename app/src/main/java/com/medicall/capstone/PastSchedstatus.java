@@ -138,6 +138,34 @@ public class PastSchedstatus extends AppCompatActivity {
 
         userId = fAuth.getCurrentUser().getUid();
 
+        db.collection("Schedules").document(documentid).collection("Note").document("Doctor_Note").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                DocumentSnapshot documentSnapshot = task.getResult();
+                if (!documentSnapshot.exists()){
+                    notebtn.setEnabled(false);
+                    notebtn.setBackgroundResource(R.drawable.upload_disabled);
+                }else {
+                    notebtn.setEnabled(true);
+                    notebtn.setBackgroundResource(R.drawable.darkround);
+                }
+            }
+        });
+
+        db.collection("Schedules").document(documentid).collection("Prescription").document("Doctor_Prescription").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                DocumentSnapshot documentSnapshot = task.getResult();
+                if (!documentSnapshot.exists()){
+                    prescriptionbtn.setEnabled(false);
+                    prescriptionbtn.setBackgroundResource(R.drawable.upload_disabled);
+                }else {
+                    prescriptionbtn.setEnabled(true);
+                    prescriptionbtn.setBackgroundResource(R.drawable.darkround);
+                }
+            }
+        });
+
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -164,7 +192,6 @@ public class PastSchedstatus extends AppCompatActivity {
 
 
                 if(payment.getText().equals("HMO")){
-                    Toast.makeText(PastSchedstatus.this, PatUid, Toast.LENGTH_SHORT).show();
                     String Hmoname = documentSnapshot.getString("HMOName");
 
                     DocumentReference documentReference = db.collection("HMO").document(Hmoname).collection("Patients").document(PatUid);
@@ -278,7 +305,8 @@ public class PastSchedstatus extends AppCompatActivity {
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         DocumentSnapshot documentSnapshot = task.getResult();
                         if (!documentSnapshot.exists()){
-                            Toast.makeText(PastSchedstatus.this, "No Note", Toast.LENGTH_SHORT).show();
+                            notebtn.setEnabled(false);
+                            notebtn.setBackgroundResource(R.drawable.upload_disabled);
                         }else {
                             Intent intent = new Intent(PastSchedstatus.this, CheckNote.class);
                             intent.putExtra("documentid",documentid);
@@ -298,9 +326,10 @@ public class PastSchedstatus extends AppCompatActivity {
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         DocumentSnapshot documentSnapshot = task.getResult();
                         if (!documentSnapshot.exists()){
-                            Toast.makeText(PastSchedstatus.this, "No Prescription", Toast.LENGTH_SHORT).show();
+                            prescriptionbtn.setEnabled(false);
+                            prescriptionbtn.setBackgroundResource(R.drawable.upload_disabled);
                         }else {
-                            Intent intent = new Intent(PastSchedstatus.this, CheckNote.class);
+                            Intent intent = new Intent(PastSchedstatus.this, E_Prescription_Doctor.class);
                             intent.putExtra("schedid",documentid);
                             startActivity(intent);
                         }

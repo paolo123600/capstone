@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -51,6 +52,7 @@ public class E_Prescription_Doctor extends AppCompatActivity {
 
     String patid,docid,clname;
     Date ddate;
+    ImageView back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +68,7 @@ public class E_Prescription_Doctor extends AppCompatActivity {
         email = findViewById(R.id.patient_eprescript_email);
         date = findViewById(R.id.patient_eprescript_patient_date);
         docprescript = findViewById(R.id.patient_eprescript_doctorprescription);
+        back = findViewById(R.id.backspace);
 
         patientname = findViewById(R.id.patient_eprescript_patient_name);
         patient_age = findViewById(R.id.patient_eprescript_patient_age);
@@ -81,6 +84,13 @@ public class E_Prescription_Doctor extends AppCompatActivity {
 
         Intent intent = getIntent();
         String schedid = intent.getStringExtra("schedid");
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         db.collection("Schedules").document(schedid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override

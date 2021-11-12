@@ -163,7 +163,6 @@ public class UpcomingSchedStatus extends AppCompatActivity {
 
 
                 if(payment.getText().equals("HMO")){
-                    Toast.makeText(UpcomingSchedStatus.this, PatUid, Toast.LENGTH_SHORT).show();
                     String Hmoname = documentSnapshot.getString("HMOName");
 
                     DocumentReference documentReference = db.collection("HMO").document(Hmoname).collection("Patients").document(PatUid);
