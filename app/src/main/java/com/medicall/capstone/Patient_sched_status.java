@@ -247,8 +247,7 @@ public class Patient_sched_status extends AppCompatActivity {
                             hmo_add.setText(documentSnapshot.getString("HMOAddress"));
                             hmo_expiry.setText(documentSnapshot.getString("ExpiryDate"));
                             hmo_num.setText(documentSnapshot.getString("HMOCNumber"));
-                            hmo_sched.setVisibility(View.VISIBLE);
-
+                            hmo_sched.setVisibility(View.GONE);
                             hmo_name.setVisibility(View.VISIBLE);
                             hmo_add.setVisibility(View.VISIBLE);
                             hmo_expiry.setVisibility(View.VISIBLE);
@@ -273,6 +272,7 @@ public class Patient_sched_status extends AppCompatActivity {
                                     public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                                         getPic = BitmapFactory.decodeFile(localfile.getAbsolutePath());
                                         hmo_sched.setImageBitmap(getPic);
+                                        hmo_sched.setVisibility(View.VISIBLE);
                                     }
                                 });
                     }
