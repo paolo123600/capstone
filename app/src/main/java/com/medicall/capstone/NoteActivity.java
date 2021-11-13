@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -30,6 +31,8 @@ public class NoteActivity extends AppCompatActivity {
     Button confirm;
     FirebaseFirestore db;
     String schedid;
+
+    ImageView back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,8 +41,8 @@ public class NoteActivity extends AppCompatActivity {
         Note=(EditText)findViewById(R.id.MLnote);
         confirm=(Button)findViewById(R.id.btnnoteconfirm);
         db = FirebaseFirestore.getInstance();
+        back = findViewById(R.id.backspace);
         schedid= gv.getSDid();
-        Toast.makeText(this, schedid, Toast.LENGTH_SHORT).show();
         db.collection("Schedules").document(schedid).collection("Note").document("Doctor_Note").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -49,6 +52,14 @@ public class NoteActivity extends AppCompatActivity {
                     }
                 }
 
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Login.class);
+                startActivity(intent);
+            }
         });
 
         confirm.setOnClickListener(new View.OnClickListener() {

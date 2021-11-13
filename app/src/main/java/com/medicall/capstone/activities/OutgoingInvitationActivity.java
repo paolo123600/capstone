@@ -79,7 +79,7 @@ public class OutgoingInvitationActivity extends AppCompatActivity {
         User user = (User) getIntent().getSerializableExtra("user");
         if (user != null) {
             textFirstChar.setText(user.firstName.substring(0, 1));
-            textUsername.setText(String.format("%s %S", user.firstName, user.lastName));
+            textUsername.setText(String.format("%s %s", user.firstName, user.lastName));
             textEmail.setText(user.email);
             name=user.lastName+", "+user.firstName;
         }
