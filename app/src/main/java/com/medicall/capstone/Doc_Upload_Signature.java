@@ -130,7 +130,26 @@ public class Doc_Upload_Signature extends AppCompatActivity {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                AlertDialog.Builder build = new AlertDialog.Builder(Doc_Upload_Signature.this);
+                build.setCancelable(true);
+                build.setTitle("Upload Cancellation");
+                build.setMessage("Do you want to cancel uploading your signature?");
+                build.setPositiveButton("Confirm",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                onBackPressed();
+                            }
+                        });
+                build.setNegativeButton(android.R.string.cancel,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+                AlertDialog dialog = build.create();
+                dialog.show();
             }
         });
 

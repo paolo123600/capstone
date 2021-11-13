@@ -175,7 +175,6 @@ public class UpcomingSchedStatus extends AppCompatActivity {
                            hmo_add.setText(documentSnapshot.getString("HMOAddress"));
                             hmo_expiry.setText(documentSnapshot.getString("ExpiryDate"));
                             hmo_num.setText(documentSnapshot.getString("HMOCNumber"));
-                            hmo_sched.setVisibility(View.GONE);
 
                             hmo_name.setVisibility(View.VISIBLE);
                             hmo_add.setVisibility(View.VISIBLE);
@@ -192,23 +191,28 @@ public class UpcomingSchedStatus extends AppCompatActivity {
                         }
                     });
                     String storageid = documentSnapshot.getString("StorageId");
-                    storageReference = FirebaseStorage.getInstance().getReference("PatientHMO/" + storageid);
-                    try{
-                        File localfile = File.createTempFile("myHMO", ".jpg");
-                        storageReference.getFile(localfile)
-                                .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                                    @Override
-                                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                                        getPic = BitmapFactory.decodeFile(localfile.getAbsolutePath());
-                                        hmo_sched.setImageBitmap(getPic);
-                                        hmo_sched.setVisibility(View.VISIBLE);
-                                    }
-                                });
+                    if(storageid.equals("NoPic")){
+                        hmo_sched.setBackgroundResource(R.drawable.nopreview);
+                        hmo_sched.setVisibility(View.VISIBLE);
                     }
-                    catch (IOException e){
-                        e.printStackTrace();
+                    else{
+                        storageReference = FirebaseStorage.getInstance().getReference("PatientHMO/" + storageid);
+                        try{
+                            File localfile = File.createTempFile("myHMO", ".jpg");
+                            storageReference.getFile(localfile)
+                                    .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                        @Override
+                                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                            getPic = BitmapFactory.decodeFile(localfile.getAbsolutePath());
+                                            hmo_sched.setImageBitmap(getPic);
+                                            hmo_sched.setVisibility(View.VISIBLE);
+                                        }
+                                    });
+                        }
+                        catch (IOException e){
+                            e.printStackTrace();
+                        }
                     }
-
                 }
 
 

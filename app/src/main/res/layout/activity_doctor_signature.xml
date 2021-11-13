@@ -91,7 +91,10 @@
                     android:id="@+id/btnUpload"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Upload" />
+                    android:text="Upload"
+                    android:enabled="false"
+                    android:textColor="@color/white"
+                    android:background="@drawable/upload_disabled"/>
 
                 <Button
                     android:id="@+id/btnCancel"
