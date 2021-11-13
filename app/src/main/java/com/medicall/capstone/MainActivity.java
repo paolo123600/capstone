@@ -256,7 +256,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                                 Notif.put("DoctorUId", doc.getString("DoctorUId"));
                                                 Notif.put ("Date", doc.getDate("Date"));
                                                 Notif.put("AppointID",documentsched);
-                                                Notif.put ("Status", "Cancelled" );
+                                                Notif.put ("Status", "Unattended" );
                                                 Notif.put ("PatientUId", doc.getString("PatientUId") );
                                                 Notif.put ("Dnt",currentTime);
                                                 Notif.put ("Seen",false);
