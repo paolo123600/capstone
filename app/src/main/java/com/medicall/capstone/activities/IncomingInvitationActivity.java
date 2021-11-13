@@ -8,6 +8,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +17,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.medicall.capstone.GlobalVariables;
 import com.medicall.capstone.R;
 import com.medicall.capstone.network.ApiClient;
@@ -24,6 +35,10 @@ import com.medicall.capstone.utilities.Constants;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.IOException;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -31,6 +46,13 @@ import retrofit2.Response;
 public class IncomingInvitationActivity extends AppCompatActivity {
 
     MediaPlayer mediaPlayer;
+
+    private StorageReference storageReference;
+    private FirebaseStorage storage;
+    StorageReference ref;
+    String image;
+    Bitmap getpic;
+    FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +74,13 @@ public class IncomingInvitationActivity extends AppCompatActivity {
         }
 
 
-        TextView textFirstChar = findViewById(R.id.textFirstChar);
+        CircleImageView docpic = findViewById(R.id.textFirstChar);
         TextView textUsername = findViewById(R.id.textUsername);
         TextView textEmail = findViewById(R.id.textEmail);
+
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
+        db = FirebaseFirestore.getInstance();
 
         GlobalVariables gv = (GlobalVariables) getApplicationContext();
         gv.setChannel_Name(getIntent().getStringExtra(Constants.KEY_EMAIL));
@@ -62,13 +88,43 @@ public class IncomingInvitationActivity extends AppCompatActivity {
 
         String firstName = getIntent().getStringExtra(Constants.KEY_FIRST_NAME);
         if (firstName != null) {
-            textFirstChar.setText(firstName.substring(0, 1));
+
+            db.collection("Doctors").whereEqualTo("StorageId", getIntent().getStringExtra(Constants.KEY_FIRST_NAME)).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        QuerySnapshot querySnapshot = task.getResult();
+                        if (!querySnapshot.isEmpty()) {
+                            for (QueryDocumentSnapshot profile : task.getResult()) {
+                                image = profile.getString("StorageId");
+                                storageReference = FirebaseStorage.getInstance().getReference("DoctorPicture/" + image);
+                                try {
+                                    File local = File.createTempFile("myProfilePicture","");
+                                    storageReference.getFile(local).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                        @Override
+                                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                            getpic = BitmapFactory.decodeFile(local.getAbsolutePath());
+                                            docpic.setImageBitmap(getpic);
+                                        }
+                                    });
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+
+
         }
 
         textUsername.setText(String.format(
                 "%s %s",
                 "Doc.",
                 getIntent().getStringExtra(Constants.KEY_LAST_NAME)
+
         ));
 
         textEmail.setText(getIntent().getStringExtra(Constants.KEY_EMAIL));

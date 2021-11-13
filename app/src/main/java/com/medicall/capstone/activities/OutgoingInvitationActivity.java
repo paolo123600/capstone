@@ -8,6 +8,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +17,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.medicall.capstone.GlobalVariables;
 import com.medicall.capstone.R;
 import com.medicall.capstone.doctor_homepage;
@@ -32,8 +41,11 @@ import com.google.firebase.iid.InstanceIdResult;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.UUID;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -46,6 +58,12 @@ public class OutgoingInvitationActivity extends AppCompatActivity {
     String meetingRoom = null;
     String name;
 
+    private StorageReference storageReference;
+    private FirebaseStorage storage;
+    StorageReference ref;
+    String image;
+    Bitmap getpic;
+    FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,13 +90,47 @@ public class OutgoingInvitationActivity extends AppCompatActivity {
             }
         }
 
-        TextView textFirstChar = findViewById(R.id.textFirstChar);
+        CircleImageView patpic = findViewById(R.id.textFirstChar);
         TextView textUsername = findViewById(R.id.textUsername);
         TextView textEmail = findViewById(R.id.textEmail);
 
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
+        db = FirebaseFirestore.getInstance();
+
         User user = (User) getIntent().getSerializableExtra("user");
         if (user != null) {
-            textFirstChar.setText(user.firstName.substring(0, 1));
+            Intent intent1 = getIntent();
+            String patid = intent1.getStringExtra("patid");
+
+            db.collection("Patients").whereEqualTo("StorageId", patid).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        QuerySnapshot querySnapshot = task.getResult();
+                        if (!querySnapshot.isEmpty()) {
+                            for (QueryDocumentSnapshot profile : task.getResult()) {
+                                image = profile.getString("StorageId");
+                                storageReference = FirebaseStorage.getInstance().getReference("PatientPicture/" + image);
+                                try {
+                                    File local = File.createTempFile("myProfilePicture","");
+                                    storageReference.getFile(local).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                        @Override
+                                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                            getpic = BitmapFactory.decodeFile(local.getAbsolutePath());
+                                            patpic.setImageBitmap(getpic);
+                                        }
+                                    });
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+
             textUsername.setText(String.format("%s %s", user.firstName, user.lastName));
             textEmail.setText(user.email);
             name=user.lastName+", "+user.firstName;

@@ -41,11 +41,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/textFirstChar"
             android:layout_width="@dimen/_60sdp"
             android:layout_height="@dimen/_60sdp"
-            android:background="@drawable/background_meeting_invitation_user_icon"
             android:gravity="center"
             android:includeFontPadding="false"
             android:textAllCaps="true"
