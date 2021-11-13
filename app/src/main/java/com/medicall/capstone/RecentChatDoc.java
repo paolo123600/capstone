@@ -318,8 +318,7 @@ public class RecentChatDoc extends AppCompatActivity {
         public DocRecentViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            chatcount = itemView.findViewById(R.id.chatUnseenCount);
-            chatcontainer = itemView.findViewById(R.id.chatUnseenContainer);
+
             tvname = itemView.findViewById(R.id.username_userfrag);
             tvmessage = itemView.findViewById(R.id.lastMessage);
             tvtime = itemView.findViewById(R.id.tvtime);

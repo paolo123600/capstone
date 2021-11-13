@@ -227,6 +227,9 @@ public class patient_record_clinic extends AppCompatActivity {
                                                                                     public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                                                                                         getpic = BitmapFactory.decodeFile(local.getAbsolutePath());
                                                                                         holder.pat_dp.setImageBitmap(getpic);
+
+
+
                                                                                     }
                                                                                 });
                                                                             } catch (IOException e) {

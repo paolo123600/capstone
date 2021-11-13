@@ -672,7 +672,7 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
                                                                         @Override
                                                                         public void onClick(View view) {
 
-                                                                            new AlertDialog.Builder(doctor_homepage.this).setMessage("Are you sure the appointment is completed?").setPositiveButton("Accept", new DialogInterface.OnClickListener() {
+                                                                            new AlertDialog.Builder(doctor_homepage.this).setMessage("Are you sure the appointment is completed?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                                                                 @Override
                                                                                 public void onClick(DialogInterface dialog, int which) {
                                                                                     Date currentTime = Calendar.getInstance().getTime();
@@ -710,7 +710,7 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
                                                                                         }
                                                                                     });
                                                                                 }
-                                                                            }).setNegativeButton("Decline", new DialogInterface.OnClickListener() {
+                                                                            }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                                                                                 @Override
                                                                                 public void onClick(DialogInterface dialog, int which) {
 
@@ -723,7 +723,7 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
                                                                     btnnext.setOnClickListener(new View.OnClickListener() {
                                                                         @Override
                                                                         public void onClick(View view) {
-                                                                            new AlertDialog.Builder(doctor_homepage.this).setMessage("Are you sure you would like to move this patient?").setPositiveButton("Accept", new DialogInterface.OnClickListener() {
+                                                                            new AlertDialog.Builder(doctor_homepage.this).setMessage("Are you sure you would like to move this patient?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                                                                 @Override
                                                                                 public void onClick(DialogInterface dialog, int which) {
                                                                                     db.collection("Schedules").whereEqualTo("DoctorUId",preferenceManager.getString(Constants.KEY_USER_ID)).whereEqualTo("StartTime", finalTimestart).whereEqualTo("EndTime", finalTimestop).whereIn("Status",Arrays.asList("Paid","Approved")).whereEqualTo("Date", DDate).get()
@@ -769,7 +769,7 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
                                                                                                 }
                                                                                             });
                                                                                 }
-                                                                            }).setNegativeButton("Decline", new DialogInterface.OnClickListener() {
+                                                                            }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                                                                                 @Override
                                                                                 public void onClick(DialogInterface dialog, int which) {
 

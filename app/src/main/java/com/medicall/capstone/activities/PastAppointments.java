@@ -29,6 +29,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.medicall.capstone.PastSchedstatus;
 import com.medicall.capstone.R;
 import com.medicall.capstone.secretary.SecretaryPatschedModel;
 import com.medicall.capstone.secretary.Secretary_schedlist_patsched_past;
@@ -155,6 +156,15 @@ public class PastAppointments extends AppCompatActivity {
                                                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                                                     getpic = BitmapFactory.decodeFile(local.getAbsolutePath());
                                                     holder.profilepic.setImageBitmap(getpic);
+                                                    holder.itemView.setOnClickListener(new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View v) {
+                                                            String documentId = getSnapshots().getSnapshot(position).getId();
+                                                            Intent intent1 = new Intent(getApplicationContext(), PastSchedstatus.class);
+                                                            intent1.putExtra("documentid",documentId);
+                                                            startActivity(intent1);
+                                                        }
+                                                    });
                                                 }
                                             });
                                         }

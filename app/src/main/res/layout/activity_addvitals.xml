@@ -138,14 +138,16 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
                 android:gravity="center"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <EditText
                     android:id="@+id/btemp"
                     android:inputType="numberDecimal"
-                    android:layout_width="@dimen/_120sdp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:gravity="center"
                     android:hint="Temperature"
                     android:padding="@dimen/_12sdp"/>
 
@@ -154,15 +156,17 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
                 android:gravity="center"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <EditText
                     android:id="@+id/prate"
-                    android:layout_width="@dimen/_120sdp"
-                    android:hint="Pulse Rate"
                     android:inputType="numberDecimal"
+                    android:hint="Pulse Rate"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:gravity="center"
                     android:padding="@dimen/_12sdp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -170,13 +174,15 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
                 android:gravity="center"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <EditText
                     android:id="@+id/respiration"
-                    android:layout_width="@dimen/_120sdp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:gravity="center"
                     android:hint="Respiration"
                     android:inputType="numberDecimal"
                     android:padding="@dimen/_12sdp" />

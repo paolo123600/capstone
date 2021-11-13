@@ -22,7 +22,8 @@
         android:theme="@style/Theme.Capstone"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".addvitals"></activity>
+        <activity android:name=".Secpastschedstatus"></activity>
+        <activity android:name=".addvitals" />
         <activity android:name=".E_Prescription_Doctor" />
         <activity android:name=".Patient_sched_status" />
         <activity android:name=".E_Prescription_Patient" />
@@ -33,7 +34,7 @@
         <activity android:name=".View_doctor_info_hmo" />
         <activity android:name=".selectClinic_info" />
         <activity android:name=".changeEmail_Secretary" />
-        <activity android:name=".Secretary_ChangePicture"/>
+        <activity android:name=".Secretary_ChangePicture" />
         <activity android:name=".Doc_Upload_Signature" />
         <activity android:name=".changeEmail_Doctor" />
         <activity android:name=".changeEmail_Patient" />

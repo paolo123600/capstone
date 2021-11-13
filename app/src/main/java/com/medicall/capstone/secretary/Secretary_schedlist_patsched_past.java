@@ -26,8 +26,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.medicall.capstone.PastSchedstatus;
+
 import com.medicall.capstone.R;
+import com.medicall.capstone.Secpastschedstatus;
 import com.medicall.capstone.UpcomingSchedStatus;
 import com.medicall.capstone.utilities.PreferenceManager;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -142,15 +143,16 @@ public class Secretary_schedlist_patsched_past extends AppCompatActivity {
                                                     holder.profilepic.setImageBitmap(getpic);
 
                                                 }
-                                            }); holder.itemView.setOnClickListener(new View.OnClickListener() {
+                                            });  holder.itemView.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
                                                     String documentId = getSnapshots().getSnapshot(position).getId();
-                                                    Intent intent1 = new Intent(getApplicationContext(), PastSchedstatus.class);
+                                                    Intent intent1 = new Intent(getApplicationContext(), Secpastschedstatus.class);
                                                     intent1.putExtra("documentid",documentId);
                                                     startActivity(intent1);
                                                 }
                                             });
+
                                         }
                                         catch(IOException e){
                                             e.printStackTrace();

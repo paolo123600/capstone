@@ -107,7 +107,7 @@ public class medicalrec_update extends AppCompatActivity {
                         String conperson = contactperson.getText().toString();
                         String connum = contactnum.getText().toString();
                         String mheight = medicheight.getText().toString();
-                        String mBP = medicBP.getText().toString();
+
                         String mBT = BT_edit.getSelectedItem().toString();
                         String mWeight = medicweight.getText().toString();
                         String mAllergies = medicallergies.getText().toString();
@@ -117,7 +117,7 @@ public class medicalrec_update extends AppCompatActivity {
                         Patients.put("EContactPerson", conperson);
                         Patients.put("EContactNumber", connum);
                         Patients.put("Height", mheight);
-                        Patients.put("BloodP", mBP);
+
                         Patients.put("BloodType", mBT);
                         Patients.put("Weight", mWeight);
                         Patients.put("Allergies", mAllergies);
