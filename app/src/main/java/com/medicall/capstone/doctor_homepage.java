@@ -455,7 +455,7 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
                                                             Notif.put("DoctorUId", document.getString("DoctorUId"));
                                                             Notif.put ("Date", document.getDate("Date"));
                                                             Notif.put("AppointID",documentsched);
-                                                            Notif.put ("Status", "Unattended" );
+                                                            Notif.put ("Status", "Unattended1" );
                                                             Notif.put ("PatientUId", document.getString("PatientUId") );
                                                             Notif.put ("Dnt",currentTime);
                                                             Notif.put ("Seen",false);
@@ -497,7 +497,7 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
                                                         Notif.put("DoctorUId", document.getString("DoctorUId"));
                                                         Notif.put ("Date", document.getDate("Date"));
                                                         Notif.put("AppointID",documentsched);
-                                                        Notif.put ("Status", "Unattended" );
+                                                        Notif.put ("Status", "Unattended2" );
                                                         Notif.put ("PatientUId", document.getString("PatientUId") );
                                                         Notif.put ("Dnt",currentTime);
                                                         Notif.put ("Seen",false);
