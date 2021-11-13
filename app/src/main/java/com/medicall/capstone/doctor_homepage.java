@@ -639,6 +639,8 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
                                             pat_record.setVisibility(View.INVISIBLE);
                                             btncomplete.setVisibility(View.INVISIBLE);
                                             btnnext.setVisibility(View.INVISIBLE);
+                                            btnprescription.setVisibility(View.INVISIBLE);
+                                            btnnote.setVisibility(View.INVISIBLE);
                                         }
                                         else {
                                             for (QueryDocumentSnapshot doc : value) {
@@ -663,6 +665,8 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
                                                                     gv.setSDid(doc.getId());
                                                                     btncomplete.setVisibility(View.VISIBLE);
                                                                     btnnext.setVisibility(View.VISIBLE);
+                                                                    btnprescription.setVisibility(View.VISIBLE);
+                                                                    btnnote.setVisibility(View.VISIBLE);
 
                                                                     btncomplete.setOnClickListener(new View.OnClickListener() {
                                                                         @Override
@@ -801,6 +805,8 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
                         pat_record.setVisibility(View.INVISIBLE);
                         btncomplete.setVisibility(View.INVISIBLE);
                         btnnext.setVisibility(View.INVISIBLE);
+                        btnprescription.setVisibility(View.INVISIBLE);
+                        btnnote.setVisibility(View.INVISIBLE);
 
                     }
 
