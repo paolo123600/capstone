@@ -26,6 +26,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.medicall.capstone.doctor.Doctor_schedlist_pastsched;
 
 import java.io.File;
 import java.io.IOException;
@@ -53,6 +54,7 @@ public class E_Prescription_Doctor extends AppCompatActivity {
     String patid,docid,clname;
     Date ddate;
     ImageView back;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +91,14 @@ public class E_Prescription_Doctor extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 onBackPressed();
+            }
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Doctor_schedlist_pastsched.class);
+                startActivity(intent);
             }
         });
 
@@ -142,14 +152,7 @@ public class E_Prescription_Doctor extends AppCompatActivity {
                         }
                     });
 
-                    DocumentReference documentReferenceCLINIC = db.collection("Clinics").document(clname);
-                    documentReferenceCLINIC.addSnapshotListener(E_Prescription_Doctor.this, new EventListener<DocumentSnapshot>() {
-                        @Override
-                        public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                            clinicaddress.setText(documentSnapshot.getString("Address"));
-                            contactnumber.setText(documentSnapshot.getString("ContactNumber"));
-                        }
-                    });
+
 
                     DocumentReference documentReference = db.collection("Patients").document(patid);
                     documentReference.addSnapshotListener(E_Prescription_Doctor.this, new EventListener<DocumentSnapshot>() {

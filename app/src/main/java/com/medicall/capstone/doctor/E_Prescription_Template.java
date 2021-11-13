@@ -61,6 +61,8 @@ public class E_Prescription_Template extends AppCompatActivity {
     EditText docprescript;
     Button submit;
 
+    ImageView back;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +79,7 @@ public class E_Prescription_Template extends AppCompatActivity {
         date = findViewById(R.id.eprescript_patient_date);
         docprescript = findViewById(R.id.eprescript_doctorprescription);
         submit = findViewById(R.id.eprescription_submit);
+        back = findViewById(R.id.backspace);
 
         patientname = findViewById(R.id.eprescript_patient_name);
         patient_age = findViewById(R.id.eprescript_patient_age);
@@ -97,6 +100,14 @@ public class E_Prescription_Template extends AppCompatActivity {
         String ddate = intent.getStringExtra("ddate");
 
         String clinicnameID = clinicname.toString();
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), doctor_homepage.class);
+                startActivity(intent);
+            }
+        });
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override

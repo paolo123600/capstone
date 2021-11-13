@@ -77,6 +77,11 @@ public class  secretary_homepage extends AppCompatActivity implements Navigation
     String userId;
     FirebaseUser currentuser;
 
+    private StorageReference storageReference;
+    private FirebaseStorage storage;
+    String image;
+    Bitmap getpic;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +96,9 @@ public class  secretary_homepage extends AppCompatActivity implements Navigation
         notifcontainer = (CardView) findViewById(R.id.notificationNumberContainer);
         pendingcount = (TextView) findViewById(R.id.pendingcount);
         pendingcontainer = (CardView) findViewById(R.id.PendingContainer);
+
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
 
 
         appointment_btn = findViewById(R.id.appointment_button);
@@ -305,6 +313,7 @@ public class  secretary_homepage extends AppCompatActivity implements Navigation
         View headerView = navigationView.getHeaderView(0);
         TextView navUsername = headerView.findViewById(R.id.nav_header_name);
         TextView navEmail = headerView.findViewById(R.id.nav_header_email);
+        CircleImageView profpicture = headerView.findViewById(R.id.profile_picture);
 
        DocumentReference documentReference = fStore.collection("Secretary").document(userId);
        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
@@ -312,6 +321,35 @@ public class  secretary_homepage extends AppCompatActivity implements Navigation
            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                navUsername.setText(documentSnapshot.getString("ClinicName"));
                navEmail.setText(documentSnapshot.getString("Email"));
+
+
+
+               db.collection("Secretary").whereEqualTo("StorageId", userId).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                   @Override
+                   public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                       if (task.isSuccessful()) {
+                           QuerySnapshot querySnapshot = task.getResult();
+                           if (!querySnapshot.isEmpty()) {
+                               for (QueryDocumentSnapshot profile : task.getResult()) {
+                                   image = profile.getString("StorageId");
+                                   storageReference = FirebaseStorage.getInstance().getReference("ClinicPicture/" + image);
+                                   try {
+                                       File local = File.createTempFile("myProfilePicture","");
+                                       storageReference.getFile(local).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                           @Override
+                                           public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                               getpic = BitmapFactory.decodeFile(local.getAbsolutePath());
+                                               profpicture.setImageBitmap(getpic);
+                                           }
+                                       });
+                                   } catch (IOException e) {
+                                       e.printStackTrace();
+                                   }
+                               }
+                           }
+                       }
+                   }
+               });
 
 
 
