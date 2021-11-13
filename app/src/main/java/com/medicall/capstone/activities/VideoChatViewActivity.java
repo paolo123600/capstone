@@ -354,7 +354,8 @@ private  boolean inpip = false;
 
         String usertype = preferenceManager.getString(Constants.USERTYPE);
         if(usertype.equals("Patient")){
-            mAddNote.setVisibility(View.INVISIBLE);
+            mAddNote.setVisibility(View.GONE);
+            docprescription.setVisibility(View.GONE);
         }
         Intent intented = getIntent();
         name=intented.getStringExtra("name");
@@ -697,6 +698,7 @@ private  boolean inpip = false;
             inpip = true;
             mCallBtn.setVisibility(View.GONE);
             mMuteBtn.setVisibility(View.GONE);
+            docprescription.setVisibility(View.GONE);
             mSwitchCameraBtn.setVisibility(View.GONE);
             mLocalContainer.setVisibility(View.GONE);
             mChatButton.setVisibility(View.GONE);
@@ -718,6 +720,7 @@ private  boolean inpip = false;
             mChatButton.setVisibility(View.VISIBLE);
             if (!usertype.equals("Patient")){
                 mAddNote.setVisibility(View.VISIBLE);
+                docprescription.setVisibility(View.VISIBLE);
             }
 
             mLocalView.setVisibility(View.VISIBLE);
