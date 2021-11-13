@@ -248,7 +248,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                                     }
                                     else if (nowdate.after(datesched)) {  String documentsched =doc.getId();
-                                        db.collection("Schedules").document(documentsched).update("Status","Unattended").addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        db.collection("Schedules").document(documentsched).update("Status","Unattended3").addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
                                                 Date currentTime = Calendar.getInstance().getTime();
