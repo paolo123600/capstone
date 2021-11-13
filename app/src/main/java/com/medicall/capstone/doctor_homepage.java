@@ -448,7 +448,7 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
                                                 if (timenow.after(times)){
                                                     String documentsched =document.getId();
                                                     Date currentTime = Calendar.getInstance().getTime();
-                                                    db.collection("Schedules").document(documentsched).update("Status","Unattended").addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    db.collection("Schedules").document(documentsched).update("Status","Unattended1").addOnSuccessListener(new OnSuccessListener<Void>() {
                                                         @Override
                                                         public void onSuccess(Void aVoid) {
                                                             Map<String, Object> Notif = new HashMap<>();
@@ -489,7 +489,7 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
                                         for (QueryDocumentSnapshot document : task.getResult()) {
                                             String documentsched =document.getId();
                                             Date currentTime = Calendar.getInstance().getTime();
-                                            db.collection("Schedules").document(documentsched).update("Status","Unattended","Dnt", currentTime).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            db.collection("Schedules").document(documentsched).update("Status","Unattended2","Dnt", currentTime).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void aVoid) {
 
