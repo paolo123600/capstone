@@ -20,6 +20,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -359,6 +360,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_listHMO:
                 Intent intent5 = new Intent(MainActivity.this, Patient_HMOList.class);
                 startActivity(intent5);
+                break;
+
+            case R.id.nav_instructions:
+                Intent intent6 = new Intent(MainActivity.this, instructions.class);
+                startActivity(intent6);
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);

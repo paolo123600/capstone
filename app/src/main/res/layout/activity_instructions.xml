@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".instructions">
+
+    <LinearLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/blue2"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+
+        <ImageView
+            android:id="@+id/backspace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:background="@drawable/ic_backspace" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Instructions"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:textSize="@dimen/_15sdp"
+            android:textColor="@color/white"/>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/_43sdp"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:id="@+id/emergencyedittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                android:orientation="vertical"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp">
+
+
+                <TextView
+                    android:id="@+id/ins_howtobook"
+                    android:inputType="textPersonName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="How to book an appointment."
+                    android:textSize="@dimen/_15sdp"
+                    android:textColor="@color/button"
+                    android:layout_marginTop="@dimen/_10sdp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/roundtbox"
+                    android:layout_marginTop="@dimen/_10sdp"/>
+
+                 <TextView
+                    android:id="@+id/ins_howtoresched"
+                    android:inputType="textPersonName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="How to reschedule and appointment."
+                    android:textSize="@dimen/_15sdp"
+                    android:textColor="@color/button"
+                    android:layout_marginTop="@dimen/_10sdp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/roundtbox"
+                    android:layout_marginTop="@dimen/_10sdp"/>
+
+                 <TextView
+                    android:id="@+id/ins_forgotpass"
+                    android:inputType="textPersonName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="How to recover your password."
+                    android:textSize="@dimen/_15sdp"
+                    android:textColor="@color/button"
+                    android:layout_marginTop="@dimen/_10sdp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/roundtbox"
+                    android:layout_marginTop="@dimen/_10sdp"/>
+
+                <TextView
+                    android:id="@+id/ins_changepassword"
+                    android:inputType="textPersonName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="How to change your password"
+                    android:textSize="@dimen/_15sdp"
+                    android:textColor="@color/button"
+                    android:layout_marginTop="@dimen/_10sdp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/roundtbox"
+                    android:layout_marginTop="@dimen/_10sdp"/>
+
+                <TextView
+                    android:id="@+id/ins_addhmo"
+                    android:inputType="textPersonName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="How to add an HMO"
+                    android:textSize="@dimen/_15sdp"
+                    android:textColor="@color/button"
+                    android:layout_marginTop="@dimen/_10sdp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/roundtbox"
+                    android:layout_marginTop="@dimen/_10sdp"/>
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/addededittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/addedlabel"
+                android:orientation="horizontal"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp">
+
+
+
+
+            </LinearLayout>
+
+
+
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

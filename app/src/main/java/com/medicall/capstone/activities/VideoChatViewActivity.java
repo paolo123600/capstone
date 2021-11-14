@@ -336,8 +336,47 @@ private  boolean inpip = false;
         mAddNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(VideoChatViewActivity.this, NoteActivity.class);
-                startActivity(intent);
+
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    if(usertype.equals("Patient")){
+                        Rational rational = new Rational(2,
+                                3);
+                        PictureInPictureParams params3 =
+                                new PictureInPictureParams.Builder()
+                                        .setAspectRatio(rational)
+                                        .build();
+                        setPictureInPictureParams(params3);
+                        enterPictureInPictureMode(params3);
+                        Intent intent = new Intent(VideoChatViewActivity.this, NoteActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                    }
+                    else{
+                        Rational rational = new Rational(2,
+                                3);
+                        PictureInPictureParams params3 =
+                                new PictureInPictureParams.Builder()
+                                        .setAspectRatio(rational)
+                                        .build();
+                        setPictureInPictureParams(params3);
+                        enterPictureInPictureMode(params3);
+
+                        Intent intent = new Intent(VideoChatViewActivity.this, NoteActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+
+
+                    }
+
+
+
+
+                } else {
+
+                }
+
+
             }
         });
         initUI();

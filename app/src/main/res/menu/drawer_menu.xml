@@ -27,6 +27,10 @@
             android:icon="@drawable/ic_about"
             android:title="About" />
         <item
+            android:id="@+id/nav_instructions"
+            android:icon="@drawable/ic_baseline_menu_book_24"
+            android:title="Instructions"/>
+        <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/ic_logout"
             android:title="Log Out" />

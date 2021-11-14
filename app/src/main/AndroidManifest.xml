@@ -22,7 +22,8 @@
         android:theme="@style/Theme.Capstone"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".Secpastschedstatus"></activity>
+        <activity android:name=".instructions"></activity>
+        <activity android:name=".Secpastschedstatus" />
         <activity android:name=".addvitals" />
         <activity android:name=".E_Prescription_Doctor" />
         <activity android:name=".Patient_sched_status" />
