@@ -20,11 +20,11 @@
 
     <item
         android:id="@+id/btn_patientrecord"
-        android:icon="@drawable/ic_person"
+        android:icon="@drawable/ic_baseline_person_outline_24"
         android:title="Patient List" />
     <item
         android:id="@+id/nav_upload_signature"
-        android:icon="@drawable/ic_user"
+        android:icon="@drawable/edit_pencil"
         android:title="Upload Signature" />
     <item
         android:id="@+id/nav_logout_doc"

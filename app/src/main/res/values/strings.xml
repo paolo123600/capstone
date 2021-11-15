@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">capstone</string>
+    <string name="app_name">Medi-Call</string>
     <string name="Notification">Notification</string>
     <string name="Appointments_label">Appointments</string>
     <string name="Manage_schedule">Manage Schedules</string>
@@ -137,6 +137,6 @@
     <!-- BOLD-->
     <string name="bold"><b><i>FirstName</i></b></string>
 
-    <string name="termsandcondition"><a href="https://www.termsfeed.com/live/83c45c03-d205-4bac-a32b-95b0434678e0">Privacy Policy</a></string>
+    <string name="termsandcondition"><a href="https://medicall-6effc.web.app/privacypolicy.html">Privacy Policy</a></string>
     <string name="instructions"><a href="https://medicall-6effc.web.app/Instructions.html">Instructions</a></string>
 </resources>

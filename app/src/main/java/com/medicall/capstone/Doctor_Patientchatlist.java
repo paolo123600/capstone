@@ -12,6 +12,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +43,8 @@ FirebaseFirestore db;
 String txt;
 String clinicid;
 
+ImageView back;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,8 +54,17 @@ String clinicid;
         db=FirebaseFirestore.getInstance();
         materialSearchBar = (MaterialSearchBar) findViewById(R.id.searchBar);
         materialSearchBar.setCardViewElevation(10);
+        back = findViewById(R.id.backspace);
 
         getpatient();
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), RecentChatDoc.class);
+                startActivity(intent);
+            }
+        });
 
         materialSearchBar.addTextChangeListener(new TextWatcher() {
             @Override
