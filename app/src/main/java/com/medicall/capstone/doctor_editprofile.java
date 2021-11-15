@@ -66,6 +66,13 @@ public class doctor_editprofile extends AppCompatActivity {
 
         back = findViewById(R.id.backspace);
 
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
         fullnameProfile.setKeyListener(null);
         genderProfile.setKeyListener(null);
         bdayProfile.setKeyListener(null);

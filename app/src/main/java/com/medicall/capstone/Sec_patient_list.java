@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.medicall.capstone.R;
@@ -45,6 +46,7 @@ public class Sec_patient_list extends AppCompatActivity {
     FirebaseFirestore db;
     private  String clinicid;
     String txt;
+    ImageView back;
     private PreferenceManager preferenceManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +59,16 @@ public class Sec_patient_list extends AppCompatActivity {
         db=FirebaseFirestore.getInstance();
         materialSearchBar = (MaterialSearchBar) findViewById(R.id.searchBar);
         materialSearchBar.setCardViewElevation(10);
+        back = findViewById(R.id.backspace);
 
         getpatient();
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         materialSearchBar.addTextChangeListener(new TextWatcher() {
             @Override
