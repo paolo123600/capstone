@@ -200,7 +200,7 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
 //            String timenow1 =dateFormat.format(currentTime);
 
 
-          String timenow1 ="3:40PM";
+          String timenow1 ="10:40AM";
             timenow = dateFormat.parse(timenow1);
 
         } catch (ParseException e) {
@@ -360,7 +360,7 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
 //                          String timenow1 =dateFormat.format(currentTime);
 
 
-                    String timenow1 ="3:01PM";
+                    String timenow1 ="10:01AM";
                     timenow = dateFormat.parse(timenow1);
 
                 } catch (ParseException e) {
@@ -448,14 +448,14 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
                                                 if (timenow.after(times)){
                                                     String documentsched =document.getId();
                                                     Date currentTime = Calendar.getInstance().getTime();
-                                                    db.collection("Schedules").document(documentsched).update("Status","Unattended1").addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    db.collection("Schedules").document(documentsched).update("Status","Unattended").addOnSuccessListener(new OnSuccessListener<Void>() {
                                                         @Override
                                                         public void onSuccess(Void aVoid) {
                                                             Map<String, Object> Notif = new HashMap<>();
                                                             Notif.put("DoctorUId", document.getString("DoctorUId"));
                                                             Notif.put ("Date", document.getDate("Date"));
                                                             Notif.put("AppointID",documentsched);
-                                                            Notif.put ("Status", "Unattended1" );
+                                                            Notif.put ("Status", "Unattended" );
                                                             Notif.put ("PatientUId", document.getString("PatientUId") );
                                                             Notif.put ("Dnt",currentTime);
                                                             Notif.put ("Seen",false);
@@ -489,7 +489,7 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
                                         for (QueryDocumentSnapshot document : task.getResult()) {
                                             String documentsched =document.getId();
                                             Date currentTime = Calendar.getInstance().getTime();
-                                            db.collection("Schedules").document(documentsched).update("Status","Unattended2","Dnt", currentTime).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            db.collection("Schedules").document(documentsched).update("Status","Unattended","Dnt", currentTime).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void aVoid) {
 
@@ -497,7 +497,7 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
                                                         Notif.put("DoctorUId", document.getString("DoctorUId"));
                                                         Notif.put ("Date", document.getDate("Date"));
                                                         Notif.put("AppointID",documentsched);
-                                                        Notif.put ("Status", "Unattended2" );
+                                                        Notif.put ("Status", "Unattended" );
                                                         Notif.put ("PatientUId", document.getString("PatientUId") );
                                                         Notif.put ("Dnt",currentTime);
                                                         Notif.put ("Seen",false);
@@ -684,6 +684,30 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
                                                                                     ).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                                         @Override
                                                                                         public void onSuccess(Void aVoid) {
+                                                                                            db.collection("Schedules").document(docid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                                                                @Override
+                                                                                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                                                                    if(task.isSuccessful()){
+                                                                                                        DocumentSnapshot documentSnapshot = task.getResult();
+                                                                                                        Map<String, Object> Notif = new HashMap<>();
+                                                                                                        Notif.put("DoctorUId", documentSnapshot.getString("DoctorUId"));
+                                                                                                        Notif.put ("Date", documentSnapshot.getDate("Date"));
+                                                                                                        Notif.put("AppointID",docid);
+                                                                                                        Notif.put ("Status", "Completed" );
+                                                                                                        Notif.put ("PatientUId", documentSnapshot.getString("PatientUId") );
+                                                                                                        Notif.put ("Dnt",currentTime);
+                                                                                                        Notif.put ("Seen",false);
+                                                                                                        Notif.put("ClinicName",documentSnapshot.getString("ClinicName"));
+                                                                                                        db.collection("Notification").document().set(Notif).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                                                            @Override
+                                                                                                            public void onSuccess(Void aVoid) {
+
+                                                                                                            }
+                                                                                                        });
+                                                                                                    }
+                                                                                                }
+                                                                                            });
+
                                                                                             db.collection("Schedules").whereEqualTo("DoctorUId",preferenceManager.getString(Constants.KEY_USER_ID)).whereEqualTo("StartTime", finalTimestart).whereEqualTo("EndTime", finalTimestop).whereIn("Status",Arrays.asList("Paid","Approved")).whereEqualTo("Date", DDate).get()
                                                                                                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                                                                                         @Override
