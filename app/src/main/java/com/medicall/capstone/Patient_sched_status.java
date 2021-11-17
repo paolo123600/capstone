@@ -83,6 +83,8 @@ public class Patient_sched_status extends AppCompatActivity {
     String documentid;
     Bitmap getPic;
 
+    GlobalVariables gv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,6 +97,7 @@ public class Patient_sched_status extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         dpicture = findViewById(R.id.patient_dp);
         back = findViewById(R.id.backspace);
+        gv = (GlobalVariables) getApplicationContext();
 
         mAuth = FirebaseAuth.getInstance();
         firstname = findViewById(R.id.first_name_profile);
@@ -120,6 +123,24 @@ public class Patient_sched_status extends AppCompatActivity {
         view6 = findViewById(R.id.view6);
         view7 = findViewById(R.id.view7);
         view8 = findViewById(R.id.view8);
+
+        hmo_sched.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                db.collection("Schedules").document(documentid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        String ClinicName = documentSnapshot.getString("ClinicName");
+                        String PatUid = documentSnapshot.getString("PatientUId");
+                        gv.setPatient_HMO_ClinicName(ClinicName);
+                        gv.setPatient_HMO_PatientUId(PatUid);
+
+                        Intent intent = new Intent(Patient_sched_status.this, hmo_patient_fullscreen.class);
+                        startActivity(intent);
+                    }
+                });
+            }
+        });
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override

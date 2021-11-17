@@ -83,7 +83,7 @@ public class PastSchedstatus extends AppCompatActivity {
     String documentid;
     private View notebtn;
     ImageView back;
-
+    GlobalVariables gv;
 
 
     @Override
@@ -99,7 +99,7 @@ public class PastSchedstatus extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
         dpicture = findViewById(R.id.patient_dp);
-
+        gv = (GlobalVariables) getApplicationContext();
 
 
 
@@ -137,6 +137,24 @@ public class PastSchedstatus extends AppCompatActivity {
         fStore = FirebaseFirestore.getInstance();
 
         userId = fAuth.getCurrentUser().getUid();
+
+        hmo_sched.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                db.collection("Schedules").document(documentid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        String ClinicName = documentSnapshot.getString("ClinicName");
+                        String PatUid = documentSnapshot.getString("PatientUId");
+                        gv.setDoctor_HMO_ClinicName(ClinicName);
+                        gv.setDoctor_HMO_PatientUId(PatUid);
+
+                        Intent intent = new Intent(PastSchedstatus.this, hmo_doctor_fullscreen_history.class);
+                        startActivity(intent);
+                    }
+                });
+            }
+        });
 
         db.collection("Schedules").document(documentid).collection("Note").document("Doctor_Note").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override

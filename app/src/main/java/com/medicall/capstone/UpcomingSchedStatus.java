@@ -85,6 +85,8 @@ public class UpcomingSchedStatus extends AppCompatActivity {
     String documentid;
     private View notebtn;
 
+    GlobalVariables gv;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +100,7 @@ public class UpcomingSchedStatus extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
         dpicture = findViewById(R.id.patient_dp);
-
+        gv = (GlobalVariables) getApplicationContext();
 
         back = findViewById(R.id.backspace);
 
@@ -134,6 +136,24 @@ public class UpcomingSchedStatus extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), Login.class);
                 startActivity(intent);
+            }
+        });
+
+        hmo_sched.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                db.collection("Schedules").document(documentid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        String ClinicName = documentSnapshot.getString("ClinicName");
+                        String PatUid = documentSnapshot.getString("PatientUId");
+                        gv.setDoctor_HMO_ClinicName2(ClinicName);
+                        gv.setDoctor_HMO_PatientUId2(PatUid);
+
+                        Intent intent = new Intent(UpcomingSchedStatus.this, hmo_doctor_fullscreen_upcoming.class);
+                        startActivity(intent);
+                    }
+                });
             }
         });
 

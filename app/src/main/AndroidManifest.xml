@@ -104,6 +104,9 @@
             android:name=".medicalrec_update"
             android:screenOrientation="portrait" />
         <activity android:name=".ImageFullscreen" />
+        <activity android:name=".hmo_doctor_fullscreen_upcoming"/>
+        <activity android:name=".hmo_patient_fullscreen"/>
+        <activity android:name=".hmo_doctor_fullscreen_history"/>
         <activity
             android:name=".medical_records"
             android:screenOrientation="portrait" />

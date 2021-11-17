@@ -598,4 +598,61 @@ public class GlobalVariables extends Application {
 
     String Pending_HMOAddress;
 
+    public String getPatient_HMO_ClinicName() {
+        return Patient_HMO_ClinicName;
+    }
+
+    public void setPatient_HMO_ClinicName(String patient_HMO_ClinicName) {
+        Patient_HMO_ClinicName = patient_HMO_ClinicName;
+    }
+
+    public String getPatient_HMO_PatientUId() {
+        return Patient_HMO_PatientUId;
+    }
+
+    public void setPatient_HMO_PatientUId(String patient_HMO_PatientUId) {
+        Patient_HMO_PatientUId = patient_HMO_PatientUId;
+    }
+
+    public String getDoctor_HMO_ClinicName() {
+        return Doctor_HMO_ClinicName;
+    }
+
+    public void setDoctor_HMO_ClinicName(String doctor_HMO_ClinicName) {
+        Doctor_HMO_ClinicName = doctor_HMO_ClinicName;
+    }
+
+    public String getDoctor_HMO_PatientUId() {
+        return Doctor_HMO_PatientUId;
+    }
+
+    public void setDoctor_HMO_PatientUId(String doctor_HMO_PatientUId) {
+        Doctor_HMO_PatientUId = doctor_HMO_PatientUId;
+    }
+
+    String Patient_HMO_ClinicName;
+    String Patient_HMO_PatientUId;
+
+    String Doctor_HMO_ClinicName;
+    String Doctor_HMO_PatientUId;
+
+    public String getDoctor_HMO_ClinicName2() {
+        return Doctor_HMO_ClinicName2;
+    }
+
+    public void setDoctor_HMO_ClinicName2(String doctor_HMO_ClinicName2) {
+        Doctor_HMO_ClinicName2 = doctor_HMO_ClinicName2;
+    }
+
+    public String getDoctor_HMO_PatientUId2() {
+        return Doctor_HMO_PatientUId2;
+    }
+
+    public void setDoctor_HMO_PatientUId2(String doctor_HMO_PatientUId2) {
+        Doctor_HMO_PatientUId2 = doctor_HMO_PatientUId2;
+    }
+
+    String Doctor_HMO_ClinicName2;
+    String Doctor_HMO_PatientUId2;
+
 }

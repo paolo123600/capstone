@@ -17,9 +17,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
-import com.medicall.capstone.R;
-
-import com.medicall.capstone.utilities.PreferenceManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -30,6 +27,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.medicall.capstone.utilities.PreferenceManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,7 +35,7 @@ import java.io.OutputStream;
 
 import static android.os.Environment.DIRECTORY_DOWNLOADS;
 
-public class ImageFullscreen extends AppCompatActivity {
+public class hmo_doctor_fullscreen_upcoming extends AppCompatActivity {
 
     SubsamplingScaleImageView fullScreen;
     FirebaseFirestore db;
@@ -56,7 +54,7 @@ public class ImageFullscreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.image_fullscreen);
+        setContentView(R.layout.hmo_doctor_fullscreen);
 
         preferenceManager = new PreferenceManager(getApplicationContext());
         db = FirebaseFirestore.getInstance();
@@ -77,7 +75,7 @@ public class ImageFullscreen extends AppCompatActivity {
         fullScreen = (SubsamplingScaleImageView) findViewById(R.id.fullScreenImage);
 
 
-        db.collection("Schedules").whereEqualTo("ClinicName", preferenceManager.getString("ClinicName")).whereEqualTo("PatientUId", gv.getPending_patUid())
+        db.collection("Schedules").whereEqualTo("ClinicName", gv.getDoctor_HMO_ClinicName2()).whereEqualTo("PatientUId", gv.getDoctor_HMO_PatientUId2())
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -112,7 +110,7 @@ public class ImageFullscreen extends AppCompatActivity {
         download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(ImageFullscreen.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(hmo_doctor_fullscreen_upcoming.this);
                 builder.setTitle("Download file");
                 builder.setMessage("Do you want to download this file?");
                 builder.setCancelable(true);
@@ -137,31 +135,31 @@ public class ImageFullscreen extends AppCompatActivity {
     }
 
     private void downloadHMO(){
-        db.collection("Schedules").whereEqualTo("ClinicName", preferenceManager.getString("ClinicName")).whereEqualTo("PatientUId", gv.getPending_patUid())
+        db.collection("Schedules").whereEqualTo("ClinicName", gv.getDoctor_HMO_ClinicName2()).whereEqualTo("PatientUId", gv.getDoctor_HMO_PatientUId2())
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-               if(task.isSuccessful()){
-                   QuerySnapshot querySnapshot = task.getResult();
-                   if(!querySnapshot.isEmpty()){
-                       for(QueryDocumentSnapshot download : task.getResult()){
-                           storageReference = FirebaseStorage.getInstance().getReference();
-                           ref = storageReference.child("PatientHMO/" + download.getString("StorageId"));
-                           ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                               @Override
-                               public void onSuccess(Uri uri) {
+                if(task.isSuccessful()){
+                    QuerySnapshot querySnapshot = task.getResult();
+                    if(!querySnapshot.isEmpty()){
+                        for(QueryDocumentSnapshot download : task.getResult()){
+                            storageReference = FirebaseStorage.getInstance().getReference();
+                            ref = storageReference.child("PatientHMO/" + download.getString("StorageId"));
+                            ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
                                     String url = uri.toString();
-                                    downloadFile(ImageFullscreen.this, "PatientHMO" + download.getString("StorageId"), ".jpg", DIRECTORY_DOWNLOADS, url);
-                               }
-                           }).addOnFailureListener(new OnFailureListener() {
-                               @Override
-                               public void onFailure(@NonNull Exception e) {
+                                    downloadFile(hmo_doctor_fullscreen_upcoming.this, "PatientHMO" + download.getString("StorageId"), ".jpg", DIRECTORY_DOWNLOADS, url);
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
 
-                               }
-                           });
-                       }
-                   }
-               }
+                                }
+                            });
+                        }
+                    }
+                }
             }
         });
 
