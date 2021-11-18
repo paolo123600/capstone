@@ -312,7 +312,7 @@ public class E_Prescription_Patient extends AppCompatActivity {
                     Bitmap bitmap = Bitmap.createBitmap(view1.getDrawingCache());
                     view1.setDrawingCacheEnabled(false);
 
-                    String filename = Environment.getExternalStorageDirectory() + "/Download/" + Calendar.getInstance().getTime().toString() + ".jpg";
+                    String filename = Environment.getExternalStorageDirectory() + "/Pictures/" + Calendar.getInstance().getTime().toString() + ".jpg";
                     File fileScreenshot = new File(filename);
 
                     FileOutputStream fileOutputStream = null;
