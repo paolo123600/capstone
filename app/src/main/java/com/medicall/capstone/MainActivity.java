@@ -166,7 +166,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
 
-        db.collection("Schedules").whereEqualTo("PatientUId", patuid).whereEqualTo("Status","Paid").whereEqualTo("Date", DDate).addSnapshotListener(new EventListener<QuerySnapshot>() {
+        db.collection("Schedules").whereEqualTo("PatientUId", patuid).whereIn("Status",Arrays.asList("Paid","Approved")).whereEqualTo("Date", DDate).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 if (error != null) {

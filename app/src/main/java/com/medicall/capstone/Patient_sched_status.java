@@ -72,6 +72,7 @@ public class Patient_sched_status extends AppCompatActivity {
     TextView view7;
     View view8;
     ImageView back;
+    TextView stats;
 
     ImageView changeDP;
     Bitmap profilepic;
@@ -101,6 +102,7 @@ public class Patient_sched_status extends AppCompatActivity {
         back = findViewById(R.id.backspace);
         gv = (GlobalVariables) getApplicationContext();
 
+        stats = findViewById(R.id.status);
         mAuth = FirebaseAuth.getInstance();
         firstname = findViewById(R.id.first_name_profile);
         email = findViewById(R.id.email_profile);
@@ -175,6 +177,7 @@ public class Patient_sched_status extends AppCompatActivity {
                 clinicname.setText(documentSnapshot.getString("ClinicName"));
                 payment.setText(documentSnapshot.getString("Price"));
                 date.setText(documentSnapshot.getDate("Date").toString());
+                stats.setText(documentSnapshot.getString("Status"));
 
                 String docUid = documentSnapshot.getString("DoctorUId");
                 String PatUid = documentSnapshot.getString("PatientUId");
