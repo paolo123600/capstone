@@ -698,7 +698,7 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
                                                                                                         Notif.put ("Status", "Completed" );
                                                                                                         Notif.put ("PatientUId", documentSnapshot.getString("PatientUId") );
                                                                                                         Notif.put ("Dnt",currentTime);
-                                                                                                        Notif.put ("Seen",false);
+                                                                                                        Notif.put ("Seen",true);
                                                                                                         Notif.put("ClinicName",documentSnapshot.getString("ClinicName"));
                                                                                                         db.collection("Notification").document().set(Notif).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                                                             @Override
