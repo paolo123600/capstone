@@ -58,84 +58,130 @@
                 android:layout_marginRight="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_10sdp">
 
-                <HorizontalScrollView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Weekends:"
+                        android:textStyle="bold"
+                        android:textAllCaps="true"
+                        android:textSize="@dimen/_12sdp"/>
 
-                    <LinearLayout
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/_15sdp">
+
+                    <Button
+                        android:id="@+id/docsched_saturday"
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/daybg2"
+                        android:layout_marginRight="@dimen/_5sdp"
+                        android:text="Saturday"/>
+
+                    <Button
+                        android:id="@+id/docsched_sunday"
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/daybg2"
+                        android:layout_marginRight="@dimen/_5sdp"
+                        android:text="Sunday"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textAllCaps="true"
+                        android:textSize="@dimen/_12sdp"
+                        android:text="Weekdays:"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/_10sdp">
+
+                    <Button
+                        android:id="@+id/docsched_monday"
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/daybg2"
+                        android:layout_marginRight="@dimen/_5sdp"
+                        android:text="Monday"/>
+
+                    <Button
+                        android:id="@+id/docsched_tuesday"
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/daybg2"
+                        android:layout_marginRight="@dimen/_5sdp"
+                        android:text="Tuesday"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/_10sdp">
+
+                    <Button
+                        android:id="@+id/docsched_wednesday"
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/daybg2"
+                        android:layout_marginRight="@dimen/_5sdp"
+                        android:text="Wednesday"/>
+
+                    <Button
+                        android:id="@+id/docsched_thursday"
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/daybg2"
+                        android:layout_marginRight="@dimen/_5sdp"
+                        android:text="Thursday"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center">
+
+                    <Button
+                        android:id="@+id/docsched_friday"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:background="@drawable/daybg2"
+                        android:paddingLeft="@dimen/_50sdp"
+                        android:paddingRight="@dimen/_50sdp"
+                        android:text="Friday"/>
 
-                        <Button
-                            android:id="@+id/docsched_monday"
-                            android:layout_weight="1"
-                            android:layout_width="@dimen/_65sdp"
-                            android:layout_height="@dimen/_30sdp"
-                            android:background="@drawable/daybg2"
-                            android:layout_marginRight="@dimen/_5sdp"
-                            android:text="Mon"
-
-                            />
-
-                        <Button
-                            android:id="@+id/docsched_tuesday"
-                            android:layout_width="@dimen/_60sdp"
-                            android:layout_height="@dimen/_30sdp"
-                            android:background="@drawable/daybg2"
-                            android:layout_marginRight="@dimen/_5sdp"
-                            android:layout_weight="1"
-                            android:text="tue" />
-
-                        <Button
-                            android:id="@+id/docsched_wednesday"
-                            android:layout_weight="1"
-                            android:layout_width="@dimen/_60sdp"
-                            android:layout_height="@dimen/_30sdp"
-                            android:background="@drawable/daybg2"
-                            android:layout_marginRight="@dimen/_5sdp"
-                            android:text="wed"/>
-
-                        <Button
-                            android:id="@+id/docsched_thursday"
-                            android:layout_weight="1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="@dimen/_30sdp"
-                            android:background="@drawable/daybg2"
-                            android:layout_marginRight="@dimen/_5sdp"
-                            android:text="thu"/>
-
-                        <Button
-                            android:id="@+id/docsched_friday"
-                            android:layout_weight="1"
-                            android:layout_width="@dimen/_60sdp"
-                            android:layout_height="@dimen/_30sdp"
-                            android:background="@drawable/daybg2"
-                            android:layout_marginRight="@dimen/_5sdp"
-                            android:text="fri"/>
-
-                        <Button
-                            android:id="@+id/docsched_saturday"
-                            android:layout_weight="1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="@dimen/_30sdp"
-                            android:background="@drawable/daybg2"
-                            android:layout_marginRight="@dimen/_5sdp"
-                            android:text="SAT"/>
-
-                        <Button
-                            android:id="@+id/docsched_sunday"
-                            android:layout_weight="1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="@dimen/_30sdp"
-                            android:background="@drawable/daybg2"
-                            android:layout_marginRight="@dimen/_5sdp"
-                            android:text="SUN"/>
-
-                    </LinearLayout>
-
-                </HorizontalScrollView>
+                </LinearLayout>
 
 
                 <LinearLayout
