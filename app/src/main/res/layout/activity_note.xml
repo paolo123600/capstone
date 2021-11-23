@@ -57,7 +57,7 @@
             android:layout_height="466dp"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/_20sdp"
-            android:background="@drawable/roundtbox"
+            android:background="@drawable/roundtbox_checknote"
             android:ems="10"
             android:gravity="start|top"
             android:inputType="textMultiLine"
