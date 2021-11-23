@@ -10,6 +10,8 @@ import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -83,6 +85,8 @@ public class  secretary_homepage extends AppCompatActivity implements Navigation
     String image;
     Bitmap getpic;
 
+    String email;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,6 +118,8 @@ public class  secretary_homepage extends AppCompatActivity implements Navigation
         currentuser = fAuth.getCurrentUser();
 
         userId = fAuth.getCurrentUser().getUid();
+
+        email = fAuth.getCurrentUser().getEmail();
 
         ////////////
 
@@ -299,6 +305,29 @@ public class  secretary_homepage extends AppCompatActivity implements Navigation
             case  R.id.nav_change_email_sec:
                 Intent intent = new Intent(getApplicationContext(), changeEmail_Secretary.class);
                 startActivity(intent);
+                break;
+
+            case R.id.nav_change_password:
+                new AlertDialog.Builder(secretary_homepage.this).setTitle("Change Password").setMessage("Are you sure you want to change your password?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        new AlertDialog.Builder(secretary_homepage.this).setTitle("Change Password").setMessage("Please check your email").setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent1 = new Intent(getApplicationContext(), Login.class);
+                                startActivity(intent1);
+                            }
+                        }).show();
+                        fAuth.sendPasswordResetEmail(String.valueOf(email));
+                    }
+                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+
+                    }
+                }).show();
+
                 break;
 
             case  R.id.nav_change_picture_sec:

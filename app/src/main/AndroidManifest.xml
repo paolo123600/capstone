@@ -21,6 +21,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Capstone"
         android:usesCleartextTraffic="true"
+        android:requestLegacyExternalStorage="true"
         tools:targetApi="m">
         <activity android:name=".instructions"></activity>
         <activity android:name=".Secpastschedstatus" />

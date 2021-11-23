@@ -10,6 +10,11 @@
         android:title="Change Profile Picture" />
 
     <item
+        android:id="@+id/nav_change_password"
+        android:icon="@drawable/ic_baseline_lock_24"
+        android:title="Change Password" />
+
+    <item
         android:id="@+id/nav_change_email_sec"
         android:icon="@drawable/edit_pencil"
         android:title="Change Email" />

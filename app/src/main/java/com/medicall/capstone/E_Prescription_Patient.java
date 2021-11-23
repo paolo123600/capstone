@@ -50,6 +50,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.UUID;
 
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
@@ -307,11 +308,6 @@ public class E_Prescription_Patient extends AppCompatActivity {
 
     }
     public void takeSS(View view){
-        String newfolder = Environment.getExternalStorageDirectory() + "/Pictures/Medi-Call/";
-        File folder = new File(newfolder);
-        if(!folder.exists()){
-            folder.mkdir();
-        }
         toolbar.setVisibility(View.GONE);
         screenshot.setVisibility(View.GONE);
         new android.os.Handler().postDelayed(
@@ -323,16 +319,19 @@ public class E_Prescription_Patient extends AppCompatActivity {
                     Bitmap bitmap = Bitmap.createBitmap(view1.getDrawingCache());
                     view1.setDrawingCacheEnabled(false);
 
-                    String filename = Environment.getExternalStorageDirectory() + "/Pictures/Medi-Call/" + Calendar.getInstance().getTime().toString() + ".jpg";
-                    File fileScreenshot = new File(filename);
 
-                    FileOutputStream fileOutputStream = null;
+                 String file_name = UUID.randomUUID()+".jpg";
+                 File folder = new File(getExternalFilesDir(Environment.DIRECTORY_DCIM)+File.separator+"MediCall");
+
+                 if (!folder.exists()){
+                     folder.mkdir();
+                 }
+
+
 
                     try{
-                        fileOutputStream = new FileOutputStream(fileScreenshot);
+                        FileOutputStream fileOutputStream = new FileOutputStream(folder+File.separator+file_name);
                         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream);
-                        fileOutputStream.flush();
-                        fileOutputStream.close();
                     }
                     catch(IOException e){
                         e.printStackTrace();
