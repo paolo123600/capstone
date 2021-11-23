@@ -81,7 +81,7 @@
                     android:inputType="textPersonName"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="How to reschedule and appointment."
+                    android:text="How to reschedule an appointment."
                     android:textSize="@dimen/_15sdp"
                     android:textColor="@color/button"
                     android:layout_marginTop="@dimen/_10sdp"/>
