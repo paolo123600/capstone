@@ -13,11 +13,12 @@
         android:padding="@dimen/_10sdp"
         android:orientation="horizontal">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/clinicPicture"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="left"
-            android:background="@drawable/steto" />
+            android:src="@drawable/steto_small"/>
 
         <TextView
             android:id="@+id/clinic_name"
@@ -26,7 +27,7 @@
             android:text="TextView"
             android:textSize="@dimen/_20sdp"
             android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/_50sdp" />
+            android:layout_marginLeft="@dimen/_10sdp" />
 
     </LinearLayout>
 

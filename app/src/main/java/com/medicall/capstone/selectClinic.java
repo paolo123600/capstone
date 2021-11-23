@@ -223,18 +223,24 @@ public class selectClinic extends AppCompatActivity {
                                 @Override
                                 protected void onBindViewHolder(@NonNull selectClinic.SecretaryListModelView holder, int position, @NonNull SecretaryListModel model){
 
-                                    storageReference = FirebaseStorage.getInstance().getReference("ClinicPicture/" + model.getStorageId());
-                                    try {
-                                        File local = File.createTempFile("myProfilePicture","");
-                                        storageReference.getFile(local).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                                            @Override
-                                            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                                                getpic = BitmapFactory.decodeFile(local.getAbsolutePath());
-                                                holder.clinicPicture.setImageBitmap(getpic);
-                                            }
-                                        });
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
+                                    if(model.getStorageId().equals("None")){
+
+                                    }
+                                    else{
+                                        holder.clinicPicture.setVisibility(View.GONE);
+                                        storageReference = FirebaseStorage.getInstance().getReference("ClinicPicture/" + model.getStorageId());
+                                        try {
+                                            File local = File.createTempFile("myProfilePicture","");
+                                            storageReference.getFile(local).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                                @Override
+                                                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                                    getpic = BitmapFactory.decodeFile(local.getAbsolutePath());
+                                                    holder.clinicPicture.setImageBitmap(getpic);
+                                                }
+                                            });
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
                                     }
 
                                     holder.nameCLINIC.setText(model.getClinicName());
