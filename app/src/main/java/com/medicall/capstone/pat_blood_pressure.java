@@ -32,6 +32,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.medicall.capstone.R;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -110,7 +111,9 @@ public class pat_blood_pressure extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(@NonNull BPViewHolder holder, int position, @NonNull BPModel model) {
                 holder.list_bpressure.setText("BP: " + model.getUpper() + "/" + model.getLower());
-                holder.list_dnt.setText(model.getDnt() + "");
+                SimpleDateFormat simpleDate =  new SimpleDateFormat("MMM d ,yyyy h:ma");
+                String vitalsdatestring = simpleDate.format(model.getDnt());
+                holder.list_dnt.setText( vitalsdatestring);
                 holder.Temperi.setText("Temperature: " + model.getTemperature());
                 holder.Pulser.setText("Pulse Rate: " + model.getPulse());
                holder.respi.setText("Respiratory Rate: " + model.getRespiratory());

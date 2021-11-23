@@ -34,6 +34,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
+import java.text.SimpleDateFormat;
+
 public class Doctor_patient_bp extends AppCompatActivity {
 
     TextView bpdate;
@@ -103,7 +105,9 @@ public class Doctor_patient_bp extends AppCompatActivity {
                 holder.temperi.setText("Temperature: " + model.getTemperature());
                 holder.pulse.setText("Pulse: " + model.getPulse());
                 holder.respi.setText("Respiration: " + model.getRespiratory());
-                holder.list_dnt.setText(model.getDnt() + "");
+                SimpleDateFormat simpleDate =  new SimpleDateFormat("MMM d ,yyyy h:ma");
+                String vitalsdatestring = simpleDate.format(model.getDnt());
+                holder.list_dnt.setText(vitalsdatestring);
             }
         };
 

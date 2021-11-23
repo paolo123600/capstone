@@ -121,22 +121,22 @@ public class PastAppointments extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(@NonNull PastAppointments.SecretaryPatSchedViewHolder holder, int position, @NonNull SecretaryPatschedModel model) {
                 Date datesched =model.getDate();
-                String patientid = model.getPatientUId();
+                String patientid = model.getDoctorUId();
                 SimpleDateFormat format = new SimpleDateFormat("MMMM d ,yyyy");
                 String date=  format.format(datesched);
-                holder.list_timesched.setVisibility(View.GONE);
+                holder.list_timesched.setText(model.getStartTime()+" - "+model.getEndTime());
                 holder.list_datesched.setText(date);
-                db.collection("Patients").document(model.getPatientUId()).get()
+                db.collection("Doctors").document(model.getDoctorUId()).get()
                         .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                             @Override
                             public void onSuccess(DocumentSnapshot documentSnapshot) {
                                 documentSnapshot.getData();
-                                String patname = documentSnapshot.getString("LastName") + ", " +documentSnapshot.getString("FirstName");
+                                String patname = "Dr. " +documentSnapshot.getString("LastName");
                                 holder.list_name.setText(patname);
                             }
                         });
 
-                db.collection("Patients").whereEqualTo("StorageId", patientid).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                db.collection("Doctors").whereEqualTo("StorageId", patientid).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if(task.isSuccessful()){
@@ -148,7 +148,7 @@ public class PastAppointments extends AppCompatActivity {
                                         holder.profilepic.setBackgroundResource(R.drawable.circlebackground);
                                     }
                                     else{
-                                        storageReference = FirebaseStorage.getInstance().getReference("PatientPicture/" + storageid);
+                                        storageReference = FirebaseStorage.getInstance().getReference("DoctorPicture/" + storageid);
                                         try{
                                             File local = File.createTempFile("patDP", "");
                                             storageReference.getFile(local).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {

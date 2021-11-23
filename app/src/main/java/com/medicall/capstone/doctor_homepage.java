@@ -199,10 +199,10 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
 
             Date currentTime = Calendar.getInstance().getTime();
 
-//            String timenow1 =dateFormat.format(currentTime);
+            String timenow1 =dateFormat.format(currentTime);
 
 
-          String timenow1 ="10:40AM";
+//          String timenow1 ="02:40PM";
             timenow = dateFormat.parse(timenow1);
 
         } catch (ParseException e) {
@@ -359,10 +359,10 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
 
                     Date currentTime = Calendar.getInstance().getTime();
 
-//                          String timenow1 =dateFormat.format(currentTime);
+                          String timenow1 =dateFormat.format(currentTime);
 
 
-                    String timenow1 ="10:01AM";
+//                    String timenow1 ="02:01PM";
                     timenow = dateFormat.parse(timenow1);
 
                 } catch (ParseException e) {
@@ -766,7 +766,7 @@ public class  doctor_homepage extends AppCompatActivity implements NavigationVie
                                                                                                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                                                                             @Override
                                                                                                                             public void onSuccess(Void aVoid) {
-                                                                                                                                db.collection("Schedules").whereEqualTo("DoctorUId",preferenceManager.getString(Constants.KEY_USER_ID)).whereEqualTo("StartTime", finalTimestart).whereEqualTo("EndTime", finalTimestop).whereIn("Status", Arrays.asList("Paid","Completed","Approved")).whereEqualTo("Date", DDate).get()
+                                                                                                                                db.collection("Schedules").whereEqualTo("DoctorUId",preferenceManager.getString(Constants.KEY_USER_ID)).whereEqualTo("StartTime", finalTimestart).whereEqualTo("EndTime", finalTimestop).whereIn("Status", Arrays.asList("Paid","Approved")).whereEqualTo("Date", DDate).get()
                                                                                                                                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                                                                                                                             @Override
                                                                                                                                             public void onComplete(@NonNull Task<QuerySnapshot> task) {

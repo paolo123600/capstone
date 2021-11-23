@@ -4,7 +4,12 @@ import java.util.Date;
 
 public class SecretaryPatschedModel {
 
-    private String ClinicName, PatientUId;
+    private String ClinicName;
+    private String PatientUId;
+
+
+
+    private String DoctorUId;
 
     public String getEndTime() {
         return EndTime;
@@ -27,10 +32,11 @@ public class SecretaryPatschedModel {
 
     private SecretaryPatschedModel() {}
 
-    private SecretaryPatschedModel(Date Date, String ClinicName, String PatientUId) {
+    private SecretaryPatschedModel(Date Date, String ClinicName, String PatientUId,String doctorUId) {
         this.ClinicName = ClinicName;
         this.PatientUId = PatientUId;
         this.Date = Date;
+        this.DoctorUId= doctorUId;
 
     }
 
@@ -43,7 +49,13 @@ public class SecretaryPatschedModel {
         this.ClinicName = clinicName;
     }
 
+    public String getDoctorUId() {
+        return DoctorUId;
+    }
 
+    public void setDoctorUId(String doctorUId) {
+        DoctorUId = doctorUId;
+    }
     public String getPatientUId() {
         return PatientUId;
     }
