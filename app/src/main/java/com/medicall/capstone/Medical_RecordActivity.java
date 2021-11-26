@@ -83,7 +83,10 @@ public class Medical_RecordActivity extends AppCompatActivity implements Adapter
         bg_remove = findViewById(R.id.bgremove);
 
         autobloodtype = findViewById(R.id.autocomplete_bloodtype);
+        GlobalVariables gv1 =(GlobalVariables) getApplicationContext ();
 
+        String Bday = gv.getBday();
+        Toast.makeText(gv1, Bday, Toast.LENGTH_SHORT).show();
 
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.blood, android.R.layout.simple_spinner_item);

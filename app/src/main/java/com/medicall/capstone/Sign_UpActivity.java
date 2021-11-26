@@ -84,7 +84,7 @@ protected void onCreate(Bundle savedInstanceState) {
         public void onClick(View view) {
             ///bday
             SimpleDateFormat format1 = new SimpleDateFormat("MMMM d ,yyyy");
-            SimpleDateFormat format2 = new SimpleDateFormat("MM d yyyy");
+            SimpleDateFormat format2 = new SimpleDateFormat("MMMM dd yyyy");
             String date ="";
             try {
                 Date date1 = format2.parse(String.valueOf(dateButton.getText()));
@@ -209,32 +209,37 @@ protected void onCreate(Bundle savedInstanceState) {
     }
 
     private String getMonthFormat(int month) {
-        if(month == 1)
-            return  "JAN";
-        if(month == 2)
-            return  "FEB";
-        if(month == 3)
-            return  "MAR";
-        if(month == 4)
-            return  "APR";
-        if(month == 5)
-            return  "MAY";
-        if(month == 6)
-            return  "JUN";
-        if(month == 7)
-            return  "JUL";
-        if(month == 8)
-            return  "AUG";
-        if(month == 9)
-            return  "SEP";
-        if(month == 10)
-            return  "OCT";
-        if(month == 11)
-            return  "NOV";
-        if(month == 12)
-            return  "DEC";
-
-        return "JAN";
+        if(month == 1) {
+            return "January";
+        }
+        if(month == 2) {
+            return "Febuary";
+        }
+        if(month == 3) {
+            return "March";
+        }
+        if(month == 4) {
+            return "April";
+        }
+        if(month == 5) {
+            return "May";
+        }
+        if(month == 6){
+            return  "June";}
+        if(month == 7){
+            return  "July";}
+        if(month == 8){
+            return  "August";}
+        if(month == 9){
+            return  "September";}
+        if(month == 10){
+            return  "October";}
+        if(month == 11){
+            return  "November";}
+        if(month == 12){
+            return  "December";}
+else {
+        return "January";}
     }
     public void openDatePickerView (View view){
         datePickerDialog.show();
