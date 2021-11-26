@@ -301,7 +301,7 @@ private DatePickerDialog datePickerDialog;
         if(month == 12)
             return  "December";
 
-        return "JAN";
+        return "January";
     }
     public void openDate (View view){
         datePickerDialog.show();
