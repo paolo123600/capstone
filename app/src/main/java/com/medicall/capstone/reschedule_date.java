@@ -184,7 +184,7 @@ public class reschedule_date extends AppCompatActivity implements DatePickerDial
                     @Override
                     public void onCancel(DialogInterface dialogInterface) {
 
-                        Toast.makeText(reschedule_date.this, "Datepicker Canceled", Toast.LENGTH_SHORT).show();
+
                     }
                 });
 

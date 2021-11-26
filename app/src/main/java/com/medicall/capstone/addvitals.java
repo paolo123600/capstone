@@ -67,12 +67,13 @@ public class addvitals extends AppCompatActivity {
         res = findViewById(R.id.respiration);
         submit = findViewById(R.id.vitalbtn);
 
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+       back.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               Intent intent = new Intent(getApplicationContext(), pat_blood_pressure.class);
+               startActivity(intent);
+           }
+       });
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
