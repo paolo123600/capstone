@@ -186,8 +186,9 @@ public class E_Prescription_Patient extends AppCompatActivity {
 
                             int age = 0;
                             try {
-                                SimpleDateFormat format = new SimpleDateFormat("MMMM d ,yyyy");
-                                Date date1 = format.parse(documentSnapshot.getString("Birthday"));
+                                SimpleDateFormat format = new SimpleDateFormat("MMMM d, yyyy");
+                                String dateofbirth = documentSnapshot.getString("Birthday");
+                                Date date1 = format.parse(dateofbirth);
                                 Calendar now = Calendar.getInstance();
                                 Calendar dob = Calendar.getInstance();
                                 dob.setTime(date1);
@@ -210,7 +211,7 @@ public class E_Prescription_Patient extends AppCompatActivity {
                                 }
                                 patient_age.setText("Age: " + age+"");
                             } catch (ParseException ed) {
-                                ed.printStackTrace();
+                                Toast.makeText(E_Prescription_Patient.this, "error date", Toast.LENGTH_SHORT).show();
                             }
 
                             Date datenow = Calendar.getInstance().getTime();
