@@ -105,7 +105,7 @@ public class patient_schedule extends AppCompatActivity  {
         GlobalVariables gv = (GlobalVariables) getApplicationContext();
         Calendar calendar = Calendar.getInstance();
         datenow = DateFormat.getDateInstance().format(calendar.getTime());
-
+        Toast.makeText(this, datenow, Toast.LENGTH_SHORT).show();
         back = findViewById(R.id.backspace);
 
 
