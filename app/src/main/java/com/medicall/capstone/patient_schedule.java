@@ -63,6 +63,7 @@ public class patient_schedule extends AppCompatActivity  {
     String datenow;
     Date nowdate= new Date();
     FirebaseFirestore db;
+    Date now= new Date();
     String docid;
     String scheddocu;
     private String start = "";
@@ -89,6 +90,11 @@ public class patient_schedule extends AppCompatActivity  {
         spinner_status= (Spinner)findViewById(R.id.statspinner);
         mFirestorelist = (RecyclerView)findViewById(R.id.managesched_recview);
 
+        now = Calendar.getInstance().getTime();
+        SimpleDateFormat format3 = new SimpleDateFormat("MMMM dd,yyyy");
+        datenow =format3.format(now);
+
+
 
 
 
@@ -104,8 +110,6 @@ public class patient_schedule extends AppCompatActivity  {
         db = FirebaseFirestore.getInstance();
         GlobalVariables gv = (GlobalVariables) getApplicationContext();
         Calendar calendar = Calendar.getInstance();
-        datenow = DateFormat.getDateInstance().format(calendar.getTime());
-        Toast.makeText(this, datenow, Toast.LENGTH_SHORT).show();
         back = findViewById(R.id.backspace);
 
 
