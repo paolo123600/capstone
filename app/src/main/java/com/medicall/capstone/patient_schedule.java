@@ -131,7 +131,7 @@ public class patient_schedule extends AppCompatActivity  {
         try {
             nowdate = format.parse(datenow);
         } catch (ParseException e) {
-            Toast.makeText(patient_schedule.this, "error1", Toast.LENGTH_SHORT).show();
+            Toast.makeText(patient_schedule.this, "error2", Toast.LENGTH_SHORT).show();
         }
 
         db.collection("Schedules").whereEqualTo("PatientUId",Patuid).whereIn("Status",Arrays.asList("Paid","Pending Approval","Declined","Approved")).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
