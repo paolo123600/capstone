@@ -86,7 +86,7 @@ public class Medical_RecordActivity extends AppCompatActivity implements Adapter
         GlobalVariables gv1 =(GlobalVariables) getApplicationContext ();
 
         String Bday = gv.getBday();
-        Toast.makeText(gv1, Bday, Toast.LENGTH_SHORT).show();
+
 
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.blood, android.R.layout.simple_spinner_item);
@@ -203,7 +203,7 @@ public class Medical_RecordActivity extends AppCompatActivity implements Adapter
                                     }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(gv, "Fail addingdata", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(gv, "Fail adding data", Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }
