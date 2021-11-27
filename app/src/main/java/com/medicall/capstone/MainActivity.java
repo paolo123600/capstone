@@ -179,7 +179,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
                 else {
                     schedstats.setVisibility(LinearLayout.VISIBLE);
-                    logo.setVisibility(LinearLayout.GONE);
                     for (QueryDocumentSnapshot doc : value) {
                         db.collection("Doctors").document(doc.getString("DoctorUId"))
                                 .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
